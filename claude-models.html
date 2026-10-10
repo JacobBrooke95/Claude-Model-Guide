@@ -92,7 +92,7 @@
 
             <div class="benchmark-section">
                 <h2 class="section-title">API Pricing</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Claude API list price per million tokens for the current lineup. Lighter bars are input tokens, solid bars are output tokens.</p>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Claude API list price per million tokens for the current lineup. Lighter bars are input tokens, solid bars are output tokens. Dashed marks show each tier's price before its most recent change.</p>
                 <div class="benchmark-chart-container">
                     <div id="pricing-chart"></div>
                     <p class="benchmark-note">
@@ -100,6 +100,7 @@
                         <strong>Sonnet 5.5 (Sep 28, 2026) takes Sonnet 5's bar at the same price:</strong> $2 in / $10 out, cache reads $0.20 (the standard 10% of input) and cache writes $2.50, with the Batch API at $1 / $5. So the bar didn't move. Anthropic's "up to 30% less per task" claim rests entirely on Sonnet 5.5 using fewer tokens for the same work, which a per-token chart can't show. One side effect of Opus 5.5's 5% cache rate: both models now charge the same $0.20 per million for a cache read. Sonnet 5 stays on the API at $2 / $10. Anthropic says Haiku 5.5 follows "in the coming weeks"; its price is unannounced, so Haiku 4.5 holds its bar for now.<br>
                         Fable 5.1 (Sep 1, 2026) holds Fable 5's $10 in / $50 out, so its release moved no bar on this chart. Its price cut is off-chart: cache reads fell from $1 to $0.25 per million — 2.5% of the input price, against 10% on most other Claude models and 5% on Opus 5.5 — which Anthropic puts at roughly 25% off a typical Fable bill and up to 45% on cache-heavy agentic runs. Fable 5 stays on the API at its old rates. Claude Mythos 5.1 is priced identically to Fable 5.1 but is restricted to trusted-access programs (cyber and life-sciences verification), as Mythos 5 was to Project Glasswing partners.<br>
                         Sonnet 5's $2 in / $10 out was announced as introductory pricing through Aug 31, 2026, with a step back up to Sonnet 4.6's $3 / $15 due Sep 1; Anthropic cancelled the increase and made $2 / $10 the standard price, so the intro overlay this chart used to carry is gone. Sonnet 5.5 kept that rate.<br>
+                        <strong>The dashed marks</strong> are each tier's list price before its most recent change, with the percentage under the model name. Haiku is the one tier whose last change was a rise: Haiku 4.5 (Oct 15, 2025) launched at $1 / $5, 25% above Claude 3.5 Haiku's $0.80 / $4. Older changes are left off to keep the scale readable, notably Opus's cut from $15 / $75 with Opus 4.5.<br>
                         Opus pricing dropped from $15/$75 to $5/$25 with Opus 4.5 (Nov 2025) and held there through Opus 5, which stays on the API at those rates (fast mode $10 in / $50 out). Cache hits cost 10% of the input price on every model except Opus 5.5 (5%), Fable 5.1 and Mythos 5.1 (2.5%), and the Batch API halves both rates.
                     </p>
                     <div class="benchmark-paper-links">
@@ -3220,15 +3221,23 @@
             // Sonnet 5.5 (Sep 28, 2026) replaces Sonnet 5 as the current Sonnet at the
             // same $2/$10 (cache reads $0.20, the standard 10%); Sonnet 5 stays on the API.
             // Haiku 5.5 is announced for "the coming weeks" but unpriced, so Haiku 4.5 stays.
+            // prev is the tier's list price before its most recent change, drawn dashed:
+            // Haiku 3.5's $0.80/$4 rose 25% with Haiku 4.5 (Oct 2025); Sonnet 4.6's
+            // $3/$15 fell a third with Sonnet 5 (Jun 30, 2026); Opus 5's $5/$25 fell 20% with
+            // Opus 5.5 (Sep 22, 2026). Fable has held $10/$50 since it launched.
             const pricing = [
-                { name: 'Haiku 4.5',  family: 'haiku',  input: 1,  output: 5 },
-                { name: 'Sonnet 5.5', family: 'sonnet', input: 2,  output: 10 },
-                { name: 'Opus 5.5',   family: 'opus',   input: 4,  output: 20 },
+                { name: 'Haiku 4.5',  family: 'haiku',  input: 1,  output: 5,
+                  prev: { model: 'Haiku 3.5', input: 0.8, output: 4, until: '2025-10-15' } },
+                { name: 'Sonnet 5.5', family: 'sonnet', input: 2,  output: 10,
+                  prev: { model: 'Sonnet 4.6', input: 3, output: 15, until: '2026-06-30' } },
+                { name: 'Opus 5.5',   family: 'opus',   input: 4,  output: 20,
+                  prev: { model: 'Opus 5', input: 5, output: 25, until: '2026-09-22' } },
                 { name: 'Fable 5.1',  family: 'fable',  input: 10, output: 50 }
             ];
+            const usd = v => `$${v < 1 ? v.toFixed(2) : v}`;
             const colors = { haiku: '#8fa882', sonnet: '#d4836a', opus: '#9d7bb0', fable: '#c09a5b' };
 
-            const { W, H, pad } = frame(800, 380, { top: 42, right: 25, bottom: 55, left: 55 });
+            const { W, H, pad } = frame(800, 400, { top: 42, right: 25, bottom: 75, left: 55 });
             const cw = W - pad.left - pad.right;
             const ch = H - pad.top - pad.bottom;
 
@@ -3257,12 +3266,29 @@
                 svg += `<rect x="${xIn}" y="${y(m.input)}" width="${barW}" height="${y(0) - y(m.input)}" fill="${color}" fill-opacity="0.45" rx="3"><title>${m.name} — $${m.input} per million input tokens</title></rect>`;
                 svg += `<rect x="${xOut}" y="${y(m.output)}" width="${barW}" height="${y(0) - y(m.output)}" fill="${color}" rx="3"><title>${m.name} — $${m.output} per million output tokens</title></rect>`;
 
-                // Value labels above each bar
+                // Previous price, dashed. After a cut it's an open-bottomed outline standing on
+                // the bar's top; after a rise (Haiku) it's a line across the bar at the old level.
+                const p = m.prev;
+                if (p) {
+                    const since = formatDate(p.until);
+                    [[xIn, m.input, p.input, 'input'], [xOut, m.output, p.output, 'output']].forEach(([bx, now, was, kind]) => {
+                        const tip = `<title>${p.model} — ${usd(was)} per million ${kind} tokens, until ${since}</title>`;
+                        if (was > now) {
+                            svg += `<path d="M ${bx} ${y(now)} V ${y(was)} H ${bx + barW} V ${y(now)}" fill="transparent" stroke="${color}" stroke-width="1.5" stroke-dasharray="4 3">${tip}</path>`;
+                        } else {
+                            svg += `<line x1="${bx}" y1="${y(was)}" x2="${bx + barW}" y2="${y(was)}" stroke="#5b4636" stroke-opacity="0.7" stroke-width="1.5" stroke-dasharray="4 3">${tip}</line>`;
+                        }
+                    });
+                }
+
+                // Value labels above each bar, or above its ghost when the old price was higher
                 // On phones the bars are too narrow for "in"/"out"; shade says which is which
                 const inLabel = UI.compact ? `$${m.input}` : `$${m.input} in`;
                 const outLabel = UI.compact ? `$${m.output}` : `$${m.output} out`;
-                svg += `<text x="${xIn + barW / 2}" y="${y(m.input) - 8}" text-anchor="middle" fill="${color}" font-size="11" font-weight="600">${inLabel}</text>`;
-                svg += `<text x="${xOut + barW / 2}" y="${y(m.output) - 8}" text-anchor="middle" fill="${color}" font-size="11" font-weight="600">${outLabel}</text>`;
+                const inTop = Math.max(m.input, p ? p.input : 0);
+                const outTop = Math.max(m.output, p ? p.output : 0);
+                svg += `<text x="${xIn + barW / 2}" y="${y(inTop) - 8}" text-anchor="middle" fill="${color}" font-size="11" font-weight="600">${inLabel}</text>`;
+                svg += `<text x="${xOut + barW / 2}" y="${y(outTop) - 8}" text-anchor="middle" fill="${color}" font-size="11" font-weight="600">${outLabel}</text>`;
 
                 // "2.5× Opus" annotation over the Fable group
                 if (m.family === 'fable') {
@@ -3272,6 +3298,14 @@
                 // Model name below the axis
                 // Phones fit four groups in ~330 units; one size down keeps "Sonnet 5.5" off its neighbours
                 svg += `<text x="${cx}" y="${H - pad.bottom + 22}" text-anchor="middle" fill="${color}" font-size="${UI.compact ? 12 : 13}" font-weight="700">${m.name}</text>`;
+
+                // Last price change, under the name. Input and output have always moved by the
+                // same percentage, so one figure covers both.
+                const pct = p ? Math.round((m.output / p.output - 1) * 100) : 0;
+                const change = !p ? 'unchanged since launch'
+                    : UI.compact ? `${pct < 0 ? '↓' : '↑'}${Math.abs(pct)}%`
+                    : `${pct < 0 ? '↓' : '↑'}${Math.abs(pct)}% from ${usd(p.input)} / ${usd(p.output)} (${p.model})`;
+                svg += `<text x="${cx}" y="${H - pad.bottom + 40}" text-anchor="middle" fill="#7a6957" font-size="${UI.compact ? 10 : 11}">${UI.compact && !p ? 'no change' : change}</text>`;
             });
 
             // Baseline
