@@ -164,6 +164,13 @@ function table(forecast, freshness, weeks) {
   return lines.join('\n');
 }
 
+// Which families the mature (≥2 prior gaps) forecasts come from, e.g. "Sonnet 6, Opus 6, Haiku 1".
+function matureFamilies(results) {
+  const counts = new Map();
+  results.filter(r => r.sampleSize >= 2).forEach(r => counts.set(r.family, (counts.get(r.family) || 0) + 1));
+  return [...counts].map(([fam, n]) => `${fam} ${n}`).join(', ');
+}
+
 function backtestTable(bt) {
   const lines = [''];
   lines.push(BOLD('Backtest — every release forecast from the day before it shipped'));
@@ -188,7 +195,7 @@ function backtestTable(bt) {
   const s = bt.summary;
   lines.push('');
   lines.push(`  ${s.count} forecasts · median absolute error ${BOLD(s.medianAbsErrorDays + 'd')} · mean ${s.meanAbsErrorDays}d · mean signed ${s.meanSignedErrorDays > 0 ? '+' : ''}${s.meanSignedErrorDays}d`);
-  lines.push(`  mature regime (≥2 prior gaps, ${s.matureCount} forecasts, all Opus/Sonnet): median ${BOLD(s.matureMedianAbsErrorDays + 'd')}`);
+  lines.push(`  mature regime (≥2 prior gaps, ${s.matureCount} forecasts, ${matureFamilies(bt.results)}): median ${BOLD(s.matureMedianAbsErrorDays + 'd')}`);
   lines.push(`  window caught ${BOLD(`${s.datedHits} of ${s.datedCount}`)} dated calls · ${s.overdueCalls} overdue calls scored n/a (their windows cannot miss)`);
   lines.push(`  day-weighted: over ${s.displayDays.toLocaleString('en-US')} display-days, the shown window contained the eventual date ${BOLD(s.dayWeightedCoverage + '%')} of the time ("due now" showing on ${s.dueNowDays.toLocaleString('en-US')})`);
   lines.push(DIM('  eve-of-release scoring is one-sided (can only miss early); the day-weighted line is the two-sided test'));

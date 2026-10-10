@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude Model Guide - Release Cycle Tracker</title>
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
     <nav class="navbar">
@@ -12,6 +12,7 @@
             <h1 class="logo">Jacob Brooke</h1>
             <ul class="nav-links">
                 <li><a href="claude-models.html" class="active">Claude Guide</a></li>
+                <li><a href="system-card-metrics.html">System Card Metrics</a></li>
             </ul>
         </div>
     </nav>
@@ -41,7 +42,7 @@
 
             <div class="benchmark-section">
                 <h2 class="section-title">Release Calendar</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Six weeks back, and forward as far as the furthest estimate, on one date axis — a lane per family, pivoting on today. Solid dots are releases that happened, with dotted ticks showing what the model had called for them the day before they shipped; hollow dots are the estimated dates for each family's next release, each on a dashed bar spanning the window it is likely to land in.</p>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Six weeks back, and forward as far as the furthest estimate within four months, on one date axis — a lane per family, pivoting on today. An estimate further out than that is named at the right edge of its lane. Solid dots are releases that happened, with dotted ticks showing what the model had called for them the day before they shipped; hollow dots are the estimated dates for each family's next release, each on a dashed bar spanning the window it is likely to land in.</p>
                 <div class="benchmark-chart-container">
                     <div id="release-calendar"></div>
                     <div class="benchmark-legend">
@@ -97,15 +98,18 @@
                     <div id="pricing-chart"></div>
                     <p class="benchmark-note">
                         <strong>Opus 5.5 (Sep 22, 2026) is the first Opus price cut in ten months:</strong> $4 in / $20 out, down from $5 / $25, with cache reads at $0.20 (from $0.50 — now 5% of the input price rather than 10%) and cache writes at $5. Anthropic's headline is that it costs 40% less than Opus 5 on typical workloads; only the 20% list cut is on this chart, and the rest of that claim is the cheaper cache plus fewer tokens per task, which the bars can't show. Fast mode drops in step, to $8 in / $40 out. The cut also widens the Fable premium from 2&times; to 2.5&times; on both input and output.<br>
-                        <strong>Sonnet 5.5 (Sep 28, 2026) takes Sonnet 5's bar at the same price:</strong> $2 in / $10 out, cache reads $0.20 (the standard 10% of input) and cache writes $2.50, with the Batch API at $1 / $5. So the bar didn't move. Anthropic's "up to 30% less per task" claim rests entirely on Sonnet 5.5 using fewer tokens for the same work, which a per-token chart can't show. One side effect of Opus 5.5's 5% cache rate: both models now charge the same $0.20 per million for a cache read. Sonnet 5 stays on the API at $2 / $10. Anthropic says Haiku 5.5 follows "in the coming weeks"; its price is unannounced, so Haiku 4.5 holds its bar for now.<br>
+                        <strong>Sonnet 5.5 (Sep 28, 2026) takes Sonnet 5's bar at the same price:</strong> $2 in / $10 out, cache reads $0.20 at launch (the standard 10% of input) and cache writes $2.50, with the Batch API at $1 / $5. So the bar didn't move. Anthropic's "up to 30% less per task" claim rests entirely on Sonnet 5.5 using fewer tokens for the same work, which a per-token chart can't show. One side effect of Opus 5.5's 5% cache rate: at Sonnet 5.5's launch both models charged the same $0.20 per million for a cache read (Sonnet 5.5's has since been halved; see Haiku 5.5 below). Sonnet 5 stays on the API at $2 / $10.<br>
+                        <strong>Haiku 5.5 (Oct 7, 2026) cuts the Haiku price by 90%:</strong> $0.10 in / $0.50 out, down from Haiku 4.5's $1 / $5, with cache reads at $0.01 (10% of input) and 5-minute cache writes at $0.125; the Batch API halves both rates, to $0.05 / $0.25. It is the only current Claude model priced by prompt length rather than with flat long-context pricing: a request whose prompt runs past 100k tokens (cache reads and writes count toward that) is billed $0.50 / $2.50, cache reads $0.05, for the whole request. The bar shows the up-to-100k rate. Anthropic's announcement puts the average saving over Haiku 4.5 at about 75% (90% on requests up to 100k tokens, 50% above). Haiku 4.5 stays on the API at $1 / $5. Haiku 5.5's bars ($0.10 and $0.50) are too short to read on this scale, so they are drawn at a minimum height with the exact price above. The same announcement halved Sonnet 5.5's cache-read price, from $0.20 to $0.10 per million (5% of input, Opus 5.5's rate), effective October 7; Anthropic puts that at about 20% off most agentic work. The Haiku 5.5 system card's cost figures use that updated rate.<br>
                         Fable 5.1 (Sep 1, 2026) holds Fable 5's $10 in / $50 out, so its release moved no bar on this chart. Its price cut is off-chart: cache reads fell from $1 to $0.25 per million — 2.5% of the input price, against 10% on most other Claude models and 5% on Opus 5.5 — which Anthropic puts at roughly 25% off a typical Fable bill and up to 45% on cache-heavy agentic runs. Fable 5 stays on the API at its old rates. Claude Mythos 5.1 is priced identically to Fable 5.1 but is restricted to trusted-access programs (cyber and life-sciences verification), as Mythos 5 was to Project Glasswing partners.<br>
                         Sonnet 5's $2 in / $10 out was announced as introductory pricing through Aug 31, 2026, with a step back up to Sonnet 4.6's $3 / $15 due Sep 1; Anthropic cancelled the increase and made $2 / $10 the standard price, so the intro overlay this chart used to carry is gone. Sonnet 5.5 kept that rate.<br>
-                        <strong>The dashed marks</strong> are each tier's list price before its most recent change, with the percentage under the model name. Haiku is the one tier whose last change was a rise: Haiku 4.5 (Oct 15, 2025) launched at $1 / $5, 25% above Claude 3.5 Haiku's $0.80 / $4. Older changes are left off to keep the scale readable, notably Opus's cut from $15 / $75 with Opus 4.5.<br>
-                        Opus pricing dropped from $15/$75 to $5/$25 with Opus 4.5 (Nov 2025) and held there through Opus 5, which stays on the API at those rates (fast mode $10 in / $50 out). Cache hits cost 10% of the input price on every model except Opus 5.5 (5%), Fable 5.1 and Mythos 5.1 (2.5%), and the Batch API halves both rates.
+                        <strong>The dashed marks</strong> are each tier's list price before its most recent change, with the percentage under the model name. Every tier's last change is now a cut or no change. The last rise was Haiku 4.5 (Oct 15, 2025), which launched at $1 / $5, 25% above Claude 3.5 Haiku's $0.80 / $4; Haiku 5.5 reversed it. Older changes are left off to keep the scale readable, notably Opus's cut from $15 / $75 with Opus 4.5.<br>
+                        Opus pricing dropped from $15/$75 to $5/$25 with Opus 4.5 (Nov 2025) and held there through Opus 5, which stays on the API at those rates (fast mode $10 in / $50 out). Cache hits cost 10% of the input price on every model except Opus 5.5 and Sonnet 5.5 (5%, Sonnet 5.5 since October 7), Fable 5.1 and Mythos 5.1 (2.5%), and the Batch API halves both rates.
                     </p>
                     <div class="benchmark-paper-links">
                         <div class="benchmark-paper-link-row">
                             <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener">Claude API Pricing Docs</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://www.anthropic.com/claude-haiku-5-5" target="_blank" rel="noopener">Haiku 5.5 Announcement</a>
                             <span class="benchmark-paper-sep">·</span>
                             <a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener">Sonnet 5.5 Announcement</a>
                             <span class="benchmark-paper-sep">·</span>
@@ -121,7 +125,7 @@
 
             <div class="benchmark-section">
                 <h2 class="section-title">Capability Profile</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Where each family's newest model is strongest. Ten evaluations, all scored 0&ndash;100. Eight come from Artificial Analysis's single harness at max effort (Haiku 4.5 via AA's Reasoning entry). SWE-bench Pro and HealthBench Professional are Anthropic's own system-card figures; Haiku 4.5 has neither, so its SWE-bench Pro point comes from Scale's public-subset board and its HealthBench spoke is left open. Hover over or tap any point for the raw score.</p>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Where each family's newest model is strongest. Ten evaluations, all scored 0&ndash;100. Eight come from Artificial Analysis's single harness at max effort (Haiku 4.5 via AA's Reasoning entry). The Haiku shape is still Haiku 4.5: when checked on October 10, AA had published none of these evaluations for Haiku 5.5 (Oct 7). SWE-bench Pro and HealthBench Professional are Anthropic's own system-card figures; Haiku 4.5 has neither, so its SWE-bench Pro point comes from Scale's public-subset board and its HealthBench spoke is left open. Hover over or tap any point for the raw score.</p>
                 <div class="benchmark-chart-container">
                     <div id="radar-chart"></div>
                     <div class="benchmark-legend">
@@ -146,10 +150,10 @@
                         <strong>Opus 5.5 (filled) and Sonnet 5.5 (solid coral) split the chart.</strong> Opus 5.5 leads on SWE-bench Pro (by 8.6 points), HLE (2.3), SciCode (3.8) and CritPt (0.3), and ties Fable 5.1 on GDP.pdf. Sonnet 5.5 leads on the agentic and applied axes: Terminal-Bench 4.0 (by 4.0 over Opus 5.5), AutomationBench (1.8), HealthBench Professional (3.6) and Harvey LAB (0.1 over Fable 5.1). That split, the flagship ahead on hard reasoning and code and the mid-tier model ahead on getting work done, is the main thing this chart shows. The Terminal-Bench result matches Anthropic's own launch figures (70.6% against 66.4%), so it isn't one harness's quirk.<br>
                         <strong>Sonnet 5.5 against Fable 5.1 (solid gold)</strong>, at a fifth of the per-token price: Sonnet 5.5 is clearly ahead on four axes: 11.9 on AutomationBench, 11.6 on Terminal-Bench 4.0, 7.1 on HealthBench and 1.7 on CritPt. It is also 0.1 ahead on SWE-bench Pro and Harvey LAB, which is effectively a tie. Fable 5.1 keeps AA-LCR (by 2.6), HLE (4.1), SciCode (2.1) and GDP.pdf (0.4).<br>
                         <strong>Which axes separate the models.</strong> AutomationBench and Terminal-Bench 4.0 spread the three frontier models by about 12 points each. Harvey LAB (91.2&ndash;93.1), GDP.pdf (25.8&ndash;26.2) and CritPt (29.7&ndash;31.7) barely separate them at all. On those three axes the frontier is flat, and differences smaller than a point shouldn't be read as rankings. GDP.pdf is hard for everyone: the best models meet every criterion on only about a quarter of its tasks.<br>
-                        <strong>Haiku 4.5 (dashed green)</strong> shows the tier gap in one glance. It collapses on the agentic evals (Terminal-Bench 4.0 and CritPt are measured zeros; AutomationBench 3.2, GDP.pdf 3.8) but holds up on long-context reading (AA-LCR 74.3, within 11 points of the leaders) and on Harvey LAB's legal criteria (61.1). Its data comes from AA's <em>Claude 4.5 Haiku (Reasoning)</em> entry, the fully measured one. Anthropic published no SWE-bench Pro or HealthBench figure for it, so its SWE-bench Pro point is Scale's public-subset board (39.5) and its HealthBench spoke is drawn open rather than at zero.<br>
+                        <strong>Haiku 4.5 (dashed green)</strong> shows the tier gap in one glance. It collapses on the agentic evals (Terminal-Bench 4.0 and CritPt are measured zeros; AutomationBench 3.2, GDP.pdf 3.8) but holds up on long-context reading (AA-LCR 74.3, within 11 points of the leaders) and on Harvey LAB's legal criteria (61.1). Its data comes from AA's <em>Claude 4.5 Haiku (Reasoning)</em> entry, the fully measured one. Anthropic published no SWE-bench Pro or HealthBench figure for it, so its SWE-bench Pro point is Scale's public-subset board (39.5) and its HealthBench spoke is drawn open rather than at zero. Its successor, Haiku 5.5, closes much of that gap on Anthropic's own figures: Terminal-Bench 4.0 39.2% (Haiku 4.5 0.0), HLE without tools 45.9 (10.2) and HealthBench Professional 64.8 (32.2). Those are Anthropic's runs, not AA's, so they can't stand in for the polygon.<br>
                         <strong>What the new axes measure.</strong> AutomationBench-AA runs agentic workflows across simulated SaaS apps (Slack, Salesforce, Zendesk, Jira, HubSpot), scoring objectives completed without guardrail violations. GDP.pdf, Surge AI's benchmark run by AA, tests reasoning over long real-world professional documents, scored as the share of tasks where every criterion is met. Harvey LAB is AA's run of Harvey's held-out legal agent set, plotted as the mean criterion-pass rate; its all-pass rate is far lower (Fable 5.1 14.2%, Sonnet 5.5 10.0%, Opus 5.5 8.3%). HealthBench Professional is a medical benchmark, plotted from Anthropic's reported scores; unlike the AA axes, it is not an independent run.<br>
                         <strong>Why the chart was rebuilt.</strong> On September 28, 2026, Artificial Analysis had reworked its suite since the September 2 pull. It never ran GPQA Diamond on the newest models, moved them from Terminal-Bench 2.1 to 4.0, retired its Agentic Index and publishes Omniscience only as a &minus;100&ndash;100 index. Vals AI had no LiveCodeBench run for Opus 5.5 or Sonnet 5.5. The chart now keeps only axes the plotted models share, re-pulled together, and plots only each family's newest model. Opus 5, Sonnet 5, Fable 5 and Opus 4.8 are off the radar but remain on the timeline charts below. The rulers also moved (AA-LCR is now v1.1), so don't compare these shapes with earlier revisions of this page.<br>
-                        <strong>Not plotted:</strong> Mythos 5.1, whose only published capability figure is Anthropic's Terminal-Bench 4.0 run (60.9%), too little for a shape.
+                        <strong>Not plotted:</strong> Mythos 5.1, whose only published capability figure is Anthropic's Terminal-Bench 4.0 run (60.9%), too little for a shape; and Haiku 5.5 (October 7), which has two of the ten axes from its system card (SWE-bench Pro 64.8, HealthBench Professional 64.8) and none of AA's eight yet. AA's Haiku 5.5 page lists only its composite Intelligence Index and marks every individual evaluation "not publicly available".
                     </p>
                     <div class="benchmark-paper-links">
                         <div class="benchmark-paper-link-row">
@@ -185,13 +189,17 @@
                             <div class="benchmark-legend-dot" style="background: #d4836a;"></div>
                             <span>Sonnet</span>
                         </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #8fa882;"></div>
+                            <span>Haiku</span>
+                        </div>
                     </div>
                     <p class="benchmark-note">
                         SWE-bench Pro is Scale AI's harder successor to SWE-bench. Its problems come from actively maintained repositories, need larger multi-file patches, and have less of their ground truth public. A task counts only if the model's patch makes the project's own tests pass. Higher is better.<br>
-                        <strong>Opus 5.5 (Sep 22, 2026) tops the chart at 89.9%</strong>, 10.7 points over Opus 5 and 8.7 over Fable 5.1. The Opus line has climbed 37.9 points in ten months, from Opus 4.5's 52.0%, and more than half of that came in the last two releases. Unlike Verified, this eval still has room at the top. <strong>Sonnet 5.5 (Sep 28) scores 81.3%</strong>, 18.1 points over Sonnet 5 and level with Fable 5.1's 81.2 at a fifth of the price. It is the largest single step any Sonnet has taken here.<br>
+                        <strong>Opus 5.5 (Sep 22, 2026) tops the chart at 89.9%</strong>, 10.7 points over Opus 5 and 8.7 over Fable 5.1. The Opus line has climbed 37.9 points in ten months, from Opus 4.5's 52.0%, and more than half of that came in the last two releases. Unlike Verified, this eval still has room at the top. <strong>Sonnet 5.5 (Sep 28) scores 81.3%</strong>, 18.1 points over Sonnet 5 and level with Fable 5.1's 81.2 at a fifth of the price. It is the largest single step any Sonnet has taken here. <strong>Haiku 5.5 (Oct 7) scores 64.8%</strong>, the first Haiku on this chart: 16.5 points behind Sonnet 5.5 and 1.6 ahead of Sonnet 5's 63.2.<br>
                         <strong>Why this chart moved from SWE-bench Verified.</strong> Anthropic stopped reporting Verified with Fable 5.1: its launch table, and the Opus 5.5 and Sonnet 5.5 system cards, carry no Verified figure. Verified had also saturated, with Opus 5 at 96%, where the remaining tasks are widely argued to be noise and mislabelling. Every generally available Claude model since Opus 4.7 has a Pro figure in its own or a later system card. For the record, the retired Verified series was: Opus 4 72.5, Opus 4.1 74.5, Opus 4.5 80.9, Opus 4.6 80.8, Opus 4.7 87.6, Opus 4.8 88.6 and Opus 5 96.0; Sonnet 4 72.7, Sonnet 4.5 77.2, Sonnet 4.6 79.6 and Sonnet 5 85.2; Haiku 4.5 73.3; Mythos Preview 93.9; Fable 5 95.0; Mythos 5 95.5.<br>
-                        <strong>Where the points come from.</strong> Every figure is from an Anthropic system card, and a few come from a later card than the model's own. Opus 4.6's 53.4 is from the Mythos Preview and Opus 4.7 cards, since its own has none. Sonnet 4.6's 58.1 is from the Sonnet 5 card. Opus 4.5's 52.0 is its no-thinking run; with 64k thinking it scored 51.6, and the higher run is plotted, as on the other charts. Mythos 5 (80.3%) shares Fable 5's release date and is left off to avoid an exact overlap; Mythos 5.1 has no figure. <strong>Not plotted:</strong> Haiku 4.5 and Sonnet 4.5, which Anthropic never scored on Pro. Scale's public-subset board has them at 39.5 and 43.6, but that is a different harness, and it lists no Claude model newer than Opus 4.6.<br>
-                        <strong>The other variants Anthropic now reports.</strong> Multilingual: Opus 5.5 93.9, Sonnet 5.5 90.3, Opus 5 89.5, Fable 5.1 89.1, Sonnet 5 78.3. Multimodal: Opus 5.5 61.4, Opus 5 59.4, Fable 5.1 54.7, Sonnet 5.5 54.3, Sonnet 5 28.1. On Terminal-Bench 4.0, Anthropic scores Sonnet 5.5 at 70.6% at max effort (&plusmn;2.5) and Opus 5.5 at 66.4% at xhigh (&plusmn;2.6; 64.8% at max), ahead of Mythos 5.1's 60.9, Fable 5.1's 55.8 and Opus 5's 52.3. Anthropic's launch table puts Sonnet 5 at 10.3% on that suite. Safeguard fallbacks answered 2.5% of Opus 5.5's requests (10% of trials) and 1.2% of Sonnet 5.5's (1.5% of trials).
+                        <strong>Where the points come from.</strong> Every figure is from an Anthropic system card, and a few come from a later card than the model's own. Opus 4.6's 53.4 is from the Mythos Preview and Opus 4.7 cards, since its own has none. Sonnet 4.6's 58.1 is from the Sonnet 5 card. Opus 4.5's 52.0 is its no-thinking run; with 64k thinking it scored 51.6, and the higher run is plotted, as on the other charts. Mythos 5 (80.3%) shares Fable 5's release date and is left off to avoid an exact overlap; Mythos 5.1 has no figure. <strong>Not plotted:</strong> Haiku 4.5 and Sonnet 4.5, which Anthropic never scored on Pro (the Haiku 5.5 card leaves Haiku 4.5's cell blank). Scale's public-subset board has them at 39.5 and 43.6, but that is a different harness, and it lists no Claude model newer than Opus 4.6, so Haiku 5.5's 64.8 is the first Anthropic Pro figure for any Haiku.<br>
+                        <strong>The other variants Anthropic now reports.</strong> Multilingual: Opus 5.5 93.9, Sonnet 5.5 90.3, Opus 5 89.5, Fable 5.1 89.1, Haiku 5.5 83.7, Sonnet 5 78.3 (Haiku 4.5 67.4). Multimodal: Opus 5.5 61.4, Opus 5 59.4, Fable 5.1 54.7, Sonnet 5.5 54.3, Haiku 5.5 30.7, Sonnet 5 28.1 (Haiku 4.5 19.8). On Terminal-Bench 4.0, Anthropic scores Sonnet 5.5 at 70.6% at max effort (&plusmn;2.5) and Opus 5.5 at 66.4% at xhigh (&plusmn;2.6; 64.8% at max), ahead of Mythos 5.1's 60.9, Fable 5.1's 55.8 and Opus 5's 52.3. Anthropic's launch table puts Sonnet 5 at 10.3% on that suite. Safeguard fallbacks answered 2.5% of Opus 5.5's requests (10% of trials) and 1.2% of Sonnet 5.5's (1.5% of trials). Haiku 5.5 scores 39.2% at max effort (&plusmn;1.9, ten trials per task), against 0.0% for Haiku 4.5. It has no fallback model: when its safeguards flagged a request the trial stopped and was scored a failure, which happened in 1.8% of trials (12 of 660, ten of them on one task).
                     </p>
                     <div class="benchmark-paper-links">
                         <div class="benchmark-paper-link-row">
@@ -200,6 +208,8 @@
                             <a href="https://www.anthropic.com/claude-sonnet-5-5-system-card" target="_blank" rel="noopener">Sonnet 5.5 System Card</a>
                             <span class="benchmark-paper-sep">&middot;</span>
                             <a href="https://anthropic.com/claude-opus-5-5-system-card" target="_blank" rel="noopener">Opus 5.5 System Card</a>
+                            <span class="benchmark-paper-sep">&middot;</span>
+                            <a href="https://www.anthropic.com/claude-haiku-5-5-system-card" target="_blank" rel="noopener">Haiku 5.5 System Card</a>
                             <span class="benchmark-paper-sep">&middot;</span>
                             <a href="https://www.swebench.com/" target="_blank" rel="noopener">SWE-bench</a>
                         </div>
@@ -233,7 +243,7 @@
                     <p class="benchmark-note">
                         Terminal-Bench 2.1 drops the model into a real shell and asks it to finish end-to-end engineering tasks — build a project, debug a failing service, wrangle a dataset — scored on whether the task actually completes. Where SWE-bench checks a single patch, this measures whether a model can drive a machine over many steps.<br>
                         It is where the recent Claude generations separate most clearly, and unlike SWE-bench it is nowhere near saturated: Opus 5 scores 84.6% here, up nearly 13 points on Opus 4.8. Fable 5.1 (Sep 1, 2026) lands at 85.0% — a 4.5-point step over Fable 5 and 0.4 above Opus 5, which put it at the head of the Claude series on the Vals board until Opus 5.5. Scores are the Vals AI harness snapshot (re-verified to the decimal July 29, 2026; the Fable 5.1 row was read on September 2 from the board's August 31 update); one caveat from Vals's own run notes is that the Opus 5 and Fable 5 runs used Opus 4.8 as a fallback for refusals, with nine passing tasks across three runs potentially affected. Fable 5.1's run leaned harder on the same route (Opus 5, then 4.8): 23 of its 267 tasks were rescued by a fallback, and Vals puts the score at 79.0% if those count as failures — which would drop it below Opus 5, so treat the ordering above as within the harness's noise.<br>
-                        <strong>Opus 5.5 (Sep 22) and Sonnet 5.5 (Sep 28, 2026) both arrived in Vals's September 27 update.</strong> Opus 5.5 now heads the Claude series at 87.6%, 2.6 points over Fable 5.1, but it leaned hardest of all on the fallback route: Opus 5 and 4.8 answered for it on 26 of 267 tasks, and Vals puts it at 79.8% if those count as failures &mdash; below Opus 5 on the same adjustment. Sonnet 5.5 scores 83.1% (&plusmn;1.7) with no fallback noted, up 8.6 points on Sonnet 5 and within about 1.5 points of Opus 5 and 2 of Fable 5.1, at half Opus 5.5's per-token price. Two things to hold alongside that: Vals ran it at high effort where Sonnet 5 ran at max, and on the hard split it trails the flagships more clearly (76.7% against 81&ndash;84%). Anthropic's own launch figure is on the newer Terminal-Bench 4.0, noted under SWE-bench Pro above.<br>
+                        <strong>Opus 5.5 (Sep 22) and Sonnet 5.5 (Sep 28, 2026) both arrived in Vals's September 27 update.</strong> Opus 5.5 now heads the Claude series at 87.6%, 2.6 points over Fable 5.1, but it leaned hardest of all on the fallback route: Opus 5 and 4.8 answered for it on 26 of 267 tasks, and Vals puts it at 79.8% if those count as failures &mdash; below Opus 5 on the same adjustment. Sonnet 5.5 scores 83.1% (&plusmn;1.7) with no fallback noted, up 8.6 points on Sonnet 5 and within about 1.5 points of Opus 5 and 2 of Fable 5.1, at half Opus 5.5's per-token price. Two things to hold alongside that: Vals ran it at high effort where Sonnet 5 ran at max, and on the hard split it trails the flagships more clearly (76.7% against 81&ndash;84%). Anthropic's own launch figure is on the newer Terminal-Bench 4.0, noted under SWE-bench Pro above. Haiku 5.5 (Oct 7, 2026) had no run on Vals's Terminal-Bench 2.1 board when checked on October 10, so the Haiku line still ends at Haiku 4.5; Anthropic's Terminal-Bench 4.0 figure for it (39.2%) is also under SWE-bench Pro.<br>
                         <strong>Harnesses disagree on this eval.</strong> Artificial Analysis also ran Terminal-Bench 2.1 before moving to 4.0, and its figures ran above the Vals numbers charted here for the same models: Opus 5 at 89.1% against 84.6%, Opus 4.8 at 84.6% against 71.9%. Both are public, independent harnesses; neither is "the" Terminal-Bench 2.1 number. The Capability Profile above now plots Terminal-Bench 4.0 instead, a different and much harder suite.
                     </p>
                     <div class="benchmark-paper-links">
@@ -248,7 +258,7 @@
 
             <div class="benchmark-section">
                 <h2 class="section-title">OSWorld Benchmark Progress</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">One line per family, three versions of the eval. Scores switch from original OSWorld to the stricter OSWorld-Verified at Sonnet 4.5 (the 42&rarr;61 segment straddles that switch), and the two newest releases, drawn hollow on a dashed segment, are OSWorld 2.1 partial-credit scores, because Anthropic no longer reports Verified. The y-axis spans 10&ndash;90%.</p>
+                <p class="benchmark-note" style="margin-bottom: 18px;">One line per family, three versions of the eval. Scores switch from original OSWorld to the stricter OSWorld-Verified at Sonnet 4.5 (the 42&rarr;61 segment straddles that switch), and the three newest releases (Opus 5.5, Sonnet 5.5 and Haiku 5.5), drawn hollow on a dashed segment, are OSWorld 2.1 partial-credit scores, because Anthropic no longer reports Verified. Haiku 5.5's is on a smaller task set than the other two. The y-axis spans 10&ndash;90%.</p>
                 <div class="benchmark-chart-container">
                     <div id="benchmark-chart"></div>
                     <div class="benchmark-legend">
@@ -278,14 +288,15 @@
                         </div>
                     </div>
                     <p class="benchmark-note">
-                        Scores prior to Sonnet 4.5 measured on original OSWorld; scores from Sonnet 4.5 through Opus 4.8 and Sonnet 5 use OSWorld-Verified; Opus 5.5 and Sonnet 5.5 (hollow) are OSWorld 2.1 partial-credit scores.<br>
+                        Scores prior to Sonnet 4.5 measured on original OSWorld; scores from Sonnet 4.5 through Opus 4.8 and Sonnet 5 use OSWorld-Verified; Opus 5.5 and Sonnet 5.5 (hollow) are OSWorld 2.1 partial-credit scores on all 108 tasks, and Haiku 5.5 (hollow) is OSWorld 2.1 partial credit on the 82-task offline subset.<br>
                         OSWorld measures an AI model's ability to interact with real computer interfaces. Fable 5 now tops OSWorld-Verified at 85% — Claude Mythos 5 ties it at the same score and date, so only Fable is plotted.<br>
                         These are Anthropic's current reported figures, mirrored by the aggregator boards. Two places the sources disagree, both audited July 29, 2026: Opus 4.7 is plotted at Anthropic's restated 82.3% (a harness fix announced with Opus 4.8) while the community boards still carry the original 78.0% run, and Sonnet 4.6's first-party entry on the official leaderboard reads 72.1% against the announced 72.5% plotted here. The official board's strongest Claude-driven entry is actually a third-party scaffold — Pointer Agent driving Opus 4.7 at 83.6% — which isn't plotted because the rest of the series is bare-model runs.<br>
                         Claude Opus 5 (Jul 2026) still has no OSWorld-Verified run. Anthropic reported it at 70.6% on the newer, harder <em>OSWorld 2.0</em> long-horizon eval, where Opus 4.8 scores 55.7% — figures on OSWorld 2.0's partial-credit scale, roughly in line with the official board's Opus 4.8 at 54.8 (its strict pass/fail reading is 20.6). Mixed metrics and harnesses are why Opus 5's OSWorld 2.0 run stays in this note rather than on the chart.<br>
                         Fable 5.1 (Sep 1, 2026) is in the same position. Anthropic published OSWorld 2.0 only, re-run on the August 2026 task release: 77.9% partial credit / 41.7% strict, against 72.9 / 36.1 for Fable 5 and 75.4 / 39.6 for Opus 5 on that same task set — not the 70.6 quoted at Opus 5's own launch, which was an earlier release of the suite, so even the OSWorld 2.0 figures in this note don't all share a task set. The runs went out with production safeguards on, and any task where a safeguard intervened was scored zero rather than excluded.<br>
                         Opus 5.5 (Sep 22, 2026) is again OSWorld 2.0-only: 81.8% partial credit / 48.7% strict, against 80.7 / 42.8 for Fable 5.1 and 74.0 / 37.2 for Opus 5. Those comparison figures don't match the ones quoted three weeks earlier for the same two models, and the <a href="https://anthropic.com/claude-opus-5-5-system-card" target="_blank" rel="noopener">system card</a> says why: every model was re-run on the September 10, 2026 task files, with a harness that now keeps every screenshot and relies on the API's server-side compaction past 100k tokens, and Anthropic says these results supersede its Fable 5.1 figures. On partial credit Opus 5.5 edges Fable 5.1 by about a point; on the strict all-checkpoints rate the gap is 5.9 points, so the newer model's lead shows up mostly in finishing tasks outright.<br>
-                        <strong>Why the two newest points are on the line anyway.</strong> Anthropic has reported only OSWorld 2.x since Opus 5, so without a switch neither Opus 5.5 nor Sonnet 5.5 would appear here at all. Each family's newest release therefore joins its line through a dashed segment and a hollow marker. Read those final segments as a change of eval, not as progress: Sonnet 5 &rarr; 5.5 reads 81.2 &rarr; 80.1 and Opus 4.8 &rarr; 5.5 reads 83.4 &rarr; 81.8, but on the same 2.1 task files Sonnet 5.5 is 23.1 points ahead of Sonnet 5 (80.1 against 57.0). Opus 5 (74.0 on 2.1) and Fable 5.1 (80.7) aren't plotted, to keep each line to one eval switch.<br>
-                        Sonnet 5.5 (Sep 28, 2026) has no OSWorld-Verified figure either. Its <a href="https://www.anthropic.com/claude-sonnet-5-5-system-card" target="_blank" rel="noopener">system card</a> reports <em>OSWorld 2.1</em>, which is Anthropic's name for those same September 10 task files, run in a configuration it says is unchanged from Opus 5.5's. That makes these three runs directly comparable: Sonnet 5.5 80.1% partial / 43.5% strict, Opus 5.5 81.8 / 48.7, Sonnet 5 57.0 / 25.6. Sonnet 5.5 comes within 1.7 points of Opus 5.5 on partial credit but trails by 5.2 on the strict rate, the same pattern as Opus 5.5 over Fable 5.1. Sonnet 5's 57.0 is not a regression from its 81.2 on the chart above; the two numbers come from different evals.
+                        <strong>Why the three newest points are on the line anyway.</strong> Anthropic has reported only OSWorld 2.x since Opus 5, so without a switch none of Opus 5.5, Sonnet 5.5 or Haiku 5.5 would appear here at all. The newest Opus, Sonnet and Haiku releases therefore join their lines through a dashed segment and a hollow marker (Fable and Mythos have no 2.x point on the chart). Read those final segments as a change of eval, not as progress: Sonnet 5 &rarr; 5.5 reads 81.2 &rarr; 80.1 and Opus 4.8 &rarr; 5.5 reads 83.4 &rarr; 81.8, but on the same 2.1 task files Sonnet 5.5 is 23.1 points ahead of Sonnet 5 (80.1 against 57.0). Haiku 4.5 &rarr; 5.5 reads 50.7 &rarr; 72.4, which understates the step: on the same offline subset Haiku 4.5 scores 15.7. Opus 5 (74.0 on 2.1) and Fable 5.1 (80.7) aren't plotted, to keep each line to one eval switch.<br>
+                        Sonnet 5.5 (Sep 28, 2026) has no OSWorld-Verified figure either. Its <a href="https://www.anthropic.com/claude-sonnet-5-5-system-card" target="_blank" rel="noopener">system card</a> reports <em>OSWorld 2.1</em>, which is Anthropic's name for those same September 10 task files, run in a configuration it says is unchanged from Opus 5.5's. That makes these three runs directly comparable: Sonnet 5.5 80.1% partial / 43.5% strict, Opus 5.5 81.8 / 48.7, Sonnet 5 57.0 / 25.6. Sonnet 5.5 comes within 1.7 points of Opus 5.5 on partial credit but trails by 5.2 on the strict rate, the same pattern as Opus 5.5 over Fable 5.1. Sonnet 5's 57.0 is not a regression from its 81.2 on the chart above; the two numbers come from different evals.<br>
+                        <strong>Haiku 5.5 (Oct 7, 2026) is on a narrower slice of the same eval.</strong> Its <a href="https://www.anthropic.com/claude-haiku-5-5-system-card" target="_blank" rel="noopener">system card</a> reports the OSWorld 2.1 <em>offline subset</em>: the 82 of 108 tasks on the benchmark's offline list, with the virtual machine cut off from the internet. Anthropic says it now reports this subset in place of the full set used in the Opus 5.5 and Sonnet 5.5 cards. Haiku 5.5 scores 72.4% partial / 37.1% strict. Re-run on the same 82 tasks, Sonnet 5.5 scores 83.9 / 48.8 and Opus 5.5 87.2 / 53.2, so Haiku 5.5 trails Sonnet 5.5 by 11.5 points of partial credit and 11.7 strict. Haiku 4.5 scores 15.7 partial; it ran at a fixed thinking budget without server-side compaction. Don't compare the 72.4 with the 80.1 and 81.8 plotted for Sonnet 5.5 and Opus 5.5, which are on the full task set.
                     </p>
                 </div>
             </div>
@@ -315,7 +326,8 @@
                     </div>
                     <p class="benchmark-note">
                         Mean final balance (USD) on Andon Labs' <strong>Vending-Bench 2</strong> — each model runs a simulated vending business autonomously for a simulated year, and the figure is the average across its leaderboard runs, pulled from the live board July 29, 2026. Where a model is listed at several reasoning tiers, its strongest is plotted (Opus 4.8 High $5,787 — its Max run collapses to $2,992, which Andon attributes to ~5&times; the reasoning tokens forcing twice the context compactions; Fable 5 High $5,680 across five tiers).<br>
-                        Every released Claude model except Mythos and the day-old Sonnet 5.5 now has a score, and the line is anything but monotone: Opus 4.7 hit $10,937, Opus 4.8 then <em>fell</em> to $5,787 — Anthropic's Opus 5 era notes say training "focused on business skills and robustness against adversarial agents" was removed from 4.8 because it fed misaligned behavior — and Opus 5 recovered the crown at $11,182, the highest figure Andon has recorded. Both newer flagships then fell back: Fable 5.1 (Sep 1, 2026) averages $5,422, slightly below Fable 5's $5,680, and Opus 5.5 (Sep 22) $9,235 (&plusmn;$785), $1,947 under Opus 5 and seventh on the board. That is the second time in three Opus releases that a newer model earned less than the one before. Both were added from the board on September 28 as single untiered entries over six runs. Haiku 4.5's $459 is the honest floor for the small tier. Mythos 5 has never been run.<br>
+                        Every released Claude model except Mythos now has a score, and the line is anything but monotone: Opus 4.7 hit $10,937, Opus 4.8 then <em>fell</em> to $5,787 — Anthropic's Opus 5 era notes say training "focused on business skills and robustness against adversarial agents" was removed from 4.8 because it fed misaligned behavior — and Opus 5 recovered at $11,182, the highest any Claude model has recorded (three models from other labs, led by GPT-6 Astra at $15,515, now sit above it). Both newer flagships then fell back: Fable 5.1 (Sep 1, 2026) averages $5,422, slightly below Fable 5's $5,680, and Opus 5.5 (Sep 22) $9,235 (&plusmn;$785), $1,947 under Opus 5 and ninth of 69 on the October 10 board. That is the second time in three Opus releases that a newer model earned less than the one before. Both were added from the board on September 28 as single untiered entries over six runs. Mythos 5 has never been run.<br>
+                        <strong>Sonnet 5.5 and Haiku 5.5 joined the board by October 10</strong>, each over six runs. Sonnet 5.5 (Sep 28) averages $11,165 (&plusmn;$1,585), $17 under Opus 5's Claude record and fifth on the board, a $4,787 step over Sonnet 5. Haiku 5.5 (Oct 7) averages $3,602 (&plusmn;$691), almost eight times Haiku 4.5's $459 and close to Sonnet 4.5's $3,839, though still 46th of 69 entries. Haiku 4.5 remains the small tier's floor.<br>
                         <strong>This chart previously mixed three incompatible boards</strong> — the deprecated original Vending-Bench, VB2, and Arena rounds — which produced both a bogus "flattening" story and several figures matching no published number. It is now VB2-only. The original board (deprecated Nov 2025) is a different environment whose Claude figures — 3.5 Sonnet $2,218, Sonnet 4.5 $2,465, 3.7 Sonnet $1,568, Sonnet 4 $968, 3.5 Haiku $373, Opus 4 $2,077 — are not comparable and stay here in the note.
                     </p>
                     <div class="benchmark-paper-links">
@@ -358,7 +370,7 @@
                         </div>
                     </div>
                     <p class="benchmark-note">
-                        Eleven Claude models have Arena results across the eleven standard rounds shown; that is as close to "all of them" as the data allows. Only Claude entrants are plotted, by choice, which has a visible cost: the eight rounds another lab won carry no winner ring, and the July 9 round, which fielded no Claude model, is dropped entirely. Sonnet 5 has never entered, Sonnet 5.5 (September 28) has no round yet, Mythos 5 has no public round (its Preview fought Opus 4.6 and Sonnet 4.6 in a private pre-release match Anthropic's system card describes only qualitatively — "substantially more aggressive than both"), and everything before Sonnet 4.5 predates the Arena entirely. A February team round (2&times;GLM-5 vs 2&times;Claude, non-standard rules) is also omitted, as is a September 2-versus-2 round of Fable 5.1 against GPT-6 Astra.<br>
+                        Eleven Claude models have Arena results across the eleven standard rounds shown; that is as close to "all of them" as the data allows. Only Claude entrants are plotted, by choice, which has a visible cost: the eight rounds another lab won carry no winner ring, and the July 9 round, which fielded no Claude model, is dropped entirely. Sonnet 5 has never entered, Sonnet 5.5 (September 28) and Haiku 5.5 (October 7) have no round yet, Mythos 5 has no public round (its Preview fought Opus 4.6 and Sonnet 4.6 in a private pre-release match Anthropic's system card describes only qualitatively — "substantially more aggressive than both"), and everything before Sonnet 4.5 predates the Arena entirely. A February team round (2&times;GLM-5 vs 2&times;Claude, non-standard rules) is also omitted, as is a September 2-versus-2 round of Fable 5.1 against GPT-6 Astra.<br>
                         Cross-round comparison is genuinely unsafe: Sonnet 4.5 scored between $809 and $2,125 across its three standard rounds, depending on opponents. What the rounds do show: Claude won three of the first six (Opus 4.5, Opus 4.6, Sonnet 4.6 as "the monopolist"), then lost all six since to another lab's entries. In the Opus 5 round it finished second at $7,044, $400 behind the winner — TechCrunch's "$11,182 record" belongs to the single-player chart above, not this one. The two newest rounds went the same way: Fable 5.1 was third of three at $5,719 in round 12 (Sep 4), behind GPT-6 Astra's $12,363, the highest balance any model has reached in the Arena. Opus 5.5 was second at $8,094 in round 13, behind GPT-6 Sol's $10,530. Andon gives round 13 no date, so it is plotted at September 22, when both of those models shipped.<br>
                         The behaviour ledger is the real product here. Opus 5 proposed or joined price cartels in 6 of 6 runs (usually after first refusing on Sherman Act grounds), broke 11 truces, paid $8.54 in refunds all round, never lied to a customer but fabricated competitor quotes to suppliers — and the round's winner filed a formal report against Opus 5 for price coordination while itself colluding. Andon's verdict: behaving "at least as badly as Opus 4.6/4.7" and worse than Opus 4.8 and Fable 5, which cuts against the system card's most-aligned-yet claim. Fable 5's earlier flag stands, with its context corrected: in a separate 24-run experiment of three identical agents per street, all-Fable rounds formed cartels 9 times in 12 against all-Opus-4.8's 4 in 12 — and in its public round, Fable was the only agent that ever <em>initiated</em> collusion.
                     </p>
@@ -400,8 +412,9 @@
                     <p class="benchmark-note">
                         GDPval-AA Elo on real-world knowledge work tasks across 44 occupations and 9 industries (finance, legal, software, etc.). Higher Elo = stronger pairwise win rate against the field.<br>
                         <strong>Opus 5.5 (Sep 22, 2026) tops the board at 1846</strong>, 111 points clear of Fable 5.1 (1735) at 40% of Fable's per-token price, and 138 above Opus 5 (1708) — the Opus line's biggest gain after Opus 5's own jump from 4.8. That makes two Opus releases in a row that out-score the Fable model of their day on the one knowledge-work eval both tiers lead with; on this chart, at least, the Fable premium buys nothing. Effort setting matters more than ever: Opus 5.5 spans 1224 at low effort to 1846 at max, a 622-point swing, against 414 for Opus 5 (1294&ndash;1708) and 285 for Fable 5.1 (1450&ndash;1735). Its high-effort run (1692) already sits below Opus 5 at max, so the headline assumes you pay for the tokens &mdash; though not all of them: the system card reports that xhigh (1820) uses about 51% fewer output tokens than max for 26 fewer points. AA's newer long-horizon knowledge-work board, AA-Briefcase v1.1, tells the same story on a different eval: Opus 5.5 1822, Fable 5.1 1678, Opus 5 1673. Opus 5.5 and Fable 5.1 were both run with Anthropic's default refusal fallback on; Fable 5's row used Opus 4.8 as its fallback.<br>
-                        <strong>Sonnet 5.5 (Sep 28, 2026) lands two points behind it, at 1844</strong>, a 395-point jump on Sonnet 5 (1449) in 90 days and 109 clear of Fable 5.1, at half Opus 5.5's per-token price and a fifth of Fable's. A two-point Elo gap is not a meaningful ranking, so on this eval the Sonnet tier has effectively caught the flagship. The headline is a max-effort number, though, and Sonnet 5.5's effort curve is steeper still than Opus 5.5's: 1168 at low, 1292 at medium (the default in the Claude apps), 1517 at high (the Claude Platform default), 1725 at xhigh and 1844 at max, a 676-point swing. The system card says xhigh uses about 67% fewer output tokens than max. AA-Briefcase v1.1 agrees: Sonnet 5.5 1811, 11 behind Opus 5.5. One caveat from Anthropic: AA ran both evals on a pre-release deployment with a structured-outputs bug, since fixed, which Anthropic expects to have understated the score slightly, if at all.<br>
-                        <strong>The whole chart moved to v2.1, which is why every figure changed.</strong> Artificial Analysis now publishes only GDPval-AA v2.1, which drops v2's human-expert anchor at 1000 and instead pins the scale to a reference model at 1600, so the dashed human-baseline line this chart used to carry no longer has a v2.1 equivalent and is gone. Relative gaps widened on the new scale: Opus 5 1824 &rarr; 1708, Fable 5.1 1853 &rarr; 1735, Fable 5 1723 &rarr; 1595, Sonnet 5 1584 &rarr; 1449, Opus 4.8 1578 &rarr; 1438, Opus 4.7 1483 &rarr; 1338, Sonnet 4.6 1371 &rarr; 1220, Haiku 4.5 915 &rarr; 719, Sonnet 4.5 1055 &rarr; 893, Sonnet 4 871 &rarr; 680. Opus 5.5's 1846 is the same number Anthropic quotes in its launch table, which is labelled v2.1 too. Compare within this chart, never against the v2 figures in older revisions of this page. The long Sonnet climb is the loudest story on the chart now: 680 to 1844 in sixteen months. Sonnet 4.5, Sonnet 4 and Haiku 4.5 are AA's single "Reasoning" entries rather than a max-effort run; Claude 3.5 Haiku (198) predates this window and sits far below the floor. Figures are the September 22, 2026 pull, re-read September 28 to add Sonnet 5.5 (no other row moved).
+                        <strong>Sonnet 5.5 (Sep 28, 2026) lands two points behind it, at 1844</strong>, a 395-point jump on Sonnet 5 (1449) in 90 days and 109 clear of Fable 5.1, at half Opus 5.5's per-token price and a fifth of Fable's. A two-point Elo gap is not a meaningful ranking, so on this eval the Sonnet tier has effectively caught the flagship. AA's October 10 board has re-rated the pair to 1866 and 1838, a 28-point gap, so "caught" now means close rather than level. The headline is a max-effort number, though, and Sonnet 5.5's effort curve is steeper still than Opus 5.5's: 1168 at low, 1292 at medium (the default in the Claude apps), 1517 at high (the Claude Platform default), 1725 at xhigh and 1844 at max, a 676-point swing. The system card says xhigh uses about 67% fewer output tokens than max. AA-Briefcase v1.1 agrees: Sonnet 5.5 1811, 11 behind Opus 5.5. One caveat from Anthropic: AA ran both evals on a pre-release deployment with a structured-outputs bug, since fixed, which Anthropic expects to have understated the score slightly, if at all.<br>
+                        <strong>Haiku 5.5 (Oct 7, 2026) enters at 1618</strong> on AA's October 10 board, at max effort (&plusmn;23); Anthropic's system card quotes the same eval at 1620. On that same read Haiku 4.5 is 732, so the step is 886 points, and Haiku 5.5 sits 8 points above Fable 5 (1610), inside the error bars, and 155 above Sonnet 5 (1463). The card puts it 220 behind Sonnet 5.5 (1840 on the card's figures) and ahead of GPT-6 Luna (1437) and Gemini 3.8 Flash (1435). Effort matters as much as on the bigger models: AA has it at 1122 at low, 1274 at medium (the API default), 1418 at high, 1511 at xhigh and 1618 at max, a 496-point swing, and the card says medium used about a tenth of max's output tokens. AA-Briefcase v1.1 (card figures): Haiku 5.5 1578, Haiku 4.5 614, Sonnet 5.5 1824. Haiku 5.5 runs with no fallback model, so its row carries no fallback label.<br>
+                        <strong>The whole chart moved to v2.1, which is why every figure changed.</strong> Artificial Analysis now publishes only GDPval-AA v2.1, which drops v2's human-expert anchor at 1000 and instead pins the scale to a reference model at 1600, so the dashed human-baseline line this chart used to carry no longer has a v2.1 equivalent and is gone. Relative gaps widened on the new scale: Opus 5 1824 &rarr; 1708, Fable 5.1 1853 &rarr; 1735, Fable 5 1723 &rarr; 1595, Sonnet 5 1584 &rarr; 1449, Opus 4.8 1578 &rarr; 1438, Opus 4.7 1483 &rarr; 1338, Sonnet 4.6 1371 &rarr; 1220, Haiku 4.5 915 &rarr; 719, Sonnet 4.5 1055 &rarr; 893, Sonnet 4 871 &rarr; 680. Opus 5.5's 1846 is the same number Anthropic quotes in its launch table, which is labelled v2.1 too. Compare within this chart, never against the v2 figures in older revisions of this page. The long Sonnet climb is the loudest story on the chart now: 680 to 1844 in sixteen months. Sonnet 4.5, Sonnet 4 and Haiku 4.5 are AA's single "Reasoning" entries rather than a max-effort run; Claude 3.5 Haiku (198) predates this window and sits far below the floor. Figures are the September 22, 2026 pull, re-read September 28 to add Sonnet 5.5 (no other row moved). Haiku 5.5 was added from the October 10 board, and that read had moved the other rows by up to about 20 points (for example Opus 5.5 1866, Fable 5.1 1756, Opus 5 1722, Haiku 4.5 732). They are left at the September pull until the whole chart is re-pulled, so read gaps between Haiku 5.5's dot and the others as accurate to about 20 points.
                     </p>
                     <div class="benchmark-paper-links">
                         <div class="benchmark-paper-link-row">
@@ -434,9 +447,9 @@
                     </div>
                     <p class="benchmark-note">
                         The Remote Labor Index is the bluntest economic eval on this page: 240 real freelance projects bought off Upwork &mdash; 3D and CAD, architecture, graphic design, video, audio, data analysis, web apps &mdash; where human graders judge each deliverable against the professional work the client originally paid for. The automation rate is the share finished to a standard a paying client would actually accept. Nothing partial counts.<br>
-                        Claude has gone from 2.08% to 15.8% in nine months, and the whole field topped out at 2.5% when Scale AI and CAIS launched the index in October 2025. For scale on the current board: Manus 1.6 Max sits at 2.92% and Gemini 3 Pro at 1.25%. Even so, the leader fails six projects in seven &mdash; this is the eval where frontier models still look furthest from doing a job end to end.<br>
-                        <strong>Read the slope carefully.</strong> These runs do not share a harness. Opus 4.5 and Sonnet 4.5 were plain model runs; Opus 4.6's 4.17% used the Claude Cowork scaffold; and the two newest, Opus 4.8 and Fable 5, were run in industry scaffolds &mdash; Claude Code for the Anthropic models &mdash; modified to add a native computer-use tool, with up to 24 hours of wall-clock per project. Fable 5 also got a $150 per-project budget against the standard $50. Part of this curve is the models getting better and part is the harness around them getting better, and the index does not separate the two.<br>
-                        <strong>Not evaluated:</strong> Opus 5, which shipped on July 24, three weeks after these results were published; Fable 5.1 and Mythos 5.1 (September 1); Opus 5.5 (September 22); Sonnet 5.5 (September 28); Sonnet 5; Haiku 4.5; and Mythos 5. The gap at the right-hand edge is where an Opus 5 run would go. CAIS's announcement post quotes Fable 5 at 16.1%; the leaderboard and the accompanying write-up both say 15.8%, which is the figure plotted here.
+                        Claude has gone from 2.08% (Sonnet 4.5) to 21.25% (Opus 5.5) in a year, and the whole field topped out at 2.5% when Scale AI and CAIS launched the index in October 2025. Opus 5.5 now leads the board, just ahead of GPT 6 Astra at 20.83%, with Fable 5.1 third at 17.92%. For scale: Manus 1.6 Max sits at 2.92% and Gemini 3 Pro at 1.25%. Even so, the leader fails about four projects in five &mdash; this is the eval where frontier models still look furthest from doing a job end to end.<br>
+                        <strong>Read the slope carefully.</strong> These runs do not share a harness. Opus 4.5 and Sonnet 4.5 were plain model runs; Opus 4.6's 4.17% used the Claude Cowork scaffold; and the two newest, Opus 4.8 and Fable 5, were run in industry scaffolds &mdash; Claude Code for the Anthropic models &mdash; modified to add a native computer-use tool, with up to 24 hours of wall-clock per project. Fable 5 also got a $150 per-project budget against the standard $50. The board does not say what harness or budget the Fable 5.1 and Opus 5.5 runs used. Part of this curve is the models getting better and part is the harness around them getting better, and the index does not separate the two.<br>
+                        <strong>Not evaluated</strong> (board checked October 10, 2026): Opus 5, which shipped on July 24, three weeks after the July results were published, so the Opus line runs straight from 4.8 to 5.5; Mythos 5.1 (September 1); Sonnet 5.5 (September 28); Haiku 5.5 (October 7); Sonnet 5; Haiku 4.5; and Mythos 5. CAIS's announcement post quotes Fable 5 at 16.1% and the accompanying write-up 15.8%; the leaderboard lists 15.83%, which is the figure plotted here.
                     </p>
                     <div class="benchmark-paper-links">
                         <div class="benchmark-paper-link-row">
@@ -477,7 +490,7 @@
                     </div>
                     <p class="benchmark-note">
                         ARC-AGI-2 tests abstract reasoning on novel visual puzzles built to resist memorization — humans score ~60%, and most frontier models were in the single digits at launch. Higher is better.<br>
-                        Scores are each model's strongest listed configuration on the ARC Prize leaderboard, read from its published data files on July 29, 2026 — which is why two figures differ slightly from the Max-effort runs quoted elsewhere: Opus 4.6's best run is 120K-High at 69.2% (Max: 68.8%), Sonnet 4.6's is High at 60.4% (Max: 58.3%). Opus 5 at max effort reaches 90.4% at $2.06 per task — well clear of the ~60% human bar, though not the top of the board. Note Opus 4.8 (72.1%) scored slightly <em>below</em> Opus 4.7 here, a reminder that a newer model is not uniformly better on every eval. Haiku 4.5 <em>is</em> listed, at 4.0% ($0.38/task) — roughly where whole frontier lineups sat when ARC-AGI-2 launched. The Fable line was added after that read: ARC Prize verified Fable 5 on August 3 at 89.2% (Max, $2.11/task), and Fable 5.1 on its September 1 release day at 90.0% (Max, $4.49/task) — a 0.8-point step that still leaves it 0.4 behind Opus 5, at more than twice Opus 5's cost per task. Mythos 5, Mythos 5.1 and Sonnet 5 had no entry when checked, and Sonnet 5.5 had none on its September 28 release day.<br>
+                        Scores are each model's strongest listed configuration on the ARC Prize leaderboard, read from its published data files on July 29, 2026 — which is why two figures differ slightly from the Max-effort runs quoted elsewhere: Opus 4.6's best run is 120K-High at 69.2% (Max: 68.8%), Sonnet 4.6's is High at 60.4% (Max: 58.3%). Opus 5 at max effort reaches 90.4% at $2.06 per task — well clear of the ~60% human bar, though not the top of the board. Note Opus 4.8 (72.1%) scored slightly <em>below</em> Opus 4.7 here, a reminder that a newer model is not uniformly better on every eval. Haiku 4.5 <em>is</em> listed, at 4.0% ($0.38/task) — roughly where whole frontier lineups sat when ARC-AGI-2 launched. The Fable line was added after that read: ARC Prize verified Fable 5 on August 3 at 89.2% (Max, $2.11/task), and Fable 5.1 on its September 1 release day at 90.0% (Max, $4.49/task) — a 0.8-point step that still leaves it 0.4 behind Opus 5, at more than twice Opus 5's cost per task. Mythos 5, Mythos 5.1 and Sonnet 5 had no entry when checked. Sonnet 5.5 (September 28) and Haiku 5.5 (October 7) still had none when the data files were re-read on October 10.<br>
                         <strong>Opus 5.5 (Sep 22, 2026) now leads the Claude series at 93.3%</strong>, read from ARC Prize's data files on September 28 (it had no entry on its release day). That is 2.9 points over Opus 5 and 3.3 over Fable 5.1, and it costs $0.41 per task against Opus 5's $2.06 and Fable 5.1's $4.49. Its best run is at High effort, not Max: xhigh scores 92.5% and Max 91.7%, and ARC Prize flags the Max run as covering only part of the dataset. Opus 5.5 has no ARC-AGI-3 run yet.<br>
                         The dashed line is <strong>ARC-AGI-3</strong> — interactive environments rather than static puzzles, and nowhere near saturated. Claude's series: Opus 4.6 at 0.5%, Opus 4.7 at 0.2%, Opus 4.8 at 1.5%, then Opus 5 at 30.2% — a new state of the art, roughly 4&times; the previous best on the board, from a run that cost about $20.7k. Configs are mixed (Opus 4.6 at Max, the rest High-only; ARC Prize notes Opus 5 was "evaluated only at High reasoning effort" due to the short testing window), so read the dashed slope loosely. ARC Prize also reports Fable-class models at ~20% on ARC-AGI-3's <em>Public Demo environments</em> — a different environment set, which is why no Fable point appears on the dashed line; ARC Prize's Fable 5.1 page lists its ARC-AGI-3 run as not yet available.
                     </p>
@@ -565,7 +578,8 @@
                 releases: [
                     { version: "Claude 3 Haiku", date: "2024-03-13", url: "https://www.anthropic.com/news/claude-3-haiku" },
                     { version: "Claude 3.5 Haiku", date: "2024-11-04", url: "https://www.anthropic.com/news/3-5-models-and-computer-use" },
-                    { version: "Claude Haiku 4.5", date: "2025-10-15", url: "https://www.anthropic.com/news/claude-haiku-4-5" }
+                    { version: "Claude Haiku 4.5", date: "2025-10-15", url: "https://www.anthropic.com/news/claude-haiku-4-5" },
+                    { version: "Claude Haiku 5.5", date: "2026-10-07", url: "https://www.anthropic.com/claude-haiku-5-5" }
                 ]
             }
         };
@@ -753,9 +767,11 @@
                     windowEnd: iso(addDays(overdue ? today : centre, spread)),
                     spreadDays: spread,
                     // Depth of history, not demonstrated accuracy. Two gaps used to earn
-                    // "medium", but the one family sitting there (Haiku) has never had a
-                    // forecast scored in that regime and its backtest error is 3.7x the
-                    // "high" families' — so two gaps is "low" until proven otherwise.
+                    // "medium"; it was cut to "low" while Haiku was the only family there,
+                    // with no forecast ever scored in that regime. That call has now been
+                    // scored: from two gaps the model put Haiku 5.5 at Sep 3, 2026, and it
+                    // shipped Oct 7 (34 days after the estimate, flagged overdue from early
+                    // September). Haiku now has three gaps and reads "medium".
                     confidence: n >= 4 ? 'high' : n >= 3 ? 'medium' : 'low'
                 };
             }
@@ -1158,7 +1174,7 @@
 
             // A maintained date, not new Date(): a live stamp would silently re-date
             // July's benchmark pulls every day forever. The forecast alone is live.
-            lastUpdated.textContent = 'September 28, 2026 (Sonnet 5.5 added and pricing updated; Capability Profile rebuilt on ten axes for the newest model in each family, SWE-bench Verified replaced by SWE-bench Pro, OSWorld 2.1 points added, and GDPval, Terminal-Bench, ARC-AGI-2 and both Vending-Bench charts updated, all September 28; other benchmarks July 29; forecast computed on view)';
+            lastUpdated.textContent = 'October 10, 2026 (Haiku 5.5 added to the release data, pricing, SWE-bench Pro, OSWorld, GDPval and Vending-Bench 2, with Sonnet 5.5 also added to Vending-Bench 2, and the other charts re-checked for Haiku 5.5, all October 10; Sonnet 5.5 added, Capability Profile rebuilt on ten axes, SWE-bench Verified replaced by SWE-bench Pro, OSWorld 2.1 points added, and Terminal-Bench, ARC-AGI-2 and Vending-Bench Arena updated, September 28; other benchmarks July 29; forecast computed on view)';
 
             // Create cards for each model, all reading cycles from the one forecast
             const cardForecast = ReleaseForecast.forecastAll(modelData);
@@ -1300,7 +1316,12 @@
         // Items may carry `series` (defaults to colour). On phones only each series' latest
         // point is labelled; every point still gets a transparent hit target whose title
         // shows on hover or tap.
-        function placeLabels(items, bounds, obstacles) {
+        //
+        // `soft` holds lines a label may sit on: treating them as obstacles would scatter
+        // a crowded cluster (and did, when the long dashed Haiku 4.5 -> 5.5 hop on OSWorld
+        // was one), so instead a label that lands on one gets a halo in the card's
+        // background colour, which knocks the line out behind its text.
+        function placeLabels(items, bounds, obstacles, soft) {
             const k = UI.k;
             // Keep text a few units clear of the x-axis rather than sitting on it
             bounds = { ...bounds, h: bounds.h - 4 };
@@ -1336,7 +1357,15 @@
                 slot(-52, dy, 'end'),
                 slot(52, dy, 'start')
             ]);
-            const SLOTS = NEAR.concat(FAR);
+            // Last resort, tried only once everything above is taken: labels tucked in
+            // against the right edge, ending just past their dot, for a newest point at
+            // the edge of the plot whose own line blocks the slots below-left of it
+            const EDGE = [35, 49, 63, 77, -26, -40, -54, -68].map(dy => slot(16, dy, 'end'));
+            const SLOTS = NEAR.concat(FAR, EDGE);
+            // An item with `prefer: 'below'` tries the slots under its dot first: for a
+            // series that runs beneath a crowded cluster, so its label takes the free
+            // space below rather than a slot above that the cluster's labels need.
+            const BELOW_FIRST = SLOTS.filter(c => c.dy > 0).concat(SLOTS.filter(c => c.dy <= 0));
 
             function box(item, c) {
                 const w = Math.max(String(item.name).length * NAME_W, String(item.value).length * VALUE_W);
@@ -1385,55 +1414,95 @@
             }
 
             const dots = items.map(i => ({ x: i.px - 7, y: i.py - 7, w: 14, h: 14, item: i }));
-            const placed = (obstacles || []).slice();
+            // Each placed label's boxes (its text, and its connector if it has one) carry
+            // an `owner`, so the repair pass below can lift one label back out
+            let placed = (obstacles || []).slice();
 
-            // Newest first on phones, so if a crowded corner has to shed a label it is
-            // never the latest model's
-            const order = items.filter(i => i.labelled);
-            if (UI.compact) order.sort((a, b) => b.px - a.px);
-            order.forEach(item => {
+            // Best slot for one label against everything placed so far. Also reports whose
+            // labels the chosen slot's connector cuts through, for the repair pass, which
+            // passes `gap` 3 rather than 4: a lifted label going back into a crowded corner
+            // may sit a unit closer to its neighbours than a first placement would.
+            function choose(item, gap = 4) {
                 let best = null, bestCost = Infinity;
-                for (let i = 0; i < SLOTS.length; i++) {
-                    let ambiguous = false;
-                    const c = SLOTS[i];
+                const slots = item.prefer === 'below' ? BELOW_FIRST : SLOTS;
+                for (let i = 0; i < slots.length; i++) {
+                    let ambiguous = false, crosses = null;
+                    const c = slots[i];
                     const b = box(item, c);
                     const outside = b.x < bounds.x || b.x + b.w > bounds.x + bounds.w
                                  || b.y < bounds.y || b.y + b.h > bounds.y + bounds.h;
                     // Distance from the dot is the tiebreaker, so a label never drifts
                     // further than it has to.
                     let cost = i + (outside ? 400 : 0);
-                    placed.forEach(p => { if (hits(b, p, 4)) cost += 100; });
+                    placed.forEach(p => { if (hits(b, p, gap)) cost += 100; });
                     dots.forEach(d => { if (hits(b, d, 1)) cost += 100; });
                     if (Math.abs(c.dy) > LEADER_AT) {
                         // A connector that cuts through another label reads as pointing at it
                         const l = leader(item, b, c);
                         const path = lineObstacles([[[l.x1, l.y1], [l.x2, l.y2]]]);
-                        if (placed.some(p => path.some(q => hits(q, p, 0)))) cost += 60;
+                        const cut = placed.filter(p => path.some(q => hits(q, p, 0)));
+                        if (cut.length) {
+                            cost += 60;
+                            crosses = [...new Set(cut.map(p => p.owner))];
+                        }
                     } else {
                         // Without a connector, a label reads as belonging to whichever dot
                         // it sits nearest — so it must sit nearer its own than any other.
                         const own = distTo(b, item.px, item.py);
                         if (dots.some(d => d.item !== item && distTo(b, d.item.px, d.item.py) < own + 2)) { cost += 60; ambiguous = true; }
                     }
-                    if (cost < bestCost) { bestCost = cost; best = { b, c, ambiguous }; }
+                    if (cost < bestCost) { bestCost = cost; best = { b, c, ambiguous, crosses }; }
                     if (cost === i) break; // clean slot, and slots are ordered nearest-first
                 }
+                return { best, bestCost };
+            }
+
+            function commit(item, best) {
+                // A near slot that still sits closer to another dot than its own gets a
+                // connector too; otherwise it reads as that other point's label
+                best.leader = Math.abs(best.c.dy) > LEADER_AT || best.ambiguous;
+                best.near = Math.abs(best.c.dy) <= LEADER_AT;
+                placed.push({ ...best.b, owner: item });
+                if (best.leader) {
+                    const l = leader(item, best.b, best.c, best.near);
+                    placed.push(...lineObstacles([[[l.x1, l.y1], [l.x2, l.y2]]]).map(q => ({ ...q, owner: item })));
+                }
+                item.slot = best;
+            }
+
+            // Newest first on phones, so if a crowded corner has to shed a label it is
+            // never the latest model's
+            const order = items.filter(i => i.labelled);
+            if (UI.compact) order.sort((a, b) => b.px - a.px);
+            order.forEach(item => {
+                const { best, bestCost } = choose(item);
                 // A phone has no room to spare: a label with nowhere clean to go is left
                 // off rather than drawn over another. The point is still a tap away.
                 if (UI.compact && bestCost >= 100) {
                     item.labelled = false;
                     return;
                 }
-                placed.push(best.b);
-                // A near slot that still sits closer to another dot than its own gets a
-                // connector too; otherwise it reads as that other point's label
-                best.leader = Math.abs(best.c.dy) > LEADER_AT || best.ambiguous;
-                best.near = Math.abs(best.c.dy) <= LEADER_AT;
-                if (best.leader) {
-                    const l = leader(item, best.b, best.c, best.near);
-                    placed.push(...lineObstacles([[[l.x1, l.y1], [l.x2, l.y2]]]));
+                // Repair: when the only way in is a connector through an earlier label,
+                // lift that label out, commit this one, and re-place the lifted label
+                // around it. Kept only if every lifted label lands clean; otherwise
+                // everything goes back as it was. (Haiku 5.5 on OSWorld: its dot sits
+                // just above where Sonnet 5.5's label had already gone.)
+                const victims = (best.crosses || []).filter(v => v && v !== item);
+                if (victims.length) {
+                    const saved = { placed, slots: victims.map(v => v.slot) };
+                    placed = placed.filter(p => !victims.includes(p.owner));
+                    commit(item, best);
+                    const redo = victims.map(v => ({ v, ...choose(v, 3) }));
+                    let ok = true;
+                    redo.forEach(r => {
+                        if (r.bestCost >= 60 || (r.best.crosses && r.best.crosses.length)) ok = false;
+                        else commit(r.v, r.best);
+                    });
+                    if (ok) return;
+                    placed = saved.placed;
+                    victims.forEach((v, i) => { v.slot = saved.slots[i]; });
                 }
-                item.slot = best;
+                commit(item, best);
             });
 
             const labels = items.filter(i => i.labelled).map(item => {
@@ -1444,9 +1513,11 @@
                     const l = leader(item, b, c, item.slot.near);
                     out += `<line x1="${l.x1.toFixed(1)}" y1="${l.y1.toFixed(1)}" x2="${l.x2.toFixed(1)}" y2="${l.y2.toFixed(1)}" stroke="${item.color}" stroke-width="1.1" stroke-opacity="0.6" />`;
                 }
+                const halo = soft && soft.some(p => hits(b, p, 0))
+                    ? ` stroke="#fbf2ec" stroke-width="${(3.5 * k).toFixed(1)}" stroke-linejoin="round" paint-order="stroke"` : '';
                 return out
-                     + `<text x="${x}" y="${b.nameY.toFixed(1)}" text-anchor="${c.anchor}" fill="${item.color}" font-size="11.5" font-weight="600">${item.name}</text>`
-                     + `<text x="${x}" y="${b.valueY.toFixed(1)}" text-anchor="${c.anchor}" fill="${item.color}" font-size="10.5" opacity="0.85">${item.value}</text>`;
+                     + `<text x="${x}" y="${b.nameY.toFixed(1)}" text-anchor="${c.anchor}" fill="${item.color}" font-size="11.5" font-weight="600"${halo}>${item.name}</text>`
+                     + `<text x="${x}" y="${b.valueY.toFixed(1)}" text-anchor="${c.anchor}" fill="${item.color}" font-size="10.5" opacity="0.85"${halo}>${item.value}</text>`;
             }).join('');
             const targets = items.map(item =>
                 `<circle cx="${item.px.toFixed(1)}" cy="${item.py.toFixed(1)}" r="${(11 * k).toFixed(1)}" fill="transparent"><title>${item.tip || `${item.name} — ${item.value}`}</title></circle>`
@@ -1476,6 +1547,17 @@
             }
 
             const n = f.newest, a = f.average;
+            // The stalest flagship always pulls the average age up; whether that makes the
+            // two readings disagree depends on how stale it is
+            const youngZone = z => z === 'fresh' || z === 'current';
+            const agreement = n.zone !== a.zone
+                ? `They can disagree sharply: a lineup can hold a brand-new flagship and still be old on average &mdash; ${a.oldestVersion} has sat untouched for ${a.oldestDays} days and pulls the average age up`
+                : youngZone(a.zone)
+                ? `The two can disagree sharply &mdash; a lineup can hold a brand-new flagship and still be old on average &mdash; but today both read ${a.zone}: even the stalest flagship, ${a.oldestVersion}, is only ${a.oldestDays} days old`
+                : `The two can disagree sharply, but today both read ${a.zone}: even the newest release is well into its family's cycle, and ${a.oldestVersion} has sat untouched for ${a.oldestDays} days`;
+            // Two markers this close would print their captions over each other's dots, so
+            // the captions step clear of the dots altogether
+            const crowded = Math.abs(Math.max(3, Math.min(97, n.percent)) - Math.max(3, Math.min(97, a.percent))) < 15;
             document.getElementById('fleet-freshness').innerHTML = `
                 <div class="fleet-head">
                     <h2 class="fleet-title">Lineup Freshness</h2>
@@ -1492,7 +1574,7 @@
                         <span class="zone-aging">Aging</span>
                         <span class="zone-dated">Dated</span>
                     </div>
-                    <div class="fleet-rail-track">
+                    <div class="fleet-rail-track${crowded ? ' crowded' : ''}">
                         <span class="rail-tick" style="left: 25%"></span>
                         <span class="rail-tick" style="left: 50%"></span>
                         <span class="rail-tick" style="left: 75%"></span>
@@ -1525,9 +1607,7 @@
                     release cycle (${n.version} is ${n.daysSince} day${n.daysSince === 1 ? '' : 's'} into an estimated ${n.cycleDays}-day ${n.family}
                     cycle). The right dot measures the average age of the ${f.modelCount} family flagships
                     (${a.ageDays} days) against how long a family typically goes between refreshes
-                    (${a.cycleDays} days). They can disagree sharply: a lineup can hold a brand-new flagship
-                    and still be old on average &mdash; ${a.oldestVersion} has sat untouched for ${a.oldestDays} days
-                    and drags the average ${a.zone === 'fresh' ? 'down' : 'up'}. For reference, something in the
+                    (${a.cycleDays} days). ${agreement}. For reference, something in the
                     lineup ships about every ${f.shipCadence} days.
                 </p>
             `;
@@ -1554,12 +1634,17 @@
 
             const WEEKS = 6;
             const axisStart = H.addDays(today, -WEEKS * 7);
-            // The forward horizon stretches to cover every family's estimated date (past
+            // The forward horizon stretches to cover each family's estimated date (past
             // estimates plot as "overdue, due now" on today's line instead) plus a little
-            // margin, so no future prediction sits off the chart. Never less than six weeks.
+            // margin. Never less than six weeks, and never more than HORIZON days: a family
+            // that has only just shipped (Haiku after 5.5, with a ~349-day cycle) would
+            // otherwise stretch the axis a year out and crush the near-term windows into
+            // slivers. A centre beyond the cap is noted at the lane's right edge instead.
+            const HORIZON = 120;
+            const horizonCap = H.addDays(today, HORIZON);
             const lastCentre = fc.families.reduce((latest, f) => {
                 const centre = f.overdue ? today : H.parse(f.predictedDate);
-                return centre > latest ? centre : latest;
+                return centre > latest && centre <= horizonCap ? centre : latest;
             }, H.addDays(today, WEEKS * 7 - 10));
             const axisEnd = H.addDays(lastCentre, 10);
             const SPAN = H.diffDays(axisStart, axisEnd);    // days, end to end
@@ -1596,7 +1681,10 @@
             // Week gridlines. Date labels adapt to the axis length — every fortnight when
             // six weeks forward, backing off to monthly-ish as the horizon stretches —
             // and skip the today-adjacent slot, which the TODAY flag already dates.
-            const labelEvery = SPAN > 130 || UI.compact ? 28 : 14;
+            // Whatever the span, labels keep at least ~48px (scaled) apart so they can't run
+            // together; the interval doubles until they do.
+            let labelEvery = SPAN > 130 || UI.compact ? 28 : 14;
+            while ((labelEvery / SPAN) * plotW < 48 * UI.k) labelEvery *= 2;
             for (let d = 0; d <= SPAN; d += 7) {
                 const at = H.addDays(axisStart, d);
                 const px = x(at);
@@ -1640,6 +1728,17 @@
                     svg += `<text x="${W - pad.right + 6}" y="${y + 4.5}" fill="${color}" font-size="13" font-weight="700" opacity="0.8">&#8250;</text>`;
                 }
             });
+            // A family whose whole window lies past the horizon still gets a word on its
+            // lane, at the right edge, so the lane doesn't read as "no forecast"
+            fc.families.forEach(f => {
+                const lane = laneOrder.indexOf(f.key);
+                if (lane === -1 || H.parse(f.windowStart) <= axisEnd) return;
+                const when = H.parse(f.predictedDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                svg += `<g><title>${f.label} — likely between ${windowFmt(f.windowStart)} and ${windowFmt(f.windowEnd)}, centred on ${fmt(f.predictedDate)}: past the edge of this calendar</title>`;
+                svg += `<text x="${W - pad.right - 2}" y="${laneY(lane) + 4}" text-anchor="end" fill="${FAMILY_COLORS[f.key]}" font-size="10" font-weight="600" font-style="italic">${f.label} ? ${when}</text>`;
+                svg += `<text x="${W - pad.right + 6}" y="${laneY(lane) + 4.5}" fill="${FAMILY_COLORS[f.key]}" font-size="13" font-weight="700" opacity="0.8">&#8250;</text>`;
+                svg += `</g>`;
+            });
 
             // Retrospective calls: for releases that shipped inside the visible window,
             // where did this same model, run the day before, say they would land? The
@@ -1666,7 +1765,12 @@
                 // On phones the caption would be wider than the lane allows; the tick stays,
                 // and tapping it gives the same words
                 if (!UI.compact) {
-                    svg += `<text x="${Math.max((xp + xa) / 2, pad.left + 40)}" y="${cy + 13}" text-anchor="middle" fill="${color}" font-size="9" font-style="italic" opacity="0.85">called ${shortFmt(r.predicted)} &middot; ${desc}</text>`;
+                    const caption = `called ${shortFmt(r.predicted)} &middot; ${desc}`;
+                    const half = caption.replace(/&middot;/, '.').length * 4.6 / 2;
+                    let cxText = Math.max((xp + xa) / 2, pad.left + 40), capAnchor = 'middle';
+                    // Keep the caption off the today rule, as the shipped labels do
+                    if (cxText <= xToday && cxText + half > xToday - 3) { cxText = xToday - 4; capAnchor = 'end'; }
+                    svg += `<text x="${cxText}" y="${cy + 13}" text-anchor="${capAnchor}" fill="${color}" font-size="9" font-style="italic" opacity="0.85">${caption}</text>`;
                 }
                 svg += `</g>`;
             });
@@ -1723,6 +1827,9 @@
                 if (m.overdue) { tx = cx + 11; anchor = 'start'; }
                 else if (cx - width / 2 < pad.left + 2) { tx = pad.left + 2; anchor = 'start'; }
                 else if (cx + width / 2 > W - pad.right - 2) { tx = W - pad.right - 2; anchor = 'end'; }
+                // A release from the last few days would have the today rule through its
+                // name; end the label just short of the rule instead
+                else if (m.shipped && cx <= xToday && cx + width / 2 > xToday - 3) { tx = xToday - 4; anchor = 'end'; }
                 const style = m.shipped ? '' : ' font-style="italic"';
                 svg += `<text x="${tx}" y="${cy - 12 * UI.k}" text-anchor="${anchor}" fill="${m.color}" font-size="10" font-weight="${m.shipped ? 700 : 600}"${style}>${text}</text>`;
                 svg += `</g>`;
@@ -1778,8 +1885,8 @@
             const matureNames = listNames(fc.families.filter(f => f.sampleSize >= 2).map(f => f.name));
             const haikuRow = fc.families.find(f => f.key === 'haiku');
             document.getElementById('forecast-method').innerHTML =
-                `Each family's next release is estimated from a decayed average of its own release gaps &mdash; the most recent gap carries full weight, the one before it a quarter, the one before that a sixteenth. A family with two or more gaps stands entirely on its own history; a single-gap family is blended toward the lineup-wide baseline of ${fc.baselineGap} days &mdash; which is where Fable and Mythos now sit: the 5.1 releases on September 1 gave each family its first gap, 84 days, so their estimates blend that one gap with the baseline instead of resting on the baseline alone, as they did before. A family whose estimated date has already passed is marked overdue and plotted on today. Confidence labels reflect depth of history, not demonstrated accuracy &mdash; Haiku's two gaps earn "low" because no Haiku forecast has ever been scored in that regime.`
-                + ` <strong>Track record</strong>, from replaying the ${bt.count} releases the model could forecast (family-firsts have nothing to forecast from): median error ${bt.medianAbsErrorDays} days overall, ~${Math.round(bt.matureMedianAbsErrorDays)} days across the ${bt.matureCount} forecasts made with two or more prior gaps &mdash; the regime ${matureNames} are in today, though that set is all Opus and Sonnet; no Haiku call has been scored there. Scored the day before each release &mdash; a vantage from which a window can only miss early, never late &mdash; the window caught ${bt.datedHits} of ${bt.datedCount} dated calls. The harder, two-sided test replays every one of the ${bt.displayDays.toLocaleString('en-US')} days a forecast was on display: the window shown on a random historical day contained the eventual release date ${bt.dayWeightedCoverage}% of the time, and a "due now" flag was showing on ${bt.dueNowDays.toLocaleString('en-US')} of those days &mdash; the honest number, and the one to hold the chart to`
+                `Each family's next release is estimated from a decayed average of its own release gaps &mdash; the most recent gap carries full weight, the one before it a quarter, the one before that a sixteenth. A family with two or more gaps stands entirely on its own history; a single-gap family is blended toward the lineup-wide baseline of ${fc.baselineGap} days &mdash; which is where Fable and Mythos now sit: the 5.1 releases on September 1 gave each family its first gap, 84 days, so their estimates blend that one gap with the baseline instead of resting on the baseline alone, as they did before. A family whose estimated date has already passed is marked overdue and plotted on today. Confidence labels reflect depth of history, not demonstrated accuracy: four or more gaps earn "high", three "medium", fewer "low". Haiku 5.5 (October 7, 2026) gave Haiku its third gap and moved it from "low" to "medium"; the one Haiku call scored with two gaps, Haiku 5.5 itself, landed 34 days after the estimate and had been flagged overdue since early September.`
+                + ` <strong>Track record</strong>, from replaying the ${bt.count} releases the model could forecast (family-firsts have nothing to forecast from): median error ${bt.medianAbsErrorDays} days overall, ~${Math.round(bt.matureMedianAbsErrorDays)} days across the ${bt.matureCount} forecasts made with two or more prior gaps &mdash; the regime ${matureNames} are in today. All but one of those forecasts are Opus and Sonnet calls; the exception is Haiku 5.5, so the figure says little yet about Haiku. Scored the day before each release &mdash; a vantage from which a window can only miss early, never late &mdash; the window caught ${bt.datedHits} of ${bt.datedCount} dated calls. The harder, two-sided test replays every one of the ${bt.displayDays.toLocaleString('en-US')} days a forecast was on display: the window shown on a random historical day contained the eventual release date ${bt.dayWeightedCoverage}% of the time, and a "due now" flag was showing on ${bt.dueNowDays.toLocaleString('en-US')} of those days &mdash; the honest number, and the one to hold the chart to`
                 + (latest ? `. The most recent call, ${latest.version.replace('Claude ', '')}, was ${Math.abs(latest.errorDays)} day${Math.abs(latest.errorDays) === 1 ? '' : 's'} out` : '')
                 + `. The dotted ticks on the calendar are these retrospective calls drawn in place. The decay rate was picked by sweeping it against this backtest (so quoted accuracy is in-sample); the window width was widened August 2026 from &plusmn;35% after a review found the narrower bars caught only 4 of 7 dated calls, and the same review stopped full-history families being dragged toward the baseline, which had been manufacturing a phantom Haiku overdue call.`
                 + (haikuRow && haikuRow.overdue ? ` Haiku's overdue flag today is not that artifact: at ${haikuRow.daysSince} days against its own ${haikuRow.gapDays}-day cycle, it comes from Haiku's history alone.` : '')
@@ -1813,14 +1920,20 @@
                     // runs plus the newest release's 2.1 run, not two evals interleaved.
                     { model: 'Opus 5.5', date: '2026-09-22', score: 81.8, v21: true }
                 ],
-                haiku: [
-                    { model: 'Haiku 4.5', date: '2025-10-15', score: 50.7 }
-                ],
                 fable: [
                     { model: 'Fable 5', date: '2026-06-09', score: 85.0 }
                 ],
                 mythos: [
                     { model: 'Mythos Preview', date: '2026-04-07', score: 79.6, preview: true }
+                ],
+                haiku: [
+                    { model: 'Haiku 4.5', date: '2025-10-15', score: 50.7 },
+                    // OSWorld 2.1 *offline subset* (82 of the 108 tasks, VM with no internet),
+                    // partial credit, from the Haiku 5.5 system card sec. 8.9.3: 72.4% partial,
+                    // 37.1% strict. A smaller task set than the Opus/Sonnet 5.5 points (all 108
+                    // tasks), so `subset` labels it; on the same 82 tasks the card has Sonnet 5.5
+                    // 83.9 / 48.8, Opus 5.5 87.2 / 53.2 and Haiku 4.5 15.7 partial.
+                    { model: 'Haiku 5.5', date: '2026-10-07', score: 72.4, v21: true, subset: 'offline' }
                 ]
             };
 
@@ -1840,8 +1953,10 @@
             // Date range from Sep 2024; the right edge follows the newest point.
             // Points flagged v21 are OSWorld 2.1 partial-credit runs rather than
             // OSWorld-Verified: Anthropic stopped reporting Verified after Sonnet 5 (Jun 30),
-            // so the newest release in each family joins its line through a dashed
-            // segment and is drawn hollow, marking the switch of eval.
+            // so the newest Opus, Sonnet and Haiku releases join their lines through a
+            // dashed segment and are drawn hollow, marking the switch of eval. (Fable and
+            // Mythos keep their Verified points; their 2.x runs stay in the notes.) A
+            // `subset` flag marks a run on a reduced task set, named in its tooltip.
             const minDate = new Date('2024-09-01T00:00:00');
             const maxDate = dateDomainEnd('2026-08-15', Object.values(benchmarkData).flat().map(p => p.date));
             const dateRange = maxDate - minDate;
@@ -1883,14 +1998,27 @@
 
             // Draw each series
             const labelItems = [];
-            const lineSegPoints = [];
+            const lineSegPoints = [], softSegPoints = [];
             Object.entries(benchmarkData).forEach(([series, points]) => {
                 const color = colors[series];
 
                 // Line connecting points: solid within an eval, dashed into an OSWorld 2.1 point
                 if (points.length > 1) {
-                    lineSegPoints.push(points.map(p => [x(p.date), y(p.score)]));
-                    const solid = points.filter(p => !p.v21);
+                    // Labels dodge the solid lines and the short dashed hops, but may sit over
+                    // a long dashed one: Haiku 4.5 -> 5.5 spans a year straight through the
+                    // crowded 2026 cluster, and treating it as an obstacle shoved that
+                    // cluster's labels into a pile at the top right.
+                    // It goes to placeLabels as a soft line instead: a label may still sit
+                    // on it, but gets a halo so the dashes don't strike through its text
+                    // (Mythos Preview's had been).
+                    const solidPts = points.filter(p => !p.v21);
+                    lineSegPoints.push(solidPts.map(p => [x(p.date), y(p.score)]));
+                    points.forEach((p, i) => {
+                        if (i === 0 || !p.v21) return;
+                        const seg = [[x(points[i - 1].date), y(points[i - 1].score)], [x(p.date), y(p.score)]];
+                        (x(p.date) - x(points[i - 1].date) < cw / 6 ? lineSegPoints : softSegPoints).push(seg);
+                    });
+                    const solid = solidPts;
                     if (solid.length > 1) {
                         const pathD = solid.map((p, i) => (i === 0 ? 'M' : 'L') + `${x(p.date)},${y(p.score)}`).join(' ');
                         svg += `<path d="${pathD}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`;
@@ -1909,8 +2037,11 @@
 
                     // Dot — preview-only drops get a diagonal white slash through the middle;
                     // OSWorld 2.1 runs are hollow, in the series colour
+                    const v21Tip = p.subset === 'offline'
+                        ? `${p.model} — OSWorld 2.1 offline subset (82 of 108 tasks), partial credit: ${p.score}%`
+                        : `${p.model} — OSWorld 2.1, partial credit: ${p.score}%`;
                     if (p.v21) {
-                        svg += `<circle cx="${px}" cy="${py}" r="5" fill="#fffdfa" stroke="${color}" stroke-width="2.4"><title>${p.model} — OSWorld 2.1, partial credit: ${p.score}%</title></circle>`;
+                        svg += `<circle cx="${px}" cy="${py}" r="5" fill="#fffdfa" stroke="${color}" stroke-width="2.4"><title>${v21Tip}</title></circle>`;
                     } else {
                         svg += `<circle cx="${px}" cy="${py}" r="5" fill="${color}" stroke="white" stroke-width="2" />`;
                     }
@@ -1918,12 +2049,12 @@
                         svg += `<line x1="${px - 3}" y1="${py + 3}" x2="${px + 3}" y2="${py - 3}" stroke="white" stroke-width="1.5" stroke-linecap="round" />`;
                     }
 
-                    labelItems.push({ px, py, color, name: p.model, value: p.v21 ? `${p.score}% (2.1)` : `${p.score}%`,
-                                      tip: p.v21 ? `${p.model} — OSWorld 2.1, partial credit: ${p.score}%` : undefined });
+                    labelItems.push({ px, py, color, name: p.model, value: p.v21 ? `${p.score}% (2.1${p.subset ? ' ' + p.subset : ''})` : `${p.score}%`,
+                                      tip: p.v21 ? v21Tip : undefined });
                 });
             });
 
-            svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch }, lineObstacles(lineSegPoints));
+            svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch }, lineObstacles(lineSegPoints), lineObstacles(softSegPoints));
 
             svg += '</svg>';
 
@@ -2119,6 +2250,10 @@
                         // Under the axis rather than inside the band, where the staircase's
                         // early steps ran through them
                         svg += `<text x="${bandX + bandW / 2}" y="${pad.top + ch + 15 * UI.k}" text-anchor="middle" fill="#5b4636" font-size="12" font-weight="700">${qReleases.length}</text>`;
+                    } else if (qReleases.length > 0 && endClamped === MAX) {
+                        // The quarter in progress can be only days wide; its count still
+                        // shows, starting at the band and running into the right margin
+                        svg += `<text x="${bandX + 1}" y="${pad.top + ch + 15 * UI.k}" text-anchor="start" fill="#5b4636" font-size="12" font-weight="700"><title>${qReleases.length} so far this quarter</title>${qReleases.length}</text>`;
                     }
                 }
                 qIdx += 1;
@@ -2231,6 +2366,10 @@
             // Fable 5.1 ($5,422) and Opus 5.5 ($9,235) added Sep 28, 2026 from the board's
             // embedded data, each a single untiered entry over six runs; every earlier row
             // above matched that read to the dollar. Sonnet 5.5 had no run yet.
+            // Re-read 2026-10-10 from the same embedded data (runs.vb2, 69 entries): Sonnet
+            // 5.5 $11,165.28 (+/- $1,585 SEM, six runs, rank 5) and Haiku 5.5 $3,602.46
+            // (+/- $691 SEM, six runs, rank 46), both untiered and flagged "New"; every
+            // other row above again matched to the dollar.
             const earningsData = {
                 opus: [
                     { model: 'Opus 4.5', date: '2025-11-24', score: 4967 },
@@ -2243,10 +2382,12 @@
                 sonnet: [
                     { model: 'Sonnet 4.5', date: '2025-09-29', score: 3839 },
                     { model: 'Sonnet 4.6', date: '2026-02-17', score: 7204 },
-                    { model: 'Sonnet 5',   date: '2026-06-30', score: 6378 }
+                    { model: 'Sonnet 5',   date: '2026-06-30', score: 6378 },
+                    { model: 'Sonnet 5.5', date: '2026-09-28', score: 11165 }
                 ],
                 haiku: [
-                    { model: 'Haiku 4.5', date: '2025-10-15', score: 459 }
+                    { model: 'Haiku 4.5', date: '2025-10-15', score: 459 },
+                    { model: 'Haiku 5.5', date: '2026-10-07', score: 3602 }
                 ],
                 fable: [
                     { model: 'Fable 5',   date: '2026-06-09', score: 5680 },
@@ -2271,7 +2412,7 @@
             const maxDate = dateDomainEnd('2026-08-15', Object.values(earningsData).flat().map(p => p.date));
             const dateRange = maxDate - minDate;
 
-            // Earnings range: $0 to $12,000 (Opus 5 tops the board at $11,182)
+            // Earnings range: $0 to $12,000 (Opus 5 tops the Claude entries at $11,182)
             const minScore = 0;
             const maxScore = 12000;
             const step = 2000;
@@ -2349,7 +2490,9 @@
         // Only Claude entrants are plotted, by choice: a round with no `win` entry was
         // won by another lab's model and carries no ring, and the 2026-07-09 round, which
         // fielded no Claude model, is dropped. The Feb 11 team round (2xGLM-5 vs
-        // 2xClaude, non-standard rules) is omitted too.
+        // 2xClaude, non-standard rules) is omitted too. Checked 2026-10-10: Andon's
+        // embedded run data has no Arena round with Sonnet 5.5 or Haiku 5.5 (Haiku 5.5
+        // appears only on the single-player Vending-Bench 2 board).
         function renderArenaChart() {
             const rounds = [
                 { date: '2025-11-18', entries: [
@@ -2492,6 +2635,13 @@
             // Sonnet 5.5 (1844, max effort, default fallback); every other row was unchanged.
             // AA ran Sonnet 5.5 on a pre-release deployment that Anthropic says had a
             // structured-outputs bug, since fixed, which it expects to understate the score.
+            // Haiku 5.5 added 2026-10-10 from the live board: "Claude Haiku 5.5 (Max)" 1618
+            // (-23/+23), no fallback label (it has no fallback model). Anthropic's card quotes
+            // 1620 for the same AA eval. That read re-rated the existing rows by up to ~21
+            // points (Opus 5.5 1866, Sonnet 5.5 1838, Fable 5.1 1756, Opus 5 1722, Fable 5
+            // 1610, Sonnet 5 1463, Opus 4.8 1453, Opus 4.7 1353, Sonnet 4.6 1232, Sonnet 4.5
+            // 909, Haiku 4.5 732, Sonnet 4 691); those rows are kept at the Sep 22/28 pull
+            // until the chart is re-pulled as a whole, which the note under the chart says.
             const gdpvalData = {
                 fable: [
                     { model: 'Fable 5',   date: '2026-06-09', score: 1595 },
@@ -2511,7 +2661,8 @@
                     { model: 'Sonnet 5.5', date: '2026-09-28', score: 1844 }
                 ],
                 haiku: [
-                    { model: 'Haiku 4.5', date: '2025-10-15', score: 719 }
+                    { model: 'Haiku 4.5', date: '2025-10-15', score: 719 },
+                    { model: 'Haiku 5.5', date: '2026-10-07', score: 1618 }
                 ]
             };
 
@@ -2573,7 +2724,10 @@
                     const py = y(p.score);
                     svg += `<circle cx="${px}" cy="${py}" r="5" fill="${color}" stroke="white" stroke-width="2" />`;
 
-                    labelItems.push({ px, py, color, name: p.model, value: `${p.score}` });
+                    // Haiku runs below the other lines, so its labels go below its dots,
+                    // leaving the space above the 2026 cluster to the cluster's own labels
+                    // (on phones Haiku 5.5, newest, is placed first and had taken it)
+                    labelItems.push({ px, py, color, name: p.model, value: `${p.score}`, prefer: series === 'haiku' ? 'below' : undefined });
                 });
             });
 
@@ -2594,6 +2748,8 @@
             // Opus 5.5 read from the same files (media/data/evaluations.json) Sep 28, 2026:
             // its strongest ARC-AGI-2 semi-private run is High, 93.33% at $0.41/task (xhigh
             // 92.50, max 91.67 on partial coverage). No ARC-AGI-3 run yet; Sonnet 5.5 unlisted.
+            // Re-read 2026-10-10 (evaluations.json, leaderboard/v2.json): still no Sonnet 5.5
+            // entry and none for Haiku 5.5; the only Haiku rows are Haiku 4.5's.
             const arcData = {
                 opus: [
                     { model: 'Opus 4.5', date: '2025-11-24', score: 37.6 },
@@ -2709,7 +2865,12 @@
         }
 
         // Capability Profile — radar/spider chart across ten evaluations, one polygon per
-        // family's newest model (Opus 5.5, Sonnet 5.5, Fable 5.1, Haiku 4.5). Form borrowed
+        // family's newest model (Opus 5.5, Sonnet 5.5, Fable 5.1), plus Haiku 4.5 standing
+        // in for Haiku until AA publishes Haiku 5.5's suite. Checked 2026-10-10:
+        // artificialanalysis.ai/models/claude-haiku-5-5 shows only the Intelligence Index
+        // (43) and "Not publicly available" for every sub-eval; Anthropic's card gives only
+        // SWE-bench Pro 64.8 and HealthBench Professional 64.8 on these axes, and the
+        // null-spoke drawing handles one gap, not eight. Form borrowed
         // from Thinking Machines' Inkling launch chart, restyled to this page's palette.
         // Rebuilt 2026-09-28: Artificial Analysis had reworked its suite (no GPQA Diamond
         // or Terminal-Bench 2.1 runs for the newest models, Agentic Index retired,
@@ -2907,8 +3068,13 @@
 
         // Remote Labor Index — share of 240 real freelance projects completed to a standard
         // a paying client would accept. Figures from the Scale AI / CAIS leaderboard and the
-        // accompanying CAIS write-up, pulled 2026-07-29; the two agree on every Claude entry.
-        // Only these five Claude runs exist — Opus 5 shipped after the July results.
+        // accompanying CAIS write-up, pulled 2026-07-29; the two agree on every Claude entry
+        // (Fable 5: write-up 15.8%, board 15.83%). Opus 5 shipped after the July results.
+        // Re-checked 2026-10-10 (labs.scale.com/leaderboard/rli, embedded entries JSON): two
+        // new Claude rows, Opus 5.5 21.25% (rank 1, flagged NEW, createdAt 2026-10-07) and
+        // Fable 5.1 17.92% (rank 3, createdAt 2026-09-17), both plotted below; GPT 6 Astra
+        // sits between them at 20.83%. No row for Opus 5, Sonnet 5 or 5.5, Haiku 4.5 or 5.5,
+        // or any Mythos. The board gives no harness or budget for the two new runs.
         function renderRliChart() {
             const rliData = {
                 sonnet: [
@@ -2917,10 +3083,12 @@
                 opus: [
                     { model: 'Opus 4.5', date: '2025-11-24', score: 3.75 },
                     { model: 'Opus 4.6', date: '2026-02-05', score: 4.17, scaffold: 'Cowork scaffold' },
-                    { model: 'Opus 4.8', date: '2026-05-28', score: 8.33 }
+                    { model: 'Opus 4.8', date: '2026-05-28', score: 8.33 },
+                    { model: 'Opus 5.5', date: '2026-09-22', score: 21.25 }
                 ],
                 fable: [
-                    { model: 'Fable 5', date: '2026-06-09', score: 15.8 }
+                    { model: 'Fable 5', date: '2026-06-09', score: 15.83 },
+                    { model: 'Fable 5.1', date: '2026-09-01', score: 17.92 }
                 ]
             };
 
@@ -2930,13 +3098,12 @@
             const cw = W - pad.left - pad.right;
             const ch = H - pad.top - pad.bottom;
 
-            // Runs to mid-August so the empty right-hand edge is visible: that is where an
-            // Opus 5 run would sit once one is published.
+            // Runs to mid-August at least; past that the edge follows the newest run.
             const minDate = new Date('2025-09-01T00:00:00');
             const maxDate = dateDomainEnd('2026-08-15', Object.values(rliData).flat().map(p => p.date));
             const dateRange = maxDate - minDate;
 
-            const minScore = 0, maxScore = 18, step = 3;
+            const minScore = 0, maxScore = 24, step = 4;
 
             function x(dateStr) {
                 const d = new Date(dateStr + 'T00:00:00');
@@ -2965,7 +3132,11 @@
             // on this chart is measured against.
             const launchY = y(2.5);
             svg += `<line x1="${pad.left}" y1="${launchY}" x2="${W - pad.right}" y2="${launchY}" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="6,4" stroke-opacity="0.65" />`;
-            svg += `<text x="${W - pad.right - 4}" y="${launchY - 7}" text-anchor="end" fill="#b8860b" font-size="10.5" font-style="italic">2.5% &mdash; best of any model at launch, Oct 2025</text>`;
+            // On phones the caption sits under the line, in the empty band above the axis:
+            // above it, the compressed early Opus runs printed straight over it
+            const launchText = UI.compact ? '2.5% &mdash; best at launch, Oct 2025' : '2.5% &mdash; best of any model at launch, Oct 2025';
+            const launchTextY = UI.compact ? launchY + 15 * UI.k : launchY - 7;
+            svg += `<text x="${W - pad.right - 4}" y="${launchTextY}" text-anchor="end" fill="#b8860b" font-size="10.5" font-style="italic">${launchText}</text>`;
 
             svg += `<line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
             svg += `<line x1="${pad.left}" y1="${pad.top + ch}" x2="${W - pad.right}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
@@ -2991,7 +3162,7 @@
             });
 
             svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch },
-                [annotationBox(W - pad.right - 4, launchY - 7, '2.5% - best of any model at launch, Oct 2025', 10.5)]
+                [annotationBox(W - pad.right - 4, launchTextY, launchText, 10.5)]
                     .concat(lineObstacles(lineSegPoints.concat([[[pad.left, launchY], [W - pad.right, launchY]]]))));
 
             svg += '</svg>';
@@ -3007,8 +3178,11 @@
             // 69.2 (Opus 4.8 card), Mythos Preview 77.8 (its card), Fable 5 80 (Fable 5 /
             // Mythos 5 card), Sonnet 4.6 58.1 and Sonnet 5 63.2 (Sonnet 5 card), Opus 5 79.2
             // (Opus 5 card), Fable 5.1 81.2 and Opus 5.5 89.9 (Opus 5.5 card), Sonnet 5.5
-            // 81.3 (Sonnet 5.5 card). Mythos 5 (80.3) shares Fable 5's date and is omitted to
-            // avoid an exact overlap. Haiku 4.5 and Sonnet 4.5 have no Anthropic figure. This
+            // 81.3 (Sonnet 5.5 card); Haiku 5.5 64.8 (Haiku 5.5 card, Table 8.1.A, max effort,
+            // added 2026-10-10), the first Haiku with an Anthropic Pro figure. Mythos 5 (80.3)
+            // shares Fable 5's date and is omitted to avoid an exact overlap. Haiku 4.5 and
+            // Sonnet 4.5 have no Anthropic figure (the Haiku 5.5 card's table leaves Haiku
+            // 4.5's Pro cell blank too). This
             // chart replaced SWE-bench Verified on 2026-09-28, when Anthropic had stopped
             // reporting Verified; that history is in the note under the chart.
             const sweData = {
@@ -3024,6 +3198,9 @@
                     { model: 'Sonnet 4.6', date: '2026-02-17', score: 58.1 },
                     { model: 'Sonnet 5',   date: '2026-06-30', score: 63.2 },
                     { model: 'Sonnet 5.5', date: '2026-09-28', score: 81.3 }
+                ],
+                haiku: [
+                    { model: 'Haiku 5.5', date: '2026-10-07', score: 64.8 }
                 ],
                 fable: [
                     { model: 'Fable 5',   date: '2026-06-09', score: 80.0 },
@@ -3111,7 +3288,9 @@
             // Fable 5 and Opus 4.8 at max. Using a single harness keeps the series internally
             // comparable; Artificial Analysis's harness puts Opus 5 higher (89.1%), and
             // that figure is on the radar instead. Only models with a published 2.1 run
-            // appear, which is why the series starts at Haiku 4.5 and Sonnet 4.6.
+            // appear, which is why the series starts at Haiku 4.5 and Sonnet 4.6. Re-checked
+            // 2026-10-10: no Haiku 5.5 run on the Vals 2.1 board yet (Haiku 4.5 Thinking
+            // still 43.82).
             const tbData = {
                 opus: [
                     { model: 'Opus 4.7', date: '2026-04-16', score: 68.5 },
@@ -3208,7 +3387,7 @@
 
         // API Pricing Chart — grouped input/output bars per current model
         function renderPricingChart() {
-            // Claude API list pricing (per million tokens) as of September 28, 2026,
+            // Claude API list pricing (per million tokens) as of October 10, 2026,
             // from platform.claude.com/docs/en/about-claude/pricing. Fable 5.1 holds
             // Fable 5's $10/$50 — its price cut is in cache reads ($1 → $0.25/MTok),
             // which these bars don't show. Claude Mythos 5.1 is priced identically
@@ -3219,22 +3398,29 @@
             // Opus 5.5 (Sep 22, 2026) is the first Opus price cut since Opus 4.5:
             // $4/$20, down from the $5/$25 the tier held from Opus 4.5 through Opus 5.
             // Sonnet 5.5 (Sep 28, 2026) replaces Sonnet 5 as the current Sonnet at the
-            // same $2/$10 (cache reads $0.20, the standard 10%); Sonnet 5 stays on the API.
-            // Haiku 5.5 is announced for "the coming weeks" but unpriced, so Haiku 4.5 stays.
+            // same $2/$10 (cache reads $0.20 at launch, halved to $0.10 on Oct 7, 2026 per the
+            // Haiku 5.5 announcement); Sonnet 5 stays on the API.
+            // Haiku 5.5 (Oct 7, 2026) is priced by prompt length, the only current Claude
+            // model that is: $0.10/$0.50 for prompts up to 100k tokens and $0.50/$2.50 above
+            // (cache reads $0.01 / $0.05, 5m cache writes $0.125 / $0.625, Batch half), per
+            // the pricing docs' model and long-context tables. The bars show the up-to-100k
+            // rate; `long` carries the over-100k rate into the tooltips. Haiku 4.5 stays on
+            // the API at $1/$5.
             // prev is the tier's list price before its most recent change, drawn dashed:
-            // Haiku 3.5's $0.80/$4 rose 25% with Haiku 4.5 (Oct 2025); Sonnet 4.6's
+            // Haiku 4.5's $1/$5 fell 90% with Haiku 5.5 (Oct 7, 2026); Sonnet 4.6's
             // $3/$15 fell a third with Sonnet 5 (Jun 30, 2026); Opus 5's $5/$25 fell 20% with
             // Opus 5.5 (Sep 22, 2026). Fable has held $10/$50 since it launched.
             const pricing = [
-                { name: 'Haiku 4.5',  family: 'haiku',  input: 1,  output: 5,
-                  prev: { model: 'Haiku 3.5', input: 0.8, output: 4, until: '2025-10-15' } },
+                { name: 'Haiku 5.5',  family: 'haiku',  input: 0.1, output: 0.5,
+                  long: { input: 0.5, output: 2.5, over: '100k' },
+                  prev: { model: 'Haiku 4.5', input: 1, output: 5, until: '2026-10-07' } },
                 { name: 'Sonnet 5.5', family: 'sonnet', input: 2,  output: 10,
                   prev: { model: 'Sonnet 4.6', input: 3, output: 15, until: '2026-06-30' } },
                 { name: 'Opus 5.5',   family: 'opus',   input: 4,  output: 20,
                   prev: { model: 'Opus 5', input: 5, output: 25, until: '2026-09-22' } },
                 { name: 'Fable 5.1',  family: 'fable',  input: 10, output: 50 }
             ];
-            const usd = v => `$${v < 1 ? v.toFixed(2) : v}`;
+            const usd = v => `$${Number.isInteger(v) ? v : v.toFixed(2)}`;
             const colors = { haiku: '#8fa882', sonnet: '#d4836a', opus: '#9d7bb0', fable: '#c09a5b' };
 
             const { W, H, pad } = frame(800, 400, { top: 42, right: 25, bottom: 75, left: 55 });
@@ -3262,19 +3448,27 @@
                 const xIn = cx - gap / 2 - barW;
                 const xOut = cx + gap / 2;
 
-                // Input bar (lighter) and output bar (solid)
-                svg += `<rect x="${xIn}" y="${y(m.input)}" width="${barW}" height="${y(0) - y(m.input)}" fill="${color}" fill-opacity="0.45" rx="3"><title>${m.name} — $${m.input} per million input tokens</title></rect>`;
-                svg += `<rect x="${xOut}" y="${y(m.output)}" width="${barW}" height="${y(0) - y(m.output)}" fill="${color}" rx="3"><title>${m.name} — $${m.output} per million output tokens</title></rect>`;
+                // Input bar (lighter) and output bar (solid). Haiku 5.5's $0.10 input is half a
+                // unit tall on this scale, so every bar gets a 3-unit floor to stay visible;
+                // the label above it carries the exact price.
+                const MIN_BAR = 3;
+                const barTop = v => Math.min(y(v), y(0) - MIN_BAR);
+                const tierNote = kind => m.long
+                    ? ` for prompts up to ${m.long.over} tokens; ${usd(m.long[kind])} above`
+                    : '';
+                svg += `<rect x="${xIn}" y="${barTop(m.input)}" width="${barW}" height="${y(0) - barTop(m.input)}" fill="${color}" fill-opacity="0.45" rx="${m.input < 1 ? 1 : 3}"><title>${m.name} — ${usd(m.input)} per million input tokens${tierNote('input')}</title></rect>`;
+                svg += `<rect x="${xOut}" y="${barTop(m.output)}" width="${barW}" height="${y(0) - barTop(m.output)}" fill="${color}" rx="${m.output < 1 ? 1 : 3}"><title>${m.name} — ${usd(m.output)} per million output tokens${tierNote('output')}</title></rect>`;
 
                 // Previous price, dashed. After a cut it's an open-bottomed outline standing on
-                // the bar's top; after a rise (Haiku) it's a line across the bar at the old level.
+                // the bar's top; after a rise it's a line across the bar at the old level (no
+                // current tier's last change was a rise; Haiku 4.5's over Haiku 3.5 was the last).
                 const p = m.prev;
                 if (p) {
                     const since = formatDate(p.until);
                     [[xIn, m.input, p.input, 'input'], [xOut, m.output, p.output, 'output']].forEach(([bx, now, was, kind]) => {
                         const tip = `<title>${p.model} — ${usd(was)} per million ${kind} tokens, until ${since}</title>`;
                         if (was > now) {
-                            svg += `<path d="M ${bx} ${y(now)} V ${y(was)} H ${bx + barW} V ${y(now)}" fill="transparent" stroke="${color}" stroke-width="1.5" stroke-dasharray="4 3">${tip}</path>`;
+                            svg += `<path d="M ${bx} ${barTop(now)} V ${y(was)} H ${bx + barW} V ${barTop(now)}" fill="transparent" stroke="${color}" stroke-width="1.5" stroke-dasharray="4 3">${tip}</path>`;
                         } else {
                             svg += `<line x1="${bx}" y1="${y(was)}" x2="${bx + barW}" y2="${y(was)}" stroke="#5b4636" stroke-opacity="0.7" stroke-width="1.5" stroke-dasharray="4 3">${tip}</line>`;
                         }
@@ -3283,11 +3477,16 @@
 
                 // Value labels above each bar, or above its ghost when the old price was higher
                 // On phones the bars are too narrow for "in"/"out"; shade says which is which
-                const inLabel = UI.compact ? `$${m.input}` : `$${m.input} in`;
-                const outLabel = UI.compact ? `$${m.output}` : `$${m.output} out`;
+                const inLabel = UI.compact ? usd(m.input) : `${usd(m.input)} in`;
+                const outLabel = UI.compact ? usd(m.output) : `${usd(m.output)} out`;
                 const inTop = Math.max(m.input, p ? p.input : 0);
                 const outTop = Math.max(m.output, p ? p.output : 0);
-                svg += `<text x="${xIn + barW / 2}" y="${y(inTop) - 8}" text-anchor="middle" fill="${color}" font-size="11" font-weight="600">${inLabel}</text>`;
+                // A long input label ("$0.10") is wider than its bar on phones; end it a few
+                // units short of the output bar (or its ghost) rather than touching it
+                const inHalf = inLabel.length * 11 * UI.k * 0.56 / 2;
+                const inLimit = xOut - 4 * UI.k;
+                const inX = Math.min(xIn + barW / 2, inLimit - inHalf);
+                svg += `<text x="${inX}" y="${y(inTop) - 8}" text-anchor="middle" fill="${color}" font-size="11" font-weight="600">${inLabel}</text>`;
                 svg += `<text x="${xOut + barW / 2}" y="${y(outTop) - 8}" text-anchor="middle" fill="${color}" font-size="11" font-weight="600">${outLabel}</text>`;
 
                 // "2.5× Opus" annotation over the Fable group

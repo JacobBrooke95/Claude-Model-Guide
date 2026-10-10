@@ -1254,6 +1254,12 @@ a:hover {
 .fleet-marker-caption.above { bottom: 26px; }
 .fleet-marker-caption.below { top: 26px; }
 
+/* Markers within a few percent of each other: captions clear the dots entirely, so
+   neither caption runs under the other marker's dot */
+.fleet-rail-track.crowded { margin-top: 52px; margin-bottom: 60px; }
+.fleet-rail-track.crowded .fleet-marker-caption.above { bottom: 39px; }
+.fleet-rail-track.crowded .fleet-marker-caption.below { top: 39px; }
+
 .fleet-marker-title {
   font-size: 0.68rem;
   font-weight: 700;
@@ -1693,8 +1699,9 @@ a:hover {
 
 .benchmark-paper-link-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem 0.5rem;
   font-size: 0.78rem;
 }
 
