@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Card Metrics - What Anthropic Measures</title>
+    <meta name="description" content="Every evaluation reported in Anthropic's Claude system cards since Claude Opus 4, indexed across models.">
+    <link rel="stylesheet" href="styles.css?v=4">
+    <style>
+        /* Page-specific styles. Shared tokens and components come from styles.css (see DESIGN.md). */
+        :root {
+            --fam-opus: #9d7bb0;
+            --fam-sonnet: #d4836a;
+            --fam-haiku: #8fa882;
+            --fam-fable: #c09a5b;
+            --fam-mythos: #5b8a9a;
+            --ink-faint: #a8998b;
+            --grid-line: #efe3d6;
+        }
+
+        .scm .page-card { padding: 40px 32px; }
+
+        .scm-intro {
+            max-width: 760px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Stat tiles */
+        .scm-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 2.5rem;
+        }
+        .scm-stat {
+            background: linear-gradient(135deg, var(--color-bg-card-accent) 0%, var(--color-bg-card-accent-end) 100%);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            text-align: center;
+        }
+        .scm-stat-value {
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--color-text-dark);
+            line-height: 1.1;
+        }
+        .scm-stat-label {
+            margin-top: 6px;
+            font-size: 0.82rem;
+            color: var(--color-text-muted);
+            line-height: 1.35;
+        }
+
+        .scm-section { margin-top: 2.75rem; }
+        .scm-lede {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: -6px 0 14px;
+        }
+
+        .scm-panel {
+            background: linear-gradient(135deg, var(--color-bg-card-accent) 0%, var(--color-bg-card-accent-end) 100%);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+        }
+
+        /* Scroll wrappers keep wide tables from widening the page */
+        .scm-scroll {
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: var(--radius-md);
+            background: white;
+            border: 1px solid var(--color-border);
+        }
+
+        table.scm-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.85rem;
+            color: var(--color-text);
+            width: 100%;
+        }
+        .scm-table th, .scm-table td { padding: 0; }
+
+        /* Rotated card headers */
+        .scm-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: white;
+            vertical-align: bottom;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .scm-table thead th.scm-corner {
+            left: 0;
+            z-index: 3;
+            text-align: left;
+            padding: 0 12px 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .scm-colhead {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 0 6px;
+            cursor: default;
+        }
+        .scm-colhead-label {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            white-space: nowrap;
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--color-text-dark);
+        }
+        .scm-colhead-date {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            white-space: nowrap;
+            font-size: 0.66rem;
+            color: var(--ink-faint);
+            font-weight: normal;
+        }
+        .scm-fambar {
+            width: 14px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        /* Heatmap */
+        .scm-heat td, .scm-heat th { border-bottom: 1px solid var(--grid-line); }
+        .scm-heat tbody th {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+            background: white;
+            text-align: left;
+            font-weight: normal;
+            padding: 0 12px;
+            white-space: nowrap;
+            min-width: 210px;
+            height: 30px;
+        }
+        .scm-heat tbody tr.scm-group th {
+            background: #fbf3ee;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #8a6f5a;
+            height: 26px;
+        }
+        .scm-heat tbody tr.scm-group td { background: #fbf3ee; }
+        .scm-heat td.scm-cell {
+            min-width: 34px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-variant-numeric: tabular-nums;
+            cursor: pointer;
+            border-left: 2px solid white;
+        }
+        .scm-heat td.scm-cell:hover, .scm-heat td.scm-cell:focus-visible {
+            outline: 2px solid var(--color-text-dark);
+            outline-offset: -2px;
+        }
+        .scm-heat td.scm-rowtotal, .scm-heat th.scm-rowtotal {
+            min-width: 46px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            font-variant-numeric: tabular-nums;
+            border-left: 1px solid var(--color-border);
+        }
+        .scm-heat tfoot td, .scm-heat tfoot th {
+            font-weight: 700;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--color-text-dark);
+            height: 30px;
+            border-top: 1px solid var(--color-border);
+            font-variant-numeric: tabular-nums;
+        }
+        .scm-heat tfoot th {
+            position: sticky;
+            left: 0;
+            background: white;
+            text-align: left;
+            padding: 0 12px;
+        }
+        .scm-heat-legend {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-size: 0.78rem;
+            color: var(--color-text-muted);
+        }
+        .scm-ramp { display: flex; }
+        .scm-ramp span {
+            width: 26px;
+            height: 12px;
+            display: block;
+        }
+        .scm-ramp span:first-child { border-radius: 3px 0 0 3px; }
+        .scm-ramp span:last-child { border-radius: 0 3px 3px 0; }
+
+        /* Highlights */
+        .scm-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .scm-hl {
+            background: linear-gradient(135deg, var(--color-bg-card-accent) 0%, var(--color-bg-card-accent-end) 100%);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 16px 18px;
+        }
+        .scm-hl h3 {
+            font-size: 1.02rem;
+            color: var(--color-text-dark);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .scm-hl p {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-bottom: 10px;
+            line-height: 1.45;
+        }
+        .scm-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .scm-chip {
+            font: inherit;
+            font-size: 0.78rem;
+            background: white;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-dark);
+            border-radius: 14px;
+            padding: 4px 10px;
+            text-align: left;
+            line-height: 1.35;
+            cursor: pointer;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+        .scm-chip:hover, .scm-chip:focus-visible {
+            border-color: var(--color-primary);
+            color: var(--color-primary-hover);
+        }
+        .scm-chip small { color: var(--ink-faint); margin-left: 3px; }
+        .scm-more {
+            font: inherit;
+            font-size: 0.78rem;
+            background: none;
+            border: none;
+            color: var(--color-section-title);
+            cursor: pointer;
+            padding: 4px 2px;
+        }
+
+        /* Controls */
+        .scm-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .scm-controls input[type="search"], .scm-controls select {
+            font: inherit;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            background: white;
+            color: var(--color-text);
+            min-height: 38px;
+        }
+        .scm-controls input[type="search"] { flex: 1 1 240px; min-width: 0; }
+        .scm-controls select { flex: 0 1 auto; max-width: 100%; }
+        .scm-controls input:focus, .scm-controls select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(224, 122, 95, 0.15);
+        }
+        .scm-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            cursor: pointer;
+            user-select: none;
+        }
+        .scm-toggle input { accent-color: var(--color-primary); width: 16px; height: 16px; }
+        .scm-count {
+            font-size: 0.82rem;
+            color: var(--color-text-muted);
+            margin: 0 0 10px;
+        }
+        .scm-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            font-size: 0.78rem;
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .scm-legend span { display: inline-flex; align-items: center; gap: 6px; }
+        .scm-swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+        /* Index matrix */
+        .scm-index-scroll { max-height: 78vh; }
+        .scm-matrix tbody th {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+            background: white;
+            text-align: left;
+            font-weight: normal;
+            min-width: 260px;
+            max-width: 320px;
+            padding: 7px 12px;
+            border-bottom: 1px solid var(--grid-line);
+            box-shadow: 1px 0 0 var(--grid-line);
+        }
+        .scm-matrix tbody tr.scm-row { cursor: pointer; }
+        .scm-matrix tbody tr.scm-row:hover th,
+        .scm-matrix tbody tr.scm-row:hover td { background: #fdf6f1; }
+        .scm-matrix tbody tr.scm-row.is-open th,
+        .scm-matrix tbody tr.scm-row.is-open td { background: #fbefe8; }
+        .scm-name {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            color: var(--color-text-dark);
+            font-weight: 600;
+            font-size: 0.86rem;
+            line-height: 1.3;
+        }
+        .scm-name::before {
+            content: '▸';
+            color: var(--color-primary);
+            font-size: 0.7rem;
+            flex: none;
+            transition: transform 0.15s ease;
+        }
+        .scm-row.is-open .scm-name::before { transform: rotate(90deg); }
+        .scm-sub {
+            display: block;
+            font-size: 0.74rem;
+            color: var(--ink-faint);
+            margin: 2px 0 0 14px;
+            font-weight: normal;
+        }
+        .scm-matrix td.scm-dot {
+            text-align: center;
+            min-width: 30px;
+            border-bottom: 1px solid var(--grid-line);
+        }
+        .scm-matrix td.scm-dot i {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+        .scm-matrix td.scm-dot i.hollow {
+            background: white !important;
+            border: 2px solid currentColor;
+            width: 10px;
+            height: 10px;
+        }
+        .scm-matrix td.scm-cov {
+            text-align: right;
+            padding: 0 12px 0 10px;
+            font-variant-numeric: tabular-nums;
+            font-size: 0.78rem;
+            color: var(--color-text-muted);
+            white-space: nowrap;
+            border-bottom: 1px solid var(--grid-line);
+            border-left: 1px solid var(--color-border);
+        }
+        .scm-matrix thead th.scm-covhead {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            padding: 0 12px 8px 10px;
+            text-align: right;
+            font-weight: 600;
+            border-left: 1px solid var(--color-border);
+        }
+        .scm-matrix tr.scm-cat th {
+            background: #fbf3ee;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #8a6f5a;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .scm-matrix tr.scm-cat td {
+            background: #fbf3ee;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .scm-matrix tr.scm-detail td {
+            background: #fdf9f6;
+            border-bottom: 1px solid var(--color-border);
+            padding: 0;
+        }
+        .scm-detail-inner {
+            position: sticky;
+            left: 0;
+            max-width: min(900px, calc(100vw - 80px));
+            padding: 14px 16px 18px;
+        }
+        .scm-detail-desc {
+            font-size: 0.88rem;
+            color: var(--color-text-light);
+            line-height: 1.55;
+            margin-bottom: 8px;
+        }
+        .scm-detail-meta {
+            font-size: 0.76rem;
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+        }
+        .scm-detail-card {
+            border-left: 3px solid var(--color-border);
+            padding: 2px 0 2px 12px;
+            margin-bottom: 12px;
+        }
+        .scm-detail-card h4 {
+            font-size: 0.84rem;
+            color: var(--color-text-dark);
+            margin-bottom: 4px;
+        }
+        .scm-detail-card h4 a { font-weight: normal; font-size: 0.76rem; margin-left: 6px; }
+        .scm-detail-card ul { list-style: none; }
+        .scm-detail-card li {
+            font-size: 0.8rem;
+            color: var(--color-text);
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+        .scm-val {
+            font-weight: 700;
+            color: var(--color-text-dark);
+            font-variant-numeric: tabular-nums;
+        }
+        .scm-muted { color: var(--color-text-muted); }
+
+        .scm-empty {
+            padding: 30px;
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Tooltip */
+        .scm-tip {
+            position: fixed;
+            z-index: 50;
+            pointer-events: none;
+            background: #3d2e22;
+            color: white;
+            font-size: 0.78rem;
+            line-height: 1.4;
+            padding: 7px 10px;
+            border-radius: 6px;
+            max-width: 260px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.1s ease;
+        }
+        .scm-tip.is-on { opacity: 1; }
+
+        .scm-notes { margin-top: 2.75rem; }
+        .scm-notes p, .scm-notes li {
+            font-size: 0.86rem;
+            color: var(--color-text-light);
+            line-height: 1.6;
+        }
+        .scm-notes p { margin-bottom: 10px; }
+        .scm-notes ul { padding-left: 18px; margin-bottom: 10px; }
+        .scm-sources {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 4px 16px;
+            font-size: 0.82rem;
+            margin-top: 6px;
+        }
+
+        .scm-loading { text-align: center; padding: 40px; color: var(--color-text-muted); }
+
+        @media (max-width: 860px) {
+            .scm-highlights { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .scm .page-card { padding: 28px 16px; margin-top: 24px; }
+            .scm-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .scm-stat-value { font-size: 1.6rem; }
+            .scm-panel { padding: 0.75rem; }
+            .scm-heat tbody th { min-width: 150px; white-space: normal; line-height: 1.25; padding: 4px 10px; font-size: 0.78rem; }
+            .scm-matrix tbody th { min-width: 160px; max-width: 180px; padding: 7px 10px; }
+            .scm-heat td.scm-cell { min-width: 28px; }
+            .scm-matrix td.scm-dot { min-width: 24px; }
+            .scm-controls select { flex: 1 1 45%; }
+            .page-header h1 { font-size: 2rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .scm-name::before, .scm-chip, .scm-tip { transition: none; }
+        }
+    </style>
+</head>
+<body class="scm">
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Jacob Brooke</h1>
+            <ul class="nav-links">
+                <li><a href="claude-models.html">Claude Guide</a></li>
+                <li><a href="system-card-metrics.html" class="active">System Card Metrics</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-wide">
+        <div class="page-card">
+            <div class="page-header">
+                <h1>System Card Metrics</h1>
+                <p>What Anthropic measures in every Claude system card</p>
+            </div>
+
+            <p class="scm-intro" id="scm-intro">
+                Every evaluation reported in Anthropic's Claude system cards since Claude Opus&nbsp;4, indexed across models.
+                See which benchmarks every card carries, which came and went, and what each card actually reported.
+            </p>
+
+            <div class="scm-stats" id="scm-stats" aria-live="polite"></div>
+
+            <section class="scm-section" aria-labelledby="heat-title">
+                <h2 class="section-title" id="heat-title">Where the measurement goes</h2>
+                <p class="scm-lede">Distinct metrics each card reports, by category. Darker cells mean more metrics. Select a cell to open that category in the index below.</p>
+                <div class="scm-panel">
+                    <div class="scm-scroll" id="heat-scroll"><div class="scm-loading">Loading…</div></div>
+                    <div class="scm-heat-legend" id="heat-legend"></div>
+                </div>
+            </section>
+
+            <section class="scm-section" aria-labelledby="hl-title">
+                <h2 class="section-title" id="hl-title">Constants, newcomers and retirements</h2>
+                <p class="scm-lede">What has been measured from the start, what only recent cards measure, and what stopped being reported. Select a metric to find it in the index.</p>
+                <div class="scm-highlights" id="scm-highlights"></div>
+            </section>
+
+            <section class="scm-section" aria-labelledby="idx-title" id="index">
+                <h2 class="section-title" id="idx-title">The index</h2>
+                <p class="scm-lede">One row per metric, one column per system card. Select a row for what the metric measures and the exact figures each card reported.</p>
+                <div class="scm-panel">
+                    <div class="scm-controls">
+                        <input type="search" id="q" placeholder="Search metrics, e.g. SWE-bench, sycophancy, CBRN" aria-label="Search metrics">
+                        <select id="cat" aria-label="Category"><option value="">All categories</option></select>
+                        <select id="sort" aria-label="Sort">
+                            <option value="cov">Most cards first</option>
+                            <option value="new">Newest first</option>
+                            <option value="old">Oldest first</option>
+                            <option value="az">A–Z</option>
+                        </select>
+                        <label class="scm-toggle"><input type="checkbox" id="oneoffs"> Hide one-card metrics</label>
+                    </div>
+                    <div class="scm-legend" id="legend"></div>
+                    <p class="scm-count" id="count"></p>
+                    <div class="scm-scroll scm-index-scroll" id="index-scroll"></div>
+                </div>
+            </section>
+
+            <section class="scm-notes" aria-labelledby="notes-title">
+                <h2 class="section-title" id="notes-title">How this was built</h2>
+                <p>
+                    Each system card PDF was converted to text and read end to end by a Claude agent, which recorded every evaluation the card reports
+                    for its own model or models: capability benchmarks, safeguards and refusal rates, agentic and prompt-injection safety,
+                    alignment and behavioral audits, honesty, model welfare, interpretability, and the Responsible Scaling Policy evaluations for CBRN, cyber and autonomy.
+                    It then audited each section for figures it had missed. A second pass grouped the same evaluation across cards, so a benchmark renamed between cards counts once.
+                </p>
+                <ul>
+                    <li><strong>A new version is a new metric.</strong> SWE-bench Verified and SWE-bench Pro, or Terminal-Bench 2.0 and 2.1, are separate rows. Effort levels, thinking budgets and subsets are variants within one row.</li>
+                    <li><strong>A filled dot</strong> means the card prints a figure for that metric. <strong>A hollow dot</strong> means it reports the evaluation without a printed number, for example a result shown only in a chart image, a qualitative finding, or a threshold pass/fail.</li>
+                    <li><strong>Only the card's own models are recorded.</strong> Cards also quote competitors and earlier Claude models; those figures belong to the other model's own card.</li>
+                    <li><strong>Joint cards</strong> (Opus&nbsp;4 with Sonnet&nbsp;4, and both Fable/Mythos releases) are one column each, colored by the first-named family.</li>
+                    <li>Machine extraction from PDFs can misread a table. Every figure cites its card section, so check the source before relying on a number.</li>
+                </ul>
+                <p>The Markdown version of this index, with a page per card, is in the <a href="https://github.com/JacobBrooke95/Claude-Model-Guide/tree/main/system-cards" target="_blank" rel="noopener">system-cards folder</a> of this site's repository.</p>
+                <p><strong>Source system cards</strong></p>
+                <div class="scm-sources" id="sources"></div>
+            </section>
+        </div>
+
+        <div class="footer">
+            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Sat 10•10•26</p>
+            <p>Data from <a href="https://www.anthropic.com/system-cards" target="_blank" rel="noopener">Anthropic system cards</a></p>
+        </div>
+    </div>
+
+    <div class="scm-tip" id="tip" role="tooltip"></div>
+
+    <script>
+    (function () {
+        const FAM = { opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882', fable: '#c09a5b', mythos: '#5b8a9a' };
+        const FAM_LABEL = { opus: 'Opus', sonnet: 'Sonnet', haiku: 'Haiku', fable: 'Fable', mythos: 'Mythos' };
+        // Category groups for the heatmap's row bands, in reading order
+        const GROUPS = [
+            ['Capabilities', ['Coding', 'Agentic & tool use', 'Computer use', 'Reasoning & math', 'Knowledge & science',
+                'Multilingual', 'Long context & memory', 'Multimodal & vision', 'Professional & economic tasks']],
+            ['Safeguards', ['Safeguards: harmful requests & over-refusal', 'Safeguards: child safety',
+                'Safeguards: bias & political even-handedness', 'Safeguards: election integrity',
+                'Agentic safety & prompt injection', 'Honesty & hallucination']],
+            ['Alignment & welfare', ['Alignment: sycophancy & deception', 'Alignment: reward hacking & sabotage',
+                'Alignment: evaluation awareness', 'Alignment: automated behavioral audit', 'Model welfare', 'Interpretability']],
+            ['Frontier risk (RSP)', ['RSP: CBRN', 'RSP: cyber', 'RSP: autonomy & AI R&D']],
+            ['Other', ['Efficiency & cost', 'Other']],
+        ];
+        // Sequential single-hue ramp (coral), light to dark; ink flips to white on the two darkest steps
+        const RAMP = ['#fbeee7', '#f5d3c3', '#eab29b', '#dc8c70', '#c4674c', '#9c4a35'];
+
+        const $ = id => document.getElementById(id);
+        const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const fmtMonth = d => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: '2-digit' }).replace(' ', " '");
+
+        let D, cardIdx, open = new Set();
+        const state = { q: '', cat: '', sort: 'cov', hideOne: false, focusCard: null };
+
+        // ---------- Tooltip ----------
+        const tip = $('tip');
+        function showTip(el, html) {
+            tip.innerHTML = html;
+            tip.classList.add('is-on');
+            const r = el.getBoundingClientRect();
+            const tw = tip.offsetWidth, th = tip.offsetHeight;
+            let x = r.left + r.width / 2 - tw / 2;
+            x = Math.max(8, Math.min(x, window.innerWidth - tw - 8));
+            let y = r.top - th - 8;
+            if (y < 8) y = r.bottom + 8;
+            tip.style.left = x + 'px';
+            tip.style.top = y + 'px';
+        }
+        function hideTip() { tip.classList.remove('is-on'); }
+        document.addEventListener('pointerover', e => {
+            const el = e.target.closest('[data-tip]');
+            if (el) showTip(el, el.getAttribute('data-tip'));
+        });
+        document.addEventListener('pointerout', e => {
+            const el = e.target.closest('[data-tip]');
+            if (el && !el.contains(e.relatedTarget)) hideTip();
+        });
+        document.addEventListener('focusin', e => {
+            const el = e.target.closest('[data-tip]');
+            if (el) showTip(el, el.getAttribute('data-tip')); else hideTip();
+        });
+        window.addEventListener('scroll', hideTip, { passive: true, capture: true });
+
+        // ---------- Derived data ----------
+        function prepare(data) {
+            D = data;
+            cardIdx = Object.fromEntries(D.cards.map((c, i) => [c.id, i]));
+            D.metrics.forEach(m => {
+                const ids = Object.keys(m.by).sort((a, b) => cardIdx[a] - cardIdx[b]);
+                m.cardIds = ids;
+                m.n = ids.length;
+                m.first = cardIdx[ids[0]];
+                m.last = cardIdx[ids[ids.length - 1]];
+                m.numeric = {};
+                ids.forEach(cid => {
+                    m.numeric[cid] = m.by[cid].some(e => e.r.some(r => r[1] !== null && r[1] !== '' && r[1] !== 'null'));
+                });
+                m.hay = (m.name + ' ' + m.family + ' ' + m.desc + ' ' + m.cat + ' ' +
+                    ids.map(cid => m.by[cid].map(e => e.n + ' ' + e.v).join(' ')).join(' ')).toLowerCase();
+            });
+        }
+        const cardColor = c => FAM[c.families[0]];
+        const famBar = c => c.families.length > 1
+            ? `linear-gradient(90deg, ${FAM[c.families[0]]} 50%, ${FAM[c.families[1]]} 50%)`
+            : FAM[c.families[0]];
+        function colHeads() {
+            return D.cards.map(c => `<th scope="col"><div class="scm-colhead" data-tip="${esc(c.title)}<br>${fmtDate(c.date)} · ${c.entries} entries">
+                <span class="scm-colhead-label">${esc(c.label)}</span>
+                <span class="scm-colhead-date">${fmtMonth(c.date)}</span>
+                <span class="scm-fambar" style="background:${famBar(c)}"></span></div></th>`).join('');
+        }
+
+        // ---------- Stats ----------
+        function renderStats() {
+            const entries = D.cards.reduce((n, c) => n + c.entries, 0);
+            const core = D.metrics.filter(m => m.n >= Math.ceil(D.cards.length * 0.75)).length;
+            const tiles = [
+                [D.cards.length, 'system cards, May 2025 to ' + fmtMonth(D.cards[D.cards.length - 1].date).replace(" '", ' 20')],
+                [D.metrics.length.toLocaleString(), 'distinct metrics'],
+                [entries.toLocaleString(), 'reported figures and findings'],
+                [core, `metrics in at least ${Math.ceil(D.cards.length * 0.75)} of ${D.cards.length} cards`],
+            ];
+            $('scm-stats').innerHTML = tiles.map(([v, l]) =>
+                `<div class="scm-stat"><div class="scm-stat-value">${v}</div><div class="scm-stat-label">${l}</div></div>`).join('');
+        }
+
+        // ---------- Heatmap ----------
+        function renderHeat() {
+            const counts = {};
+            D.metrics.forEach(m => m.cardIds.forEach(cid => {
+                const k = m.cat + '|' + cid;
+                counts[k] = (counts[k] || 0) + 1;
+            }));
+            const max = Math.max(1, ...Object.values(counts));
+            // Bins on a square-root scale: a handful of categories hold most of the volume
+            const bin = v => v === 0 ? -1 : Math.min(RAMP.length - 1, Math.floor(Math.sqrt(v / max) * RAMP.length));
+            const present = new Set(D.metrics.map(m => m.cat));
+            let rows = '';
+            GROUPS.forEach(([gName, cats]) => {
+                const live = cats.filter(c => present.has(c));
+                if (!live.length) return;
+                rows += `<tr class="scm-group"><th scope="rowgroup">${esc(gName)}</th>${D.cards.map(() => '<td></td>').join('')}<td></td></tr>`;
+                live.forEach(cat => {
+                    const total = D.metrics.filter(m => m.cat === cat).length;
+                    rows += `<tr><th scope="row">${esc(cat.replace(/^(Safeguards|Alignment|RSP): /, ''))}</th>`;
+                    D.cards.forEach(c => {
+                        const v = counts[cat + '|' + c.id] || 0;
+                        const b = bin(v);
+                        const bg = b < 0 ? 'white' : RAMP[b];
+                        const ink = b >= 4 ? 'white' : (b < 0 ? 'var(--ink-faint)' : 'var(--color-text-dark)');
+                        rows += `<td class="scm-cell" tabindex="0" role="button" data-cat="${esc(cat)}" data-card="${c.id}"
+                            style="background:${bg};color:${ink}"
+                            data-tip="<strong>${esc(c.label)}</strong> · ${esc(cat)}<br>${v} metric${v === 1 ? '' : 's'}"
+                            aria-label="${esc(c.label)}, ${esc(cat)}: ${v} metrics">${v || '·'}</td>`;
+                    });
+                    rows += `<td class="scm-rowtotal" data-tip="${total} distinct ${esc(cat)} metrics across all cards">${total}</td></tr>`;
+                });
+            });
+            const totals = D.cards.map(c => D.metrics.filter(m => m.by[c.id]).length);
+            $('heat-scroll').innerHTML = `<table class="scm-table scm-heat">
+                <thead><tr><th class="scm-corner" scope="col">Category</th>${colHeads()}<th class="scm-rowtotal scm-corner" scope="col" style="position:sticky;left:auto">All</th></tr></thead>
+                <tbody>${rows}</tbody>
+                <tfoot><tr><th scope="row">Metrics in card</th>${totals.map(t => `<td>${t}</td>`).join('')}<td class="scm-rowtotal">${D.metrics.length}</td></tr></tfoot>
+            </table>`;
+            const step = max / RAMP.length;
+            $('heat-legend').innerHTML = `<span>Fewer</span><span class="scm-ramp">${RAMP.map(c => `<span style="background:${c}"></span>`).join('')}</span><span>More (up to ${max})</span>
+                <span style="margin-left:10px">· = none</span>`;
+            $('heat-scroll').querySelectorAll('.scm-cell').forEach(td => {
+                const go = () => {
+                    state.cat = td.dataset.cat;
+                    state.focusCard = td.dataset.card;
+                    state.q = '';
+                    $('q').value = '';
+                    $('cat').value = state.cat;
+                    renderIndex();
+                    $('index').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+                };
+                td.addEventListener('click', go);
+                td.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+            });
+        }
+
+        // ---------- Highlights ----------
+        function renderHighlights() {
+            const N = D.cards.length;
+            const coreMin = Math.ceil(N * 0.75);
+            const lists = [
+                {
+                    title: 'The constants',
+                    desc: `Measured in at least ${coreMin} of the ${N} cards.`,
+                    items: D.metrics.filter(m => m.n >= coreMin).sort((a, b) => b.n - a.n || a.name.localeCompare(b.name)),
+                    tag: m => `${m.n}/${N}`,
+                },
+                {
+                    title: 'The newcomers',
+                    desc: `First measured in one of the last three cards (${D.cards.slice(-3).map(c => c.label).join(', ')}) and carried by at least two.`,
+                    items: D.metrics.filter(m => m.first >= N - 3 && m.n >= 2).sort((a, b) => b.n - a.n || a.name.localeCompare(b.name)),
+                    tag: m => D.cards[m.first].label,
+                },
+                {
+                    title: 'The retirements',
+                    desc: 'Reported by at least three cards, but not by any of the last five.',
+                    items: D.metrics.filter(m => m.n >= 3 && m.last < N - 5).sort((a, b) => b.n - a.n || a.name.localeCompare(b.name)),
+                    tag: m => 'last ' + D.cards[m.last].label,
+                },
+            ];
+            const LIMIT = 12;
+            $('scm-highlights').innerHTML = lists.map((l, i) => {
+                const chips = l.items.map((m, j) => `<button class="scm-chip" data-id="${esc(m.id)}" ${j >= LIMIT ? 'hidden' : ''}>${esc(m.name)}<small>${esc(l.tag(m))}</small></button>`).join('');
+                const more = l.items.length > LIMIT ? `<button class="scm-more" data-more="${i}">Show all ${l.items.length}</button>` : '';
+                return `<div class="scm-hl"><h3>${l.title} <span class="scm-muted" style="font-weight:normal">(${l.items.length})</span></h3><p>${l.desc}</p>
+                    <div class="scm-chips">${chips || '<span class="scm-muted" style="font-size:0.8rem">None</span>'}${more}</div></div>`;
+            }).join('');
+            $('scm-highlights').addEventListener('click', e => {
+                const more = e.target.closest('[data-more]');
+                if (more) {
+                    more.parentElement.querySelectorAll('.scm-chip[hidden]').forEach(b => b.hidden = false);
+                    more.remove();
+                    return;
+                }
+                const chip = e.target.closest('.scm-chip');
+                if (!chip) return;
+                const m = D.metrics.find(x => x.id === chip.dataset.id);
+                state.q = m.name; $('q').value = m.name;
+                state.cat = ''; $('cat').value = '';
+                state.hideOne = false; $('oneoffs').checked = false;
+                state.focusCard = null;
+                open = new Set([m.id]);
+                renderIndex();
+                $('index').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+            });
+        }
+
+        // ---------- Index ----------
+        function filtered() {
+            const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+            return D.metrics.filter(m =>
+                (!state.cat || m.cat === state.cat) &&
+                (!state.hideOne || m.n > 1) &&
+                terms.every(t => m.hay.includes(t)));
+        }
+        function sorter(a, b) {
+            switch (state.sort) {
+                case 'az': return a.name.localeCompare(b.name);
+                case 'new': return b.first - a.first || b.n - a.n || a.name.localeCompare(b.name);
+                case 'old': return a.first - b.first || b.n - a.n || a.name.localeCompare(b.name);
+                default: return b.n - a.n || a.first - b.first || a.name.localeCompare(b.name);
+            }
+        }
+        function detailHtml(m) {
+            const N = D.cards.length;
+            const span = m.first === m.last ? `Only in ${D.cards[m.first].label}` :
+                `First in ${D.cards[m.first].label} (${fmtMonth(D.cards[m.first].date)}), last in ${D.cards[m.last].label} (${fmtMonth(D.cards[m.last].date)})`;
+            const blocks = m.cardIds.map(cid => {
+                const c = D.cards[cardIdx[cid]];
+                const items = m.by[cid].map(e => {
+                    const vals = e.r.map(r => {
+                        const v = r[1] === null || r[1] === '' ? '<span class="scm-muted">no printed figure</span>' : `<span class="scm-val">${esc(r[1])}</span>`;
+                        const who = c.families.length > 1 || e.r.length > 1 ? `${esc(r[0].replace(/^Claude /, ''))}: ` : '';
+                        return who + v + (r[2] ? ` <span class="scm-muted">(${esc(r[2])})</span>` : '');
+                    }).join(' · ');
+                    const label = e.n && e.n.toLowerCase() !== m.name.toLowerCase() ? `<em>${esc(e.n)}</em>` : '';
+                    const bits = [label, e.v ? esc(e.v) : '', e.m ? `<span class="scm-muted">${esc(e.m)}</span>` : ''].filter(Boolean).join(' · ');
+                    return `<li>${bits ? bits + ' — ' : ''}${vals || '<span class="scm-muted">no printed figure</span>'}
+                        ${e.s ? `<span class="scm-muted"> · §${esc(e.s.replace(/^§/, ''))}</span>` : ''}${e.x ? `<br><span class="scm-muted">${esc(e.x)}</span>` : ''}</li>`;
+                }).join('');
+                return `<div class="scm-detail-card" style="border-left-color:${cardColor(c)}"><h4>${esc(c.title)}<a href="${esc(c.url)}" target="_blank" rel="noopener">card ↗</a></h4><ul>${items}</ul></div>`;
+            }).join('');
+            return `<div class="scm-detail-inner">
+                ${m.desc ? `<p class="scm-detail-desc">${esc(m.desc)}</p>` : ''}
+                <p class="scm-detail-meta">${esc(m.cat)} · ${m.n} of ${N} cards · ${span}${m.family && m.family !== m.name ? ` · family: ${esc(m.family)}` : ''}</p>
+                ${blocks}</div>`;
+        }
+        function renderIndex() {
+            const list = filtered();
+            const N = D.cards.length;
+            const ncol = N + 2;
+            let body = '';
+            const byCat = new Map();
+            list.forEach(m => { if (!byCat.has(m.cat)) byCat.set(m.cat, []); byCat.get(m.cat).push(m); });
+            const catOrder = D.categories.filter(c => byCat.has(c)).concat([...byCat.keys()].filter(c => !D.categories.includes(c)));
+            catOrder.forEach(cat => {
+                const ms = byCat.get(cat).sort(sorter);
+                body += `<tr class="scm-cat"><th scope="rowgroup">${esc(cat)} <span style="font-weight:normal">· ${ms.length}</span></th><td colspan="${ncol - 1}"></td></tr>`;
+                ms.forEach(m => {
+                    const isOpen = open.has(m.id);
+                    const cells = D.cards.map(c => {
+                        if (!m.by[c.id]) return `<td class="scm-dot"${state.focusCard === c.id ? ' style="background:#fdf1ea"' : ''}></td>`;
+                        const col = cardColor(c);
+                        const num = m.numeric[c.id];
+                        const first = m.by[c.id][0];
+                        const v = first.r.find(r => r[1] !== null && r[1] !== '');
+                        const t = `<strong>${esc(c.label)}</strong> · ${esc(m.name)}<br>${num && v ? esc(v[1]) + (first.v ? ' · ' + esc(first.v) : '') : 'reported, no printed figure'}${m.by[c.id].length > 1 ? `<br>${m.by[c.id].length} entries` : ''}`;
+                        return `<td class="scm-dot" data-tip="${t.replace(/"/g, '&quot;')}"${state.focusCard === c.id ? ' style="background:#fdf1ea"' : ''}><i class="${num ? '' : 'hollow'}" style="background:${col};color:${col}" aria-label="${esc(c.label)}: ${num ? 'reported' : 'reported without a figure'}"></i></td>`;
+                    }).join('');
+                    body += `<tr class="scm-row${isOpen ? ' is-open' : ''}" data-id="${esc(m.id)}" tabindex="0" aria-expanded="${isOpen}">
+                        <th scope="row"><span class="scm-name">${esc(m.name)}</span>${m.family && m.family !== m.name ? `<span class="scm-sub">${esc(m.family)}</span>` : ''}</th>
+                        ${cells}<td class="scm-cov">${m.n}/${N}</td></tr>`;
+                    if (isOpen) body += `<tr class="scm-detail"><td colspan="${ncol}">${detailHtml(m)}</td></tr>`;
+                });
+            });
+            $('index-scroll').innerHTML = list.length
+                ? `<table class="scm-table scm-matrix"><thead><tr><th class="scm-corner" scope="col">Metric</th>${colHeads()}<th class="scm-covhead" scope="col">Cards</th></tr></thead><tbody>${body}</tbody></table>`
+                : `<div class="scm-empty">No metrics match. Try a shorter search or another category.</div>`;
+            const cards = new Set(list.flatMap(m => m.cardIds));
+            $('count').textContent = `Showing ${list.length.toLocaleString()} of ${D.metrics.length.toLocaleString()} metrics` +
+                (state.cat ? ` in ${state.cat}` : '') + (state.focusCard ? ` · highlighting ${D.cards[cardIdx[state.focusCard]].label}` : '') +
+                (list.length && list.length < D.metrics.length ? ` · ${cards.size} cards` : '');
+        }
+        function toggleRow(tr) {
+            const id = tr.dataset.id;
+            if (open.has(id)) open.delete(id); else open.add(id);
+            renderIndex();
+            const again = $('index-scroll').querySelector(`tr.scm-row[data-id="${CSS.escape(id)}"]`);
+            if (again) again.focus({ preventScroll: true });
+        }
+
+        function wire() {
+            const cat = $('cat');
+            D.categories.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; cat.appendChild(o); });
+            let t;
+            $('q').addEventListener('input', e => { clearTimeout(t); t = setTimeout(() => { state.q = e.target.value; state.focusCard = null; renderIndex(); }, 120); });
+            cat.addEventListener('change', e => { state.cat = e.target.value; state.focusCard = null; renderIndex(); });
+            $('sort').addEventListener('change', e => { state.sort = e.target.value; renderIndex(); });
+            $('oneoffs').addEventListener('change', e => { state.hideOne = e.target.checked; renderIndex(); });
+            $('index-scroll').addEventListener('click', e => {
+                if (e.target.closest('a')) return;
+                const tr = e.target.closest('tr.scm-row');
+                if (tr) toggleRow(tr);
+            });
+            $('index-scroll').addEventListener('keydown', e => {
+                const tr = e.target.closest('tr.scm-row');
+                if (tr && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleRow(tr); }
+            });
+            const fams = [...new Set(D.cards.flatMap(c => c.families))];
+            $('legend').innerHTML = fams.map(f => `<span><i class="scm-swatch" style="background:${FAM[f]}"></i>${FAM_LABEL[f]}</span>`).join('') +
+                `<span><i class="scm-swatch" style="border:2px solid #8a7355;background:white;width:10px;height:10px"></i>Reported without a printed figure</span>`;
+            $('sources').innerHTML = D.cards.map(c => `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a>`).join('');
+        }
+
+        fetch('system-cards/index.json')
+            .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(data => {
+                prepare(data);
+                renderStats();
+                renderHeat();
+                renderHighlights();
+                wire();
+                renderIndex();
+            })
+            .catch(err => {
+                $('heat-scroll').innerHTML = `<div class="scm-empty">The metrics data didn't load (${esc(err.message)}).</div>`;
+            });
+    })();
+    </script>
+</body>
+</html>
