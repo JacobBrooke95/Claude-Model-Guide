@@ -84,7 +84,7 @@
 
             <div class="benchmark-section">
                 <h2 class="section-title">Shipping Pace</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Cumulative Claude releases over time, stacked by family. Each step up is a ship — the steeper the slope, the faster the pace. Numbers under the quarter bands show releases shipped that quarter.</p>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Cumulative Claude releases over time, stacked by family. Each step up is a ship — the steeper the slope, the faster the pace. Numbers under the quarter bands show releases shipped that quarter. Fable and Mythos launched together twice (5 and 5.1), so each pair counts as one step, colored Fable.</p>
                 <div class="benchmark-chart-container">
                     <div id="gap-chart"></div>
                 </div>
@@ -497,7 +497,7 @@
         </div>
 
         <div class="footer">
-            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Mon 09•28•26</p>
+            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Sat 10•10•26</p>
             <p>Data sourced from <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic News</a></p>
         </div>
     </div>
@@ -2045,6 +2045,19 @@
                 });
             });
             allReleases.sort((a, b) => a.date.localeCompare(b.date));
+
+            // Fable and Mythos have launched as a pair (5 on Jun 9, 5.1 on Sep 1). A Mythos
+            // release sharing a Fable release's date is the same launch, so it folds into the
+            // Fable step instead of adding a second one. A Mythos-only launch still counts.
+            for (let i = allReleases.length - 1; i >= 0; i--) {
+                const r = allReleases[i];
+                if (r.family !== 'mythos') continue;
+                const twin = allReleases.find(o => o.family === 'fable' && o.date === r.date);
+                if (twin) {
+                    twin.version += ` + ${r.version.replace(/^Claude /, '')}`;
+                    allReleases.splice(i, 1);
+                }
+            }
 
             const parse = s => new Date(s + 'T00:00:00');
             const today = new Date();

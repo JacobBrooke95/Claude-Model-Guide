@@ -1,6 +1,6 @@
 # Jacob Brooke Site Design System
 
-This document defines the visual design language for the personal site (`jacobbrooke95.github.io/General/`). Use this as a reference when creating or modifying pages to ensure consistency while preserving each page's unique character.
+This document defines the visual design language for the personal site (`jacobbrooke95.github.io/Claude-Model-Guide/`). Use this as a reference when creating or modifying pages to ensure consistency while preserving each page's unique character.
 
 ---
 
