@@ -5,6 +5,7 @@ A statistical model of when Anthropic will ship its next Claude model in each fa
 The results page is [`release-forecast.html`](../release-forecast.html). The old cadence view on [`claude-models.html`](../claude-models.html) stays as it was and links here.
 
 ```
+python3 weekly.py                 # weekly update: forecast, snapshot, grade, summary, page (see WEEKLY_RUNBOOK.md)
 python3 live.py 2026-10-30        # live forecast → output/forecast.json, appends forecast_log.csv
 python3 run_tuning.py             # stage 1: 27 configs on tuning origins (2024-06 → 2025-06)
 python3 run_tuning_v2.py          # stage 1b: recency weighting × trend × wave weight
@@ -41,7 +42,7 @@ The history is kept because it changes how the scores should be read.
 5. **Adversarial review** (an independent agent, 12 findings; `data/raw/adversarial_review.md`). Fixes: the EWMA baseline was leaking same-day releases, now called as of origin − 1. A false-alarm floor and A/B precedence in signals. Four MCMC chains averaged. A 180-day recent-rate baseline. Per-family scoring, block-level significance tests, calibration by period, and claims rewritten. Re-run as `run_final.py` → `score_final.py`. Model version `v3c-post-review`.
 6. The probability of backtest overfitting (CSCV, Bailey et al.) across the 27 stage-1 configs is **0.83**. Picking among near-identical configs is mostly noise. Across the 20 configs scored on every origin it is **0.20**. The gains that hold up are structural, and none of them depend on that choice: cadence over climatology, signals over none, and pooling over either part alone.
 
-**The only fully honest test from here is prospective.** Every `live.py` run appends its calls to `forecast_log.csv`, and those rows are never edited.
+**The only fully honest test from here is prospective.** A weekly scheduled task runs `weekly.py`, following `WEEKLY_RUNBOOK.md`. Each run freezes a snapshot in `history/`, appends its calls to `forecast_log.csv` (never edited), and grades every snapshot when a release resolves it. Results are in `output/grades.json` and the page's Track record section. The model stays frozen during weekly runs.
 
 ## Results (post-review, Opus/Sonnet/Haiku questions)
 

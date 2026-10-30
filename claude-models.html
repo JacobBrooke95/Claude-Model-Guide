@@ -3581,10 +3581,12 @@
             const fmt = s => s && s[0] !== '>' ? MON[+s.slice(5, 7) - 1] + ' ' + (+s.slice(8)) : 'later';
             fetch('forecast/output/forecast.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(F => {
                 if (!F) return;
+                const C2 = F.checkpoints ? F.checkpoints[1] : null;
                 const rows = ['fable', 'opus', 'sonnet', 'haiku', 'mythos'].map(f => {
                     const t = F.targets[f].with_signals;
+                    const p = C2 && t.by ? t.by[C2] : t.by_dec31;
                     return '<span style="display:inline-block;margin-right:14px;white-space:nowrap"><b>' + f[0].toUpperCase() + f.slice(1) +
-                        '</b> ' + Math.round(100 * t.by_dec31) + '% by Dec 31 &middot; median ' + fmt(t.median) + '</span>';
+                        '</b> ' + Math.round(100 * p) + '% by ' + (C2 ? fmt(C2) : 'Dec 31') + ' &middot; median ' + fmt(t.median) + '</span>';
                 });
                 box.innerHTML = rows.join('') + '<div style="color:#8a7565;font-size:0.9em;margin-top:4px">As of ' + fmt(F.as_of) + '</div>';
             }).catch(() => {});

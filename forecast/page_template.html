@@ -124,12 +124,12 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
   </section>
 
   <section class="rf-card" aria-labelledby="h-fable">
-    <h2 id="h-fable">Fable 5.5 watch</h2>
+    <h2 id="h-fable"></h2>
     <div class="cols">
       <div>
         <p id="fable-lede"></p>
         <div class="chart" id="fable-chart"></div>
-        <p class="tiny">Bars show the model's probability that release falls on each day, with signals included. The dashed outline is the cadence model alone, with no signals. The shaded band marks Nov 18–20, the most-traded IPO dates on Polymarket.</p>
+        <p class="tiny" id="watch-cap"></p>
       </div>
       <div>
         <h3>Signals the model is reading</h3>
@@ -166,6 +166,11 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
     <p class="tiny" id="event-foot"></p>
   </section>
 
+  <section class="rf-card" aria-labelledby="h-track">
+    <h2 id="h-track">Track record since launch</h2>
+    <div id="track"></div>
+  </section>
+
   <section class="rf-card" aria-labelledby="h-inputs">
     <h2 id="h-inputs">Inputs, and what each one is worth</h2>
     <p class="note">Every input the forecaster knows about, sorted into seven categories. Status says whether the input is <span class="st-fit"><b>fitted</b></span> from data, set as a <span class="st-prior"><b>prior or rule</b></span>, <span class="st-null"><b>tested and found empty</b></span>, or <span class="st-watch"><b>watched only</b></span>.</p>
@@ -188,6 +193,7 @@ const DATA = /*__DATA__*/null;
 (function () {
   const F = DATA.forecast, B = DATA.backtest, R = DATA.registry, M = DATA.meta;
   const FAMS = ["fable", "opus", "sonnet", "haiku", "mythos"];
+  const [C1, C2] = F.checkpoints, W = M.watch_family || F.watch;
   const NAME = { fable: "Fable", opus: "Opus", sonnet: "Sonnet", haiku: "Haiku", mythos: "Mythos", frontier: "Any frontier", any: "Any model" };
   const $ = id => document.getElementById(id);
   const pct = (x, d = 0) => x == null ? "—" : (100 * x).toFixed(d) + "%";
@@ -205,18 +211,18 @@ const DATA = /*__DATA__*/null;
   const mk = (fam, date) => (F.markets[fam] || []).find(r => r.date === date);
   $("fam-grid").innerHTML = FAMS.map(f => {
     const t = F.targets[f].with_signals, last = M.last_release[f];
-    const m30 = mk(f, "2026-11-30"), m31 = mk(f, "2026-12-31");
-    const hot = t.by_nov30 >= 0.5;
+    const m30 = mk(f, C1), m31 = mk(f, C2);
+    const hot = t.by[C1] >= 0.5;
     return `<article class="fam" style="--c: var(--${f})">
       <div class="fname">${NAME[f]} <span class="last">last ${esc(last.model.replace("Claude ", "").replace(/^[A-Za-z]+ /, ""))}<br>${fmtS(last.date)}</span></div>
-      <div class="lab">P(next release by Nov 30)</div>
-      <div class="big">${pct(t.by_nov30)}</div>
+      <div class="lab">P(next release by ${fmtD(C1)})</div>
+      <div class="big">${pct(t.by[C1])}</div>
       <div><span class="chip ${hot ? "hot" : "cold"}">median ${fmtS(t.median)}</span></div>
       <dl>
-        <dt>by Dec 31</dt><dd>${pct(t.by_dec31)}</dd>
-        <dt>market Nov 30</dt><dd>${m30 ? pct(m30.market) : "—"}</dd>
-        <dt>market Dec 31</dt><dd>${m31 ? pct(m31.market) : "—"}</dd>
-        <dt>blend Dec 31</dt><dd>${m31 ? pct(m31.blend) : "—"}</dd>
+        <dt>by ${fmtD(C2)}</dt><dd>${pct(t.by[C2])}</dd>
+        <dt>market ${fmtD(C1)}</dt><dd>${m30 ? pct(m30.market) : "—"}</dd>
+        <dt>market ${fmtD(C2)}</dt><dd>${m31 ? pct(m31.market) : "—"}</dd>
+        <dt>blend ${fmtD(C2)}</dt><dd>${m31 ? pct(m31.blend) : "—"}</dd>
         <dt class="w">80% window</dt><dd class="w">${fmtS(t.q10)} – ${fmtS(t.q90)}</dd>
         <dt class="w">likely name</dt><dd class="w">${esc(Object.keys(F.params[f].names)[0].replace("Claude ", ""))}</dd>
       </dl></article>`;
@@ -224,9 +230,9 @@ const DATA = /*__DATA__*/null;
   $("agg-grid").innerHTML = ["frontier", "any"].map(f => {
     const t = F.targets[f].with_signals;
     return `<article class="fam" style="--c: var(--any)"><div class="fname">${NAME[f]}</div>
-      <div class="lab">P(a release by Nov 30)</div><div class="big">${pct(t.by_nov30)}</div>
+      <div class="lab">P(a release by ${fmtD(C1)})</div><div class="big">${pct(t.by[C1])}</div>
       <div><span class="chip">median ${fmtS(t.median)}</span></div>
-      <dl><dt>next 7 days</dt><dd>${pct(t.p7)}</dd><dt>next 30 days</dt><dd>${pct(t.p30)}</dd><dt>by Dec 31</dt><dd>${pct(t.by_dec31)}</dd></dl></article>`;
+      <dl><dt>next 7 days</dt><dd>${pct(t.p7)}</dd><dt>next 30 days</dt><dd>${pct(t.p30)}</dd><dt>by ${fmtD(C2)}</dt><dd>${pct(t.by[C2])}</dd></dl></article>`;
   }).join("");
 
   // ---------- svg helpers ----------
@@ -235,7 +241,8 @@ const DATA = /*__DATA__*/null;
     const out = []; for (let i = skip; i < days; i++) { const s = addDays(start, i); if (s.endsWith("-01")) out.push([i, MON[+s.slice(5, 7) - 1]]); } return out;
   }
   function shadeDays(start, days, pred) { const out = []; let a = null; for (let i = 0; i <= days; i++) { const on = i < days && pred(addDays(start, i)); if (on && a === null) a = i; if (!on && a !== null) { out.push([a, i]); a = null; } } return out; }
-  const isHoliday = s => { const m = +s.slice(5, 7), d = +s.slice(8); return (m === 12 && d >= 20) || (m === 1 && d <= 4) || s === "2026-11-26" || s === "2026-11-27"; };
+  const thanksgiving = y => { const dow = new Date(Date.UTC(y, 10, 1)).getUTCDay(); return 1 + ((4 - dow + 7) % 7) + 21; };
+  const isHoliday = s => { const y = +s.slice(0, 4), m = +s.slice(5, 7), d = +s.slice(8); const tg = thanksgiving(y); return (m === 12 && d >= 20) || (m === 1 && d <= 4) || (m === 11 && (d === tg || d === tg + 1)); };
 
   // ---------- CDF chart ----------
   (function () {
@@ -256,14 +263,18 @@ const DATA = /*__DATA__*/null;
 
   // ---------- Fable watch ----------
   (function () {
-    const t = F.targets.fable.with_signals, c0 = F.targets.fable.cadence;
-    const m = { n10: mk("fable", "2026-11-10"), n19: mk("fable", "2026-11-19"), n30: mk("fable", "2026-11-30") };
-    $("fable-lede").innerHTML = `The model puts Fable's next release at <b>${pct(t.p7)}</b> within 7 days and <b>${pct(t.by_nov30)}</b> by Nov 30. The median day is <b>${fmtD(t.median)}</b>. Without the signal layer, cadence alone gives ${pct(c0.by_nov30)} by Nov 30. Polymarket is at ${m.n10 ? pct(m.n10.market) : "—"} by Nov 10, ${m.n19 ? pct(m.n19.market) : "—"} by Nov 19 and ${m.n30 ? pct(m.n30.market) : "—"} by Nov 30.`;
+    const t = F.targets[W].with_signals, c0 = F.targets[W].cadence;
+    $("h-fable").textContent = NAME[W] + " watch";
+    const ladder = (F.markets[W] || []).filter(r => r.date >= F.as_of);
+    const pick = [7, 14, 31].map(n => ladder.find(r => (Date.parse(r.date) - Date.parse(F.as_of)) / 864e5 >= n)).filter(Boolean);
+    const band = M.watch_band;
+    $("watch-cap").innerHTML = "Bars show the model's probability that the release falls on each day, with signals included. The dashed outline is the cadence model alone, with no signals." + (band ? ` The shaded band marks ${esc(band[2])}.` : "");
+    $("fable-lede").innerHTML = `The model puts ${NAME[W]}'s next release at <b>${pct(t.p7)}</b> within 7 days and <b>${pct(t.by[C1])}</b> by ${fmtD(C1)}. The median day is <b>${fmtD(t.median)}</b>. Cadence alone, without the signal layer, gives ${pct(c0.by[C1])} by ${fmtD(C1)}.` + (pick.length ? ` Polymarket is at ${pick.map(r => `${pct(r.market)} by ${fmtD(r.date)}`).join(", ")}.` : "");
     const D = 60, fr = frame(560, 220, { l: 40, r: 10, t: 12, b: 30 });
     const p = t.pmf180.slice(0, D), q = c0.pmf180.slice(0, D), mx = Math.max(...p, ...q) * 1.12;
     const x = i => fr.pad.l + fr.iw * i / D, y = v => fr.pad.t + fr.ih * (1 - v / mx), bw = fr.iw / D;
     let s = `<svg viewBox="0 0 ${fr.W} ${fr.H}" role="img" aria-label="Daily probability of Fable release, next 60 days">`;
-    shadeDays(F.as_of, D, d => d >= "2026-11-18" && d <= "2026-11-20").forEach(([a, b]) => s += `<rect x="${x(a)}" y="${fr.pad.t}" width="${x(b) - x(a)}" height="${fr.ih}" fill="${css("--card-tint-2")}" />`);
+    if (band) shadeDays(F.as_of, D, d => d >= band[0] && d <= band[1]).forEach(([a, b]) => s += `<rect x="${x(a)}" y="${fr.pad.t}" width="${x(b) - x(a)}" height="${fr.ih}" fill="${css("--card-tint-2")}" />`);
     shadeDays(F.as_of, D, isHoliday).forEach(([a, b]) => s += `<rect x="${x(a)}" y="${fr.pad.t}" width="${x(b) - x(a)}" height="${fr.ih}" fill="${css("--rule-soft")}" />`);
     const step = mx > .08 ? .04 : .02;
     for (let v = 0; v <= mx; v += step) s += `<line x1="${fr.pad.l}" x2="${fr.W - fr.pad.r}" y1="${y(v)}" y2="${y(v)}" stroke="${css("--rule")}" stroke-width=".5" /><text x="${fr.pad.l - 6}" y="${y(v) + 4}" text-anchor="end" font-size="10" fill="${css("--ink-muted")}">${Math.round(v * 100)}%</text>`;
@@ -271,10 +282,11 @@ const DATA = /*__DATA__*/null;
     s += `<polyline fill="none" stroke="${css("--ink-muted")}" stroke-dasharray="3 3" stroke-width="1.2" points="${q.map((v, i) => (x(i) + bw / 2).toFixed(1) + "," + y(v).toFixed(1)).join(" ")}" />`;
     monthTicks(F.as_of, D, 4).concat([[0, fmtD(F.as_of).split(" ")[0]]]).forEach(([i, lab]) => s += `<text x="${x(i) + 2}" y="${fr.H - 10}" font-size="10" fill="${css("--ink-muted")}">${i === 0 ? fmtD(F.as_of) : lab + " 1"}</text>`);
     s += `</svg>`; $("fable-chart").innerHTML = s;
-    const sig = (F.signals.fable || []);
+    const sig = (F.signals[W] || []);
     $("fable-signals").innerHTML = sig.map(r => `<div class="sig"><span class="d">${fmtD(r.first_seen)}</span><span class="c">${esc(r.cls)} · ${esc(r.grade)}</span><span class="what">${esc(r.note)}</span></div>`).join("") +
       `<p class="tiny">The model uses the earliest sighting per class. Source grades: A = primary artifact, B = reputable report, C = single tipster. Markets are left out here so the same leak isn't counted twice.</p>`;
-    $("fable-slip").innerHTML = M.fable_slip_html;
+    $("fable-slip").innerHTML = M.watch_html || "";
+    $("fable-slip").hidden = !M.watch_html;
   })();
 
   // ---------- parameters ----------
@@ -339,6 +351,18 @@ const DATA = /*__DATA__*/null;
     const P = F.signal_class_params, LBL = { infra: "Infrastructure artifacts (cloud catalogs, first-party docs)", client: "Client strings and codenames", report: "Reports (press, partners, red-team rounds, A/B routing)", soft: "Soft (tipsters, exec hints)" };
     $("sigclass-table").innerHTML = `<thead><tr><th>Class</th><th>Detection rate</th><th>Typical lead</th><th>True signals</th><th>False alarms</th></tr></thead><tbody>` +
       Object.entries(P).map(([c, p]) => `<tr><td class="l">${LBL[c]}</td><td class="num">${pct(p.q)}</td><td class="num">${Math.round(Math.exp(p.mu) - 1)}d</td><td class="num">${p.n_tp}</td><td class="num">${p.n_fp}</td></tr>`).join("") + `</tbody>`;
+  })();
+
+  // ---------- forward track record ----------
+  (function () {
+    const G = DATA.grades || { releases: [], checkpoints: [], summary: {} }, S = G.summary || {};
+    let h = `<p class="note">Every weekly run since ${fmtD(G.forward_start || F.as_of)} is saved and graded when the outcome is known. Nothing is backfilled.</p>`;
+    if (G.releases.length) {
+      h += `<h3>How likely did it say each release was?</h3><div class="tbl"><table><thead><tr><th>Release</th><th>Forecast made</th><th>Days ahead</th><th>P(by that day)</th><th>P(that week)</th><th>Median call</th><th>In 80% window</th></tr></thead><tbody>` +
+        G.releases.map(r => `<tr><td class="l">${esc(r.model)} <span class="tiny">${fmtD(r.date)}</span></td><td class="l">${fmtD(r.as_of)}</td><td class="num">${r.days_ahead}</td><td class="num">${pct(r.p_by_date)}</td><td class="num">${pct(r.p_week)}</td><td class="num">${fmtS(r.median)} (${r.median_error_days > 0 ? "+" : ""}${r.median_error_days}d)</td><td class="num">${r.in80 ? "yes" : "no"}</td></tr>`).join("") + `</tbody></table></div>`;
+    } else h += `<p>No release has been graded yet. The first weekly forecast was saved on ${fmtD(G.forward_start || F.as_of)}.</p>`;
+    if (S.n) h += `<h3>Dated questions resolved so far</h3><p>${S.n} questions of the form "released by date X?" have resolved. Model Brier <b class="num">${S.brier_model.toFixed(3)}</b>${S.n_market ? `, Polymarket on the ${S.n_market} with a price: model <b class="num">${S.brier_model_on_market.toFixed(3)}</b> vs market <b class="num">${S.brier_market.toFixed(3)}</b>` : ""}. Lower is better.</p>`;
+    $("track").innerHTML = h;
   })();
 
   $("method").innerHTML = M.method_html;

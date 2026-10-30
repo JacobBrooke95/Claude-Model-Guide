@@ -14,7 +14,7 @@ F = json.load(open(os.path.join(ROOT, "output/forecast.json")))
 B = json.load(open(os.path.join(ROOT, "output/backtest.json")))
 R = json.load(open(os.path.join(ROOT, "data/input_registry.json")))
 rel = pd.read_csv(os.path.join(ROOT, "data/anthropic_releases.csv"))
-mk = pd.read_csv(os.path.join(ROOT, "data/raw/markets_2026-10-30.csv"))
+mk = pd.read_csv(os.path.join(ROOT, F.get("market_file", "data/raw/markets_2026-10-30.csv")))
 TEXT = json.load(open(os.path.join(ROOT, "page_text.json")))
 
 last = {}
@@ -38,9 +38,11 @@ claude6 = {
 
 meta = dict(TEXT)
 meta.update(last_release=last, claude6_markets=claude6,
-            n_origins=len(set(r["origin"] for r in B["event_rows"])) if False else 126,
+            n_origins=sum(v[2] for k, v in B.get("periods", {}).items() if k != "all") or 126,
             repo="https://github.com/JacobBrooke95/Claude-Model-Guide/tree/main/forecast")
-data = dict(forecast=F, backtest=B, registry=R, meta=meta)
+gp = os.path.join(ROOT, "output/grades.json")
+G = json.load(open(gp)) if os.path.exists(gp) else None
+data = dict(forecast=F, backtest=B, registry=R, meta=meta, grades=G)
 blob = json.dumps(data, default=str, separators=(",", ":")).replace("</", "<\\/")
 tpl = open(os.path.join(ROOT, "page_template.html")).read()
 body = tpl.replace("/*__DATA__*/null", blob)

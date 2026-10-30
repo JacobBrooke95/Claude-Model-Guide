@@ -9,6 +9,7 @@ not depend on one MCMC chain.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from dataclasses import asdict, replace
 
@@ -48,7 +49,11 @@ for name, cfg in variants.items():
 
 asof = d(AS_OF)
 days = pd.date_range(asof, periods=H, freq="D")
-out = dict(as_of=str(asof.date()), config=dict(stage1=best, **{k: v for k, v in asdict(FULL).items()}),
+# checkpoints: the next six month-ends; C1 is the first at least 10 days out, C2 the one after
+MONTH_ENDS = [m for m in pd.date_range(asof, periods=8, freq="ME") if m >= asof][:7]
+_far = [m for m in MONTH_ENDS if (m - asof).days >= 10]
+CHECKPOINTS = [str(_far[0].date()), str(_far[1].date())]
+out = dict(as_of=str(asof.date()), checkpoints=CHECKPOINTS, config=dict(stage1=best, **{k: v for k, v in asdict(FULL).items()}),
            targets={}, markets={}, params={}, signals={}, cadence_params=info_keep["cadence"].get("cadence"),
            wave_params=info_keep["cadence"].get("wave"))
 
@@ -59,13 +64,14 @@ for name, acc in res.items():
         tgt[name] = summarize(p, t, asof)
         tgt[name]["cdf180"] = [round(float(x), 4) for x in np.cumsum(p)[:180]]
         tgt[name]["pmf180"] = [round(float(x), 5) for x in p[:180]]
-        for label, dt in (("by_nov15", "2026-11-15"), ("by_nov30", "2026-11-30"), ("by_dec31", "2026-12-31"),
-                          ("by_jan31", "2027-01-31"), ("by_mar31", "2027-03-31")):
-            j = (d(dt) - asof).days
-            tgt[name][label] = float(np.cumsum(p)[j]) if j < H else None
+        cdf = np.cumsum(p)
+        tgt[name]["by"] = {str(m.date()): (float(cdf[(m - asof).days]) if (m - asof).days < H else None) for m in MONTH_ENDS}
 
 # markets: ladder vs model vs blend
-mkts = pd.read_csv("data/raw/markets_2026-10-30.csv")
+import glob, os
+_mfiles = sorted(f for f in glob.glob("data/raw/markets_*.csv") if os.path.basename(f)[8:18] <= str(asof.date()))
+MARKET_FILE = _mfiles[-1]
+mkts = pd.read_csv(MARKET_FILE)
 lad = mk.ladders(mkts)
 for fam, L in lad.items():
     p = res["with_signals"][fam][0]
@@ -93,7 +99,8 @@ if "competitor" in info_keep["with_signals"]:
     out["competitor"] = info_keep["with_signals"]["competitor"]
 
 # release parameters
-gen, gen_info = P.generation_clock(AS_OF, ["2026-12-31", "2027-03-31", "2027-06-30", "2027-12-31"])
+_q = [m for m in pd.date_range(asof, periods=6, freq="QE")][:5]
+gen, gen_info = P.generation_clock(AS_OF, [str(m.date()) for m in _q])
 out["params"]["generation6"] = dict(prob_by=gen, **gen_info)
 for f in FAMILIES:
     med = out["targets"][f]["with_signals"]["median"]
@@ -101,38 +108,50 @@ for f in FAMILIES:
     # P(next model is a new major) = P(generation clock fires before this family's median date)
     pg, _ = P.generation_clock(AS_OF, [at])
     names = P.next_names(rel, f, list(pg.values())[0])
-    if f in ("fable", "mythos"):
-        # Azure catalog row `claude-fable-5-5` (10/13) and the T3 commit naming "Fable 5.5" (10/19)
-        names = P.apply_named_signals(names, [f"Claude {f.capitalize()} 5.5"])
+    # versions named by grade A/B artifacts (maintained by hand in data/named_versions.json;
+    # clear an entry once that model ships)
+    nv = json.load(open("data/named_versions.json")) if os.path.exists("data/named_versions.json") else {}
+    if nv.get(f):
+        names = P.apply_named_signals(names, [nv[f]])
     out["params"][f] = dict(names=names, price=P.price_change(rel, f), colaunch=P.colaunch_rate(rel, f),
                             swe_bench_pro=P.swe_pro_projection(f, at), median_date_used=at)
 wp = weekday_profile(rel, AS_OF)
 out["params"]["weekday_share"] = dict(zip(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], (wp / 7).round(3).tolist()))
 
 out["model_version"] = MODEL_VERSION
+out["market_file"] = MARKET_FILE
+# family to feature in the page's "watch" section: the likeliest within 30 days among
+# families with live signals (fallback: likeliest overall)
+_sig = [f for f in FAMILIES if out["signals"].get(f)]
+_pool = _sig or FAMILIES
+out["watch"] = max(_pool, key=lambda f: out["targets"][f]["with_signals"]["p30"])
 json.dump(out, open("output/forecast.json", "w"), indent=1, default=float)
 
-# forward log: append this run's calls so they can be scored when they resolve
-import csv, os
+# forward log (long format): one row per target × checkpoint, with the market
+# price where a Polymarket ladder rung exists for that date. Never edited.
+import csv
 logp = "forecast_log.csv"
 new = not os.path.exists(logp)
 if not new and any(line.startswith(out["as_of"] + "," + MODEL_VERSION + ",") for line in open(logp)):
     print("forecast_log.csv already has", out["as_of"], MODEL_VERSION, "- not appending")
-    sys.exit(0)
-with open(logp, "a", newline="") as fh:
-    wr = csv.writer(fh)
-    if new:
-        wr.writerow(["as_of", "model_version", "target", "p_by_2026-11-15", "p_by_2026-11-30", "p_by_2026-12-31",
-                     "p_by_2027-01-31", "p_by_2027-03-31", "median", "q10", "q90"])
-    for k in TARGETS:
-        t = out["targets"][k]["with_signals"]
-        wr.writerow([out["as_of"], MODEL_VERSION, k] + [round(t[x], 4) if t[x] is not None else "" for x in
-                    ("by_nov15", "by_nov30", "by_dec31", "by_jan31", "by_mar31")] + [t["median"], t["q10"], t["q90"]])
+else:
+    with open(logp, "a", newline="") as fh:
+        wr = csv.writer(fh)
+        if new:
+            wr.writerow(["as_of", "model_version", "target", "checkpoint", "p_model", "p_market", "median", "q10", "q90"])
+        for k in TARGETS:
+            t = out["targets"][k]["with_signals"]
+            mrows = {r["date"]: r["market"] for r in out["markets"].get(k, [])}
+            for cp, pv in t["by"].items():
+                if pv is None:
+                    continue
+                wr.writerow([out["as_of"], MODEL_VERSION, k, cp, round(pv, 4),
+                             round(mrows[cp], 4) if cp in mrows else "", t["median"], t["q10"], t["q90"]])
 for k in TARGETS:
     a = out["targets"][k]["cadence"]; b = out["targets"][k]["with_signals"]
     print(f"{k:9s} cadence p30={a['p30']:.2f} med={a['median']} | +signals p7={b['p7']:.2f} p30={b['p30']:.2f} "
-          f"p90={b['p90']:.2f} med={b['median']} 80%=[{b['q10']}, {b['q90']}] by11/30={b['by_nov30']:.2f} by12/31={b['by_dec31']:.2f}")
+          f"p90={b['p90']:.2f} med={b['median']} 80%=[{b['q10']}, {b['q90']}] by {CHECKPOINTS[0]}={b['by'][CHECKPOINTS[0]]:.2f} by {CHECKPOINTS[1]}={b['by'][CHECKPOINTS[1]]:.2f}")
 for fam, rows in out["markets"].items():
     for r in rows:
-        if r["date"] in ("2026-11-05", "2026-11-10", "2026-11-19", "2026-11-30", "2026-12-31", "2027-01-31"):
+        if r["date"] in CHECKPOINTS:
             print(f"  {fam:7s} {r['date']} model={r['model']:.2f} market={r['market']:.2f} blend={r['blend']:.2f}")
