@@ -43,7 +43,7 @@
 
             <div class="benchmark-section">
                 <h2 class="section-title">Release Calendar</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Six weeks back, and forward as far as the furthest estimate within four months, on one date axis — a lane per family, pivoting on today. An estimate further out than that is named at the right edge of its lane. Solid dots are releases that happened, with dotted ticks showing what the model had called for them the day before they shipped; hollow dots are the estimated dates for each family's next release, each on a dashed bar spanning the window it is likely to land in.</p>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Six weeks back, and forward as far as the furthest estimate within four months, on one date axis — a lane per family, pivoting on today. An estimate further out than that is named at the right edge of its lane. Solid dots are releases that happened, with dotted ticks showing what the EWMA cadence model had called for them the day before they shipped. Hollow dots and bars come from the <a href="release-forecast.html">statistical forecast</a>: each hollow dot is the median date of the family's next release, and its bar spans the 80% window. The forecast updates weekly, and the calendar reads the latest run. A small grey tick under each lane marks the older EWMA estimate for comparison. If the forecast file can't load, the calendar falls back to the EWMA alone.</p>
                 <div class="benchmark-chart-container">
                     <div id="release-calendar"></div>
                     <div class="benchmark-legend">
@@ -1626,7 +1626,24 @@
         // than an interval. On a real axis, a window is just a bar of the right length.
         function renderReleaseCalendar() {
             const H = ReleaseForecast.helpers;
-            const fc = ReleaseForecast.forecastAll(modelData);
+            const fcEwma = ReleaseForecast.forecastAll(modelData);
+            // Bars and hollow dots come from the statistical forecast
+            // (forecast/output/forecast.json, refreshed weekly) once it has loaded; the
+            // EWMA estimate stays as a small grey tick on each lane and in the list below.
+            // If the file can't be loaded, the calendar falls back to the EWMA alone.
+            const STAT = window.__statForecast || null;
+            const statDate = s => (!s || s[0] === '>') ? H.iso(H.addDays(H.parse(STAT.as_of), 400)) : s;
+            const fc = !STAT ? fcEwma : Object.assign({}, fcEwma, {
+                families: fcEwma.families.map(f => {
+                    const t = STAT.targets[f.key] && STAT.targets[f.key].with_signals;
+                    if (!t) return f;
+                    return Object.assign({}, f, {
+                        stat: true, ewmaDate: f.overdue ? fcEwma.asOf : f.predictedDate,
+                        predictedDate: statDate(t.median), windowStart: statDate(t.q10), windowEnd: statDate(t.q90),
+                        overdue: false, pBy: t.by || {}
+                    });
+                })
+            });
             const today = H.parse(fc.asOf);
             const fmt = s => H.parse(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             const shortFmt = s => H.parse(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
@@ -1719,7 +1736,7 @@
                 const x0 = clampX(x(ws)), x1 = clampX(x(we));
                 const y = laneY(lane), capH = 15;
                 const color = FAMILY_COLORS[f.key];
-                svg += `<g><title>${f.label} — likely between ${windowFmt(f.windowStart)} and ${windowFmt(f.windowEnd)}, centred on ${fmt(f.predictedDate)}</title>`;
+                svg += `<g><title>${f.label} — ${f.stat ? `statistical forecast (as of ${fmt(STAT.as_of)}): 80% likely between ${windowFmt(f.windowStart)} and ${windowFmt(f.windowEnd)}, median ${fmt(f.predictedDate)}` : `likely between ${windowFmt(f.windowStart)} and ${windowFmt(f.windowEnd)}, centred on ${fmt(f.predictedDate)}`}</title>`;
                 if (x0 < xToday) {
                     const split = Math.min(x1, xToday);
                     svg += `<rect x="${x0}" y="${y - capH / 2}" width="${Math.max(3, split - x0)}" height="${capH}" rx="${capH / 2}" fill="${color}" fill-opacity="0.06" stroke="${color}" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="3.5,2.5" />`;
@@ -1733,6 +1750,17 @@
                 if (we > axisEnd) {
                     svg += `<text x="${W - pad.right + 6}" y="${y + 4.5}" fill="${color}" font-size="13" font-weight="700" opacity="0.8">&#8250;</text>`;
                 }
+            });
+            // The old EWMA estimate, as a small grey tick under the lane, for comparison
+            if (STAT) fc.families.forEach(f => {
+                const lane = laneOrder.indexOf(f.key);
+                if (lane === -1 || !f.ewmaDate) return;
+                const at = H.parse(f.ewmaDate);
+                if (at < axisStart || at > axisEnd) return;
+                const ex = x(at), ey = laneY(lane);
+                svg += `<g><title>${f.label} — older EWMA cadence estimate: ${fmt(f.ewmaDate)}</title>`;
+                svg += `<line x1="${ex}" y1="${ey + 9}" x2="${ex}" y2="${ey + 17}" stroke="#9a8878" stroke-width="2" stroke-linecap="round" />`;
+                svg += `</g>`;
             });
             // A family whose whole window lies past the horizon still gets a word on its
             // lane, at the right edge, so the lane doesn't read as "no forecast"
@@ -1808,7 +1836,9 @@
                 marks.push({
                     lane, at: centre, color: FAMILY_COLORS[f.key], shipped: false, overdue: f.overdue,
                     label: f.overdue ? `${f.label} &middot; ${f.overdueBy}d overdue` : f.label,
-                    tip: `${f.label} — estimated ${fmt(f.predictedDate)}${f.overdue ? `, ${f.overdueBy} days overdue` : ''} (${f.confidence} confidence)`
+                    tip: f.stat
+                        ? `${f.label} — statistical forecast median ${fmt(f.predictedDate)}` + (STAT.checkpoints ? ` · ${STAT.checkpoints.map(c => `${Math.round(100 * (f.pBy[c] || 0))}% by ${shortFmt(c)}`).join(', ')}` : '') + ` · EWMA said ${fmt(f.ewmaDate)}`
+                        : `${f.label} — estimated ${fmt(f.predictedDate)}${f.overdue ? `, ${f.overdueBy} days overdue` : ''} (${f.confidence} confidence)`
                 });
             });
 
@@ -1844,7 +1874,7 @@
             // Which way is which
             const footY = pad.top + plotH + 20;
             svg += `<text x="${pad.left}" y="${footY}" fill="#8a7565" font-size="10" font-style="italic">shipped</text>`;
-            svg += `<text x="${W - pad.right}" y="${footY}" text-anchor="end" fill="#8a7565" font-size="10" font-style="italic">forecast</text>`;
+            svg += `<text x="${W - pad.right}" y="${footY}" text-anchor="end" fill="#8a7565" font-size="10" font-style="italic">${STAT ? `statistical forecast, as of ${shortFmt(STAT.as_of)}` : 'forecast (EWMA)'}</text>`;
 
             svg += '</svg>';
             setSvg('release-calendar', svg);
@@ -1859,7 +1889,7 @@
             });
 
             // Forecast table
-            const rowsHTML = fc.families.map(f => {
+            const rowsHTML = fcEwma.families.map(f => {
                 const delta = f.overdue
                     ? `<span class="forecast-delta overdue">${f.overdueBy}d overdue</span>`
                     : `<span class="forecast-delta">in ${f.daysFromNow}d</span>`;
@@ -1888,8 +1918,8 @@
             const bt = ReleaseForecast.backtest(modelData).summary;
             const latest = bt.latest;
             const listNames = names => names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names.join('');
-            const matureNames = listNames(fc.families.filter(f => f.sampleSize >= 2).map(f => f.name));
-            const haikuRow = fc.families.find(f => f.key === 'haiku');
+            const matureNames = listNames(fcEwma.families.filter(f => f.sampleSize >= 2).map(f => f.name));
+            const haikuRow = fcEwma.families.find(f => f.key === 'haiku');
             document.getElementById('forecast-method').innerHTML =
                 `Each family's next release is estimated from a decayed average of its own release gaps &mdash; the most recent gap carries full weight, the one before it a quarter, the one before that a sixteenth. A family with two or more gaps stands entirely on its own history; a single-gap family is blended toward the lineup-wide baseline of ${fc.baselineGap} days &mdash; which is where Fable and Mythos now sit: the 5.1 releases on September 1 gave each family its first gap, 84 days, so their estimates blend that one gap with the baseline instead of resting on the baseline alone, as they did before. A family whose estimated date has already passed is marked overdue and plotted on today. Confidence labels reflect depth of history, not demonstrated accuracy: four or more gaps earn "high", three "medium", fewer "low". Haiku 5.5 (October 7, 2026) gave Haiku its third gap and moved it from "low" to "medium"; the one Haiku call scored with two gaps, Haiku 5.5 itself, landed 34 days after the estimate and had been flagged overdue since early September.`
                 + ` <strong>Track record</strong>, from replaying the ${bt.count} releases the model could forecast (family-firsts have nothing to forecast from): median error ${bt.medianAbsErrorDays} days overall, ~${Math.round(bt.matureMedianAbsErrorDays)} days across the ${bt.matureCount} forecasts made with two or more prior gaps &mdash; the regime ${matureNames} are in today. All but one of those forecasts are Opus and Sonnet calls; the exception is Haiku 5.5, so the figure says little yet about Haiku. Scored the day before each release &mdash; a vantage from which a window can only miss early, never late &mdash; the window caught ${bt.datedHits} of ${bt.datedCount} dated calls. The harder, two-sided test replays every one of the ${bt.displayDays.toLocaleString('en-US')} days a forecast was on display: the window shown on a random historical day contained the eventual release date ${bt.dayWeightedCoverage}% of the time, and a "due now" flag was showing on ${bt.dueNowDays.toLocaleString('en-US')} of those days &mdash; the honest number, and the one to hold the chart to`
@@ -3581,6 +3611,10 @@
             const fmt = s => s && s[0] !== '>' ? MON[+s.slice(5, 7) - 1] + ' ' + (+s.slice(8)) : 'later';
             fetch('forecast/output/forecast.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(F => {
                 if (!F) return;
+                window.__statForecast = F;
+                if (typeof renderReleaseCalendar === 'function') {
+                    try { renderReleaseCalendar(); } catch (e) { window.__statForecast = null; renderReleaseCalendar(); }
+                }
                 const C2 = F.checkpoints ? F.checkpoints[1] : null;
                 const rows = ['fable', 'opus', 'sonnet', 'haiku', 'mythos'].map(f => {
                     const t = F.targets[f].with_signals;

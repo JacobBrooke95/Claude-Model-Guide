@@ -102,6 +102,7 @@ This writes `output/forecast.json`, `history/forecast_<date>.json`, new rows in 
 
 - Render `../release-forecast.html` with Playwright at 1200px and 400px. There should be no console errors and no horizontal overflow.
 - Check the forecast: each CDF in `output/forecast.json` is non-decreasing, and every probability is between 0 and 1.
+- The Claude Guide's Release Calendar (`claude-models.html`) and its "Statistical forecast" box read `forecast/output/forecast.json` straight from the site, so they update with no edits. Leave the family cards and the EWMA cadence list alone; Jacob wants that cycle information kept. After the Pages deploy finishes, load https://jacobbrooke95.github.io/Claude-Model-Guide/claude-models.html and check that the calendar footer reads "statistical forecast, as of <this run's date>".
 - `git diff --stat`: only the expected files changed, `history/` only added files, and `forecast_log.csv` only appended rows.
 
 ## 7. Publish
