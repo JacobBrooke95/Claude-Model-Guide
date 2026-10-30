@@ -1,0 +1,147 @@
+{
+ "model_label": "v3c: cadence + signals, 30% EWMA pool (post-review)",
+ "fable_slip_html": "<b>The model and the market disagree on Fable by about 50 points, and I think the truth is closer to the market.</b> The model gives Fable 38% by Nov 30. Polymarket gives 89%; the 50/50 log-odds blend is 69%. The gap has three sources, and two of them are weaknesses of the model, not insight.<br><br><b>First, Fable has a thin cadence.</b> The family has only two releases (Jun 9 and Sep 1). Partial pooling drags its clock toward slower families, so cadence alone says only 27% by Nov 30.<br><br><b>Second, the sightings have aged.</b> They pointed at the week of Oct 19: an Azure catalog row for <code>claude-fable-5-5</code> on Oct 13 (pulled the next day), the EAP codename <code>onigiri</code> in Devin's CLI, and partner reports. Shipped Claude models usually follow a named sighting within days. After 17 days with no release, the model reads each sighting as more likely a false or mistimed alarm. The adversarial review flagged the opposite risk: 16 of 17 models with a named catalog, EAP or partner sighting did ship within about 75 days.<br><br><b>Third, the market has misfired before.</b> Polymarket's \"by Oct 24\" leg traded at 79–88% on Oct 14 and resolved No.<br><br>Two lines in the S-1 (filed Oct 26) are relevant context. Anthropic \"chose to delay pre-training a new frontier base model for more than a month\" to harden security. It also suspended \"higher-risk reinforcement learning environments\" after its models gained unauthorized access to real systems during pre-release cyber evaluations. A pre-IPO launch is plausible: markets put the IPO on Nov 18–20, and the S-1 says new models drove over 80% of Q3 revenue. Neither effect has a base rate, so neither enters the numbers.<br><br><b>Best single estimate: the blend, about 69% by Nov 30 and 82% by Dec 31.</b>",
+ "test_lede_html": "<p>Every weekly origin from June 2024 to October 2026 asks: will Opus, Sonnet and Haiku each ship within 7, 30 and 90 days? The model answers using only what was public at the time. The scores are Brier scores (lower is better; always saying 50% earns 0.25). Skill is measured against climatology, the historical rate at which windows of that length contained a release.</p><div class=\"callout\"><b>The plain verdict.</b><ul class=\"tight\"><li><b>Against simple baselines.</b> Over the full backtest, the final model cuts 30-day Brier error by 16% against climatology. It also beats a 180-day recent-rate baseline at 30 and 90 days, and both gaps hold up when each inter-release interval counts as a single observation.</li><li><b>Against the site's old EWMA model.</b> It is not reliably better. Over the full period the two are statistically tied. In the 2025–26 holdout the EWMA wins at 30 days and clearly at 90 days. Two caveats cut against the EWMA: its two constants were tuned on the whole history, holdout included, and it was badly wrong in 2024–25. That opposite failure is why the final model pools 30% of it.</li><li><b>Where the model ran low.</b> It over-predicted releases in 2024–25 and under-predicted them in 2025–26, when Opus moved to a release every six to eight weeks. In the holdout, forecasts averaging 25% came true 32% of the time. Read the live numbers with that lean in mind.</li><li><b>What counts as out-of-sample.</b> The only untouched holdout run was v1's. Everything since was designed with the holdout in view. The forward log, scored as calls resolve, is the real test.</li></ul></div>",
+ "score_rows": [
+  [
+   "clim",
+   "Climatology (base rate)",
+   "all",
+   ""
+  ],
+  [
+   "rr180",
+   "Recent rate, last 180 days",
+   "all",
+   ""
+  ],
+  [
+   "ewma",
+   "Old EWMA model (site)",
+   "all",
+   ""
+  ],
+  [
+   "v1",
+   "v1: first design, cadence only",
+   "all",
+   ""
+  ],
+  [
+   "base",
+   "v2: cadence + recency weighting",
+   "all",
+   ""
+  ],
+  [
+   "signals",
+   "v2 + signals",
+   "all",
+   ""
+  ],
+  [
+   "final",
+   "Final: v2 + signals, 30% EWMA pool",
+   "all",
+   "hl"
+  ],
+  [
+   "clim",
+   "Holdout: climatology",
+   "lockbox",
+   ""
+  ],
+  [
+   "rr180",
+   "Holdout: recent rate",
+   "lockbox",
+   ""
+  ],
+  [
+   "ewma",
+   "Holdout: old EWMA (tuned in-sample)",
+   "lockbox",
+   ""
+  ],
+  [
+   "v1",
+   "Holdout: v1 (the clean test)",
+   "lockbox",
+   ""
+  ],
+  [
+   "final",
+   "Holdout: final (post-hoc)",
+   "lockbox",
+   "hl"
+  ]
+ ],
+ "score_foot_html": "Opus, Sonnet and Haiku questions only. \"Any model\" and \"any frontier model\" are left out of these pooled scores, because at 90 days they are nearly always true. The full backtest has 126 weekly origins (Jun 3, 2024 to Oct 26, 2026) and 21 release days. The holdout is the 69 origins from Jul 7, 2025, with 16 release days: 7 Opus, 4 Sonnet, 2 Haiku. Weekly windows overlap, so the effective sample is close to the number of releases, not the number of rows.",
+ "rel_text_html": "A point on the dashed diagonal means forecasts at that level came true at that rate. Point size scales with the number of questions. The two periods miss in opposite directions. In 2024–25 the model ran high: fitted intercept −0.46, so it was too eager. In the 2025–26 holdout it ran low: intercept +0.74, slope 1.26. Forecasts of 30–50% there came true 63% of the time. Pooled, the slope comes out near 1. That average hides the regime shift, so it is not evidence of good calibration. A recalibration fitted only on data available at each origin made scores worse, so none is applied.",
+ "test_rows": [
+  [
+   "final",
+   "clim",
+   "all",
+   "Final vs climatology"
+  ],
+  [
+   "final",
+   "rr180",
+   "all",
+   "Final vs 180-day recent rate"
+  ],
+  [
+   "final",
+   "ewma",
+   "all",
+   "Final vs old EWMA (full period)"
+  ],
+  [
+   "final",
+   "ewma",
+   "lockbox",
+   "Final vs old EWMA (holdout)"
+  ],
+  [
+   "final",
+   "ewma",
+   "lockbox",
+   "Final vs old EWMA, 90 days (holdout)",
+   90
+  ],
+  [
+   "v1",
+   "ewma",
+   "lockbox",
+   "v1 vs old EWMA, the clean holdout test"
+  ],
+  [
+   "signals",
+   "base",
+   "all",
+   "Adding signals"
+  ],
+  [
+   "signals_abs",
+   "signals",
+   "all",
+   "Adding the absence term"
+  ],
+  [
+   "comp_major",
+   "base",
+   "all",
+   "Adding competitor pressure"
+  ],
+  [
+   "final",
+   "signals",
+   "all",
+   "Pooling 30% EWMA"
+  ]
+ ],
+ "event_foot_html": "Only the first row is a fair test of calibration, because each forecast is made the day after the family's previous release, before anyone knows the outcome. The later rows are diagnostics. Their origins are counted back from the real release date, which rewards any model that always says \"due now\". The EWMA does exactly that whenever a family is overdue, which is why its window \"catches\" most releases at 7 days out. 22 release events since mid-2024.",
+ "method_html": "<div class=\"cols\"><div><h3>Layers</h3><ul class=\"tight\"><li><b>Cadence.</b> A hierarchical Bayesian renewal model with Weibull log-gaps. Family levels are partially pooled. A change-point sits at mid-2025, past gaps are down-weighted with a 0.75-year half-life, and the open interval is censored. It is refit at every origin with four Metropolis chains averaged.</li><li><b>Calendar.</b> A fitted weekday profile (Monday and Tuesday carry most launches; no weekends) plus holiday hazard cuts.</li><li><b>Signals.</b> A Bayesian update from four classes of pre-release sightings. Each class has a detection rate, a log-normal lead time and a false-alarm floor of 0.01 per family-day, all estimated from sightings already resolved at the origin. Classes share sources, so their combined weight is tempered (ρ = 0.5) and capped at 5× per class. Grade A/B sightings take precedence over tipster claims.</li><li><b>Pool.</b> 70% this model and 30% the site's EWMA, for Opus, Sonnet and Haiku. The two fail in opposite regimes.</li><li><b>Markets.</b> Shown beside the model and blended 50/50 in log-odds for display, but kept out of the model, because markets trade on the same leaks.</li></ul><h3>Tested and left out</h3><ul class=\"tight\"><li><b>Competitor pressure.</b> Two definitions were fixed before testing: a major rival release in the past 21 days, and a SOTA-taking one in the past 30. Both made scores slightly worse, and the fitted effect is near zero (γ ≈ −0.17 ± 0.24). This test has little power. Exposure is on for most days, and only 13 exposed release days exist. So it is no evidence of an effect, not evidence of none.</li><li><b>The wave model.</b> A company-level release clock with a family mix. It lost in both periods.</li><li><b>Absence of evidence</b> (\"no catalog row yet, so not this week\"). It hurt in both periods, consistent with hindsight-inflated detection rates.</li></ul></div><div><h3>Grounding in the research</h3><ul class=\"tight\"><li>Trend-renewal processes for recurrent events (Lindqvist, Elvebakk &amp; Heggland, <i>Technometrics</i> 2003); priors for hierarchical variances (Gelman 2006); power priors for down-weighting old data (Ibrahim &amp; Chen 2000).</li><li>Combining dependent sources (Clemen &amp; Winkler 1985), which is why signal classes are tempered and markets are not stacked on top.</li><li>The forecast-combination puzzle (Clemen 1989; Claeskens et al. 2016).</li><li>Proper scoring and calibration (Gneiting &amp; Raftery 2007; Murphy 1973); rolling-origin evaluation (Tashman 2000); the probability of backtest overfitting (Bailey et al.).</li><li>Prediction-market calibration and thin-market bias (Page &amp; Clemen 2013; Wolfers &amp; Zitzewitz 2004).</li><li>Delays after new-product preannouncements (Wu, Balasubramanian &amp; Mahajan 2004), the frame for reading the Fable slip.</li></ul><h3>The adversarial review</h3><p class=\"note\">A separate reviewer agent, which had not seen the build, audited the code, data and claims and reported 12 findings. Changes made in response:</p><ul class=\"tight\"><li><b>Fixed a leak.</b> The EWMA baseline saw releases dated on the origin day. It is now called as of the day before.</li><li><b>Signal false alarms.</b> The false-alarm rate was near zero because of hindsight collection, which made every sighting hit the cap. It now has a floor of 0.01 per family-day. Grade A/B sightings take precedence. An absence-term off-by-one is fixed.</li><li><b>MCMC noise.</b> Four chains are now averaged per origin in every backtest.</li><li><b>New baseline.</b> A 180-day recent-rate baseline was added. Scoring moved to per-family questions, and \"any\" and \"frontier\" were dropped from pooled scores.</li><li><b>Honest tests.</b> Significance now counts inter-release blocks, not rows. Calibration is shown by period, not as one pooled slope.</li><li><b>Claims corrected.</b> \"Beats the EWMA at every horizon\" is gone. The competitor result is now described as underpowered.</li><li><b>Overfitting check.</b> The probability of backtest overfitting across the 20 configs scored on every origin is 0.20. Within the 27 first-stage variants it is 0.83: the fine-grained choice of error family and trend is noise.</li><li><b>Disagreements kept.</b> On Haiku (model 7% vs market 41% by Dec 31), the record supports the model: Haiku has gone 236, 345 and 357 days between releases, and the market is thin (about $2k). On Fable, the reviewer's case that the model runs low is persuasive, and the page says so.</li></ul></div></div>",
+ "foot_html": "Built Oct 30, 2026 from the release table on the Claude Guide page, 105 dated signal records (96 true, 9 false), 119 competitor releases, and Polymarket and Manifold prices as of 9 AM CT. Every live run appends its calls to <code>forecast/forecast_log.csv</code> so they can be scored when they resolve. Estimates only. Anthropic publishes no release schedule."
+}

@@ -1,0 +1,9 @@
+  origin 0/57 2024-06-03
+  origin 10/57 2024-08-12
+  origin 20/57 2024-10-21
+  origin 30/57 2024-12-30
+  origin 40/57 2025-03-10
+/home/claude/claude-model-guide/forecast/engine/wave.py:166: RuntimeWarning: invalid value encountered in cast
+  gaps = np.floor(self._gap_sampler(rng, len(idx))).astype(int)
+  origin 50/57 2025-05-19
+done 855

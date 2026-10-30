@@ -1,0 +1,89 @@
+benchmark,start_date,end_date,leader_lab,leader_model,score,source_url
+SWE-bench Verified (lab-reported; GA models),2024-08-13,2024-09-12,Anthropic,Claude 3.5 Sonnet (Jun 2024),33.4,https://www.anthropic.com/news/3-5-models-and-computer-use
+SWE-bench Verified (lab-reported; GA models),2024-09-12,2024-10-22,OpenAI,o1-preview,41.3,https://llm-stats.com/benchmarks/swe-bench-verified
+SWE-bench Verified (lab-reported; GA models),2024-10-22,2025-01-20,Anthropic,Claude 3.5 Sonnet (Oct 2024),49.0,https://www.anthropic.com/news/3-5-models-and-computer-use
+SWE-bench Verified (lab-reported; GA models),2025-01-20,2025-01-31,DeepSeek,DeepSeek-R1,49.2 (marginal),https://arxiv.org/abs/2501.12948
+SWE-bench Verified (lab-reported; GA models),2025-01-31,2025-02-24,OpenAI,o3-mini (high),49.3 (marginal),https://openai.com/index/openai-o3-mini/
+SWE-bench Verified (lab-reported; GA models),2025-02-24,2025-04-16,Anthropic,Claude 3.7 Sonnet,62.3 std / 70.3 custom scaffold,https://www.anthropic.com/news/claude-3-7-sonnet
+SWE-bench Verified (lab-reported; GA models),2025-04-16,2025-05-22,contested: Anthropic (70.3 scaffold) vs OpenAI o3 (69.1),Claude 3.7 Sonnet / o3,70.3 vs 69.1,https://openai.com/index/introducing-o3-and-o4-mini/
+SWE-bench Verified (lab-reported; GA models),2025-05-22,2025-08-05,Anthropic,Claude Sonnet 4 / Opus 4,72.7 / 72.5,https://www.anthropic.com/news/claude-4
+SWE-bench Verified (lab-reported; GA models),2025-08-05,2025-08-07,Anthropic,Claude Opus 4.1,74.5,https://www.anthropic.com/news/claude-opus-4-1
+SWE-bench Verified (lab-reported; GA models),2025-08-07,2025-09-29,OpenAI,GPT-5,74.9,https://openai.com/index/gpt-5/
+SWE-bench Verified (lab-reported; GA models),2025-09-29,2025-11-19,Anthropic,Claude Sonnet 4.5,77.2,https://www.anthropic.com/news/claude-sonnet-4-5
+SWE-bench Verified (lab-reported; GA models),2025-11-19,2025-11-24,OpenAI,GPT-5.1-Codex-Max,77.9,https://openai.com/index/gpt-5-1-codex-max/
+SWE-bench Verified (lab-reported; GA models),2025-11-24,2026-04-16,Anthropic,Claude Opus 4.5,80.9 (Opus 4.6 80.8; Gemini 3.1 Pro 80.6; restricted Mythos Preview 93.9 from 2026-04-07),https://www.anthropic.com/news/claude-opus-4-5
+SWE-bench Verified (lab-reported; GA models),2026-04-16,2026-05-28,Anthropic,Claude Opus 4.7,87.6,https://www.anthropic.com/news/claude-opus-4-7
+SWE-bench Verified (lab-reported; GA models),2026-05-28,2026-06-09,Anthropic,Claude Opus 4.8,88.6,https://llm-stats.com/benchmarks/swe-bench-verified
+SWE-bench Verified (lab-reported; GA models),2026-06-09,2026-10-30,Anthropic,Claude Fable 5,95.0 (OpenAI/Google largely stopped reporting SWE-V in 2026),https://llm-stats.com/benchmarks/swe-bench-verified
+SWE-bench Verified (Epoch independent runs; frontier by release date),2024-11-20,2025-02-24,OpenAI,gpt-4o-2024-11-20,31.0,https://epoch.ai/benchmarks
+SWE-bench Verified (Epoch independent runs; frontier by release date),2025-02-24,2025-04-16,Anthropic,claude-3-7-sonnet-20250219,61.0,https://epoch.ai/benchmarks
+SWE-bench Verified (Epoch independent runs; frontier by release date),2025-04-16,2025-05-22,OpenAI,o3-2025-04-16_medium,62.3,https://epoch.ai/benchmarks
+SWE-bench Verified (Epoch independent runs; frontier by release date),2025-05-22,2025-08-05,Anthropic,claude-opus-4-20250514,70.7,https://epoch.ai/benchmarks
+SWE-bench Verified (Epoch independent runs; frontier by release date),2025-08-05,2025-08-07,Anthropic,claude-opus-4-1-20250805,73.3,https://epoch.ai/benchmarks
+SWE-bench Verified (Epoch independent runs; frontier by release date),2025-08-07,2025-11-24,OpenAI,gpt-5-2025-08-07_high,73.6,https://epoch.ai/benchmarks
+SWE-bench Verified (Epoch independent runs; frontier by release date),2025-11-24,2026-02-05,Anthropic,claude-opus-4-5-20251101,76.7,https://epoch.ai/benchmarks
+SWE-bench Verified (Epoch independent runs; frontier by release date),2026-02-05,2026-04-16,Anthropic,claude-opus-4-6,78.7,https://epoch.ai/benchmarks
+SWE-bench Verified (Epoch independent runs; frontier by release date),2026-04-16,2026-10-30,Anthropic,claude-opus-4-7_max [series data ends 2026-06-16; leader as of then],83.5,https://epoch.ai/benchmarks
+Terminal-Bench 2.0 (Epoch external compilation; best agent per model),2025-06-17,2025-08-05,Google DeepMind,gemini-2.5-pro,32.6,https://www.tbench.ai/leaderboard/terminal-bench/2.0
+Terminal-Bench 2.0 (Epoch external compilation; best agent per model),2025-08-05,2025-08-07,Anthropic,claude-opus-4-1-20250805,38.0,https://www.tbench.ai/leaderboard/terminal-bench/2.0
+Terminal-Bench 2.0 (Epoch external compilation; best agent per model),2025-08-07,2025-11-12,OpenAI,gpt-5-2025-08-07_unknown,49.6,https://www.tbench.ai/leaderboard/terminal-bench/2.0
+Terminal-Bench 2.0 (Epoch external compilation; best agent per model),2025-11-12,2025-11-18,OpenAI,gpt-5.1-codex-mini,61.6,https://www.tbench.ai/leaderboard/terminal-bench/2.0
+Terminal-Bench 2.0 (Epoch external compilation; best agent per model),2025-11-18,2026-02-05,Google DeepMind,gemini-3-pro-preview,69.4,https://www.tbench.ai/leaderboard/terminal-bench/2.0
+Terminal-Bench 2.0 (Epoch external compilation; best agent per model),2026-02-05,2026-02-19,Anthropic,claude-opus-4-6_unknown,79.8,https://www.tbench.ai/leaderboard/terminal-bench/2.0
+Terminal-Bench 2.0 (Epoch external compilation; best agent per model),2026-02-19,2026-03-05,Google DeepMind,gemini-3.1-pro-preview,80.2,https://www.tbench.ai/leaderboard/terminal-bench/2.0
+Terminal-Bench 2.0 (Epoch external compilation; best agent per model),2026-03-05,2026-04-23,OpenAI,gpt-5.4-2026-03-05_unknown,81.8,https://www.tbench.ai/leaderboard/terminal-bench/2.0
+Terminal-Bench 2.0 (Epoch external compilation; best agent per model),2026-04-23,2026-10-30,OpenAI,gpt-5.5_unknown [series data ends 2026-04-23; leader as of then],84.7,https://www.tbench.ai/leaderboard/terminal-bench/2.0
+FrontierSWE (Epoch external),2026-06-09,2026-07-24,Anthropic,claude-fable-5_max,47.0,https://epoch.ai/benchmarks
+FrontierSWE (Epoch external),2026-07-24,2026-09-01,Anthropic,claude-opus-5_max,52.0,https://epoch.ai/benchmarks
+FrontierSWE (Epoch external),2026-09-01,2026-09-03,Anthropic,claude-fable-5-1_max,56.3,https://epoch.ai/benchmarks
+FrontierSWE (Epoch external),2026-09-03,2026-10-30,OpenAI,gpt-6-astra_max,65.5,https://epoch.ai/benchmarks
+WebDev Arena Elo (Epoch; current Elo by model release date),2025-06-17,2025-07-31,Google DeepMind,gemini-2.5-pro,1226,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2025-07-31,2025-08-05,Alibaba,Qwen3-Coder-480B-A35B-Instruct,1274,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2025-08-05,2025-08-07,Anthropic,claude-opus-4-1-20250805_unknown,1389,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2025-08-07,2025-11-18,OpenAI,gpt-5-2025-08-07_medium,1420,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2025-11-18,2025-11-24,Google DeepMind,gemini-3-pro-preview,1439,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2025-11-24,2026-02-05,Anthropic,claude-opus-4-5-20251101_32K,1495,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2026-02-05,2026-04-16,Anthropic,claude-opus-4-6_unknown,1556,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2026-04-16,2026-06-09,Anthropic,claude-opus-4-7_unknown,1567,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2026-06-09,2026-07-16,Anthropic,claude-fable-5_high,1628,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2026-07-16,2026-07-24,Moonshot,kimi-k3_max,1674,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2026-07-24,2026-09-01,Anthropic,claude-opus-5_max,1687,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2026-09-01,2026-09-03,Anthropic,claude-fable-5-1_max,1758,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2026-09-03,2026-09-22,OpenAI,gpt-6-astra_max,1800,https://web.lmarena.ai/leaderboard
+WebDev Arena Elo (Epoch; current Elo by model release date),2026-09-22,2026-10-30,Anthropic,claude-opus-5-5_max,1820,https://web.lmarena.ai/leaderboard
+Epoch Capabilities Index (overall frontier; not coding),2023-02-24,2023-03-14,Meta AI,LLaMA-65B,109.9,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2023-03-14,2024-01-25,OpenAI,GPT-4 (Mar 2023),125.7,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2024-01-25,2024-02-29,OpenAI,GPT-4 Turbo (Nov 2023),126.4,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2024-02-29,2024-04-09,Anthropic,Claude 3 Opus,126.9,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2024-04-09,2024-05-13,OpenAI,GPT-4 Turbo (Apr 2024),127.3,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2024-05-13,2024-06-20,OpenAI,GPT-4o (May 2024),129.0,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2024-06-20,2024-09-12,Anthropic,Claude 3.5 Sonnet,130.0,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2024-09-12,2024-12-17,OpenAI,o1-mini,135.7,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2024-12-17,2025-03-31,OpenAI,o1,141.7,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2025-03-31,2025-04-16,Google DeepMind,Gemini 2.5 Pro (Mar 2025),144.0,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2025-04-16,2025-06-10,OpenAI,o3,146.8,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2025-06-10,2025-08-07,OpenAI,o3-pro,147.4,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2025-08-07,2025-10-07,OpenAI,GPT-5,150.0,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2025-10-07,2025-11-18,OpenAI,GPT-5 Pro,150.7,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2025-11-18,2025-12-11,Google DeepMind,Gemini 3 Pro,153.1,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2025-12-11,2026-02-05,OpenAI,GPT-5.2 Pro,156.4,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2026-02-05,2026-03-05,OpenAI,GPT-5.3 Codex,157.1,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2026-03-05,2026-04-23,OpenAI,GPT-5.4 Pro,159.6,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2026-04-23,2026-06-09,OpenAI,GPT-5.5 Pro,162.9,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2026-06-09,2026-07-24,Anthropic,Claude Fable 5,163.1,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2026-07-24,2026-09-01,Anthropic,Claude Opus 5,163.8,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2026-09-01,2026-09-03,Anthropic,Claude Fable 5.1,166.2,https://epoch.ai/benchmarks/eci
+Epoch Capabilities Index (overall frontier; not coding),2026-09-03,2026-10-30,OpenAI,GPT-6 Astra,168.9,https://epoch.ai/benchmarks/eci
+LMArena text #1 (best effort; monthly snapshots + launch claims),2023-05-10,2024-03-26,OpenAI,"GPT-4 (0314), then GPT-4 Turbo (1106-preview)",1274 (May 2023) .. ~1254,https://lmsys.org/blog/2023-05-10-leaderboard/
+LMArena text #1 (best effort; monthly snapshots + launch claims),2024-03-26,2024-04-26,Anthropic,Claude 3 Opus,~1254 (end date approx: monthly snapshot),https://www.benchlm.ai/llm-leaderboard-history
+LMArena text #1 (best effort; monthly snapshots + launch claims),2024-04-26,2024-08-01,OpenAI,"GPT-4 Turbo (2024-04-09), then GPT-4o (from 2024-05-13)",1257 .. 1287,https://www.benchlm.ai/llm-leaderboard-history
+LMArena text #1 (best effort; monthly snapshots + launch claims),2024-08-01,2024-08-13,Google,Gemini 1.5 Pro Exp 0801,~1300 (end approx),https://www.artificialintelligence-news.com/news/googles-gemini-1-5-pro-dethrones-gpt-4o/
+LMArena text #1 (best effort; monthly snapshots + launch claims),2024-08-13,2024-11-14,OpenAI,"chatgpt-4o-latest, then o1-preview",1316 .. 1339,https://www.benchlm.ai/llm-leaderboard-history
+LMArena text #1 (best effort; monthly snapshots + launch claims),2024-11-14,2025-02-17,"contested: Google (Gemini-Exp-1114/1206, 2.0 Flash Thinking) vs OpenAI (GPT-4o-1120, o1); benchlm snapshots show o1 (Dec) and DeepSeek-R1 (Jan-Feb)",various,~1360-1380,https://www.tomsguide.com/ai/google-gemini/google-drops-new-gemini-model-and-it-goes-straight-to-the-top-of-the-llm-leaderboard
+LMArena text #1 (best effort; monthly snapshots + launch claims),2025-02-17,2025-03-03,xAI,Grok 3 (chocolate),1402,https://x.ai/news/grok-3
+LMArena text #1 (best effort; monthly snapshots + launch claims),2025-03-03,2025-03-25,OpenAI,GPT-4.5,~1411,https://www.analyticsvidhya.com/blog/2025/03/gpt-4-5-becomes-1-on-chatbot-arena/
+LMArena text #1 (best effort; monthly snapshots + launch claims),2025-03-25,2025-11-17,Google,Gemini 2.5 Pro,~1440-1477,https://en.wikipedia.org/wiki/Gemini_(language_model)
+LMArena text #1 (best effort; monthly snapshots + launch claims),2025-11-17,2025-11-18,xAI,Grok 4.1 Thinking,1483,https://x.ai/news/grok-4-1
+LMArena text #1 (best effort; monthly snapshots + launch claims),2025-11-18,2026-02-05,Google,Gemini 3 Pro,1501 (end approx: Feb 2026 monthly snapshot shows Claude Opus 4.6),https://blog.google/products/gemini/gemini-3/
+LMArena text #1 (best effort; monthly snapshots + launch claims),2026-02-05,2026-09-30,Anthropic,"Claude Opus 4.6 (thinking), then Claude Opus 5 (Jul), Opus 5.5 (Sep; Anthropic held ranks 1-6 on 2026-09-25)",~1500-1512,https://www.benchlm.ai/llm-leaderboard-history
+LMArena text #1 (best effort; monthly snapshots + launch claims),2026-09-30,2026-10-30,Google,Gemini 4 Argon (high),~1525-1533 vs best Claude ~1505 (Oct 2),https://manifold.markets/Terminator2/which-lab-will-have-the-1-model-on

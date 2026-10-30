@@ -1,0 +1,244 @@
+{
+ "_doc": "Every input the forecaster knows about, sorted into the categories below. 'layer' says where the input enters the model; 'status' says whether it is fitted from data (with n), set a priori, tested and found empty, or watched but not modelled. Lead and precision are filled from data/signals.csv by build_registry() at run time where n allows.",
+ "categories": {
+  "A_cadence": "The company's own release rhythm: gaps between releases, by family and company-wide",
+  "B_artifact": "Hard traces of an unreleased model on infrastructure Anthropic or partners control",
+  "C_report": "Human reports: press, partners, tipsters, executives",
+  "D_market": "Prediction-market prices",
+  "E_competitive": "What other labs ship and how strong it is",
+  "F_corporate": "Filings, financing, IPO, compute, safety gating, staffing",
+  "G_calendar": "Weekday, holidays, events, quarter boundaries"
+ },
+ "inputs": [
+  {
+   "id": "family_gaps",
+   "cat": "A_cadence",
+   "name": "Inter-release gaps per family",
+   "layer": "cadence",
+   "status": "fitted",
+   "how": "Hierarchical Weibull/log-normal renewal, partial pooling across families, censored open interval",
+   "source": "data/anthropic_releases.csv",
+   "evidence": "Cadence plus calendar cut 30-day Brier by 8% against climatology on Opus, Sonnet and Haiku (0.169 vs 0.184, full backtest). A one-line 180-day rate does nearly as well at 90 days."
+  },
+  {
+   "id": "company_waves",
+   "cat": "A_cadence",
+   "name": "Company-level release days ('waves') and which families ride them",
+   "layer": "wave",
+   "status": "tested: zero weight",
+   "how": "Renewal on distinct release days + conditional logistic inclusion on days-since-family",
+   "source": "data/anthropic_releases.csv",
+   "evidence": "Lost to the per-family model in both periods (pre-review run: 30-day holdout Brier 0.253 at half weight vs 0.235 at none)."
+  },
+  {
+   "id": "trend",
+   "cat": "A_cadence",
+   "name": "Cadence acceleration",
+   "layer": "cadence",
+   "status": "fitted (form chosen on tuning period)",
+   "how": "Change-point at 2025-06 vs linear trend vs none",
+   "evidence": "Change-point plus 0.75-year recency half-life won stage 1b. PBO across stage-1 configs is 0.83, so the exact form is not identified."
+  },
+  {
+   "id": "lineup_sync",
+   "cat": "A_cadence",
+   "name": "Version-number alignment across the lineup (all at 5.5 except Fable 5.1)",
+   "layer": "params",
+   "status": "rule-based",
+   "how": "Feeds the next-name distribution; the odd one out (Fable) is the family most likely to move next"
+  },
+  {
+   "id": "cloud_catalog",
+   "cat": "B_artifact",
+   "name": "Cloud catalog rows (Bedrock, Vertex AI, Azure Foundry)",
+   "layer": "signals:infra",
+   "status": "fitted",
+   "how": "Lead-time density + detection rate + false-alarm rate",
+   "evidence": "Bimodal: 0–1 day (3.7 Bedrock, Opus 4.6 Vertex) or 16–149 days (Fennec). Azure fable-5-5 is still open."
+  },
+  {
+   "id": "first_party_doc",
+   "cat": "B_artifact",
+   "name": "First-party docs: model pages, pricing, deprecation notices, status-page components, system-card URLs, SDK model constants",
+   "layer": "signals:infra",
+   "status": "fitted (pooled with catalog rows)"
+  },
+  {
+   "id": "client_strings",
+   "cat": "B_artifact",
+   "name": "Model IDs and codenames in third-party clients (Cursor, Devin, Copilot, LiteLLM, OpenRouter) and Claude app bundles",
+   "layer": "signals:client",
+   "status": "fitted",
+   "evidence": "Named strings land 0–5 days before release; codenamed EAP strings 1–29. About half the EAP food codenames never mapped."
+  },
+  {
+   "id": "arena_codename",
+   "cat": "B_artifact",
+   "name": "Anonymous arena models later revealed as Claude",
+   "layer": "signals:client",
+   "status": "watched only: never observed",
+   "evidence": "No Anthropic model has been documented as an anonymous arena entry (P11 resolved No)."
+  },
+  {
+   "id": "ct_logs",
+   "cat": "B_artifact",
+   "name": "Certificate-transparency subdomains (claude.com, anthropic.com)",
+   "layer": "watch",
+   "status": "not modelled — product, not model, lead indicator so far",
+   "source": "vault instruments/ct-*.txt"
+  },
+  {
+   "id": "eap_partner",
+   "cat": "C_report",
+   "name": "Partners / early-access testers reported to have the model",
+   "layer": "signals:report",
+   "status": "fitted (pooled with press)"
+  },
+  {
+   "id": "press",
+   "cat": "C_report",
+   "name": "Major-outlet reports (The Information, Reuters, Bloomberg, Verge)",
+   "layer": "signals:report",
+   "status": "fitted",
+   "evidence": "Pooled with partner reports, red-team rounds and A/B routing. Median lead about 9 days."
+  },
+  {
+   "id": "tipster",
+   "cat": "C_report",
+   "name": "Tipster claims with no artifact (X, Reddit, aggregators)",
+   "layer": "signals:soft",
+   "status": "fitted",
+   "evidence": "Usually right on the name, wrong on the date by about a week. The false-alarm floor is 0.01 per family-day."
+  },
+  {
+   "id": "exec_tease",
+   "cat": "C_report",
+   "name": "Executive or employee hints",
+   "layer": "signals:soft",
+   "status": "fitted (pooled with tipsters)"
+  },
+  {
+   "id": "system_card_mentions",
+   "cat": "C_report",
+   "name": "System cards / risk reports naming unreleased or internal models ('Model 2', successor training)",
+   "layer": "signals:infra",
+   "status": "fitted where dated; weak for timing"
+  },
+  {
+   "id": "polymarket",
+   "cat": "D_market",
+   "name": "Polymarket dated-ladder markets",
+   "layer": "market blend",
+   "status": "cross-check and blend only, not in the model",
+   "source": "research/markets.csv",
+   "evidence": "Polymarket's 'Fable by Oct 24' hit 79–88% on Oct 14 and failed. Markets and signals share sources."
+  },
+  {
+   "id": "manifold",
+   "cat": "D_market",
+   "name": "Manifold markets",
+   "layer": "market blend",
+   "status": "cross-check only (play money, thin)"
+  },
+  {
+   "id": "competitor_major",
+   "cat": "E_competitive",
+   "name": "Competitor flagship release in prior 21 days",
+   "layer": "modifier",
+   "status": "tested: no detectable effect (underpowered)",
+   "source": "data/competitor_releases.csv",
+   "evidence": "Slightly worse with it (+0.001 Brier at 30 days, p = 0.05). Little power: exposure is on for most days, and only 13 release days are exposed."
+  },
+  {
+   "id": "competitor_sota",
+   "cat": "E_competitive",
+   "name": "Competitor release that took SOTA in prior 30 days",
+   "layer": "modifier",
+   "status": "tested: no detectable effect (biased exposure)",
+   "evidence": "Slightly worse in the pre-review run (+0.004). Also biased: a rival can only take SOTA when Claude hasn't just shipped."
+  },
+  {
+   "id": "benchmark_lead",
+   "cat": "E_competitive",
+   "name": "Benchmark leadership (SWE-bench, arena #1)",
+   "layer": "params",
+   "status": "descriptive; feeds capability projection"
+  },
+  {
+   "id": "s1",
+   "cat": "F_corporate",
+   "name": "S-1 (filed 2026-10-26): revenue concentration in new models, safety gating, compute timeline",
+   "layer": "scenario",
+   "status": "scenario note, not fitted",
+   "evidence": "'Delay pre-training a new frontier base model for more than a month'; RL environments suspended; new models drove over 80% of Q3 revenue."
+  },
+  {
+   "id": "ipo_window",
+   "cat": "F_corporate",
+   "name": "IPO pricing window (markets: Nov 18–20 most likely)",
+   "layer": "scenario",
+   "status": "scenario analysis, not fitted"
+  },
+  {
+   "id": "safety_gating",
+   "cat": "F_corporate",
+   "name": "RSP/ASL gating, government pre-deployment testing, training pauses",
+   "layer": "scenario",
+   "status": "qualitative; explains slips, not fitted"
+  },
+  {
+   "id": "compute",
+   "cat": "F_corporate",
+   "name": "Compute capacity coming online (S-1: SpaceXAI capacity fully delivered Dec 2026)",
+   "layer": "watch",
+   "status": "too slow for date forecasting; capacity prior only"
+  },
+  {
+   "id": "hiring",
+   "cat": "F_corporate",
+   "name": "Job postings (voice, FedRAMP, etc.)",
+   "layer": "watch",
+   "status": "product signal, not model timing"
+  },
+  {
+   "id": "weekday",
+   "cat": "G_calendar",
+   "name": "Weekday profile",
+   "layer": "modifier",
+   "status": "fitted",
+   "evidence": "Removing calendar effects worsened 30-day holdout Brier by +0.007 (pre-review run, CI +0.004 to +0.010)."
+  },
+  {
+   "id": "holidays",
+   "cat": "G_calendar",
+   "name": "Dec 20 – Jan 4 freeze, Thanksgiving Thu–Fri",
+   "layer": "modifier",
+   "status": "a priori factor 0.25"
+  },
+  {
+   "id": "events",
+   "cat": "G_calendar",
+   "name": "AWS re:Invent (Nov 30 – Dec 4), Google events, Anthropic dev events",
+   "layer": "watch",
+   "status": "not modelled — too few co-timed launches to estimate"
+  },
+  {
+   "id": "absence",
+   "cat": "B_artifact",
+   "name": "Absence of evidence (no catalog row yet, so not this week)",
+   "layer": "signals",
+   "status": "tested and found empty",
+   "how": "1 − detection × P(lead ≥ days to release)",
+   "evidence": "Hurt in both periods (+0.004 Brier at 30 days, p = 0.06). Consistent with detection rates inflated by hindsight. Switched off."
+  },
+  {
+   "id": "ewma",
+   "cat": "A_cadence",
+   "name": "The site's original EWMA cadence model",
+   "layer": "pool (30%)",
+   "status": "fitted (pool weight post-hoc)",
+   "how": "Window read as an 80% normal interval",
+   "evidence": "Strong in 2026 (holdout 90-day Brier 0.127) but badly wrong in 2024–25 (0.418). Its constants were tuned on the full history, so in the holdout it is an in-sample reference. The 30% pool beats the model alone (p = 0.007)."
+  }
+ ]
+}

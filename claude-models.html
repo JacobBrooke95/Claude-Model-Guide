@@ -12,6 +12,7 @@
             <h1 class="logo">Jacob Brooke</h1>
             <ul class="nav-links">
                 <li><a href="claude-models.html" class="active">Claude Guide</a></li>
+                <li><a href="release-forecast.html">Release Forecast</a></li>
                 <li><a href="system-card-metrics.html">System Card Metrics</a></li>
             </ul>
         </div>
@@ -68,7 +69,12 @@
                         </div>
                     </div>
 
-                    <h4 class="forecast-heading">Forecast</h4>
+                    <div class="stat-forecast" id="stat-forecast" style="margin: 18px 0 8px; padding: 12px 16px; border-left: 4px solid #e07a5f; background: #fdf8f5; border-radius: 0 8px 8px 0;">
+                        <strong>Statistical forecast.</strong> A backtested probabilistic model now runs alongside this cadence view. It combines family cadence, calendar effects and pre-release signals, and pools that 70/30 with the estimate below.
+                        <a href="release-forecast.html">See the full forecast, backtest and inputs &rarr;</a>
+                        <div id="stat-forecast-rows" style="margin-top: 8px; font-size: 0.92em;"></div>
+                    </div>
+                    <h4 class="forecast-heading">Cadence estimate (EWMA)</h4>
                     <div class="forecast-list" id="forecast-list"></div>
 
                     <p class="benchmark-note" id="forecast-method"></p>
@@ -3564,6 +3570,25 @@
             chartTip.hidden = true;
             renderCharts();
         });
+    </script>
+    <script>
+        // Headline numbers from the statistical forecaster (forecast/output/forecast.json,
+        // written by forecast/live.py). The page still works if the file is missing.
+        (function () {
+            const box = document.getElementById('stat-forecast-rows');
+            if (!box || !window.fetch) return;
+            const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            const fmt = s => s && s[0] !== '>' ? MON[+s.slice(5, 7) - 1] + ' ' + (+s.slice(8)) : 'later';
+            fetch('forecast/output/forecast.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(F => {
+                if (!F) return;
+                const rows = ['fable', 'opus', 'sonnet', 'haiku', 'mythos'].map(f => {
+                    const t = F.targets[f].with_signals;
+                    return '<span style="display:inline-block;margin-right:14px;white-space:nowrap"><b>' + f[0].toUpperCase() + f.slice(1) +
+                        '</b> ' + Math.round(100 * t.by_dec31) + '% by Dec 31 &middot; median ' + fmt(t.median) + '</span>';
+                });
+                box.innerHTML = rows.join('') + '<div style="color:#8a7565;font-size:0.9em;margin-top:4px">As of ' + fmt(F.as_of) + '</div>';
+            }).catch(() => {});
+        })();
     </script>
 </body>
 </html>

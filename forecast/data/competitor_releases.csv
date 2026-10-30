@@ -1,0 +1,120 @@
+date,lab,model,tier,is_major,took_sota,beat_claude_coding,source_url,note
+2023-02-24,Meta,LLaMA,flagship,1,0,,https://ai.meta.com/blog/large-language-model-llama-meta-ai/,Research release.
+2023-03-14,OpenAI,GPT-4,flagship,1,1,,https://arxiv.org/abs/2303.08774,Top of LMSYS Chatbot Arena once GPT-4 was added (May 2023); arena did not exist at release. Pre-SWE-bench era.
+2023-05-10,Google DeepMind,PaLM 2,flagship,1,0,,https://arxiv.org/abs/2305.10403,Google I/O 2023 (pre-Gemini).
+2023-07-18,Meta,Llama 2,flagship,1,0,,https://ai.meta.com/blog/llama-2/,Open weights.
+2023-11-04,xAI,Grok-1,flagship,1,0,,https://en.wikipedia.org/wiki/Grok_(chatbot),Early access to X Premium+.
+2023-11-06,OpenAI,GPT-4 Turbo (gpt-4-1106-preview),flagship,1,1,,https://openai.com/blog/new-models-and-developer-products-announced-at-devday,DevDay. gpt-4-1106-preview held Arena #1 by early 2024 (benchlm monthly snapshots).
+2023-12-06,Google DeepMind,Gemini 1.0 (Pro live; Ultra announced),flagship,1,0,,https://en.wikipedia.org/wiki/Gemini_(language_model),"Pro in Bard Dec 6 (API Dec 13); Ultra announced, claimed MMLU 90% beating GPT-4/Claude 2."
+2024-02-08,Google DeepMind,Gemini 1.0 Ultra (Gemini Advanced),flagship,0,0,,https://en.wikipedia.org/wiki/Gemini_(language_model),Availability of the Dec-announced Ultra.
+2024-02-15,Google DeepMind,Gemini 1.5 Pro,flagship,1,0,,https://blog.google/technology/ai/google-gemini-next-generation-model-february-2024/,1M context; limited preview.
+2024-02-26,Mistral AI,Mistral Large,flagship,1,0,,https://mistral.ai/news/mistral-large/,
+2024-03-28,xAI,Grok-1.5,flagship,1,0,,https://x.ai/blog/grok-1.5,"Announced Mar 28-29; available May 15, 2024."
+2024-04-09,OpenAI,GPT-4 Turbo (2024-04-09),flagship,0,1,,https://x.com/OpenAI/status/1778574613813006610,Update; retook Arena #1 from Claude 3 Opus (benchlm snapshot 2024-04-26).
+2024-04-18,Meta,Llama 3 (8B/70B),flagship,1,0,,https://ai.meta.com/blog/meta-llama-3/,
+2024-05-07,DeepSeek,DeepSeek-V2,flagship,1,0,,https://arxiv.org/abs/2405.04434,MLA + MoE; price war in China.
+2024-05-13,OpenAI,GPT-4o,flagship,1,1,,https://openai.com/index/hello-gpt-4o/,Arena #1 (benchlm snapshots May-Jul 2024). Pre-SWE-bench Verified.
+2024-05-14,Google DeepMind,Gemini 1.5 Flash (+1.5 Pro update),mid,0,0,,https://en.wikipedia.org/wiki/Gemini_(language_model),Google I/O 2024.
+2024-07-18,OpenAI,GPT-4o mini,small,0,0,0,https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/,SWE-bench Verified 8.7% (lab-reported via llm-stats).
+2024-07-23,Meta,Llama 3.1 405B,flagship,1,0,,https://ai.meta.com/research/publications/the-llama-3-herd-of-models/,First frontier-scale open model.
+2024-07-24,Mistral AI,Mistral Large 2,flagship,1,0,,https://mistral.ai/news/mistral-large-2407/,Day after Llama 3.1 405B.
+2024-08-01,Google DeepMind,Gemini 1.5 Pro Exp 0801,flagship,0,1,,https://www.artificialintelligence-news.com/news/googles-gemini-1-5-pro-dethrones-gpt-4o/,Experimental; took Chatbot Arena #1 from GPT-4o.
+2024-08-13,OpenAI,chatgpt-4o-latest (Aug 2024),flagship,0,1,0,https://help.openai.com/en/articles/9624314-model-release-notes,approx date (ChatGPT GPT-4o update mid-Aug 2024). Arena #1 per benchlm 2024-08-28 snapshot. GPT-4o SWE-V 33.2 vs Claude 3.5 Sonnet (Jun) 33.4.
+2024-08-13,xAI,Grok-2 (+mini),flagship,1,0,,https://x.ai/blog/grok-2,Announced Aug 13-14; Grok-2 rolled out Aug 20.
+2024-09-12,OpenAI,o1-preview,reasoning-variant,1,1,1,https://openai.com/index/introducing-openai-o1-preview/,New reasoning paradigm. SWE-V 41.3 (lab) vs Claude 3.5 Sonnet (Jun) 33.4; Arena #1 per benchlm Sep-Nov 2024 snapshots.
+2024-09-12,OpenAI,o1-mini,reasoning-variant,0,0,,https://openai.com/index/learning-to-reason-with-llms/,Small reasoning model.
+2024-09-25,Meta,Llama 3.2,small,0,0,,https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/,Vision + edge models.
+2024-11-14,Google DeepMind,Gemini-Exp-1114,flagship,0,1,,https://www.tomsguide.com/ai/google-gemini/google-drops-new-gemini-model-and-it-goes-straight-to-the-top-of-the-llm-leaderboard,Experimental; debuted Arena #1 (Nov-Dec 2024 Arena top contested between Gemini-Exp and GPT-4o/o1 updates).
+2024-12-05,OpenAI,o1,reasoning-variant,0,1,0,https://openai.com/index/introducing-chatgpt-pro/,ChatGPT release Dec 5; API Dec 17. Arena #1 per benchlm 2024-12-30 snapshot. SWE-V 48.9 (system card) / 41 (llm-stats) vs Claude 3.5 Sonnet (Oct) 49.0.
+2024-12-06,Meta,Llama 3.3 70B,mid,0,0,,https://www.llama.com/docs/model-cards-and-prompt-formats/llama3_3/,
+2024-12-11,Google DeepMind,Gemini 2.0 Flash (experimental),flagship,1,0,,https://blog.google/technology/google-deepmind/google-gemini-ai-update-december-2024/,Generation step (2.0).
+2024-12-19,Google DeepMind,Gemini 2.0 Flash Thinking (experimental),reasoning-variant,0,,,https://deepmind.google/technologies/gemini/flash-thinking/,Arena standing at release not verified.
+2024-12-20,OpenAI,o3 (announcement only),reasoning-variant,1,1,1,https://en.wikipedia.org/wiki/OpenAI_o3,"ANNOUNCEMENT, not available (released 2025-04-16). Claimed SWE-V 71.7% vs Claude 3.5 Sonnet 49.0. Strong competitive signal."
+2024-12-26,DeepSeek,DeepSeek-V3,flagship,1,0,0,https://api-docs.deepseek.com/news/news1226,SWE-V 42.0 vs Claude 3.5 Sonnet 49.0.
+2025-01-20,DeepSeek,DeepSeek-R1,reasoning-variant,1,1,1,https://api-docs.deepseek.com/news/news250120,SWE-V 49.2 (R1 paper arxiv 2501.12948) vs Claude 3.5 Sonnet 49.0 - marginal. Arena: ~#3 overall at debut (benchlm snapshot lists #1 for Jan-Feb 2025 - treat as uncertain). Market shock Jan 27.
+2025-01-28,Alibaba,Qwen2.5-Max,flagship,1,0,,https://qwenlm.github.io/blog/qwen2.5-max/,
+2025-01-31,OpenAI,o3-mini,reasoning-variant,0,1,1,https://openai.com/index/openai-o3-mini/,SWE-V 49.3 (lab) vs Claude 3.5 Sonnet 49.0 and R1 49.2 - marginal SOTA.
+2025-02-05,Google DeepMind,Gemini 2.0 Pro (exp) + 2.0 Flash GA,flagship,0,,,https://en.wikipedia.org/wiki/Gemini_(language_model),Arena standing at release not verified.
+2025-02-17,xAI,"Grok 3 (+mini, Think)",flagship,1,1,,https://x.ai/news/grok-3,"Livestream Feb 17 (post dated Feb 19). Claimed Chatbot Arena #1 (Elo 1402, codename chocolate). No SWE-V claim."
+2025-02-27,OpenAI,GPT-4.5,flagship,1,1,0,https://openai.com/index/introducing-gpt-4-5/,"Took #1 on Chatbot Arena (early Mar 2025, analyticsvidhya.com/blog/2025/03/gpt-4-5-becomes-1-on-chatbot-arena/). SWE-V 38.0 vs Claude 3.7 Sonnet 62.3/70.3."
+2025-03-24,DeepSeek,DeepSeek-V3-0324,mid,0,0,0,https://api-docs.deepseek.com/news/news250325,
+2025-03-25,Google DeepMind,Gemini 2.5 Pro,flagship,1,1,0,https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/,Debuted #1 on LMArena (Wikipedia; held #1 through ~Oct 2025 per benchlm snapshots). SWE-V 63.8 (lab) vs Claude 3.7 Sonnet 62.3/70.3; Epoch 57.5 vs 60.9.
+2025-04-05,Meta,Llama 4 (Scout/Maverick; Behemoth preview),flagship,1,0,,https://ai.meta.com/blog/llama-4-multimodal-intelligence/,Experimental Maverick variant ranked #2 on LMArena (controversy over non-released variant).
+2025-04-14,OpenAI,GPT-4.1,mid,0,0,0,https://openai.com/index/gpt-4-1/,API-only. SWE-V 54.6 vs 3.7 Sonnet 62.3/70.3.
+2025-04-16,OpenAI,o3 + o4-mini,reasoning-variant,1,1,1,https://openai.com/index/introducing-o3-and-o4-mini/,SWE-V lab 69.1 vs 3.7 Sonnet 62.3 standard / 70.3 custom scaffold (ambiguous); Epoch independent run o3 62.3 vs 3.7 Sonnet 60.9 -> coded 1.
+2025-04-17,Google DeepMind,Gemini 2.5 Flash,mid,0,0,0,https://deepmind.google/models/gemini/flash/,
+2025-04-29,Alibaba,Qwen3 (235B-A22B family),flagship,1,0,,https://qwenlm.github.io/blog/qwen3/,Date Apr 28-29.
+2025-05-06,Google DeepMind,"Gemini 2.5 Pro Preview (05-06, I/O edition)",flagship,0,1,,https://developers.googleblog.com/en/gemini-2-5-pro-io-improved-coding-performance/,Coding-focused update; claimed #1 WebDev Arena. SWE-V 63.2 (lab).
+2025-05-28,DeepSeek,DeepSeek-R1-0528,reasoning-variant,0,0,0,https://api-docs.deepseek.com/news/news250528,Below Claude 4 (72.7) on SWE-V.
+2025-06-10,OpenAI,o3-pro,reasoning-variant,0,0,,https://en.wikipedia.org/wiki/OpenAI_o3,Higher-compute o3.
+2025-07-09,xAI,Grok 4 (+Heavy),flagship,1,0,,https://x.ai/news/grok-4,Claimed SOTA on HLE/ARC-AGI-2 (not in took_sota definition); not Arena #1; Epoch Terminal-Bench 27.2 vs Opus 4 era.
+2025-07-11,Moonshot AI,Kimi K2,flagship,1,0,0,https://moonshotai.github.io/Kimi-K2/,Open weights. SWE-V 65.8 vs Claude 4 72.7.
+2025-08-01,Google DeepMind,Gemini 2.5 Deep Think,reasoning-variant,0,0,,https://storage.googleapis.com/deepmind-media/Model-Cards/Gemini-2-5-Deep-Think-Model-Card.pdf,Ultra subscribers.
+2025-08-05,OpenAI,gpt-oss-120b / 20b,mid,0,0,0,https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf,Open-weight. Same day as Claude Opus 4.1.
+2025-08-07,OpenAI,GPT-5,flagship,1,1,1,https://openai.com/index/gpt-5/,SWE-V 74.9 (lab) vs Opus 4.1 74.5 (released 2 days earlier); Epoch 73.5 vs 73.3. Led SWE-V until Sonnet 4.5 (2025-09-29).
+2025-08-21,DeepSeek,DeepSeek-V3.1,flagship,1,0,0,https://api-docs.deepseek.com/news/news250821,Hybrid thinking. SWE-V 66.0 vs Opus 4.1 74.5.
+2025-08-28,xAI,Grok Code Fast 1,coding-variant,0,0,0,https://data.x.ai/2025-08-26-grok-code-fast-1-model-card.pdf,SWE-V 70.8 vs Opus 4.1 74.5.
+2025-09-05,Alibaba,Qwen3-Max,flagship,1,0,0,https://modelstudio.console.alibabacloud.com/?tab=doc#/doc/?type=model&url=2840914_2&modelId=qwen3-max-preview,Preview Sep 5; Epoch ECI date Sep 24.
+2025-09-15,OpenAI,GPT-5-Codex,coding-variant,0,0,0,https://openai.com/index/introducing-upgrades-to-codex/,SWE-V 74.5 (lab) vs GPT-5 74.9 / Opus 4.1 74.5.
+2025-09-19,xAI,Grok 4 Fast,small,0,0,,https://x.ai/news/grok-4-fast,
+2025-09-29,DeepSeek,DeepSeek-V3.2-Exp,mid,0,0,0,https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf,Same day as Claude Sonnet 4.5.
+2025-11-06,Moonshot AI,Kimi K2 Thinking,reasoning-variant,0,0,0,https://moonshotai.github.io/Kimi-K2/thinking,SWE-V 71.3 vs Sonnet 4.5 77.2.
+2025-11-12,OpenAI,GPT-5.1 (Instant/Thinking),flagship,1,0,0,https://openai.com/index/gpt-5-1/,SWE-V 76.3 vs Sonnet 4.5 77.2.
+2025-11-17,xAI,Grok 4.1 (+Fast),flagship,1,1,,https://x.ai/news/grok-4-1,Claimed LMArena text #1 (Grok 4.1 Thinking 1483); displaced next day by Gemini 3 Pro (1501).
+2025-11-18,Google DeepMind,Gemini 3 Pro,flagship,1,1,0,https://blog.google/products/gemini/gemini-3/,"LMArena #1 at 1501 (Google); held #1 to ~Jan 2026. #1 Epoch ECI at release. SWE-V 76.2 vs Sonnet 4.5 77.2. One day after Grok 4.1, six days before Claude Opus 4.5."
+2025-11-19,OpenAI,GPT-5.1-Codex-Max,coding-variant,0,1,1,https://openai.com/index/gpt-5-1-codex-max/,SWE-V 77.9 vs Sonnet 4.5 77.2 (SOTA for 5 days until Opus 4.5 80.9 on 2025-11-24). TB2.0 58.1.
+2025-12-01,DeepSeek,DeepSeek-V3.2 (+Speciale),flagship,1,0,0,https://api-docs.deepseek.com/news/news251201,SWE-V 73.1 vs Opus 4.5 80.9.
+2025-12-02,Mistral AI,Mistral Large 3,flagship,1,0,,https://mistral.ai/news/mistral-3/,
+2025-12-04,Google DeepMind,Gemini 3 Deep Think,reasoning-variant,0,0,,https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-deep-think/,Wikipedia table lists Dec 3; announcement Dec 4 (approx).
+2025-12-11,OpenAI,GPT-5.2 (+Pro),flagship,1,0,0,https://openai.com/index/introducing-gpt-5-2/,SWE-V 80.0 vs Opus 4.5 80.9. GPT-5.2 Pro #1 on Epoch ECI at release.
+2025-12-17,Google DeepMind,Gemini 3 Flash,mid,0,0,0,https://blog.google/products/gemini/gemini-3-flash/,SWE-V 78.0 vs Opus 4.5 80.9.
+2025-12-18,OpenAI,GPT-5.2-Codex,coding-variant,0,,,https://openai.com/index/introducing-gpt-5-2-codex/,No SWE-V figure found.
+2026-01-25,Alibaba,Qwen3-Max-Thinking,reasoning-variant,0,0,0,https://qwen.ai/blog?id=qwen3-max-thinking,SWE-V 75.3 vs Opus 4.5 80.9.
+2026-01-27,Moonshot AI,Kimi K2.5,flagship,1,0,0,https://arxiv.org/abs/2602.02276,SWE-V 76.8 vs Opus 4.5 80.9.
+2026-02-05,OpenAI,GPT-5.3-Codex,coding-variant,0,0,0,https://openai.com/index/introducing-gpt-5-3-codex/,Same day as Claude Opus 4.6. #1 on Epoch ECI (157.1 vs Opus 4.6 155.7) but Epoch SWE-V 74.7 vs Opus 4.6 78.7 and Opus 4.6 led Epoch Terminal-Bench 2.0.
+2026-02-12,OpenAI,GPT-5.3-Codex-Spark,small,0,0,,https://openai.com/index/introducing-gpt-5-3-codex-spark/,Fast small coding model.
+2026-02-15,Alibaba,Qwen3.5 (397B-A17B),flagship,1,0,0,https://qwen.ai/blog?id=qwen3.5,SWE-V 76.4 vs Opus 4.6 80.8.
+2026-02-17,xAI,Grok 4.20,flagship,1,0,,https://docs.x.ai/developers/models,approx (Wikipedia: Feb 2026; Epoch: 2026-02-17). Same day as Claude Sonnet 4.6. ECI 152.2 vs Opus 4.6 155.7.
+2026-02-19,Google DeepMind,Gemini 3.1 Pro,flagship,1,1,0,https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/,"Terminal-Bench 2.0 SOTA at release per Epoch external (80.2 vs Opus 4.6 79.8), soon passed by GPT-5.4. SWE-V 80.6 vs Opus 4.6 80.8. Two days after Sonnet 4.6."
+2026-03-03,Google DeepMind,Gemini 3.1 Flash-Lite,small,0,0,0,https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-flash-lite/,
+2026-03-05,OpenAI,GPT-5.4 (Thinking/Pro),flagship,1,1,0,https://openai.com/index/introducing-gpt-5-4/,"Terminal-Bench 2.0 SOTA per Epoch external data (81.8 vs Gemini 3.1 Pro 80.2, Opus 4.6 79.8); OSWorld-Verified 75%. Epoch SWE-V 76.8 vs Opus 4.6 78.7."
+2026-03-17,OpenAI,GPT-5.4 mini / nano,small,0,0,0,https://en.wikipedia.org/wiki/GPT-5.4,
+2026-04-01,Alibaba,Qwen3.6 Plus,flagship,1,0,0,https://qwen.ai/blog?id=qwen3.6,SWE-V 78.8 vs Opus 4.6 80.8.
+2026-04-08,Meta,Muse Spark (MSL),flagship,1,0,0,https://ai.meta.com/blog/introducing-muse-spark-msl/,First Meta Superintelligence Labs model. SWE-V 77.4 (lab) vs Opus 4.6 80.8.
+2026-04-17,xAI,Grok 4.3 (beta),flagship,1,0,,https://grok.com/release-notes,Day after Claude Opus 4.7. ECI 148.9.
+2026-04-20,Moonshot AI,Kimi K2.6,flagship,1,0,0,https://www.kimi.com/blog/kimi-k2-6,SWE-V 80.2 vs Opus 4.7 87.6.
+2026-04-23,OpenAI,GPT-5.5 (+Pro),flagship,1,1,0,https://openai.com/index/introducing-gpt-5-5/,TB2.0 82.7% (lab) / 84.7 (Epoch external) SOTA; #1 ECI (162.9). One week after Opus 4.7: Epoch SWE-V 80.5 vs Opus 4.7 83.4; Opus 4.7 led SWE-bench Pro (datanorth.ai).
+2026-04-24,DeepSeek,DeepSeek-V4 (Pro/Flash),flagship,1,0,0,https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf,"Generation step. SWE-V 80.6 (lab, Pro-Max) vs Opus 4.7 87.6. Day after GPT-5.5."
+2026-05-05,OpenAI,GPT-5.5 Instant,mid,0,0,,https://openai.com/index/gpt-5-5-instant/,ChatGPT default model.
+2026-05-19,Alibaba,Qwen3.7-Max,flagship,1,0,0,https://qwen.ai/blog?id=qwen3.7,SWE-V 80.4 vs Opus 4.7 87.6. Same day as Gemini 3.5 Flash.
+2026-05-19,Google DeepMind,Gemini 3.5 Flash,mid,0,0,0,https://deepmind.google/models/model-cards/gemini-3-5-flash/,Google I/O 2026; highest-numbered Google model but Flash tier (3.1 Pro remained Pro). Epoch SWE-V 79.3 vs Opus 4.7 83.4.
+2026-05-29,xAI,Grok Build 0.1,coding-variant,0,0,0,https://x.ai/news/grok-build-0-1,SWE-V 70.8 (Wikipedia) vs Opus 4.8 88.6. Day after Opus 4.8.
+2026-06-12,Moonshot AI,Kimi K2.7 Code,coding-variant,0,0,0,https://platform.kimi.ai/docs/guide/kimi-k2-7-code-quickstart,Wikipedia list: Jun 16. Epoch FrontierCode 30.1 vs Fable 5 53.5.
+2026-07-08,xAI,Grok 4.5,flagship,1,0,0,https://x.ai/news/grok-4-5,"Date conflict: Wikipedia/Epoch Jul 8, zbuild.io Jul 16. Musk called it ""Opus-class"". Epoch FrontierCode 42.4 vs Fable 5 53.5."
+2026-07-09,Meta,Muse Spark 1.1,mid,0,0,0,https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/,Epoch DeepSWE 53.3 vs Fable 5 69.9.
+2026-07-09,OpenAI,GPT-5.6 (Sol/Terra/Luna),flagship,1,1,1,https://datanorth.ai/news/openai-releases-gpt-5-6-sol-terra-and-luna,"Trusted-partner preview 2026-06-26; GA ~Jul 9 (approx). Claimed TB2.1 Sol 88.8 / Sol Ultra 91.9 vs Mythos 5 88.0 (restricted), Opus 4.8 78.9; Terra 84.3 = Fable 5. Epoch DeepSWE Sol 72.7 > Fable 5 69.9, but Epoch FrontierSWE Fable 5 47.0 > Sol 32.2 (mixed). Two weeks before Claude Opus 5 (07-24)."
+2026-07-16,Moonshot AI,Kimi K3,flagship,1,,0,https://huggingface.co/moonshotai/Kimi-K3,Generation step. Briefly topped Epoch WebDev Arena running max (1674 vs Fable 5 1628) until Opus 5 (07-24) - note; FrontierSWE 25.9 vs Fable 5 47.0 (mixed -> took_sota blank).
+2026-07-19,Alibaba,Qwen 3.8 Max,flagship,1,0,0,https://qwen.ai/blog?id=qwen3.8,Epoch ECI date 2026-08-02 (approx). Epoch FrontierSWE 15.8.
+2026-07-21,Google DeepMind,"Gemini 3.6 Flash (+3.5 Flash-Lite, 3.5 Flash Cyber)",mid,0,0,0,https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/,Epoch FrontierCode 34.4 vs Fable 5 53.5.
+2026-07-31,DeepSeek,DeepSeek V4 Flash 0731,mid,0,0,0,https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731,Epoch FrontierCode 18.8.
+2026-08-05,Meta,Muse Spark 1.2 (+Muse Code),mid,0,0,0,https://research.meta.ai/blog/introducing-muse-code-and-muse-spark-1-2,Reached #7 on LMArena text by late Sep (Manifold market description).
+2026-08-10,Meta,Muse Glimmer (open agentic 30B),small,0,0,0,https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model,SWE-V 76.0 (llm-stats) vs Fable 5 95.0.
+2026-08-12,xAI,Grok 4.6,flagship,1,0,0,https://x.ai/news/grok-4-6,Epoch FrontierSWE 25.3 vs Opus 5 52.0; DeepSWE 67.5 vs 73.6.
+2026-08-13,DeepSeek,DeepSeek V4 Pro 0813,flagship,0,0,0,https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813,Update. Epoch FrontierCode 28.5 vs Opus 5 53.4.
+2026-08-13,Google DeepMind,Gemini 3.7 Flash,mid,0,0,0,https://ai.google.dev/gemini-api/docs/models/gemini-3.7-flash,Epoch FrontierSWE 20.3 vs Opus 5 52.0.
+2026-09-02,Google DeepMind,Gemini 3.8 Flash (+3.8 Flash Cyber),mid,0,0,0,https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash,Epoch FrontierSWE 19.6 vs Fable 5.1 56.3; DeepSWE 73.8 ~ Opus 5 73.6.
+2026-09-02,Meta,Muse Spark 1.3,mid,0,0,0,https://research.meta.ai/blog/introducing-muse-spark-1-3,Epoch CursorBench 41.6 vs Fable 5.1 51.8.
+2026-09-03,OpenAI,GPT-6 Astra,flagship,1,1,1,https://en.wikipedia.org/wiki/GPT-6,"Generation step; limited preview 09-03, public 09-04. #1 Epoch ECI 168.9; FrontierSWE 65.5 vs Claude Fable 5.1 56.3 (Epoch); WebDev Arena 1800 vs Fable 5.1 1758. Two days after Fable 5.1. Claude Opus 5.5 followed 09-22."
+2026-09-09,DeepSeek,DeepSeek V4.1 Flash,mid,0,0,0,https://www.deepseek.com/en/news/deepseek-v4-1-flash/,Epoch FrontierCode 43.9 vs Fable 5.1 50.9. V4.1 Pro not released as of late Oct (Manifold).
+2026-09-21,xAI,Grok 4.7,flagship,1,0,0,https://x.ai/news/grok-4-7,Day before Claude Opus 5.5. Epoch FrontierSWE 29.5 vs Fable 5.1 56.3. Grok 4.8/4.9/5 not released as of ~Oct 11 (zbuild.io).
+2026-09-22,OpenAI,GPT-6 Sol / GPT-6 Luna,mid,0,0,0,https://openai.com/index/introducing-gpt-6-sol-and-luna/,Same day as Claude Opus 5.5. Epoch FrontierCode Sol 49.3 vs Fable 5.1 50.9.
+2026-09-29,OpenAI,GPT-6.1 Sol,mid,0,0,0,https://techcrunch.com/2026/09/29/openai-launches-gpt-6-1-sol-says-it-nearly-matches-gpt-6-astra-and-costs-less/,DevDay. Near-Astra at 1/5 price; GPT-6.1 Astra scrapped over safety concerns (WSJ via TechCrunch). Epoch FrontierCode 50.2 vs Opus 5.5 54.6.
+2026-09-30,Google DeepMind,Gemini 4 Argon,flagship,1,1,0,https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/,"Generation step. Limited preview (Fairwind cyber program) 09-30; Gemini app (AI Pro/Ultra) 2026-10-13 (blog.google/innovation-and-ai/products/gemini-app/gemini-4-availability). Took LMArena text #1 (~1525-1533) displacing Claude. Coding vs Opus 5.5 (8 days earlier): TB4.0 57.4 vs 66.4, FrontierSWE 55.0 vs 62.3; DeepSWE 77.9 vs 74.2 (split)."
+2026-10-06,Mistral AI,Mistral Large 4,flagship,1,0,0,https://mistral.ai/news/mistral-large-4/,Epoch FrontierCode 39.4 vs Opus 5.5 54.6.
+2026-10-07,OpenAI,GPT-6 Instant,mid,0,0,,https://en.wikipedia.org/wiki/GPT-6,"ChatGPT default for paid users Oct 7, free Oct 8; Intelligent UI."
+2026-10-12,Meta,Muse Wonder,flagship,1,0,0,https://research.meta.ai/blog/muse-wonder,New larger flagship. ECI 161.8 vs Opus 5.5 168.6; Epoch CursorBench 50.4 vs Opus 5.5 57.8.
+2026-10-15,Meta,Muse Spark Open,mid,0,0,,https://research.meta.ai/blog/muse-spark-open,Open-weight release.
+2026-10-17,DeepSeek,DeepSeek V4.1 Flash 1017,mid,0,0,0,https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017,Date per Epoch ECI data (2026-10-17). Epoch CursorBench 47.7 vs Opus 5.5 57.8.
+2026-10-23,Moonshot AI,Kimi K3.1 Pro,flagship,1,,,https://platform.kimi.ai/docs/guide/kimi-k3-1-pro-quickstart,No benchmark data found yet.
+2026-10-26,OpenAI,GPT-6.1 Terra,mid,0,0,0,https://letsdatascience.com/blog/gpt-6-1-terra-beats-openai-flagship-claude-still-leads,$1/$5 per M tokens. Agents Last Exam 60.0 vs Opus 5.5 63.2; OSWorld 2.1 74.2 vs Sonnet 5.5 83.9.
+2026-10-28,Google DeepMind,Gemini 4 Carbon,flagship,1,,0,https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/,"Limited cyber-defender release via Fairwind; broader ""soon"". Claimed #1 Artificial Analysis Intelligence Index v5 (59 vs Opus 5.5 58) and cyber SOTA (SEC-bench Pro, ExploitGym); WebDev Arena 1768 (#4) vs Opus 5.5 ~1820. Not an LMArena-text or SWE claim -> took_sota blank."

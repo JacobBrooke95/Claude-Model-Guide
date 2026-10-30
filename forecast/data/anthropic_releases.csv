@@ -1,0 +1,31 @@
+release_id,date,family,model,version,generation,access,price_in,price_out,colaunch_group,source_url,note
+claude1,2023-03-14,legacy,Claude 1 / Instant,1.0,1,ga,,,c1,https://www.anthropic.com/news/introducing-claude,legacy single-tier
+claude2,2023-07-11,legacy,Claude 2,2.0,2,ga,8,24,,https://www.anthropic.com/news/claude-2,legacy single-tier
+claude21,2023-11-21,legacy,Claude 2.1,2.1,2,ga,8,24,,https://www.anthropic.com/news/claude-2-1,legacy single-tier
+opus3,2024-03-04,opus,Claude 3 Opus,3.0,3,ga,15,75,c3,https://www.anthropic.com/news/claude-3-family,
+sonnet3,2024-03-04,sonnet,Claude 3 Sonnet,3.0,3,ga,3,15,c3,https://www.anthropic.com/news/claude-3-family,
+haiku3,2024-03-13,haiku,Claude 3 Haiku,3.0,3,ga,0.25,1.25,c3,https://www.anthropic.com/news/claude-3-haiku,announced 3/4 with family; available 3/13
+sonnet35,2024-06-20,sonnet,Claude 3.5 Sonnet,3.5,3,ga,3,15,,https://www.anthropic.com/news/claude-3-5-sonnet,
+sonnet35new,2024-10-22,sonnet,Claude 3.5 Sonnet (new),3.6,3,ga,3,15,c35b,https://www.anthropic.com/news/3-5-models-and-computer-use,
+haiku35,2024-11-04,haiku,Claude 3.5 Haiku,3.5,3,ga,0.8,4,c35b,https://www.anthropic.com/news/3-5-models-and-computer-use,announced 10/22; available 11/4
+sonnet37,2025-02-24,sonnet,Claude 3.7 Sonnet,3.7,3,ga,3,15,,https://www.anthropic.com/news/claude-3-7-sonnet,
+opus4,2025-05-22,opus,Claude Opus 4,4.0,4,ga,15,75,c4,https://www.anthropic.com/news/claude-4,
+sonnet4,2025-05-22,sonnet,Claude Sonnet 4,4.0,4,ga,3,15,c4,https://www.anthropic.com/news/claude-4,
+opus41,2025-08-05,opus,Claude Opus 4.1,4.1,4,ga,15,75,,https://www.anthropic.com/news/claude-opus-4-1,
+sonnet45,2025-09-29,sonnet,Claude Sonnet 4.5,4.5,4,ga,3,15,,https://www.anthropic.com/news/claude-sonnet-4-5,
+haiku45,2025-10-15,haiku,Claude Haiku 4.5,4.5,4,ga,1,5,,https://www.anthropic.com/news/claude-haiku-4-5,
+opus45,2025-11-24,opus,Claude Opus 4.5,4.5,4,ga,5,25,,https://www.anthropic.com/news/claude-opus-4-5,
+opus46,2026-02-05,opus,Claude Opus 4.6,4.6,4,ga,5,25,,https://www.anthropic.com/news/claude-opus-4-6,
+sonnet46,2026-02-17,sonnet,Claude Sonnet 4.6,4.6,4,ga,3,15,,https://www.anthropic.com/news/claude-sonnet-4-6,
+mythosprev,2026-04-07,mythos,Claude Mythos Preview,4.9,5,restricted,,,,https://www.anthropic.com/glasswing,restricted preview (Project Glasswing)
+opus47,2026-04-16,opus,Claude Opus 4.7,4.7,4,ga,5,25,,https://www.anthropic.com/news/claude-opus-4-7,
+opus48,2026-05-28,opus,Claude Opus 4.8,4.8,4,ga,5,25,,https://www.anthropic.com/news/claude-opus-4-8,
+fable5,2026-06-09,fable,Claude Fable 5,5.0,5,ga,10,50,c5f,https://www.anthropic.com/news/claude-fable-5-mythos-5,
+mythos5,2026-06-09,mythos,Claude Mythos 5,5.0,5,restricted,10,50,c5f,https://www.anthropic.com/news/claude-fable-5-mythos-5,
+sonnet5,2026-06-30,sonnet,Claude Sonnet 5,5.0,5,ga,2,10,,https://www.anthropic.com/news/claude-sonnet-5,
+opus5,2026-07-24,opus,Claude Opus 5,5.0,5,ga,5,25,,https://www.anthropic.com/news/claude-opus-5,verified 7/24 (Fri)
+fable51,2026-09-01,fable,Claude Fable 5.1,5.1,5,ga,10,50,c51,https://www.anthropic.com/claude-fable-and-mythos-5-1,
+mythos51,2026-09-01,mythos,Claude Mythos 5.1,5.1,5,restricted,10,50,c51,https://www.anthropic.com/claude-fable-and-mythos-5-1,
+opus55,2026-09-22,opus,Claude Opus 5.5,5.5,5,ga,4,20,,https://www.anthropic.com/claude-opus-5-5,
+sonnet55,2026-09-28,sonnet,Claude Sonnet 5.5,5.5,5,ga,2,10,,https://www.anthropic.com/claude-sonnet-5-5,verified 9/28 (Mon) — hub "9/29" was wrong
+haiku55,2026-10-07,haiku,Claude Haiku 5.5,5.5,5,ga,0.1,0.5,,https://www.anthropic.com/claude-haiku-5-5,

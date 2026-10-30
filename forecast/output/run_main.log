@@ -1,0 +1,57 @@
+stage-1 winner: weibull|linear|w0.5
+lockbox: 69 origins × 9 configs
+  origin 0/69 2025-07-07
+  origin 10/69 2025-09-15
+  origin 20/69 2025-11-24
+  origin 30/69 2026-02-02
+  origin 40/69 2026-04-13
+  origin 50/69 2026-06-22
+  origin 60/69 2026-08-31
+  origin 0/57 2024-06-03
+  origin 10/57 2024-08-12
+  origin 20/57 2024-10-21
+  origin 30/57 2024-12-30
+  origin 40/57 2025-03-10
+  origin 50/57 2025-05-19
+Traceback (most recent call last):
+  File "/home/claude/claude-model-guide/forecast/run_all.py", line 79, in <module>
+    ev = bt.run_events(rel, comp, sig, {k: configs[k] for k in configs if k in ("base", "signals", "full", "cadence_only", "wave_only", "changepoint")}, evs, cache=cache)
+  File "/home/claude/claude-model-guide/forecast/engine/backtest.py", line 165, in run_events
+    fc = forecast(rel, None if not cfg.competitor else comp, sig, o, cfg, cache)[0]
+         ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/claude-model-guide/forecast/engine/forecast.py", line 82, in forecast
+    wav = cache.wavef(rel, asof, cfg) if cfg.w_wave > 0 else None
+          ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/claude/claude-model-guide/forecast/engine/forecast.py", line 73, in wavef
+    self.wave[k] = WaveForecast(rel, asof, err=cfg.err, trend=cfg.trend, seed=cfg.seed, horizon=H)
+                   ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/claude-model-guide/forecast/engine/wave.py", line 92, in __init__
+    self.a, self.b = fit_inclusion(rows)
+                     ~~~~~~~~~~~~~^^^^^^
+  File "/home/claude/claude-model-guide/forecast/engine/wave.py", line 81, in fit_inclusion
+    res = minimize(nlp, np.r_[np.full(G, -1.0), 1.0], method="L-BFGS-B")
+  File "/usr/local/lib/python3.13/site-packages/scipy/optimize/_minimize.py", line 784, in minimize
+    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
+                           callback=callback, **options)
+  File "/usr/local/lib/python3.13/site-packages/scipy/optimize/_lbfgsb_py.py", line 362, in _minimize_lbfgsb
+    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
+                                  bounds=bounds,
+                                  finite_diff_rel_step=finite_diff_rel_step,
+                                  workers=workers)
+  File "/usr/local/lib/python3.13/site-packages/scipy/optimize/_optimize.py", line 310, in _prepare_scalar_function
+    sf = ScalarFunction(fun, x0, args, grad, hess,
+                        finite_diff_rel_step, bounds, epsilon=epsilon,
+                        workers=workers)
+  File "/usr/local/lib/python3.13/site-packages/scipy/optimize/_differentiable_functions.py", line 283, in __init__
+    self._update_fun()
+    ~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/scipy/optimize/_differentiable_functions.py", line 362, in _update_fun
+    fx = self._wrapped_fun(self.x)
+  File "/usr/local/lib/python3.13/site-packages/scipy/_lib/_util.py", line 544, in __call__
+    fx = self.f(np.copy(x), *self.args)
+  File "/home/claude/claude-model-guide/forecast/engine/wave.py", line 76, in nlp
+    sum_lp0 = np.bincount(w_idx, weights=lp0, minlength=w_idx.max() + 1)[waves]
+                                                        ~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/numpy/_core/_methods.py", line 41, in _amax
+    return umr_maximum(a, axis, None, out, keepdims, initial, where)
+ValueError: zero-size array to reduction operation maximum which has no identity

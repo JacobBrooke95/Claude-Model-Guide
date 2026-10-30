@@ -1,0 +1,10 @@
+v1: Config(err='weibull', trend='linear', w_wave=0.5, half_life=None, fam_sigma=False, w_ewma=0.0, weekday=True, holiday=True, competitor=None, signals=False, rho=0.5, cap=5.0, absence=True, seed=0) 
+v2: Config(err='weibull', trend='changepoint', w_wave=0.0, half_life=0.75, fam_sigma=False, w_ewma=0.0, weekday=True, holiday=True, competitor=None, signals=False, rho=0.5, cap=5.0, absence=True, seed=0)
+  origin 0/69 2025-07-07
+  origin 10/69 2025-09-15
+  origin 20/69 2025-11-24
+  origin 30/69 2026-02-02
+  origin 40/69 2026-04-13
+  origin 50/69 2026-06-22
+  origin 60/69 2026-08-31
+part done lock

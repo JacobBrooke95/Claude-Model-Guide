@@ -1,0 +1,347 @@
+<title>Claude Release Forecast</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one 960px reading column of white cards on the site's cream ground;
+   summary first (family cards), then the Fable watch, parameters, evidence, inputs, method. */
+:root {
+  --ground-a: #fdf6e3; --ground-b: #f5e6d3;
+  --card: #ffffff; --card-tint: #fdf8f5; --card-tint-2: #f9ebe4;
+  --ink: #333333; --ink-strong: #2d3436; --ink-soft: #666666; --ink-muted: #8a7565;
+  --rule: #f0d9cc; --rule-soft: #f5e6d3;
+  --coral: #e07a5f; --coral-dark: #bc6c5c; --coral-title: #c9705e;
+  --good: #4f8a5b; --warn: #b7791f; --bad: #b5523b;
+  --mythos: #5b8a9a; --fable: #c09a5b; --opus: #9d7bb0; --sonnet: #d4836a; --haiku: #8fa882; --any: #5c4a3d;
+  --shadow: 0 10px 30px rgba(92,74,61,0.15);
+  --f-body: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --f-data: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground-a: #1d1815; --ground-b: #241d19; --card: #2a2320; --card-tint: #302825; --card-tint-2: #3a2e29;
+  --ink: #ece2d8; --ink-strong: #f6eee6; --ink-soft: #c9b9ab; --ink-muted: #a8968a;
+  --rule: #4a3c34; --rule-soft: #3c312b; --coral: #ec8c72; --coral-dark: #d47a63; --coral-title: #ef9a82;
+  --good: #7fbf8b; --warn: #e0a84a; --bad: #e98670; --any: #d9c4b2;
+  --mythos: #7fb0c0; --fable: #d9b475; --opus: #b99ad0; --sonnet: #e79a80; --haiku: #a8c49b;
+  --shadow: 0 10px 30px rgba(0,0,0,0.4); color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --ground-a: #1d1815; --ground-b: #241d19; --card: #2a2320; --card-tint: #302825; --card-tint-2: #3a2e29;
+  --ink: #ece2d8; --ink-strong: #f6eee6; --ink-soft: #c9b9ab; --ink-muted: #a8968a;
+  --rule: #4a3c34; --rule-soft: #3c312b; --coral: #ec8c72; --coral-dark: #d47a63; --coral-title: #ef9a82;
+  --good: #7fbf8b; --warn: #e0a84a; --bad: #e98670; --any: #d9c4b2;
+  --mythos: #7fb0c0; --fable: #d9b475; --opus: #b99ad0; --sonnet: #e79a80; --haiku: #a8c49b;
+  --shadow: 0 10px 30px rgba(0,0,0,0.4); color-scheme: dark; }
+body { background: linear-gradient(135deg, var(--ground-a) 0%, var(--ground-b) 100%); background-color: var(--ground-a);
+  color: var(--ink); font-family: var(--f-body); line-height: 1.6; min-height: 100%; }
+.rf-wrap { max-width: 960px; margin: 0 auto; padding-block: 28px 60px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 22px; }
+.rf-card { background: var(--card); border-radius: 15px; box-shadow: var(--shadow); padding: 26px 28px; min-width: 0; }
+@media (max-width: 560px) { .rf-card { padding: 20px 16px; } }
+h1.rf-title { font-size: 2.3em; font-weight: 300; color: var(--coral-title); margin: 0 0 4px; text-wrap: balance; line-height: 1.15; }
+.rf-sub { color: var(--ink-soft); font-style: italic; margin: 0; font-size: 1.05em; }
+.rf-asof { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: .9em; color: var(--ink-muted); }
+.rf-asof b { color: var(--ink-strong); font-weight: 600; }
+h2 { color: var(--coral-title); font-weight: normal; font-size: 1.4em; margin: 0 0 6px; padding-bottom: 6px; border-bottom: 2px solid var(--rule-soft); text-wrap: balance; }
+h3 { color: var(--ink-strong); font-size: 1.08em; margin: 18px 0 6px; }
+p { margin: 8px 0; max-width: 72ch; }
+.note { color: var(--ink-soft); font-size: .93em; }
+.tiny { font-size: .82em; color: var(--ink-muted); }
+.num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+a { color: var(--coral-dark); } a:hover { color: var(--coral); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+
+/* family cards */
+.fam-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 14px; }
+.agg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
+.agg-grid .fam dl { grid-template-columns: repeat(3, auto 1fr); }
+@media (max-width: 560px) { .agg-grid .fam dl { grid-template-columns: auto 1fr; } }
+.fam { border: 1px solid var(--rule); border-top: 4px solid var(--c); border-radius: 10px; padding: 12px 14px; background: linear-gradient(180deg, var(--card-tint), var(--card)); display: grid; gap: 4px; min-width: 0; }
+.fam .fname { font-weight: 600; color: var(--ink-strong); display: flex; justify-content: space-between; gap: 6px; align-items: baseline; }
+.fam .last { font-size: .74em; color: var(--ink-muted); font-weight: normal; text-align: right; line-height: 1.3; }
+.fam .big { font-size: 1.9em; font-weight: 300; color: var(--c); line-height: 1.1; font-family: var(--f-data); }
+.fam .lab { font-size: .72em; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-muted); }
+.fam dl { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; margin: 6px 0 0; font-size: .82em; }
+.fam dl .w { grid-column: 1 / -1; text-align: left; } .fam dd.w { margin-bottom: 3px; }
+.fam dd { white-space: nowrap; }
+.fam dt { color: var(--ink-muted); } .fam dd { margin: 0; text-align: right; font-family: var(--f-data); font-variant-numeric: tabular-nums; color: var(--ink); }
+.chip { display: inline-block; font-size: .72em; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-soft); white-space: nowrap; }
+.chip.hot { border-color: var(--coral); color: var(--coral-dark); }
+.chip.cold { border-color: var(--rule); color: var(--ink-muted); }
+
+/* charts */
+.chart { width: 100%; overflow-x: auto; }
+.chart svg { display: block; width: 100%; height: auto; min-width: 560px; }
+.chart.small svg { min-width: 0; max-width: 340px; }
+.rel-row { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 22px; align-items: center; }
+@media (max-width: 640px) { .rel-row { grid-template-columns: 1fr; } }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .84em; color: var(--ink-soft); margin-top: 8px; }
+.legend i { display: inline-block; width: 18px; height: 3px; border-radius: 2px; background: var(--c); vertical-align: middle; margin-right: 6px; }
+.legend i.dot { width: 9px; height: 9px; border-radius: 50%; background: transparent; border: 2px solid var(--c); }
+
+/* tables */
+.tbl { width: 100%; overflow-x: auto; margin-top: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: .88em; min-width: 520px; }
+th, td { padding: 6px 8px; border-bottom: 1px solid var(--rule-soft); text-align: right; vertical-align: top; }
+th { color: var(--ink-muted); font-weight: 600; font-size: .86em; text-transform: uppercase; letter-spacing: .04em; }
+th:first-child, td:first-child { text-align: left; }
+td.l { text-align: left; } td.num, td .num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+tr.hl td { background: var(--card-tint-2); }
+.win { color: var(--good); font-weight: 600; } .lose { color: var(--bad); }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.cols > * { min-width: 0; }
+.callout { border-left: 4px solid var(--coral); background: var(--card-tint); padding: 10px 14px; border-radius: 0 8px 8px 0; }
+.callout.warn { border-left-color: var(--warn); }
+ul.tight { margin: 6px 0; padding-left: 20px; } ul.tight li { margin: 3px 0; }
+.sig { display: grid; grid-template-columns: 92px 74px 1fr; gap: 2px 10px; font-size: .86em; padding: 6px 0; border-bottom: 1px dashed var(--rule-soft); }
+@media (max-width: 520px) { .sig { grid-template-columns: 1fr 1fr; } .sig .what { grid-column: 1 / -1; } }
+.sig .d { font-family: var(--f-data); color: var(--ink-strong); } .sig .c { color: var(--coral-dark); font-size: .9em; }
+.reg-cat { margin-top: 14px; }
+.reg-row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 4px 14px; font-size: .88em; padding: 6px 0; border-bottom: 1px solid var(--rule-soft); }
+@media (max-width: 560px) { .reg-row { grid-template-columns: 1fr; } }
+.status { font-size: .82em; color: var(--ink-soft); } .status b { font-weight: 600; }
+.st-fit { color: var(--good); } .st-prior { color: var(--warn); } .st-null { color: var(--bad); } .st-watch { color: var(--ink-muted); }
+details { margin-top: 8px; } summary { cursor: pointer; color: var(--coral-dark); font-weight: 600; }
+footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; }
+@media (prefers-reduced-motion: no-preference) { .fam { transition: transform .15s ease; } .fam:hover { transform: translateY(-2px); } }
+</style>
+
+<div class="rf-wrap">
+  <header class="rf-card">
+    <h1 class="rf-title">Claude Release Forecast</h1>
+    <p class="rf-sub">When will Anthropic ship its next model in each family? These are probabilities from a backtested statistical model, not a release schedule.</p>
+    <div class="rf-asof" id="asof"></div>
+  </header>
+
+  <section class="rf-card" aria-labelledby="h-now">
+    <h2 id="h-now">The forecast</h2>
+    <p class="note">Each card gives the probability that the family's next model is publicly released by the date shown. The big number is the model's own estimate, using cadence, calendar and pre-release signals. The market column is the Polymarket price where a market exists. The blend averages the two in log-odds with equal weight.</p>
+    <div class="fam-grid" id="fam-grid"></div>
+    <div class="agg-grid" id="agg-grid"></div>
+    <h3>Cumulative probability, next 120 days</h3>
+    <div class="chart" id="cdf-chart"></div>
+    <div class="legend" id="cdf-legend"></div>
+    <p class="tiny">Lines show the model's P(released by date). Circles show Polymarket "released by" prices after a monotone fit, because thin daily rungs are sometimes out of order. Shading marks Thanksgiving Thursday–Friday and the Dec 20 – Jan 4 freeze, where the model cuts the daily hazard to a quarter.</p>
+  </section>
+
+  <section class="rf-card" aria-labelledby="h-fable">
+    <h2 id="h-fable">Fable 5.5 watch</h2>
+    <div class="cols">
+      <div>
+        <p id="fable-lede"></p>
+        <div class="chart" id="fable-chart"></div>
+        <p class="tiny">Bars show the model's probability that release falls on each day, with signals included. The dashed outline is the cadence model alone, with no signals. The shaded band marks Nov 18–20, the most-traded IPO dates on Polymarket.</p>
+      </div>
+      <div>
+        <h3>Signals the model is reading</h3>
+        <div id="fable-signals"></div>
+      </div>
+    </div>
+    <div class="callout warn" style="margin-top:14px" id="fable-slip"></div>
+  </section>
+
+  <section class="rf-card" aria-labelledby="h-params">
+    <h2 id="h-params">What the next release will look like</h2>
+    <p class="note">Release parameters beyond the date. Each line says whether the estimate is fitted from data (and from how many points) or rule-based.</p>
+    <div class="tbl"><table id="params-table"></table></div>
+    <p class="tiny">Names: the step sizes the family has used since Claude 4, plus the generation clock; for Fable and Mythos, a rule gives 85% to the version named in the Azure row and the commit trailer. Price: the share of launches since 2025 that kept, cut or raised list price (n in brackets). Co-launch: the share of the family's releases that shared a day with another family. SWE-bench Pro: Anthropic-reported scores, projected by pooling the per-release rate of progress across families. Treat it as a rough extrapolation on a benchmark nearing saturation.</p>
+    <h3>When does generation 6 arrive?</h3>
+    <div class="tbl"><table id="gen-table"></table></div>
+    <p class="tiny">The generation clock fits a log-normal to the four gaps between generation debuts (Claude 1 → 2 → 3 → 4 → 5, where 5 means Fable 5 on Jun 9, 2026), conditioned on no Claude 6 yet. With four data points the band is wide, but it lands close to both markets.</p>
+  </section>
+
+  <section class="rf-card" aria-labelledby="h-test">
+    <h2 id="h-test">Does it work? The backtest</h2>
+    <div id="test-lede"></div>
+    <div class="tbl"><table id="score-table"></table></div>
+    <p class="tiny" id="score-foot"></p>
+    <div class="rel-row" style="margin-top:10px">
+      <div><h3>Calibration by period (final model, 30-day questions)</h3><div class="chart small" id="rel-chart"></div></div>
+      <div class="rel-text"><p class="note" id="rel-text"></p></div>
+    </div>
+    <h3>Head-to-head tests</h3>
+    <div class="tbl"><table id="tests-table"></table></div>
+    <p class="tiny">Opus, Sonnet and Haiku questions. Each row gives the mean Brier difference per block (A − B; negative means A is better). Significance treats each inter-release interval as one observation, so n is the number of blocks, close to the number of release events. The 95% interval bootstraps those blocks, and p is a t-test on the block means. Green means the interval favours A; red means it favours B.</p>
+    <h3>Dating individual releases</h3>
+    <div class="tbl"><table id="event-table"></table></div>
+    <p class="tiny" id="event-foot"></p>
+  </section>
+
+  <section class="rf-card" aria-labelledby="h-inputs">
+    <h2 id="h-inputs">Inputs, and what each one is worth</h2>
+    <p class="note">Every input the forecaster knows about, sorted into seven categories. Status says whether the input is <span class="st-fit"><b>fitted</b></span> from data, set as a <span class="st-prior"><b>prior or rule</b></span>, <span class="st-null"><b>tested and found empty</b></span>, or <span class="st-watch"><b>watched only</b></span>.</p>
+    <div id="registry"></div>
+    <h3>Signal classes, as estimated today</h3>
+    <div class="tbl"><table id="sigclass-table"></table></div>
+    <p class="tiny">Detection rate is the share of the past year's releases that had a signal of this class. Typical lead is the median days from first sighting to release, from the log-normal fit. False alarms are counted per family-day. Classes share sources, so the model shrinks their combined weight (ρ = 0.5) and caps each class's likelihood ratio at 5×.</p>
+  </section>
+
+  <section class="rf-card" aria-labelledby="h-method">
+    <h2 id="h-method">How the model works</h2>
+    <div id="method"></div>
+  </section>
+
+  <footer class="rf-foot" id="foot"></footer>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+(function () {
+  const F = DATA.forecast, B = DATA.backtest, R = DATA.registry, M = DATA.meta;
+  const FAMS = ["fable", "opus", "sonnet", "haiku", "mythos"];
+  const NAME = { fable: "Fable", opus: "Opus", sonnet: "Sonnet", haiku: "Haiku", mythos: "Mythos", frontier: "Any frontier", any: "Any model" };
+  const $ = id => document.getElementById(id);
+  const pct = (x, d = 0) => x == null ? "—" : (100 * x).toFixed(d) + "%";
+  const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const fmtD = s => { if (!s) return "—"; if (s[0] === ">") return "after " + fmtD(s.slice(1)); const [y, m, d] = s.split("-").map(Number); return MON[m - 1] + " " + d + (y !== 2026 ? ", " + y : ""); };
+  const fmtS = s => { if (!s) return "—"; if (s[0] === ">") return "later"; const [y, m, d] = s.split("-").map(Number); return MON[m - 1] + " " + d + (y !== 2026 ? " ’" + String(y).slice(2) : ""); };
+  const addDays = (iso, n) => { const t = new Date(iso + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() + n); return t.toISOString().slice(0, 10); };
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  // ---------- header ----------
+  $("asof").innerHTML = `<span>As of <b>${fmtD(F.as_of)}, 2026</b></span><span>Model <b>${esc(M.model_label)}</b></span><span>Backtest <b>${B.events_total} releases</b>, ${M.n_origins} weekly origins</span><span><a href="${M.repo}">Code and data</a></span>`;
+
+  // ---------- family cards ----------
+  const mk = (fam, date) => (F.markets[fam] || []).find(r => r.date === date);
+  $("fam-grid").innerHTML = FAMS.map(f => {
+    const t = F.targets[f].with_signals, last = M.last_release[f];
+    const m30 = mk(f, "2026-11-30"), m31 = mk(f, "2026-12-31");
+    const hot = t.by_nov30 >= 0.5;
+    return `<article class="fam" style="--c: var(--${f})">
+      <div class="fname">${NAME[f]} <span class="last">last ${esc(last.model.replace("Claude ", "").replace(/^[A-Za-z]+ /, ""))}<br>${fmtS(last.date)}</span></div>
+      <div class="lab">P(next release by Nov 30)</div>
+      <div class="big">${pct(t.by_nov30)}</div>
+      <div><span class="chip ${hot ? "hot" : "cold"}">median ${fmtS(t.median)}</span></div>
+      <dl>
+        <dt>by Dec 31</dt><dd>${pct(t.by_dec31)}</dd>
+        <dt>market Nov 30</dt><dd>${m30 ? pct(m30.market) : "—"}</dd>
+        <dt>market Dec 31</dt><dd>${m31 ? pct(m31.market) : "—"}</dd>
+        <dt>blend Dec 31</dt><dd>${m31 ? pct(m31.blend) : "—"}</dd>
+        <dt class="w">80% window</dt><dd class="w">${fmtS(t.q10)} – ${fmtS(t.q90)}</dd>
+        <dt class="w">likely name</dt><dd class="w">${esc(Object.keys(F.params[f].names)[0].replace("Claude ", ""))}</dd>
+      </dl></article>`;
+  }).join("");
+  $("agg-grid").innerHTML = ["frontier", "any"].map(f => {
+    const t = F.targets[f].with_signals;
+    return `<article class="fam" style="--c: var(--any)"><div class="fname">${NAME[f]}</div>
+      <div class="lab">P(a release by Nov 30)</div><div class="big">${pct(t.by_nov30)}</div>
+      <div><span class="chip">median ${fmtS(t.median)}</span></div>
+      <dl><dt>next 7 days</dt><dd>${pct(t.p7)}</dd><dt>next 30 days</dt><dd>${pct(t.p30)}</dd><dt>by Dec 31</dt><dd>${pct(t.by_dec31)}</dd></dl></article>`;
+  }).join("");
+
+  // ---------- svg helpers ----------
+  function frame(W, H, pad) { return { W, H, pad, iw: W - pad.l - pad.r, ih: H - pad.t - pad.b }; }
+  function monthTicks(start, days, skip = 0) {
+    const out = []; for (let i = skip; i < days; i++) { const s = addDays(start, i); if (s.endsWith("-01")) out.push([i, MON[+s.slice(5, 7) - 1]]); } return out;
+  }
+  function shadeDays(start, days, pred) { const out = []; let a = null; for (let i = 0; i <= days; i++) { const on = i < days && pred(addDays(start, i)); if (on && a === null) a = i; if (!on && a !== null) { out.push([a, i]); a = null; } } return out; }
+  const isHoliday = s => { const m = +s.slice(5, 7), d = +s.slice(8); return (m === 12 && d >= 20) || (m === 1 && d <= 4) || s === "2026-11-26" || s === "2026-11-27"; };
+
+  // ---------- CDF chart ----------
+  (function () {
+    const D = 120, fr = frame(820, 330, { l: 46, r: 16, t: 14, b: 34 });
+    const x = i => fr.pad.l + fr.iw * i / D, y = p => fr.pad.t + fr.ih * (1 - p);
+    let s = `<svg viewBox="0 0 ${fr.W} ${fr.H}" role="img" aria-label="Cumulative release probability by family over the next 120 days">`;
+    shadeDays(F.as_of, D, isHoliday).forEach(([a, b]) => s += `<rect x="${x(a)}" y="${fr.pad.t}" width="${x(b) - x(a)}" height="${fr.ih}" fill="${css("--rule-soft")}" />`);
+    [0, .25, .5, .75, 1].forEach(p => s += `<line x1="${fr.pad.l}" x2="${fr.W - fr.pad.r}" y1="${y(p)}" y2="${y(p)}" stroke="${css("--rule")}" stroke-width="${p === .5 ? 1.2 : .6}" ${p === .5 ? "" : 'stroke-dasharray="3 4"'} /><text x="${fr.pad.l - 8}" y="${y(p) + 4}" text-anchor="end" font-size="11" fill="${css("--ink-muted")}">${p * 100}%</text>`);
+    monthTicks(F.as_of, D).forEach(([i, lab]) => s += `<line x1="${x(i)}" x2="${x(i)}" y1="${fr.pad.t}" y2="${fr.pad.t + fr.ih}" stroke="${css("--rule")}" stroke-width=".6" /><text x="${x(i) + 3}" y="${fr.H - 12}" font-size="11" fill="${css("--ink-muted")}">${lab} 1</text>`);
+    FAMS.forEach(f => {
+      const c = F.targets[f].with_signals.cdf180.slice(0, D);
+      s += `<polyline fill="none" stroke="${css("--" + f)}" stroke-width="2.4" points="${c.map((p, i) => x(i).toFixed(1) + "," + y(p).toFixed(1)).join(" ")}" />`;
+      (F.markets[f] || []).forEach(r => { const i = Math.round((Date.parse(r.date) - Date.parse(F.as_of)) / 864e5); if (i >= 0 && i < D) s += `<circle cx="${x(i)}" cy="${y(r.market)}" r="3.6" fill="${css("--card")}" stroke="${css("--" + f)}" stroke-width="1.8"><title>${NAME[f]} market, by ${fmtD(r.date)}: ${pct(r.market)} (model ${pct(r.model)})</title></circle>`; });
+    });
+    s += `</svg>`; $("cdf-chart").innerHTML = s;
+    $("cdf-legend").innerHTML = FAMS.map(f => `<span style="--c: var(--${f})"><i></i>${NAME[f]}</span>`).join("") + `<span style="--c: var(--ink-muted)"><i class="dot"></i>Polymarket</span>`;
+  })();
+
+  // ---------- Fable watch ----------
+  (function () {
+    const t = F.targets.fable.with_signals, c0 = F.targets.fable.cadence;
+    const m = { n10: mk("fable", "2026-11-10"), n19: mk("fable", "2026-11-19"), n30: mk("fable", "2026-11-30") };
+    $("fable-lede").innerHTML = `The model puts Fable's next release at <b>${pct(t.p7)}</b> within 7 days and <b>${pct(t.by_nov30)}</b> by Nov 30. The median day is <b>${fmtD(t.median)}</b>. Without the signal layer, cadence alone gives ${pct(c0.by_nov30)} by Nov 30. Polymarket is at ${m.n10 ? pct(m.n10.market) : "—"} by Nov 10, ${m.n19 ? pct(m.n19.market) : "—"} by Nov 19 and ${m.n30 ? pct(m.n30.market) : "—"} by Nov 30.`;
+    const D = 60, fr = frame(560, 220, { l: 40, r: 10, t: 12, b: 30 });
+    const p = t.pmf180.slice(0, D), q = c0.pmf180.slice(0, D), mx = Math.max(...p, ...q) * 1.12;
+    const x = i => fr.pad.l + fr.iw * i / D, y = v => fr.pad.t + fr.ih * (1 - v / mx), bw = fr.iw / D;
+    let s = `<svg viewBox="0 0 ${fr.W} ${fr.H}" role="img" aria-label="Daily probability of Fable release, next 60 days">`;
+    shadeDays(F.as_of, D, d => d >= "2026-11-18" && d <= "2026-11-20").forEach(([a, b]) => s += `<rect x="${x(a)}" y="${fr.pad.t}" width="${x(b) - x(a)}" height="${fr.ih}" fill="${css("--card-tint-2")}" />`);
+    shadeDays(F.as_of, D, isHoliday).forEach(([a, b]) => s += `<rect x="${x(a)}" y="${fr.pad.t}" width="${x(b) - x(a)}" height="${fr.ih}" fill="${css("--rule-soft")}" />`);
+    const step = mx > .08 ? .04 : .02;
+    for (let v = 0; v <= mx; v += step) s += `<line x1="${fr.pad.l}" x2="${fr.W - fr.pad.r}" y1="${y(v)}" y2="${y(v)}" stroke="${css("--rule")}" stroke-width=".5" /><text x="${fr.pad.l - 6}" y="${y(v) + 4}" text-anchor="end" font-size="10" fill="${css("--ink-muted")}">${Math.round(v * 100)}%</text>`;
+    p.forEach((v, i) => s += `<rect x="${(x(i) + 1).toFixed(1)}" y="${y(v).toFixed(1)}" width="${Math.max(bw - 2, 1).toFixed(1)}" height="${(fr.pad.t + fr.ih - y(v)).toFixed(1)}" fill="${css("--fable")}"><title>${fmtD(addDays(F.as_of, i))}: ${pct(v, 1)}</title></rect>`);
+    s += `<polyline fill="none" stroke="${css("--ink-muted")}" stroke-dasharray="3 3" stroke-width="1.2" points="${q.map((v, i) => (x(i) + bw / 2).toFixed(1) + "," + y(v).toFixed(1)).join(" ")}" />`;
+    monthTicks(F.as_of, D, 4).concat([[0, fmtD(F.as_of).split(" ")[0]]]).forEach(([i, lab]) => s += `<text x="${x(i) + 2}" y="${fr.H - 10}" font-size="10" fill="${css("--ink-muted")}">${i === 0 ? fmtD(F.as_of) : lab + " 1"}</text>`);
+    s += `</svg>`; $("fable-chart").innerHTML = s;
+    const sig = (F.signals.fable || []);
+    $("fable-signals").innerHTML = sig.map(r => `<div class="sig"><span class="d">${fmtD(r.first_seen)}</span><span class="c">${esc(r.cls)} · ${esc(r.grade)}</span><span class="what">${esc(r.note)}</span></div>`).join("") +
+      `<p class="tiny">The model uses the earliest sighting per class. Source grades: A = primary artifact, B = reputable report, C = single tipster. Markets are left out here so the same leak isn't counted twice.</p>`;
+    $("fable-slip").innerHTML = M.fable_slip_html;
+  })();
+
+  // ---------- parameters ----------
+  (function () {
+    const rows = FAMS.map(f => {
+      const P = F.params[f], n = Object.entries(P.names), sw = P.swe_bench_pro;
+      return `<tr><td class="l"><b style="color:var(--${f})">${NAME[f]}</b></td>
+        <td class="l">${n.slice(0, 3).map(([k, v]) => `${esc(k.replace("Claude ", ""))} <span class="num">${pct(v)}</span>`).join("<br>")}</td>
+        <td class="l">${esc(P.price.current || "—")}<br><span class="tiny">same ${pct(P.price.p_same)} · cut ${pct(P.price.p_cut)} · raise ${pct(P.price.p_raise)} (n=${P.price.n})</span></td>
+        <td class="num">${pct(P.colaunch.rate)}<br><span class="tiny">${P.colaunch.shared}/${P.colaunch.n} shared a day</span></td>
+        <td class="num">${sw ? `~${sw.median.toFixed(0)}<br><span class="tiny">80%: ${sw.lo80.toFixed(0)}–${sw.hi80.toFixed(0)} · last ${sw.last}</span>` : "—"}</td></tr>`;
+    }).join("");
+    $("params-table").innerHTML = `<thead><tr><th>Family</th><th>Next name</th><th>List price ($/M in / out)</th><th>Co-launch</th><th>SWE-bench Pro, projected</th></tr></thead><tbody>${rows}</tbody>`;
+    const g = F.params.generation6, mk6 = M.claude6_markets;
+    $("gen-table").innerHTML = `<thead><tr><th>By</th><th>Generation clock</th><th>Polymarket</th><th>Manifold</th></tr></thead><tbody>` +
+      Object.entries(g.prob_by).map(([d, p]) => `<tr><td class="l">${fmtD(d)}</td><td class="num">${pct(p)}</td><td class="num">${mk6.polymarket[d] != null ? pct(mk6.polymarket[d]) : "—"}</td><td class="num">${mk6.manifold[d] != null ? pct(mk6.manifold[d]) : "—"}</td></tr>`).join("") +
+      `</tbody>`;
+  })();
+
+  // ---------- backtest ----------
+  (function () {
+    $("test-lede").innerHTML = M.test_lede_html;
+    const S = B.scores, show = M.score_rows;
+    const get = (period, model, h) => S.find(r => r.period === period && r.model === model && r.h === h);
+    let h = `<thead><tr><th>Model</th><th>Brier 7d</th><th>Brier 30d</th><th>Brier 90d</th><th>Log loss 30d</th><th>Skill vs base rate, 30d</th></tr></thead><tbody>`;
+    show.forEach(([model, label, period, cls]) => {
+      const r7 = get(period, model, 7), r30 = get(period, model, 30), r90 = get(period, model, 90);
+      if (!r30) return;
+      h += `<tr class="${cls || ""}"><td class="l">${label}</td><td class="num">${r7 ? r7.brier.toFixed(3) : "—"}</td><td class="num">${r30.brier.toFixed(3)}</td><td class="num">${r90 ? r90.brier.toFixed(3) : "—"}</td><td class="num">${r30.logloss.toFixed(3)}</td><td class="num ${r30.bss_vs_clim > 0 ? "win" : "lose"}">${(r30.bss_vs_clim * 100).toFixed(1)}%</td></tr>`;
+    });
+    $("score-table").innerHTML = h + "</tbody>";
+    $("score-foot").innerHTML = M.score_foot_html;
+    $("rel-text").innerHTML = M.rel_text_html;
+    // reliability
+    const fr = frame(320, 300, { l: 40, r: 12, t: 12, b: 34 }); const x = p => fr.pad.l + fr.iw * p, y = p => fr.pad.t + fr.ih * (1 - p);
+    let s = `<svg viewBox="0 0 ${fr.W} ${fr.H}" role="img" aria-label="Reliability diagram">`;
+    [0, .25, .5, .75, 1].forEach(p => s += `<line x1="${x(0)}" x2="${x(1)}" y1="${y(p)}" y2="${y(p)}" stroke="${css("--rule")}" stroke-width=".5" /><text x="${x(0) - 6}" y="${y(p) + 4}" text-anchor="end" font-size="10" fill="${css("--ink-muted")}">${p * 100}%</text><text x="${x(p)}" y="${fr.H - 16}" text-anchor="middle" font-size="10" fill="${css("--ink-muted")}">${p * 100}%</text>`);
+    s += `<line x1="${x(0)}" y1="${y(0)}" x2="${x(1)}" y2="${y(1)}" stroke="${css("--ink-muted")}" stroke-dasharray="4 4" />`;
+    s += `<text x="${x(.5)}" y="${fr.H - 2}" text-anchor="middle" font-size="10" fill="${css("--ink-soft")}">forecast probability</text>`;
+    const cols = { tuning: css("--mythos"), lockbox: css("--coral") };
+    Object.entries(B.reliability).forEach(([m, bins]) => { if (!cols[m]) return; s += `<polyline fill="none" stroke="${cols[m]}" stroke-width="1.5" points="${bins.map(b => x(b.mean_p) + "," + y(b.freq)).join(" ")}" />`; bins.forEach(b => s += `<circle cx="${x(b.mean_p)}" cy="${y(b.freq)}" r="${2.5 + Math.sqrt(b.n) / 2}" fill="${cols[m]}" fill-opacity=".55" stroke="${cols[m]}"><title>${m}: said ${pct(b.mean_p)}, happened ${pct(b.freq)} (n=${b.n})</title></circle>`); });
+    s += `</svg>`; $("rel-chart").innerHTML = s + `<div class="legend"><span style="--c: var(--mythos)"><i></i>Jun 2024 – Jun 2025 (tuning)</span><span style="--c: var(--coral)"><i></i>Jul 2025 – Oct 2026 (holdout)</span></div>`;
+    // tests
+    const T = M.test_rows;
+    $("tests-table").innerHTML = `<thead><tr><th>A vs B</th><th>Horizon</th><th>Δ Brier</th><th>95% interval</th><th>p</th><th>Blocks</th></tr></thead><tbody>` +
+      T.map(([a, b, per, lab, hh]) => B.tests.filter(t => t.a === a && t.b === b && t.h === (hh || 30) && (per ? t.period === per : !t.period)).map(t => `<tr><td class="l">${lab}</td><td class="num">${t.h}d</td><td class="num ${t.ci95[1] < 0 ? "win" : t.ci95[0] > 0 ? "lose" : ""}">${t.block_mean >= 0 ? "+" : ""}${t.block_mean.toFixed(3)}</td><td class="num">${t.ci95[0].toFixed(3)} to ${t.ci95[1].toFixed(3)}</td><td class="num">${t.p == null || isNaN(t.p) ? "—" : t.p.toFixed(3)}</td><td class="num">${t.blocks}</td></tr>`).join("")).join("") + `</tbody>`;
+    // events
+    const E = B.events;
+    const KL = { after_prev: "Day after the previous release", lead60: "60 days before", lead30: "30 days before", lead14: "14 days before", lead7: "7 days before" };
+    $("event-table").innerHTML = `<thead><tr><th>Forecast made</th><th>n</th><th>Median |error|, model</th><th>80% interval caught it</th><th>Median |error|, old EWMA</th><th>EWMA window caught it</th></tr></thead><tbody>` +
+      E.map(e => `<tr><td class="l">${KL[e.kind]}</td><td class="num">${e.n}</td><td class="num">${e.final_mae != null ? e.final_mae.toFixed(0) + "d" : "—"}</td><td class="num">${e.final_cov80 != null ? pct(e.final_cov80) : "—"}</td><td class="num">${e.ewma_mae != null ? e.ewma_mae.toFixed(0) + "d" : "—"}</td><td class="num">${e.ewma_cov80 != null ? pct(e.ewma_cov80) : "—"}</td></tr>`).join("") + `</tbody>`;
+    $("event-foot").innerHTML = M.event_foot_html;
+  })();
+
+  // ---------- registry ----------
+  (function () {
+    const cls = st => /not fitted|scenario|rule|a priori|regime/i.test(st) ? "st-prior" : /tested|no effect|empty/i.test(st) ? "st-null" : /^fitted|fitted/i.test(st) ? "st-fit" : /watch|not modelled|descriptive|cross-check/i.test(st) ? "st-watch" : "st-prior";
+    $("registry").innerHTML = Object.entries(R.categories).map(([k, label]) => {
+      const rows = R.inputs.filter(i => i.cat === k);
+      return `<div class="reg-cat"><h3>${esc(label)}</h3>` + rows.map(i => `<div class="reg-row"><div><b>${esc(i.name)}</b>${i.how ? `<div class="tiny">${esc(i.how)}</div>` : ""}</div><div class="status ${cls(i.status)}">${esc(i.status)}${i.evidence ? `<div class="tiny">${esc(i.evidence)}</div>` : ""}</div></div>`).join("") + `</div>`;
+    }).join("");
+    const P = F.signal_class_params, LBL = { infra: "Infrastructure artifacts (cloud catalogs, first-party docs)", client: "Client strings and codenames", report: "Reports (press, partners, red-team rounds, A/B routing)", soft: "Soft (tipsters, exec hints)" };
+    $("sigclass-table").innerHTML = `<thead><tr><th>Class</th><th>Detection rate</th><th>Typical lead</th><th>True signals</th><th>False alarms</th></tr></thead><tbody>` +
+      Object.entries(P).map(([c, p]) => `<tr><td class="l">${LBL[c]}</td><td class="num">${pct(p.q)}</td><td class="num">${Math.round(Math.exp(p.mu) - 1)}d</td><td class="num">${p.n_tp}</td><td class="num">${p.n_fp}</td></tr>`).join("") + `</tbody>`;
+  })();
+
+  $("method").innerHTML = M.method_html;
+  $("foot").innerHTML = M.foot_html;
+})();
+</script>
