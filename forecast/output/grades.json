@@ -1,6 +1,69 @@
 {
  "forward_start": "2026-10-30",
  "releases": [],
- "checkpoints": [],
- "summary": {}
+ "checkpoints": [
+  {
+   "as_of": "2026-10-30",
+   "target": "opus",
+   "checkpoint": "2026-10-31",
+   "y": 0,
+   "p_model": 0.0114,
+   "p_market": 0.04
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "sonnet",
+   "checkpoint": "2026-10-31",
+   "y": 0,
+   "p_model": 0.0028,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "haiku",
+   "checkpoint": "2026-10-31",
+   "y": 0,
+   "p_model": 0.0004,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "fable",
+   "checkpoint": "2026-10-31",
+   "y": 0,
+   "p_model": 0.0102,
+   "p_market": 0.021
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "mythos",
+   "checkpoint": "2026-10-31",
+   "y": 0,
+   "p_model": 0.0137,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "frontier",
+   "checkpoint": "2026-10-31",
+   "y": 0,
+   "p_model": 0.0225,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "any",
+   "checkpoint": "2026-10-31",
+   "y": 0,
+   "p_model": 0.0257,
+   "p_market": null
+  }
+ ],
+ "summary": {
+  "n": 5,
+  "brier_model": 8.5938e-05,
+  "n_market": 2,
+  "brier_model_on_market": 0.00011700000000000001,
+  "brier_market": 0.0010205000000000001
+ }
 }
