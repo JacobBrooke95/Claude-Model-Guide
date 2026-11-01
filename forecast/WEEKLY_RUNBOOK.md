@@ -4,6 +4,7 @@ A scheduled task runs this every week. It updates the release forecast, grades i
 
 ## Ground rules
 
+- **Current model: v3d** (adopted 2026-11-01 with Jacob's approval; see README).
 - **The model is frozen.** Don't change `engine/`, `live.py`, the config, or the pool weight during a weekly run. Forward grading is only honest if the model stays fixed. If something looks wrong with the model, write it up under "Proposed changes" in the summary for Jacob to decide.
 - **Never edit or delete** `history/*.json`, existing rows of `forecast_log.csv`, or past `weekly/*.md` files. Add new ones only.
 - **No fabrication.** Every new release, signal, market price or competitor row needs a URL you actually opened, or a vault path. If a source won't load, say so in the summary and leave the data out.

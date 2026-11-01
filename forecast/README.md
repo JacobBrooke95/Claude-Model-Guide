@@ -44,6 +44,16 @@ The history is kept because it changes how the scores should be read.
 
 **The only fully honest test from here is prospective.** A weekly scheduled task runs `weekly.py`, following `WEEKLY_RUNBOOK.md`. Each run freezes a snapshot in `history/`, appends its calls to `forecast_log.csv` (never edited), and grades every snapshot when a release resolves it. Results are in `output/grades.json` and the page's Track record section. The model stays frozen during weekly runs.
 
+## v3d (2026-11-01)
+
+Approved by Jacob after a first-party sighting: anthropic.com/claude/mythos began reading "Claude Mythos 5.5" on Nov 1. Version v3c could barely register it, for two reasons. Each signal class's clock ran from its *earliest* sighting, so the Oct 13 Azure catalog row masked the new page. And live runs couldn't see a sighting first seen on the run date. v3d changes three things in the signal layer; cadence and pooling are unchanged:
+
+1. **Most recent sighting.** The clock for each class runs from the most recent grade A/B sighting, and lead times are estimated the same way.
+2. **Same-day sightings in live runs.** Live runs count sightings first seen on the run date. Backtests keep the strict before-the-origin rule.
+3. **Tested but not adopted: a separate first-party class.** Giving Anthropic's own surfaces their own class (`split_fp`) made scores slightly worse in both periods, so the option stays off.
+
+Each change was checked on the full backtest (one chain per origin) before adoption. The most-recent rule was neutral to slightly better everywhere. Opus/Sonnet/Haiku 30-day Brier was 0.1231 vs 0.1233 in tuning and 0.1821 vs 0.1832 in the holdout. Fable/Mythos 30-day holdout Brier was 0.2182 vs 0.2219. Forward grading restarts its clock at v3d; earlier v3c snapshots stay in `history/` and are graded as v3c.
+
 ## Results (post-review, Opus/Sonnet/Haiku questions)
 
 | | 30-day Brier, full | 30-day, holdout | 90-day, full | 90-day, holdout |

@@ -30,8 +30,10 @@ best = pd.read_csv("output/tuning_v2_ranking.csv").config.iloc[0]          # e.g
 err, trend, w, hl = best.split("|")
 BASE = Config(err=err, trend=trend, w_wave=float(w[1:]), half_life=None if hl == "hlNone" else float(hl[2:]))
 # final = v2 cadence + signals (no absence term) pooled 70/30 with the repo's EWMA; no competitor term
-FULL = replace(BASE, signals=True, absence=False, w_ewma=0.3, n_seeds=4)
-MODEL_VERSION = "v3c-post-review"
+# v3d (2026-11-01, Jacob-approved): the signal clock runs from the most recent A/B
+# sighting per class, and live runs count sightings first seen on the run date
+FULL = replace(BASE, signals=True, absence=False, w_ewma=0.3, n_seeds=4, sig_recent=True, same_day=True)
+MODEL_VERSION = "v3d"
 
 variants = {"cadence": replace(BASE, n_seeds=4), "with_signals": FULL}
 res = {}

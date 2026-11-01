@@ -60,13 +60,28 @@ RESOLVE_DAYS = 120
 
 class SignalModel:
     def __init__(self, sig: pd.DataFrame, rel: pd.DataFrame, asof, era_days=365,
-                 rho=0.5, cap=5.0, lambda_floor=0.01, q_discount=0.85):
+                 rho=0.5, cap=5.0, lambda_floor=0.01, q_discount=0.85, recent=False, same_day=False,
+                 split_first_party=False):
         self.asof = d(asof)
+        # split_first_party: Anthropic's own surfaces (docs, model pages, pricing,
+        # system-card URLs) get their own class instead of sharing "infra" with
+        # third-party cloud catalogs, so they carry their own lead time and
+        # detection rate and are not masked by a catalog row in the same class.
+        self.classes = CLASSES + (["first_party"] if split_first_party else [])
+        # v3d options. recent: the clock for each class runs from the most recent
+        # grade A/B sighting (lead times are then estimated the same way), so a
+        # fresh first-party artifact is not masked by an older one in the same
+        # class. same_day: live runs also see sightings first seen on the run date
+        # (backtests keep the strict "before the origin" rule).
+        self.recent = recent
+        self.cut = self.asof + pd.Timedelta(days=1) if same_day else self.asof
         self.rho, self.cap = rho, cap
         s = sig.copy()
         s["cls"] = s.signal_code.map(CLASS_OF).fillna("soft")
+        if split_first_party:
+            s.loc[s.signal_code == "FIRST_PARTY_DOC", "cls"] = "first_party"
         self.sig = s
-        known = s[s.first_seen < self.asof]
+        known = s[s.first_seen < self.cut]
         # resolved as of origin: true signals whose release already happened,
         # false signals older than RESOLVE_DAYS
         tp = known[(known.is_false == 0) & (known.release_date < self.asof)]
@@ -78,10 +93,16 @@ class SignalModel:
         all_leads = np.log1p(tp.lead_days.clip(lower=0).values) if len(tp) else np.array([np.log(8.0)])
         g_mu, g_sd = float(np.mean(all_leads)), float(max(np.std(all_leads), 0.6))
         self.par = {}
-        for c in CLASSES:
+        for c in self.classes:
             tpc = tp[tp.cls == c]
             # earliest sighting per release for this class
-            first = tpc.sort_values("first_seen").drop_duplicates("release_id")
+            if self.recent:
+                # latest A/B sighting before the release (falls back to C when that is all there is)
+                t2 = tpc.assign(_weak=(tpc.grade.astype(str) == "C").astype(int))
+                first = t2.sort_values(["_weak", "first_seen"], ascending=[True, False]).drop_duplicates("release_id")
+                first = first.assign(lead_days=(first.release_date - first.first_seen).dt.days)
+            else:
+                first = tpc.sort_values("first_seen").drop_duplicates("release_id")
             detected = first[first.release_id.isin(rel_known.release_id)]
             q = (len(detected) + 0.5) / (n_rel + 1.0) * q_discount
             leads = np.log1p(first.lead_days.clip(lower=0).values)
@@ -107,12 +128,12 @@ class SignalModel:
 
     def visible(self, family, last_release):
         s = self.sig
-        v = s[(s.family == family) & (s.first_seen < self.asof) & (s.first_seen > d(last_release))]
+        v = s[(s.family == family) & (s.first_seen < self.cut) & (s.first_seen > d(last_release))]
         # a sighting stops counting once its own target has shipped
         v = v[~((v.is_false == 0) & (v.release_date < self.asof))]
         # earliest sighting per class, preferring grade A/B artifacts over C-grade claims
         v = v.assign(_weak=(v.grade.astype(str) == "C").astype(int))
-        return v.sort_values(["_weak", "first_seen"]).drop_duplicates("cls").drop(columns="_weak")
+        return v.sort_values(["_weak", "first_seen"], ascending=[True, not self.recent]).drop_duplicates("cls").drop(columns="_weak")
 
     def likelihood(self, family, last_release, H, use_absence=True):
         j = np.arange(H, dtype=float)
@@ -121,7 +142,7 @@ class SignalModel:
         logL = np.zeros(H)
         log_tail = 0.0
         detail = []
-        for c in CLASSES:
+        for c in self.classes:
             p = self.par[c]
             row = vis[vis.cls == c]
             if len(row):

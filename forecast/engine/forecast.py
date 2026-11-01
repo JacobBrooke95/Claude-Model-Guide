@@ -36,6 +36,9 @@ class Config:
     fam_sigma: bool = False       # family-specific dispersion (partially pooled)
     w_ewma: float = 0.0           # linear-pool weight on the repo's EWMA model
     n_seeds: int = 1              # average the cadence posterior over this many MCMC chains
+    sig_recent: bool = False      # v3d: clock from the most recent A/B sighting per class
+    same_day: bool = False        # v3d live runs: count sightings first seen on the run date
+    split_fp: bool = False        # v3d: Anthropic's own surfaces form their own signal class
     weekday: bool = True
     holiday: bool = True
     competitor: str | None = None  # None | "major21" | "sota30"
@@ -153,7 +156,8 @@ def forecast(rel, comp, sig, asof, cfg: Config, cache: FitCache | None = None, e
 
     # ---- signals ----------------------------------------------------------------
     if cfg.signals and sig is not None and len(sig):
-        sm = SignalModel(sig, rel, asof, rho=cfg.rho, cap=cfg.cap)
+        sm = SignalModel(sig, rel, asof, rho=cfg.rho, cap=cfg.cap, recent=cfg.sig_recent, same_day=cfg.same_day,
+                         split_first_party=cfg.split_fp)
         info["signal_params"] = sm.par
         upd = {}
         for f in FAMILIES:
