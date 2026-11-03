@@ -120,7 +120,7 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
     <h3>Cumulative probability, next 120 days</h3>
     <div class="chart" id="cdf-chart"></div>
     <div class="legend" id="cdf-legend"></div>
-    <p class="tiny">Lines show the model's P(released by date). Circles show Polymarket "released by" prices after a monotone fit, because thin daily rungs are sometimes out of order. Shading marks Thanksgiving Thursday–Friday and the Dec 20 – Jan 4 freeze, where the model cuts the daily hazard to a quarter.</p>
+    <p class="tiny">Lines show the model's P(released by date). Circles show Polymarket "released by" prices after a monotone fit, because thin daily rungs are sometimes out of order. Shading marks US election days (even years), Thanksgiving Thursday–Friday and the Dec 20 – Jan 4 freeze, where the model cuts the daily hazard to a quarter.</p>
   </section>
 
   <section class="rf-card" aria-labelledby="h-fable">
@@ -242,7 +242,8 @@ const DATA = /*__DATA__*/null;
   }
   function shadeDays(start, days, pred) { const out = []; let a = null; for (let i = 0; i <= days; i++) { const on = i < days && pred(addDays(start, i)); if (on && a === null) a = i; if (!on && a !== null) { out.push([a, i]); a = null; } } return out; }
   const thanksgiving = y => { const dow = new Date(Date.UTC(y, 10, 1)).getUTCDay(); return 1 + ((4 - dow + 7) % 7) + 21; };
-  const isHoliday = s => { const y = +s.slice(0, 4), m = +s.slice(5, 7), d = +s.slice(8); const tg = thanksgiving(y); return (m === 12 && d >= 20) || (m === 1 && d <= 4) || (m === 11 && (d === tg || d === tg + 1)); };
+  const electionDay = y => { const dow = new Date(Date.UTC(y, 10, 1)).getUTCDay(); return 1 + ((1 - dow + 7) % 7) + 1; };
+  const isHoliday = s => { const y = +s.slice(0, 4), m = +s.slice(5, 7), d = +s.slice(8); const tg = thanksgiving(y); return (m === 12 && d >= 20) || (m === 1 && d <= 4) || (m === 11 && (d === tg || d === tg + 1)) || (m === 11 && y % 2 === 0 && d === electionDay(y)); };
 
   // ---------- CDF chart ----------
   (function () {

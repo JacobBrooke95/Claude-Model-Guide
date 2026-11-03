@@ -54,6 +54,10 @@ Approved by Jacob after a first-party sighting: anthropic.com/claude/mythos bega
 
 Each change was checked on the full backtest (one chain per origin) before adoption. The most-recent rule was neutral to slightly better everywhere. Opus/Sonnet/Haiku 30-day Brier was 0.1231 vs 0.1233 in tuning and 0.1821 vs 0.1832 in the holdout. Fable/Mythos 30-day holdout Brier was 0.2182 vs 0.2219. Forward grading restarts its clock at v3d; earlier v3c snapshots stay in `history/` and are graded as v3c.
 
+## v3e (2026-11-02)
+
+Approved by Jacob. US federal election day (the Tuesday after the first Monday of November, even years) joins Thanksgiving and the year-end freeze as a low-hazard calendar day (×0.25). It's a prior, not a fitted effect. The one relevant case on record is 2024: Claude 3.5 Haiku shipped on Nov 4, the day before the election, and nothing shipped on the day. Before this change the model rated Tue Nov 3, 2026 as Fable's single likeliest day, because Tuesday is Anthropic's most common launch day. Polymarket's daily ladder had already priced Nov 3 well below Nov 4.
+
 ## Results (post-review, Opus/Sonnet/Haiku questions)
 
 | | 30-day Brier, full | 30-day, holdout | 90-day, full | 90-day, holdout |

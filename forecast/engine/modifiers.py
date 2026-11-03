@@ -9,8 +9,9 @@ instead of deleting it:
 Modifiers:
   weekday      Dirichlet-smoothed profile from releases before the origin
                (Mon/Tue dominate; weekends ≈0; Friday rare)
-  holiday      Dec 20 – Jan 4 freeze (no release in 2023–25) and US
-               Thanksgiving Thu–Fri; factor set a priori (0.25), not fitted
+  holiday      Dec 20 – Jan 4 freeze (no release in 2023–25), US
+               Thanksgiving Thu–Fri, and (v3e) US federal election day;
+               factor set a priori (0.25), not fitted
   competitor   exp(γ · x_t), x_t = 1 if a competitor shipped a qualifying
                release within the prior `window` days. γ is estimated at
                each origin from data before it, with a N(0, 0.5) prior, and
@@ -41,6 +42,19 @@ def thanksgiving_mask(days: pd.DatetimeIndex) -> np.ndarray:
             first_thu = 1 + (3 - pd.Timestamp(day.year, 11, 1).weekday()) % 7
             tg = first_thu + 21
             out[i] = day.day in (tg, tg + 1)
+    return out
+
+
+def election_mask(days: pd.DatetimeIndex) -> np.ndarray:
+    """US federal general election day: the Tuesday after the first Monday of
+    November, even years (2024-11-05, 2026-11-03, 2028-11-07). Added in v3e
+    (2026-11-02, Jacob-approved) as a prior, not a fitted effect: the one case
+    on record (2024) saw Claude 3.5 Haiku ship the day before, nothing on the day."""
+    out = np.zeros(len(days), dtype=bool)
+    for i, day in enumerate(days):
+        if day.month == 11 and day.year % 2 == 0 and day.weekday() == 1:
+            first_mon = 1 + (0 - pd.Timestamp(day.year, 11, 1).weekday()) % 7
+            out[i] = day.day == first_mon + 1
     return out
 
 
@@ -75,7 +89,7 @@ def day_multipliers(rel, asof, H, comp=None, gamma=0.0, rule="major21",
     if weekday:
         m *= weekday_profile(rel, asof)[days.weekday]
     if holiday:
-        m = np.where(holiday_mask(days) | thanksgiving_mask(days), m * holiday_factor, m)
+        m = np.where(holiday_mask(days) | thanksgiving_mask(days) | election_mask(days), m * holiday_factor, m)
     if gamma and comp is not None:
         # exposure only from competitor releases already public at the origin;
         # future competitor launches are unknown, so their effect is not assumed

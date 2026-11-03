@@ -211,9 +211,10 @@
   {
    "id": "holidays",
    "cat": "G_calendar",
-   "name": "Dec 20 – Jan 4 freeze, Thanksgiving Thu–Fri",
+   "name": "Dec 20 – Jan 4 freeze, Thanksgiving Thu–Fri, US federal election day",
    "layer": "modifier",
-   "status": "a priori factor 0.25"
+   "status": "a priori factor 0.25",
+   "evidence": "Election day added in v3e (2026-11-02) as a prior. 2024: 3.5 Haiku shipped the day before, nothing on the day. Polymarket's 2026 daily ladder priced Nov 3 well below Nov 4."
   },
   {
    "id": "events",
