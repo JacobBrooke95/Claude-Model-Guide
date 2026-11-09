@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Release Deltas - What Moved Between Claude System Cards</title>
+    <meta name="description" content="For each Claude release, which system card figures moved against its predecessor, and which cannot be compared.">
+    <link rel="stylesheet" href="styles.css?v=5">
+    <style>
+        /* Page-specific styles. Shared tokens and components come from styles.css (see DESIGN.md).
+           Dark mode follows release-forecast.html: system preference, overridable with data-theme. */
+        :root {
+            --fam-opus: #9d7bb0;
+            --fam-sonnet: #d4836a;
+            --fam-haiku: #8fa882;
+            --fam-fable: #c09a5b;
+            --fam-mythos: #5b8a9a;
+            --ink-faint: #8a7565;
+            --grid-line: #efe3d6;
+            --band: #fbf3ee;
+            --band-ink: #7d6350;
+            --row-bg: #ffffff;
+            --row-hover: #fdf6f1;
+            --good: #3f7a4c;
+            --good-bg: #e6f1e7;
+            --bad: #a8472f;
+            --bad-bg: #f8e3dc;
+            --flat: #6b5d52;
+            --flat-bg: #f1e9e2;
+        }
+        @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+            --color-primary: #ec8c72; --color-primary-dark: #d47a63; --color-primary-hover: #f4a892;
+            --color-section-title: #ef9a82; --color-text: #ece2d8; --color-text-light: #c9b9ab;
+            --color-text-muted: #a8968a; --color-text-dark: #f6eee6;
+            --color-bg-page: #1d1815; --color-bg-page-end: #241d19; --color-bg-card: #2a2320;
+            --color-bg-card-accent: #302825; --color-bg-card-accent-end: #3a2e29;
+            --color-border: #4a3c34; --color-border-section: #3c312b; --color-nav: #17120f;
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.4);
+            --fam-opus: #b99ad0; --fam-sonnet: #e79a80; --fam-haiku: #a8c49b; --fam-fable: #d9b475; --fam-mythos: #7fb0c0;
+            --ink-faint: #a8968a; --grid-line: #3c312b; --band: #332a26; --band-ink: #d9c4b2;
+            --row-bg: #26201d; --row-hover: #2f2723;
+            --good: #8fcf9b; --good-bg: #24382a; --bad: #f0957f; --bad-bg: #43261f; --flat: #cdbcae; --flat-bg: #3a302b;
+            color-scheme: dark; } }
+        :root[data-theme="dark"] {
+            --color-primary: #ec8c72; --color-primary-dark: #d47a63; --color-primary-hover: #f4a892;
+            --color-section-title: #ef9a82; --color-text: #ece2d8; --color-text-light: #c9b9ab;
+            --color-text-muted: #a8968a; --color-text-dark: #f6eee6;
+            --color-bg-page: #1d1815; --color-bg-page-end: #241d19; --color-bg-card: #2a2320;
+            --color-bg-card-accent: #302825; --color-bg-card-accent-end: #3a2e29;
+            --color-border: #4a3c34; --color-border-section: #3c312b; --color-nav: #17120f;
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.4);
+            --fam-opus: #b99ad0; --fam-sonnet: #e79a80; --fam-haiku: #a8c49b; --fam-fable: #d9b475; --fam-mythos: #7fb0c0;
+            --ink-faint: #a8968a; --grid-line: #3c312b; --band: #332a26; --band-ink: #d9c4b2;
+            --row-bg: #26201d; --row-hover: #2f2723;
+            --good: #8fcf9b; --good-bg: #24382a; --bad: #f0957f; --bad-bg: #43261f; --flat: #cdbcae; --flat-bg: #3a302b;
+            color-scheme: dark; }
+
+        body.rd { background-color: var(--color-bg-page); }
+        .rd .navbar ul.nav-links { flex-wrap: wrap; }
+        .rd .page-card { padding: 40px 32px; }
+
+        .rd-intro {
+            max-width: 760px;
+            margin: 0 auto 1.75rem;
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .rd-panel {
+            background: linear-gradient(135deg, var(--color-bg-card-accent) 0%, var(--color-bg-card-accent-end) 100%);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.1rem 1.25rem;
+        }
+
+        /* Pair picker */
+        .rd-lines { display: grid; gap: 8px; }
+        .rd-line { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+        .rd-line-name {
+            flex: 0 0 62px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--band-ink);
+        }
+        .rd-line-pairs { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; flex: 1 1 0; }
+        .rd-pairbtn {
+            font: inherit;
+            font-size: 0.8rem;
+            background: var(--row-bg);
+            border: 1px solid var(--color-border);
+            border-left-width: 4px;
+            color: var(--color-text-dark);
+            border-radius: 14px;
+            padding: 4px 10px;
+            min-height: 30px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+        .rd-pairbtn:hover, .rd-pairbtn:focus-visible { border-color: var(--color-primary); color: var(--color-primary-hover); outline: none; }
+        .rd-pairbtn[aria-pressed="true"] {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #fff;
+            font-weight: 600;
+        }
+        .rd-any {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 10px;
+            align-items: center;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+        }
+        .rd-any select, .rd-controls select, .rd-controls input[type="search"] {
+            font: inherit;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            background: var(--row-bg);
+            color: var(--color-text);
+            min-height: 38px;
+            max-width: 100%;
+        }
+        .rd-any select { flex: 1 1 170px; min-width: 0; }
+        .rd-any select:focus, .rd-controls select:focus, .rd-controls input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(224, 122, 95, 0.2);
+        }
+
+        /* Pair summary */
+        .rd-section { margin-top: 2.25rem; }
+        .rd-pairhead { text-align: center; margin-bottom: 1.1rem; }
+        .rd-pairhead h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--color-text-dark);
+            line-height: 1.25;
+            text-wrap: balance;
+        }
+        .rd-pairhead h2 .rd-nw { white-space: nowrap; }
+        .rd-legend i { font-style: normal; }
+        .rd-pairhead h2 .rd-arrow { color: var(--color-primary); padding: 0 0.3em; }
+        .rd-pairmeta { margin-top: 6px; font-size: 0.9rem; color: var(--color-text-muted); }
+        .rd-pairmeta b { color: var(--color-text-dark); font-weight: 600; }
+        .rd-models { margin-top: 4px; font-size: 0.82rem; color: var(--color-text-muted); }
+
+        .rd-stats {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 10px;
+        }
+        .rd-stat {
+            background: var(--row-bg);
+            border: 1px solid var(--color-border);
+            border-top: 3px solid var(--flat);
+            border-radius: var(--radius-md);
+            padding: 12px 8px 10px;
+            text-align: center;
+            min-width: 0;
+        }
+        .rd-stat.is-good { border-top-color: var(--good); }
+        .rd-stat.is-bad { border-top-color: var(--bad); }
+        .rd-stat.is-nc { border-top-style: dashed; }
+        .rd-stat-value {
+            font-size: 1.7rem;
+            font-weight: 300;
+            color: var(--color-text-dark);
+            line-height: 1.1;
+            font-variant-numeric: tabular-nums;
+        }
+        .rd-stat-label { margin-top: 4px; font-size: 0.76rem; color: var(--color-text-muted); line-height: 1.3; }
+        .rd-basis { margin-top: 10px; text-align: center; font-size: 0.82rem; color: var(--color-text-muted); }
+
+        /* Controls */
+        .rd-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+        .rd-controls input[type="search"] { flex: 1 1 220px; min-width: 0; }
+        .rd-controls select { flex: 0 1 auto; }
+        .rd-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            cursor: pointer;
+            user-select: none;
+            min-height: 38px;
+        }
+        .rd-toggle input { accent-color: var(--color-primary); width: 16px; height: 16px; }
+        .rd-count { font-size: 0.82rem; color: var(--color-text-muted); margin: 0 0 10px; }
+
+        /* Delta list */
+        .rd-list {
+            background: var(--row-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        .rd-cat {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+            background: var(--band);
+            color: var(--band-ink);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .rd-cat:not(:first-child) { border-top: 1px solid var(--color-border); }
+        .rd-cat span { font-weight: normal; text-transform: none; letter-spacing: 0; white-space: nowrap; }
+
+        .rd-row { border-bottom: 1px solid var(--grid-line); }
+        .rd-row > summary {
+            list-style: none;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(150px, auto) 104px 118px;
+            gap: 4px 14px;
+            align-items: center;
+            padding: 7px 12px;
+            cursor: pointer;
+        }
+        .rd-row > summary::-webkit-details-marker { display: none; }
+        .rd-row > summary:hover { background: var(--row-hover); }
+        .rd-row > summary:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+        .rd-row[open] > summary { background: var(--row-hover); }
+        .rd-what { min-width: 0; }
+        .rd-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--color-text-dark);
+            line-height: 1.3;
+            overflow-wrap: anywhere;
+        }
+        .rd-sub {
+            font-size: 0.76rem;
+            color: var(--ink-faint);
+            line-height: 1.35;
+            margin-top: 1px;
+            overflow-wrap: anywhere;
+        }
+        .rd-why { color: var(--color-text-light); }
+        .rd-model {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            border: 1px solid currentColor;
+            border-radius: 9px;
+            padding: 0 6px;
+            margin-left: 6px;
+            vertical-align: 1px;
+            white-space: nowrap;
+        }
+        .rd-vals {
+            font-size: 0.88rem;
+            color: var(--color-text);
+            font-variant-numeric: tabular-nums;
+            text-align: right;
+            white-space: nowrap;
+        }
+        .rd-vals .rd-to { color: var(--ink-faint); padding: 0 5px; }
+        .rd-vals b { color: var(--color-text-dark); }
+        .rd-delta { text-align: right; }
+        .rd-pill {
+            display: inline-block;
+            font-size: 0.82rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            border-radius: 10px;
+            padding: 2px 8px;
+            white-space: nowrap;
+            background: var(--flat-bg);
+            color: var(--flat);
+        }
+        .rd-pill.is-good { background: var(--good-bg); color: var(--good); }
+        .rd-pill.is-bad { background: var(--bad-bg); color: var(--bad); }
+        .rd-pill.is-nc { background: none; border: 1px dashed var(--ink-faint); color: var(--ink-faint); font-weight: 600; }
+        .rd-ref { font-size: 0.74rem; color: var(--ink-faint); text-align: right; line-height: 1.35; }
+        .rd-ref em { font-style: normal; color: var(--color-text-muted); white-space: nowrap; }
+
+        .rd-more {
+            padding: 4px 12px 12px;
+            background: var(--row-hover);
+            font-size: 0.8rem;
+            color: var(--color-text);
+            line-height: 1.5;
+        }
+        .rd-more dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 12px; }
+        .rd-more dt { color: var(--color-text-muted); font-weight: 600; }
+        .rd-more dd { min-width: 0; overflow-wrap: anywhere; }
+        .rd-more .rd-muted { color: var(--color-text-muted); }
+
+        /* New / dropped lists inside a category */
+        .rd-extra { border-bottom: 1px solid var(--grid-line); }
+        .rd-extra > summary {
+            cursor: pointer;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+        .rd-extra > summary:hover { color: var(--color-primary-hover); }
+        .rd-extra ul { list-style: none; padding: 0 12px 8px; }
+        .rd-extra li {
+            display: grid;
+            grid-template-columns: 62px minmax(0, 1fr) auto;
+            gap: 2px 10px;
+            align-items: baseline;
+            font-size: 0.8rem;
+            padding: 4px 0;
+            border-top: 1px dotted var(--grid-line);
+            color: var(--color-text);
+        }
+        .rd-tag {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--color-text-muted);
+        }
+        .rd-tag.is-new { color: var(--color-primary-hover); }
+        .rd-extra li .rd-x { min-width: 0; overflow-wrap: anywhere; }
+        .rd-extra li .rd-x small { color: var(--ink-faint); font-size: 0.74rem; }
+        .rd-extra li .rd-v { font-variant-numeric: tabular-nums; color: var(--color-text-dark); text-align: right; white-space: nowrap; }
+        .rd-extra li .rd-v small { color: var(--ink-faint); font-size: 0.72rem; }
+
+        .rd-empty { padding: 30px; text-align: center; color: var(--color-text-muted); font-size: 0.9rem; }
+
+        .rd-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            font-size: 0.78rem;
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .rd-legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+        .rd-notes { margin-top: 2.5rem; }
+        .rd-notes p, .rd-notes li { font-size: 0.86rem; color: var(--color-text-light); line-height: 1.6; }
+        .rd-notes p { margin-bottom: 10px; }
+        .rd-notes ul { padding-left: 18px; margin-bottom: 10px; }
+        .rd-notes strong { color: var(--color-text-dark); }
+
+        @media (max-width: 900px) {
+            .rd-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+        @media (max-width: 720px) {
+            .rd-row > summary {
+                grid-template-columns: minmax(0, 1fr) auto;
+                grid-template-areas: "what what" "vals delta" "ref ref";
+            }
+            .rd-what { grid-area: what; }
+            .rd-vals { grid-area: vals; text-align: left; white-space: normal; }
+            .rd-delta { grid-area: delta; }
+            .rd-ref { grid-area: ref; text-align: left; }
+        }
+        @media (max-width: 600px) {
+            .rd .page-card { padding: 28px 14px; margin-top: 24px; }
+            .rd .container-wide { padding: 0 12px; }
+            .rd-panel { padding: 0.85rem; }
+            .rd-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+            .rd-stat-value { font-size: 1.45rem; }
+            .rd-line-name { flex-basis: 100%; }
+            .rd-any select { flex-basis: 100%; }
+            .rd-any > span { display: none; }
+            .rd-pairhead h2 { font-size: 1.25rem; }
+            .rd-pairhead h2 .rd-nw { display: block; white-space: normal; }
+            .rd-pairhead h2 .rd-arrow { display: block; line-height: 1; }
+            .rd-controls select { flex: 1 1 45%; min-width: 0; }
+            .rd-extra li { grid-template-columns: 54px minmax(0, 1fr); }
+            .rd-extra li .rd-v { grid-column: 2; text-align: left; white-space: normal; }
+            .page-header h1 { font-size: 2rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .rd-pairbtn { transition: none; }
+        }
+    </style>
+</head>
+<body class="rd">
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Jacob Brooke</h1>
+            <ul class="nav-links">
+                <li><a href="claude-models.html">Claude Guide</a></li>
+                <li><a href="release-forecast.html">Release Forecast</a></li>
+                <li><a href="system-card-metrics.html">System Card Metrics</a></li>
+                <li><a href="release-deltas.html" class="active">Release Deltas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-wide">
+        <div class="page-card">
+            <div class="page-header">
+                <h1>Release Deltas</h1>
+                <p>What moved between one Claude system card and the next</p>
+            </div>
+
+            <p class="rd-intro">
+                Each Claude system card set against its predecessor: which figures went up, which went down,
+                and which only look comparable. A delta appears only where both figures measure the same thing the same way.
+                The rule is under <a href="#how">How to read this</a>.
+            </p>
+
+            <section aria-labelledby="pick-title">
+                <h2 class="section-title" id="pick-title">Pick a release</h2>
+                <div class="rd-panel">
+                    <div class="rd-lines" id="lines"><div class="rd-empty">Loading…</div></div>
+                    <div class="rd-any">
+                        <label for="from">Or compare any two cards:</label>
+                        <select id="from" aria-label="Older card"></select>
+                        <span aria-hidden="true">→</span>
+                        <select id="to" aria-label="Newer card"></select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="rd-section" aria-labelledby="pair-title">
+                <div class="rd-pairhead" aria-live="polite">
+                    <h2 id="pair-title">&nbsp;</h2>
+                    <p class="rd-pairmeta" id="pair-meta"></p>
+                    <p class="rd-models" id="pair-models"></p>
+                </div>
+                <div class="rd-stats" id="stats"></div>
+                <p class="rd-basis" id="basis"></p>
+            </section>
+
+            <section class="rd-section" aria-labelledby="list-title">
+                <h2 class="section-title" id="list-title">What moved</h2>
+                <div class="rd-controls">
+                    <input type="search" id="q" placeholder="Search, e.g. SWE-bench, refusal, max effort" aria-label="Search figures">
+                    <select id="cat" aria-label="Category"><option value="">All categories</option></select>
+                    <select id="cls" aria-label="Show">
+                        <option value="">All figures</option>
+                        <option value="good">Improved</option>
+                        <option value="bad">Regressed</option>
+                        <option value="flat">Unchanged</option>
+                        <option value="moved">Moved, direction not judged</option>
+                        <option value="nc">Not comparable</option>
+                        <option value="new">New in the newer card</option>
+                        <option value="dropped">Dropped from the newer card</option>
+                    </select>
+                    <label class="rd-toggle"><input type="checkbox" id="only"> Comparable only</label>
+                </div>
+                <div class="rd-legend" id="legend">
+                    <span><i class="rd-pill is-good">▲ +1.0 pp</i> better</span>
+                    <span><i class="rd-pill is-bad">▲ +1.0 pp</i> worse</span>
+                    <span><i class="rd-pill">▲ +1.0</i> moved, direction not judged</span>
+                    <span><i class="rd-pill is-nc">no delta</i> reported by both, not comparable</span>
+                </div>
+                <p class="rd-count" id="count"></p>
+                <div class="rd-list" id="list"></div>
+            </section>
+
+            <section class="rd-notes" aria-labelledby="how" >
+                <h2 class="section-title" id="how">How to read this</h2>
+                <p>
+                    Every row is one printed figure from the newer card, paired with the matching figure for its predecessor.
+                    Largest moves come first in each category: percentage figures by points moved, everything else by relative change.
+                    Select a row to see how each card describes the measurement.
+                </p>
+                <ul>
+                    <li><strong>The comparability rule.</strong> Two figures get a delta only if they sit under the same canonical metric,
+                        name the same sub-evaluation and measure, belong to the same model line (Fable against Fable, Mythos against Mythos),
+                        and nothing in their descriptions conflicts: effort level, thinking on or off, tools, search, safeguards, strict against partial scoring,
+                        single against multi-turn, a named subset, or a different task-set size. Both values must parse as one number in the same unit.
+                        A figure the card only shows in a chart, a range, or a "less than" bound gets no delta.</li>
+                    <li><strong>Same-card comparison</strong> means the newer card restates the predecessor's score in its own table, so both numbers come from one setup.
+                        That figure is preferred, and it can differ from what the predecessor's own card printed; the row detail shows both.
+                        <strong>Card-to-card</strong> means each number comes from its own card. Those are held back when the newer card says its setup changed,
+                        when it re-measures another earlier model at a different value than that model's card printed,
+                        when one card prints several variants and the other does not say which it means,
+                        or when the two cards describe the evaluation differently and the figure jumps by more than 25 points.</li>
+                    <li><strong>Not comparable</strong> rows show both values side by side with the reason and no delta.
+                        <strong>New</strong> and <strong>dropped</strong> count figures, not metrics, so a metric both cards report can still add or lose a variant.</li>
+                    <li><strong>Better or worse</strong> is colored only where the card says which way is good or the measure makes it plain
+                        (accuracy, resolve rate, attack success rate, over-refusal). Welfare, interpretability, evaluation-awareness and the RSP capability evaluations
+                        are never judged, and neither is a bare "score" outside the capability benchmarks. The arrow always shows which way the number went.</li>
+                </ul>
+                <p><strong>Limits.</strong> The matching is done by rule on short text descriptions, so it is conservative and still fallible: it will miss true pairs whose
+                    wording differs, and a card-to-card pair can pass every check while the harness, prompt or grader changed without the card saying so.
+                    Treat card-to-card deltas as weaker evidence than same-card ones. Older pairs have few deltas because the early cards put many results only in charts,
+                    which were recorded without a number. Some values were read off figures and are approximate (marked ≈). Every number is Anthropic's own first-party measurement
+                    of its own model, extracted from the PDFs by machine, so check the cited section before relying on one.</p>
+                <p>Built from the same data as <a href="system-card-metrics.html">System Card Metrics</a> by
+                    <code>scripts/build-release-deltas.py</code>, which writes <code>system-cards/deltas.json</code>.</p>
+            </section>
+        </div>
+
+        <div class="footer">
+            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Mon 11•09•26</p>
+            <p>Data from <a href="https://www.anthropic.com/system-cards" target="_blank" rel="noopener">Anthropic system cards</a></p>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        const FAM_VAR = { opus: 'var(--fam-opus)', sonnet: 'var(--fam-sonnet)', haiku: 'var(--fam-haiku)', fable: 'var(--fam-fable)', mythos: 'var(--fam-mythos)' };
+        // Columns of a row in D.figs (see scripts/build-release-deltas.py)
+        const F = { metric: 0, card: 1, model: 2, name: 3, variant: 4, setting: 5, measure: 6, section: 7, value: 8, num: 9, unit: 10, approx: 11, dir: 12 };
+
+        const $ = id => document.getElementById(id);
+        const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const short = m => m.replace(/^Claude /, '');
+        const family = m => Object.keys(FAM_VAR).find(f => m.toLowerCase().includes(f)) || '';
+
+        let D, cardIdx, view;
+        const state = { from: null, to: null, q: '', cat: '', cls: '', only: false };
+
+        const str = (fig, col) => D.strings[fig[col]];
+        const decimals = s => { const m = /\.(\d+)/.exec(String(s).replace(/\(.*$/, '')); return m ? Math.min(m[1].length, 3) : 0; };
+        const secNum = s => { const m = /^§?\s*([\d.]+\d|\d+)/.exec(s || ''); return m ? '§' + m[1] : (s ? '§' + s : ''); };
+
+        function fmtNum(n, unit, dp) {
+            const t = Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: dp, maximumFractionDigits: dp });
+            const sign = n < 0 ? '−' : '';
+            if (unit === '%') return sign + t + '%';
+            if (unit === '$') return sign + '$' + t;
+            if (unit === 'x') return sign + t + '×';
+            if (unit[0] === '/') return sign + t + ' of ' + unit.slice(1);
+            return sign + t;
+        }
+        function fmtDelta(d, unit, dp) {
+            const t = Math.abs(d).toLocaleString('en-US', { minimumFractionDigits: dp, maximumFractionDigits: dp });
+            const sign = d > 0 ? '+' : d < 0 ? '−' : '±';
+            const suffix = unit === '%' ? ' pp' : unit === 'x' ? '×' : '';
+            return sign + (unit === '$' ? '$' : '') + t + suffix;
+        }
+
+        // ---------- Build the rows of one pair ----------
+        function buildView(fromId, toId) {
+            const oi = cardIdx[fromId], ni = cardIdx[toId];
+            const oldCard = D.cards[oi], newCard = D.cards[ni];
+            const mps = D.pairs[fromId + '>' + toId] || [];
+            const multi = mps.length > 1;
+            const rows = [];
+            mps.forEach(mp => {
+                const refO = new Set(), refN = new Set(mp.skip), skip = new Set(mp.skip);
+                const tag = multi || family(mp.a) !== family(mp.b)
+                    ? { text: family(mp.a) === family(mp.b) ? family(mp.b) : short(mp.a) + ' → ' + short(mp.b), color: FAM_VAR[family(mp.b)] } : null;
+                mp.rows.forEach(r => {
+                    const [cls, o, n, basis, reason] = r;
+                    const fn = D.figs[n], fo = o >= 0 ? D.figs[o] : null;
+                    refN.add(n);
+                    if (o >= 0) refO.add(o);
+                    const row = { fn, fo, basis, reason, tag, metric: D.metrics[fn[F.metric]] };
+                    if (cls === 0) {
+                        let a, b, unit = str(fn, F.unit);
+                        if (basis === 1) { a = r[5]; b = fn[F.num]; }
+                        else if (r.length > 5) { a = r[5]; b = r[6]; unit = '%'; }
+                        else { a = fo[F.num]; b = fn[F.num]; }
+                        const dp = Math.max(decimals(str(fn, F.value)), basis === 1 ? decimals(String(a)) : decimals(str(fo, F.value)));
+                        const d = b - a;
+                        const way = fn[F.dir] || (fo ? fo[F.dir] : 0);
+                        let kind = 'moved';
+                        if (Math.abs(d) < 1e-9) kind = 'flat';
+                        else if (way === 2) kind = Math.abs(b) < Math.abs(a) ? 'good' : Math.abs(b) > Math.abs(a) ? 'bad' : 'moved';
+                        else if (way !== 0) kind = (d > 0) === (way > 0) ? 'good' : 'bad';
+                        const mag = unit === '%' ? Math.abs(d) : (Math.max(Math.abs(a), Math.abs(b)) ? 100 * Math.abs(d) / Math.max(Math.abs(a), Math.abs(b)) : 0);
+                        Object.assign(row, { kind, a, b, d, unit, dp, mag, way,
+                            approx: fn[F.approx] || (basis === 0 && fo && fo[F.approx]) });
+                    } else {
+                        row.kind = 'nc';
+                        row.mag = -1;
+                        if (basis === 1) row.a = r[5];
+                    }
+                    rows.push(row);
+                });
+                const oldMetrics = new Set(), newMetrics = new Set();
+                D.figs.forEach(f => {
+                    if (f[F.card] === oi && D.strings[f[F.model]] === mp.a) oldMetrics.add(f[F.metric]);
+                    if (f[F.card] === ni && D.strings[f[F.model]] === mp.b) newMetrics.add(f[F.metric]);
+                });
+                D.figs.forEach((f, ref) => {
+                    if (f[F.card] === ni && D.strings[f[F.model]] === mp.b && !refN.has(ref))
+                        rows.push({ kind: 'new', fn: f, tag, metric: D.metrics[f[F.metric]], shared: oldMetrics.has(f[F.metric]), mag: -2 });
+                    else if (f[F.card] === oi && D.strings[f[F.model]] === mp.a && !refO.has(ref) && !skip.has(ref))
+                        rows.push({ kind: 'dropped', fn: f, tag, metric: D.metrics[f[F.metric]], shared: newMetrics.has(f[F.metric]), mag: -3 });
+                });
+            });
+            rows.forEach(r => {
+                const f = r.fn, o = r.fo;
+                r.hay = [r.metric[1], D.categories[r.metric[2]], str(f, F.name), str(f, F.variant), str(f, F.setting), str(f, F.measure),
+                    str(f, F.section), str(f, F.value), o ? str(o, F.variant) + ' ' + str(o, F.name) : '', r.reason || '',
+                    r.tag ? r.tag.text : '', r.basis === 1 ? 'same-card' : (o ? 'card-to-card' : '')].join(' ').toLowerCase();
+            });
+            const counts = { good: 0, bad: 0, flat: 0, moved: 0, nc: 0, new: 0, dropped: 0, sameCard: 0, cardToCard: 0 };
+            rows.forEach(r => {
+                counts[r.kind]++;
+                if (['good', 'bad', 'flat', 'moved'].includes(r.kind)) counts[r.basis === 1 ? 'sameCard' : 'cardToCard']++;
+            });
+            return { oldCard, newCard, mps, rows, counts };
+        }
+
+        // ---------- Header ----------
+        function renderHead() {
+            const { oldCard, newCard, mps, counts } = view;
+            const days = Math.round((new Date(newCard.date) - new Date(oldCard.date)) / 864e5);
+            $('pair-title').innerHTML = `<span class="rd-nw">${esc(oldCard.label)}</span><span class="rd-arrow" aria-label="to">→</span><span class="rd-nw">${esc(newCard.label)}</span>`;
+            $('pair-meta').innerHTML = `<b>${fmtDate(oldCard.date)}</b> to <b>${fmtDate(newCard.date)}</b> · ${days.toLocaleString()} days apart`;
+            const sameFam = mps.every(mp => family(mp.a) === family(mp.b));
+            $('pair-models').textContent = (sameFam ? 'Compared: ' : 'No shared model line, so this crosses families: ') +
+                mps.map(mp => short(mp.a) + ' → ' + short(mp.b)).join(' · ');
+            const tiles = [
+                ['good', 'is-good', 'Improved'], ['bad', 'is-bad', 'Regressed'], ['flat', '', 'Unchanged'],
+                ['moved', '', 'Moved, direction not judged'], ['nc', 'is-nc', 'Not comparable'],
+                ['new', '', 'New in this card'], ['dropped', '', 'Dropped'],
+            ];
+            $('stats').innerHTML = tiles.map(([k, c, l]) =>
+                `<div class="rd-stat ${c}"><div class="rd-stat-value">${counts[k].toLocaleString()}</div><div class="rd-stat-label">${l}</div></div>`).join('');
+            const cmp = counts.sameCard + counts.cardToCard;
+            $('basis').textContent = cmp
+                ? `${cmp} comparable figures: ${counts.sameCard} same-card (the newer card restates the older model's score), ${counts.cardToCard} card-to-card.`
+                : 'No figures in this pair pass the comparability rule.';
+        }
+
+        // ---------- List ----------
+        function modelChip(tag) {
+            return tag ? `<span class="rd-model" style="color:${tag.color || 'var(--color-text-muted)'}">${esc(tag.text)}</span>` : '';
+        }
+        function subline(f, metricName) {
+            const name = str(f, F.name), bits = [];
+            if (name && name.toLowerCase() !== metricName.toLowerCase()) bits.push(esc(name));
+            if (str(f, F.variant)) bits.push(esc(str(f, F.variant)));
+            if (str(f, F.setting)) bits.push(esc(str(f, F.setting)));
+            return bits.join(' · ');
+        }
+        function describe(f, card) {
+            const v = str(f, F.value);
+            return `<dt>${esc(card.label)}</dt><dd>${esc(str(f, F.name))}${str(f, F.variant) ? ' · ' + esc(str(f, F.variant)) : ''}${str(f, F.setting) ? ' · ' + esc(str(f, F.setting)) : ''}
+                <br><span class="rd-muted">${esc(str(f, F.measure)) || 'measure not stated'} · ${esc(short(str(f, F.model)))} · printed:</span> <b>${v ? esc(v) : 'no figure'}</b>
+                <span class="rd-muted">· §${esc(str(f, F.section).replace(/^§/, ''))}</span></dd>`;
+        }
+        function rowHtml(r) {
+            const { oldCard, newCard } = view;
+            const f = r.fn, o = r.fo, name = r.metric[1];
+            const cmp = r.kind !== 'nc';
+            let vals, pill;
+            if (cmp) {
+                const ap = r.approx ? '≈' : '';
+                vals = `${ap}${fmtNum(r.a, r.unit, r.dp)}<span class="rd-to">→</span><b>${ap}${fmtNum(r.b, r.unit, r.dp)}</b>`;
+                const arrow = r.d > 0 ? '▲' : r.d < 0 ? '▼' : '＝';
+                const word = r.kind === 'good' ? 'better' : r.kind === 'bad' ? 'worse' : r.kind === 'flat' ? 'unchanged' : 'direction not judged';
+                pill = `<span class="rd-pill ${r.kind === 'good' ? 'is-good' : r.kind === 'bad' ? 'is-bad' : ''}" title="${word}">${arrow} ${fmtDelta(r.d, r.unit, r.dp)}<span class="visually-hidden" style="position:absolute;left:-9999px"> ${word}</span></span>`;
+            } else {
+                const a = r.basis === 1 ? esc(String(r.a)) : (o && str(o, F.value) ? esc(str(o, F.value)) : 'no figure');
+                const b = str(f, F.value) ? esc(str(f, F.value)) : 'no figure';
+                vals = `${a}<span class="rd-to">|</span><b>${b}</b>`;
+                pill = `<span class="rd-pill is-nc">no delta</span>`;
+            }
+            const sub = subline(f, name);
+            const why = cmp ? '' : `<div class="rd-sub rd-why">Not comparable: ${esc(r.reason)}</div>`;
+            const sN = secNum(str(f, F.section)), sO = o ? secNum(str(o, F.section)) : '';
+            const ref = r.basis === 1
+                ? `<em>same-card comparison</em> ${esc(sN)}`
+                : `<em>card-to-card</em> ${esc(sO === sN ? sN : sO + ' → ' + sN)}`;
+            let more = '<dl>';
+            if (r.basis === 1) {
+                more += `<dt>Same card</dt><dd>${esc(newCard.label)} quotes ${esc(short(view.pairModel(r).a))} at <b>${esc(String(r.a))}</b> beside its own figure, so both come from the newer card's setup.</dd>`;
+                if (o) more += describe(o, oldCard).replace('printed:', 'its own card printed:');
+                else more += `<dt>${esc(oldCard.label)}</dt><dd class="rd-muted">No matching figure in the older card itself.</dd>`;
+            } else if (o) more += describe(o, oldCard);
+            more += describe(f, newCard);
+            if (cmp && r.way === 0 && r.kind === 'moved') more += `<dt>Direction</dt><dd class="rd-muted">Not judged: the card does not say whether higher is better for this measure.</dd>`;
+            more += '</dl>';
+            return `<details class="rd-row"><summary>
+                <div class="rd-what"><div class="rd-name">${esc(name)}${modelChip(r.tag)}</div>${sub ? `<div class="rd-sub">${sub}</div>` : ''}${why}</div>
+                <div class="rd-vals">${vals}</div><div class="rd-delta">${pill}</div><div class="rd-ref">${ref}</div>
+                </summary><div class="rd-more">${more}</div></details>`;
+        }
+        function extraHtml(r) {
+            const f = r.fn, name = r.metric[1], sub = subline(f, name);
+            const v = str(f, F.value);
+            return `<li><span class="rd-tag ${r.kind === 'new' ? 'is-new' : ''}">${r.kind === 'new' ? 'New' : 'Dropped'}</span>
+                <span class="rd-x">${esc(name)}${modelChip(r.tag)}${sub ? ` <small>${sub}</small>` : ''}${r.shared ? ` <small>· metric in both cards</small>` : ''}</span>
+                <span class="rd-v">${v ? esc(v) : '<small>no figure</small>'} <small>${esc(secNum(str(f, F.section)))}</small></span></li>`;
+        }
+        function renderList() {
+            const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+            const catIdx = state.cat === '' ? -1 : D.categories.indexOf(state.cat);
+            const comparable = k => k === 'good' || k === 'bad' || k === 'flat' || k === 'moved';
+            const list = view.rows.filter(r =>
+                (catIdx < 0 || r.metric[2] === catIdx) &&
+                (!state.cls || r.kind === state.cls) &&
+                (!state.only || comparable(r.kind)) &&
+                terms.every(t => r.hay.includes(t)));
+            const byCat = new Map();
+            list.forEach(r => { const c = r.metric[2]; if (!byCat.has(c)) byCat.set(c, []); byCat.get(c).push(r); });
+            const openExtras = !!state.q || state.cls === 'new' || state.cls === 'dropped';
+            let html = '';
+            [...byCat.keys()].sort((a, b) => a - b).forEach(c => {
+                const rows = byCat.get(c);
+                const main = rows.filter(r => comparable(r.kind) || r.kind === 'nc')
+                    .sort((a, b) => (comparable(b.kind) - comparable(a.kind)) || (b.mag - a.mag) || a.metric[1].localeCompare(b.metric[1]));
+                const extra = rows.filter(r => r.kind === 'new' || r.kind === 'dropped')
+                    .sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'new' ? -1 : 1) || a.metric[1].localeCompare(b.metric[1]));
+                const nCmp = main.filter(r => comparable(r.kind)).length;
+                const nNew = extra.filter(r => r.kind === 'new').length, nDrop = extra.length - nNew;
+                const bits = [];
+                if (nCmp) bits.push(nCmp + ' comparable');
+                if (main.length - nCmp) bits.push((main.length - nCmp) + ' not comparable');
+                html += `<div class="rd-cat">${esc(D.categories[c])}<span>${bits.join(' · ') || 'no shared figures'}</span></div>`;
+                html += main.map(rowHtml).join('');
+                if (extra.length) {
+                    const label = [nNew ? nNew + ' new in the newer card' : '', nDrop ? nDrop + ' dropped' : ''].filter(Boolean).join(' · ');
+                    html += `<details class="rd-extra"${openExtras || !main.length ? ' open' : ''}><summary>${label}</summary><ul>${extra.map(extraHtml).join('')}</ul></details>`;
+                }
+            });
+            $('list').innerHTML = html || `<div class="rd-empty">Nothing matches. Try a shorter search, another category, or turn off "Comparable only".</div>`;
+            $('count').textContent = `Showing ${list.length.toLocaleString()} of ${view.rows.length.toLocaleString()} figures` +
+                (state.cat ? ` in ${state.cat}` : '') + (state.only ? ' · comparable only' : '') +
+                '. New and dropped figures are folded under each category.';
+        }
+
+        // ---------- Pair selection ----------
+        function setPair(fromId, toId, push) {
+            if (cardIdx[fromId] > cardIdx[toId]) [fromId, toId] = [toId, fromId];
+            if (fromId === toId) return;
+            state.from = fromId; state.to = toId;
+            view = buildView(fromId, toId);
+            view.pairModel = r => view.mps.find(mp => mp.b === str(r.fn, F.model) && (!r.fo || mp.a === str(r.fo, F.model))) || view.mps[0];
+            $('from').value = fromId; $('to').value = toId;
+            document.querySelectorAll('.rd-pairbtn').forEach(b =>
+                b.setAttribute('aria-pressed', b.dataset.from === fromId && b.dataset.to === toId ? 'true' : 'false'));
+            if (push) { try { history.replaceState(null, '', '#' + encodeURIComponent(fromId) + '>' + encodeURIComponent(toId)); } catch (e) { /* file:// */ } }
+            renderHead();
+            renderList();
+        }
+        function wire() {
+            const byId = Object.fromEntries(D.cards.map(c => [c.id, c]));
+            const lineFam = { Fable: 'fable', Opus: 'opus', Sonnet: 'sonnet', Haiku: 'haiku', Mythos: 'mythos' };
+            // "Opus 4 / Sonnet 4" reads as "Opus 4" on the Opus line
+            const inLine = (c, fam) => { const part = c.label.split(' / ').find(p => p.toLowerCase().includes(fam)); return fam === 'fable' || !part ? c.label : part; };
+            $('lines').innerHTML = D.lines.map(l => {
+                const fam = lineFam[l.name];
+                const btns = l.cards.slice(1).map((id, i) => {
+                    const a = byId[l.cards[i]], b = byId[id];
+                    return `<button type="button" class="rd-pairbtn" style="border-left-color:${FAM_VAR[fam]}" data-from="${esc(a.id)}" data-to="${esc(b.id)}" aria-pressed="false"
+                        title="${esc(a.title)} → ${esc(b.title)}">${esc(inLine(a, fam))} → ${esc(inLine(b, fam))}</button>`;
+                }).reverse().join('');
+                return `<div class="rd-line"><span class="rd-line-name">${esc(l.name)}</span><div class="rd-line-pairs">${btns}</div></div>`;
+            }).join('');
+            $('lines').addEventListener('click', e => {
+                const b = e.target.closest('.rd-pairbtn');
+                if (b) setPair(b.dataset.from, b.dataset.to, true);
+            });
+            const opts = D.cards.map(c => `<option value="${esc(c.id)}">${esc(c.label)} (${fmtDate(c.date)})</option>`).join('');
+            $('from').innerHTML = opts; $('to').innerHTML = opts;
+            $('from').addEventListener('change', () => { if ($('from').value !== $('to').value) setPair($('from').value, $('to').value, true); });
+            $('to').addEventListener('change', () => { if ($('from').value !== $('to').value) setPair($('from').value, $('to').value, true); });
+            const cat = $('cat');
+            D.categories.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; cat.appendChild(o); });
+            let t;
+            $('q').addEventListener('input', e => { clearTimeout(t); t = setTimeout(() => { state.q = e.target.value; renderList(); }, 120); });
+            cat.addEventListener('change', e => { state.cat = e.target.value; renderList(); });
+            $('cls').addEventListener('change', e => { state.cls = e.target.value; renderList(); });
+            $('only').addEventListener('change', e => { state.only = e.target.checked; renderList(); });
+        }
+        function fromHash() {
+            const m = /^#([^>]+)>(.+)$/.exec(decodeURIComponent(location.hash || ''));
+            return m && cardIdx[m[1]] !== undefined && cardIdx[m[2]] !== undefined && m[1] !== m[2] ? [m[1], m[2]] : null;
+        }
+
+        fetch('system-cards/deltas.json')
+            .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(data => {
+                D = data;
+                cardIdx = Object.fromEntries(D.cards.map((c, i) => [c.id, i]));
+                wire();
+                // Default: the newest card against its predecessor in the first release line that ends with it
+                const newest = D.cards[D.cards.length - 1].id;
+                const line = D.lines.find(l => l.cards.indexOf(newest) > 0);
+                const def = line ? [line.cards[line.cards.indexOf(newest) - 1], newest] : [D.cards[D.cards.length - 2].id, newest];
+                const pick = fromHash() || def;
+                setPair(pick[0], pick[1], false);
+                window.addEventListener('hashchange', () => { const p = fromHash(); if (p) setPair(p[0], p[1], false); });
+            })
+            .catch(err => {
+                $('lines').innerHTML = '';
+                $('list').innerHTML = `<div class="rd-empty">The delta data didn't load (${esc(err.message)}).</div>`;
+            });
+    })();
+    </script>
+</body>
+</html>
