@@ -30,16 +30,20 @@ A **release** is the first day the model is usable by the public, through the AP
 
 For each new model:
 
-1. **Release table.** Append a row to `data/anthropic_releases.csv`:
-   - Columns: `release_id, date, family, model, version, generation, access, price_in, price_out, colaunch_group, source_url, note`.
+1. **Release data.** Append one object per new model to `releases` in `../data/models.json` (see `../data/README.md`). Don't edit `data/anthropic_releases.csv` or the release block in `../claude-models.html` by hand: both are generated from that file.
+   - Fields: `id, date, family, model, version, generation, access, price_in, price_out, colaunch_group, url, note`. Copy the family's previous release and change what differs.
    - Prices come from the official pricing page.
    - A co-launch (two families on one day) shares a `colaunch_group`.
+   - A restricted model takes `"access": "restricted"`.
+   - Then run `python3 ../scripts/build-site-data.py` from `forecast/`. It rewrites `data/anthropic_releases.csv`, and on the page the family cards' release list, the pricing chart and the Board Coverage queue.
 2. **Claude Model Guide page** (`../claude-models.html`):
-   - Add the release to `modelData` inside the `// ===== release-data:begin =====` sentinels: `{ version, date, url }`, plus `restricted: true` or `notReleased: true` where they apply. Follow the existing entries.
-   - Update the `lastUpdated.textContent` line to say what was added and when.
-   - Don't touch the `forecast` block.
-   - Then run `node ../scripts/predict-releases.js --backtest` from `forecast/` and check that it runs without errors.
-   - Update the pricing or benchmark charts only if you can verify the numbers on an official page. Otherwise note "charts not yet updated" in the summary.
+   - Update the `lastUpdated.textContent` line to say what was added and when. That line is still hand-written.
+   - Don't touch the `forecast` block, or anything between `// >>> generated:` and `// <<< generated:` markers.
+   - Run `node ../scripts/predict-releases.js --backtest` from `forecast/` and check that it runs without errors.
+   - Benchmark charts: add rows to `../data/benchmarks.json` only for numbers you can verify on an official page or the board itself, then rebuild. Otherwise note "charts not yet updated" in the summary.
+   - Board checks: for each leaderboard you looked at, record the result in `../data/board-checks.json` (the board's `last_checked`, and the model's check as `listed` or `pending`), then rebuild. Never enter a listing date you did not see stated.
+   - The prose notes under the charts are hand-written; update the sentences the release makes false.
+   - Finish with `python3 ../scripts/build-site-data.py --check`. The pre-commit hook runs the same check and refuses a stale page.
 3. **Named versions.** Remove that family's entry from `data/named_versions.json`. If artifacts already name the next version, put that name in its place.
 4. **Signals.** In `data/raw/signals_research.csv`:
    - Rows that pointed at this model (for example `UNRELEASED Fable 5.5 (aka 5.2)`) get the real `release_id` and `release_date`.
@@ -104,6 +108,7 @@ This writes `output/forecast.json`, `history/forecast_<date>.json`, new rows in 
 - Render `../release-forecast.html` with Playwright at 1200px and 400px. There should be no console errors and no horizontal overflow.
 - Check the forecast: each CDF in `output/forecast.json` is non-decreasing, and every probability is between 0 and 1.
 - The Claude Guide's Release Calendar (`claude-models.html`) and its "Statistical forecast" box read `forecast/output/forecast.json` straight from the site, so they update with no edits. Leave the family cards and the EWMA cadence list alone; Jacob wants that cycle information kept. After the Pages deploy finishes, load https://jacobbrooke95.github.io/Claude-Model-Guide/claude-models.html and check that the calendar footer reads "statistical forecast, as of <this run's date>".
+- `python3 ../scripts/build-site-data.py --check` passes.
 - `git diff --stat`: only the expected files changed, `history/` only added files, and `forecast_log.csv` only appended rows.
 
 ## 7. Publish

@@ -1,0 +1,450 @@
+{
+  "_about": "Every benchmark chart on claude-models.html. Edit here, then run `python3 scripts/build-site-data.py`. The chart rows are written into the page; the provenance fields are not. See data/README.md.",
+  "_fields": {
+    "source / source_url": "where the figure was read",
+    "as_of": "the date the figure was last read from, or confirmed against, that source",
+    "note": "what a reader of the number needs to know: config, fallbacks, restatements",
+    "caveats": "chart-wide warnings",
+    "history": "the pull log that used to live in code comments above each array, oldest first; append to it on every re-check",
+    "board": "id of the third-party board in board-checks.json that this chart is checked against",
+    "everything else on a row": "chart data, copied into the page as written"
+  },
+  "charts": {
+    "osworld": {
+      "title": "OSWorld Benchmark Progress",
+      "unit": "% of tasks",
+      "board": "osworld-verified",
+      "source": "Anthropic's own reported figures (announcements and system cards), not a read of the official leaderboard",
+      "source_url": "https://os-world.github.io/",
+      "as_of": "2026-11-09",
+      "caveats": [
+        "Three versions of the eval on one line: original OSWorld before Sonnet 4.5, OSWorld-Verified from Sonnet 4.5 through Opus 4.8 and Sonnet 5, and OSWorld 2.1 offline-subset partial credit for rows flagged v21.",
+        "Rows without a v21 flag were audited against the boards on 2026-07-29 (see the note under the chart); that is the as_of they carry."
+      ],
+      "history": [
+        "Points flagged v21 are OSWorld 2.1 partial-credit runs rather than OSWorld-Verified: Anthropic stopped reporting Verified after Sonnet 5 (Jun 30), so the newest Fable, Opus, Sonnet and Haiku releases join their lines through a dashed segment and are drawn hollow. A `subset` flag marks a run on a reduced task set; since 2026-11-09 all four hollow points are the offline subset. Mythos has no 2.x run.",
+        "Checked 2026-11-09: the official OSWorld-Verified board was inconclusive for Fable 5.2, because its data loads dynamically."
+      ],
+      "series": {
+        "sonnet": [
+          {"model": "3.5 Sonnet (Oct)", "date": "2024-10-22", "score": 14.9, "source": "Anthropic-reported, original OSWorld", "as_of": "2026-07-29"},
+          {"model": "3.7 Sonnet", "date": "2025-02-24", "score": 28.0, "source": "Anthropic-reported, original OSWorld", "as_of": "2026-07-29"},
+          {"model": "Sonnet 4", "date": "2025-05-22", "score": 42.2, "source": "Anthropic-reported, original OSWorld", "as_of": "2026-07-29"},
+          {"model": "Sonnet 4.5", "date": "2025-09-29", "score": 61.4, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29"},
+          {"model": "Sonnet 4.6", "date": "2026-02-17", "score": 72.5, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29"},
+          {"model": "Sonnet 5", "date": "2026-06-30", "score": 81.2, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29"},
+          {"model": "Sonnet 5.5", "date": "2026-09-28", "score": 83.9, "v21": true, "subset": "offline", "source": "Anthropic system card, OSWorld 2.1 offline subset (82 of 108 tasks), partial credit", "as_of": "2026-11-09", "note": "OSWorld 2.1 offline subset, not Verified (see v21 below): partial credit, re-run for the Haiku 5.5 system card (sec. 8.9.3); 48.8% strict. Until 2026-11-09 this point was the full 108-task score from Sonnet 5.5's own card (80.1 / 43.5 strict); it moved so every hollow point shares a task set."}
+        ],
+        "opus": [
+          {"model": "Opus 4.5", "date": "2025-11-24", "score": 66.3, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29"},
+          {"model": "Opus 4.6", "date": "2026-02-05", "score": 72.7, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29"},
+          {"model": "Opus 4.7", "date": "2026-04-16", "score": 82.3, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29", "note": "82.3 is Anthropic's restated figure (Opus 4.8 announcement footnote: harness change \"to more accurately reflect the model's performance\"); the community boards still carry the original 78.0 run."},
+          {"model": "Opus 4.8", "date": "2026-05-28", "score": 83.4, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29"},
+          {"model": "Opus 5.5", "date": "2026-09-22", "score": 87.2, "v21": true, "subset": "offline", "source": "Anthropic system card, OSWorld 2.1 offline subset (82 of 108 tasks), partial credit", "as_of": "2026-11-09", "note": "OSWorld 2.1 offline subset, partial credit: 87.2 (53.2% strict), the same figure in the Haiku 5.5 card and the Fable 5.2 / Mythos 5.2 card (sec. 8.13.3). Until 2026-11-09 this was the full-set 81.8 (48.7 strict) from the Opus 5.5 card. Opus 5's own 2.1 run (74.0, full set) isn't plotted: this line carries Verified runs plus the newest release's 2.1 run, not two evals interleaved."}
+        ],
+        "fable": [
+          {"model": "Fable 5", "date": "2026-06-09", "score": 85.0, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29"},
+          {"model": "Fable 5.2", "date": "2026-11-09", "score": 89.3, "v21": true, "subset": "offline", "source": "Anthropic system card, OSWorld 2.1 offline subset (82 of 108 tasks), partial credit", "as_of": "2026-11-09", "note": "OSWorld 2.1 offline subset, partial credit, Fable 5.2 / Mythos 5.2 card sec. 8.13.3 and Table 8.1.A: 89.3% partial, 54.6% strict, max effort, five attempts per task. Fable 5.1's re-run on the same set (83.5 / 47.6) isn't plotted, for the same one-switch-per-line reason."}
+        ],
+        "mythos": [
+          {"model": "Mythos Preview", "date": "2026-04-07", "score": 79.6, "preview": true, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29"}
+        ],
+        "haiku": [
+          {"model": "Haiku 4.5", "date": "2025-10-15", "score": 50.7, "source": "Anthropic-reported, OSWorld-Verified", "as_of": "2026-07-29"},
+          {"model": "Haiku 5.5", "date": "2026-10-07", "score": 72.4, "v21": true, "subset": "offline", "source": "Anthropic system card, OSWorld 2.1 offline subset (82 of 108 tasks), partial credit", "as_of": "2026-10-10", "note": "OSWorld 2.1 *offline subset* (82 of the 108 tasks, VM with no internet), partial credit, from the Haiku 5.5 system card sec. 8.9.3: 72.4% partial, 37.1% strict. A smaller task set than the Opus/Sonnet 5.5 points (all 108 tasks) carried until 2026-11-09, when those moved to the same subset; on the same 82 tasks the card has Sonnet 5.5 83.9 / 48.8, Opus 5.5 87.2 / 53.2 and Haiku 4.5 15.7 partial."}
+        ]
+      }
+    },
+    "vending_bench_2": {
+      "title": "Vending-Bench Earnings",
+      "unit": "USD, mean final balance",
+      "board": "andon-vb2",
+      "source": "Andon Labs' Vending-Bench 2 leaderboard",
+      "source_url": "https://andonlabs.com/evals/vending-bench-2",
+      "as_of": "2026-11-09",
+      "caveats": [
+        "Every row was matched to the dollar on the 2026-10-10 read, which is the as_of each carries; the 2026-11-09 check looked for new entries only."
+      ],
+      "history": [
+        "Mean final balance (USD) on Andon Labs' Vending-Bench 2 leaderboard, pulled 2026-07-29 from andonlabs.com/evals/vending-bench-2 (exact values from the page's embedded data, rounded to whole dollars). Strongest reasoning tier where several are listed: Opus 4.8 High ($5,787; Max collapses to $2,992), Fable 5 High ($5,680 across five tiers). The previous version of this chart mixed the deprecated original Vending-Bench, VB2 and Arena figures — see the note under the chart for that history and the old board's numbers. Fable 5.1 ($5,422) and Opus 5.5 ($9,235) added Sep 28, 2026 from the board's embedded data, each a single untiered entry over six runs; every earlier row above matched that read to the dollar. Sonnet 5.5 had no run yet.",
+        "Re-read 2026-10-10 from the same embedded data (runs.vb2, 69 entries): Sonnet 5.5 $11,165.28 (+/- $1,585 SEM, six runs, rank 5) and Haiku 5.5 $3,602.46 (+/- $691 SEM, six runs, rank 46), both untiered and flagged \"New\"; every other row above again matched to the dollar.",
+        "Re-checked 2026-11-09: no Fable 5.2 (or Mythos) entry on the board; nothing added."
+      ],
+      "series": {
+        "opus": [
+          {"model": "Opus 4.5", "date": "2025-11-24", "score": 4967, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Opus 4.6", "date": "2026-02-05", "score": 8018, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Opus 4.7", "date": "2026-04-16", "score": 10937, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Opus 4.8", "date": "2026-05-28", "score": 5787, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Opus 5", "date": "2026-07-24", "score": 11182, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Opus 5.5", "date": "2026-09-22", "score": 9235, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"}
+        ],
+        "sonnet": [
+          {"model": "Sonnet 4.5", "date": "2025-09-29", "score": 3839, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Sonnet 4.6", "date": "2026-02-17", "score": 7204, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Sonnet 5", "date": "2026-06-30", "score": 6378, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Sonnet 5.5", "date": "2026-09-28", "score": 11165, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"}
+        ],
+        "haiku": [
+          {"model": "Haiku 4.5", "date": "2025-10-15", "score": 459, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Haiku 5.5", "date": "2026-10-07", "score": 3602, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"}
+        ],
+        "fable": [
+          {"model": "Fable 5", "date": "2026-06-09", "score": 5680, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"},
+          {"model": "Fable 5.1", "date": "2026-09-01", "score": 5422, "source": "Andon Labs Vending-Bench 2 leaderboard, embedded run data (mean final balance, whole dollars)", "as_of": "2026-10-10"}
+        ]
+      }
+    },
+    "vending_bench_arena": {
+      "title": "Vending-Bench Arena",
+      "unit": "USD, mean final balance per round",
+      "board": "andon-arena",
+      "source": "Andon Labs' Vending-Bench Arena page",
+      "source_url": "https://andonlabs.com/evals/vending-bench-arena",
+      "as_of": "2026-11-09",
+      "caveats": [
+        "Round dates are the dates the site plots each round at, not the dates results were published; round 13 has no date from Andon at all."
+      ],
+      "history": [
+        "Vending-Bench Arena — every standard published round, one dot column per round. Figures are exact mean final balances from the Arena page's embedded chart data (andonlabs.com/evals/vending-bench-arena, pulled 2026-07-29), rounded to whole dollars. There is no aggregate Arena leaderboard and scores are NOT comparable across rounds — same-model swings of 2-4x between rounds are normal — so this renders match results, not a time series: no connecting lines, winner ringed. Only Claude entrants are plotted, by choice: a round with no `win` entry was won by another lab's model and carries no ring, and the 2026-07-09 round, which fielded no Claude model, is dropped. The Feb 11 team round (2xGLM-5 vs 2xClaude, non-standard rules) is omitted too.",
+        "Checked 2026-10-10: Andon's embedded run data has no Arena round with Sonnet 5.5 or Haiku 5.5 (Haiku 5.5 appears only on the single-player Vending-Bench 2 board).",
+        "Re-checked 2026-11-09: the page now lists a round 14 (Gemini 4 Carbon, GPT-6 Astra, Gemini 4 Argon) with no Claude entrant, so nothing is added, as with the July 9 round. No round includes Fable 5.2 yet."
+      ],
+      "rounds": [
+        {
+          "date": "2025-11-18",
+          "entries": [
+            {"model": "Sonnet 4.5", "fam": "sonnet", "score": 1105}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-07-29"
+        },
+        {
+          "date": "2025-11-26",
+          "entries": [
+            {"model": "Opus 4.5", "fam": "opus", "score": 4143, "win": true},
+            {"model": "Sonnet 4.5", "fam": "sonnet", "score": 809}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-07-29"
+        },
+        {
+          "date": "2025-12-17",
+          "entries": [
+            {"model": "Haiku 4.5", "fam": "haiku", "score": 1701}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-07-29"
+        },
+        {
+          "date": "2026-02-04",
+          "entries": [
+            {"model": "Opus 4.6", "fam": "opus", "score": 3030, "win": true},
+            {"model": "Opus 4.5", "fam": "opus", "score": 1040}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-07-29"
+        },
+        {
+          "date": "2026-02-17",
+          "entries": [
+            {"model": "Sonnet 4.6", "fam": "sonnet", "score": 5639, "win": true},
+            {"model": "Opus 4.6", "fam": "opus", "score": 4053},
+            {"model": "Sonnet 4.5", "fam": "sonnet", "score": 2125}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-07-29"
+        },
+        {
+          "date": "2026-04-22",
+          "entries": [
+            {"model": "Opus 4.7", "fam": "opus", "score": 5838}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-07-29"
+        },
+        {
+          "date": "2026-05-28",
+          "entries": [
+            {"model": "Opus 4.7", "fam": "opus", "score": 5827},
+            {"model": "Opus 4.8", "fam": "opus", "score": 5188}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-07-29"
+        },
+        {
+          "date": "2026-06-09",
+          "entries": [
+            {"model": "Opus 4.8", "fam": "opus", "score": 6196},
+            {"model": "Fable 5", "fam": "fable", "score": 4244}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-07-29"
+        },
+        {
+          "date": "2026-07-24",
+          "entries": [
+            {"model": "Opus 5", "fam": "opus", "score": 7044}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-07-29"
+        },
+        {
+          "date": "2026-09-04",
+          "entries": [
+            {"model": "Fable 5.1", "fam": "fable", "score": 5719}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-09-28",
+          "note": "Rounds 12 and 13, read Sep 28, 2026 from the Arena page's embedded data. Round 12 is pinned to GPT-6 Astra's release (Sep 4); Fable 5.1 was third."
+        },
+        {
+          "date": "2026-09-22",
+          "entries": [
+            {"model": "Opus 5.5", "fam": "opus", "score": 8094}
+          ],
+          "source": "Andon Labs Vending-Bench Arena page, embedded chart data",
+          "as_of": "2026-09-28",
+          "note": "Andon gives round 13 no date. It is placed at Sep 22, when both Opus 5.5 and the winner, GPT-6 Sol, shipped, as each earlier round sits at a release."
+        }
+      ]
+    },
+    "gdpval_aa": {
+      "title": "GDPval-AA v2.1",
+      "unit": "Elo",
+      "board": "aa-gdpval",
+      "source": "Artificial Analysis GDPval-AA v2.1",
+      "source_url": "https://artificialanalysis.ai/evaluations/gdpval-aa",
+      "as_of": "2026-11-09",
+      "history": [
+        "GDPval-AA v2.1 Elo, pulled from artificialanalysis.ai/evaluations/gdpval-aa on Sep 22, 2026, each model's strongest (max-effort) config. v2.1 replaced v2 on the board and re-anchors the scale to a reference model at 1600 instead of human experts at 1000, so every figure moved from the Sep 2 (v2) pull and the human baseline line is gone. Sonnet 4.5, Sonnet 4 and Haiku 4.5 are AA's single \"(Reasoning)\" entries. Opus 4.5/4.6 have no v2-series Elo; Claude 3.5 Haiku (198) predates this window. Opus 5.5 and Fable 5.1 ran with the default refusal fallback, Fable 5 with Opus 4.8 as fallback.",
+        "Re-read Sep 28, 2026 to add Sonnet 5.5 (1844, max effort, default fallback); every other row was unchanged. AA ran Sonnet 5.5 on a pre-release deployment that Anthropic says had a structured-outputs bug, since fixed, which it expects to understate the score. Haiku 5.5 was added 2026-10-10 from the live board (1618 then; Anthropic's card quotes 1620), which left the chart on mixed snapshots.",
+        "Re-pulled whole 2026-11-09 from the records embedded in the same page, to add \"Claude Fable 5.2 (Max, Default Fallback)\" 1830.73 (-24/+24; the system card quotes 1831). Every row below is that one read, rounded to the integer the board's table shows: Fable 5 1618.39, Fable 5.1 1763.29, Opus 4.7 1361.69, Opus 4.8 1461.75, Opus 5 1729.9, Opus 5.5 1866.27, Sonnet 4 698.21, Sonnet 4.5 915.41, Sonnet 4.6 1240.5 (shown as 1241), Sonnet 5 1470.38, Sonnet 5.5 1837.82, Haiku 4.5 739.76, Haiku 5.5 1630.83. Board order at the top: Opus 5.5, Muse Wonder Full (Max) 1857.09, Sonnet 5.5, Fable 5.2. The Sep 22/28 figures this replaced are listed in the note under the chart."
+      ],
+      "series": {
+        "fable": [
+          {"model": "Fable 5", "date": "2026-06-09", "score": 1618, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Fable 5.1", "date": "2026-09-01", "score": 1763, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Fable 5.2", "date": "2026-11-09", "score": 1831, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"}
+        ],
+        "opus": [
+          {"model": "Opus 4.7", "date": "2026-04-16", "score": 1362, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Opus 4.8", "date": "2026-05-28", "score": 1462, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Opus 5", "date": "2026-07-24", "score": 1730, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Opus 5.5", "date": "2026-09-22", "score": 1866, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"}
+        ],
+        "sonnet": [
+          {"model": "Sonnet 4", "date": "2025-05-22", "score": 698, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Sonnet 4.5", "date": "2025-09-29", "score": 915, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Sonnet 4.6", "date": "2026-02-17", "score": 1241, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Sonnet 5", "date": "2026-06-30", "score": 1470, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Sonnet 5.5", "date": "2026-09-28", "score": 1838, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"}
+        ],
+        "haiku": [
+          {"model": "Haiku 4.5", "date": "2025-10-15", "score": 740, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"},
+          {"model": "Haiku 5.5", "date": "2026-10-07", "score": 1631, "source": "Artificial Analysis GDPval-AA v2.1 board, records embedded in the page (strongest max-effort config)", "as_of": "2026-11-09"}
+        ]
+      }
+    },
+    "arc_agi_2": {
+      "title": "ARC-AGI-2 Reasoning",
+      "unit": "%",
+      "board": "arc-agi-2",
+      "source": "ARC Prize leaderboard data files (leaderboard/v2.json, evaluations.json)",
+      "source_url": "https://arcprize.org/leaderboard",
+      "as_of": "2026-11-09",
+      "history": [
+        "ARC-AGI-2 scores (%) read directly from the ARC Prize leaderboard data files (arcprize.org/media/data/leaderboard/v2.json, pulled 2026-07-29), using each model's strongest listed config: Opus 4.6 is the 120K-High run (69.17) rather than Max (68.75), Sonnet 4.6 the High run (60.42) rather than Max (58.33), Opus 5 Max ($2.06/task). Mythos 5 and Sonnet 5 are still unlisted. Opus 5.5 read from the same files (media/data/evaluations.json) Sep 28, 2026: its strongest ARC-AGI-2 semi-private run is High, 93.33% at $0.41/task (xhigh 92.50, max 91.67 on partial coverage). No ARC-AGI-3 run yet; Sonnet 5.5 unlisted.",
+        "Re-read 2026-10-10 (evaluations.json, leaderboard/v2.json): still no Sonnet 5.5 entry and none for Haiku 5.5; the only Haiku rows are Haiku 4.5's.",
+        "Re-read 2026-11-09 (evaluations.json, v2_Semi_Private): Fable 5.2's strongest run is XHigh, 93.75% at $0.98/task (Max 92.50 at $2.81, High 90.42); board rank 3 behind GPT-6 Astra Max 95.0 and GPT-6.1 Sol Max 94.17. Two rows that were missing in October are now listed and added: Sonnet 5.5 XHigh 83.89% ($0.55/task; no Max run) and Haiku 5.5 XHigh 61.25% ($0.08/task; no Max run). Opus 5.5, Opus 5, Fable 5.1 and Fable 5 were unchanged. No Mythos rows.",
+        "Fable series: Both Fable rows post-date this chart's July 29 read of the board. ARC Prize verified Fable 5 on Aug 3, 2026 (Max, $2.11/task) and Fable 5.1 on its Sep 1 release day (Max, $4.49/task); read Sep 2, 2026."
+      ],
+      "series": {
+        "opus": [
+          {"model": "Opus 4.5", "date": "2025-11-24", "score": 37.6, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-07-29"},
+          {"model": "Opus 4.6", "date": "2026-02-05", "score": 69.2, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-07-29"},
+          {"model": "Opus 4.7", "date": "2026-04-16", "score": 75.8, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-07-29"},
+          {"model": "Opus 4.8", "date": "2026-05-28", "score": 72.1, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-07-29"},
+          {"model": "Opus 5", "date": "2026-07-24", "score": 90.4, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-11-09"},
+          {"model": "Opus 5.5", "date": "2026-09-22", "score": 93.3, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-11-09"}
+        ],
+        "sonnet": [
+          {"model": "Sonnet 4.5", "date": "2025-09-29", "score": 13.6, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-07-29"},
+          {"model": "Sonnet 4.6", "date": "2026-02-17", "score": 60.4, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-07-29"},
+          {"model": "Sonnet 5.5", "date": "2026-09-28", "score": 83.9, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-11-09"}
+        ],
+        "haiku": [
+          {"model": "Haiku 4.5", "date": "2025-10-15", "score": 4.0, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-07-29"},
+          {"model": "Haiku 5.5", "date": "2026-10-07", "score": 61.3, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-11-09"}
+        ],
+        "fable": [
+          {"model": "Fable 5", "date": "2026-06-09", "score": 89.2, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-11-09"},
+          {"model": "Fable 5.1", "date": "2026-09-01", "score": 90.0, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-11-09"},
+          {"model": "Fable 5.2", "date": "2026-11-09", "score": 93.8, "source": "ARC Prize leaderboard data files, ARC-AGI-2 semi-private, strongest listed config", "as_of": "2026-11-09"}
+        ]
+      }
+    },
+    "arc_agi_3": {
+      "title": "ARC-AGI-3 (drawn on the ARC-AGI-2 chart)",
+      "unit": "%",
+      "board": "arc-agi-3",
+      "source": "ARC Prize leaderboard data files (v3.json, evaluations.json v3_Semi_Private)",
+      "source_url": "https://arcprize.org/leaderboard",
+      "as_of": "2026-11-09",
+      "caveats": [
+        "Configs are mixed: Opus 4.6 at Max, the other Opus rows at High, the only efforts run.",
+        "`rows` is the dashed Opus line; `extra` holds lone hollow points from other families, which are not joined to it."
+      ],
+      "history": [
+        "ARC-AGI-3 (interactive environments, semi-private) — same leaderboard's v3.json. A separate, much harder eval drawn as a dashed series: configs are mixed (Opus 4.6 at Max, the rest at High — the only efforts run), which is why it gets its own visual register rather than joining the solid lines.",
+        "Fable 5.2's ARC-AGI-3 run (v3_Semi_Private, Standard harness, read 2026-11-09): XHigh 81.17 is its strongest; High 79.26 is the figure in Anthropic's system card, Max 65.66 (28 of 55 games hit the 12-hour limit). A different family from the dashed Opus line, so it is drawn as a lone hollow point, not joined to it. Provider Adapter runs (Fable 5.2 High 97.72) are a different harness and stay in the note, as do Sonnet 5.5 (XHigh 24.31) and Haiku 5.5 (Max 0.45)."
+      ],
+      "rows": [
+        {"model": "Opus 4.6", "config": "Max", "date": "2026-02-05", "score": 0.51, "source": "ARC Prize v3.json, semi-private", "as_of": "2026-07-29"},
+        {"model": "Opus 4.7", "config": "High", "date": "2026-04-16", "score": 0.18, "source": "ARC Prize v3.json, semi-private", "as_of": "2026-07-29"},
+        {"model": "Opus 4.8", "config": "High", "date": "2026-05-28", "score": 1.52, "source": "ARC Prize v3.json, semi-private", "as_of": "2026-07-29"},
+        {"model": "Opus 5", "config": "High", "date": "2026-07-24", "score": 30.16, "source": "ARC Prize v3.json, semi-private", "as_of": "2026-07-29"}
+      ],
+      "extra": [
+        {"model": "Fable 5.2", "fam": "fable", "config": "XHigh", "date": "2026-11-09", "score": 81.17, "source": "ARC Prize evaluations.json, v3_Semi_Private, Standard harness", "as_of": "2026-11-09"}
+      ]
+    },
+    "capability_profile": {
+      "title": "Capability Profile",
+      "unit": "% per axis",
+      "board": "aa-suite",
+      "source": "Nine axes from Artificial Analysis, one (SWE-bench Pro) from Anthropic's system cards",
+      "source_url": "https://artificialanalysis.ai/evaluations/gdpval-aa",
+      "as_of": "2026-11-09",
+      "caveats": [
+        "Every AA value is the model's max-effort AA entry, with AA's default refusal fallback on the Fable 5.2, Opus 5.5 and Sonnet 5.5 rows (Haiku 5.5 has none).",
+        "A null score is a documented gap, never a zero."
+      ],
+      "history": [
+        "Capability Profile — radar/spider chart across ten evaluations, one polygon per family's newest model (Fable 5.2, Opus 5.5, Sonnet 5.5, Haiku 5.5). Form borrowed from Thinking Machines' Inkling launch chart, restyled to this page's palette. Rebuilt 2026-09-28: Artificial Analysis had reworked its suite (no GPQA Diamond or Terminal-Bench 2.1 runs for the newest models, Agentic Index retired, Omniscience published only as a -100..100 index) and Vals had no LiveCodeBench run for Opus 5.5 or Sonnet 5.5, so every axis here is one all four models have.",
+        "Re-pulled whole 2026-11-09, when Fable 5.2 shipped, so no shape mixes snapshots.",
+        "Nine from AA, read 2026-11-09 from the model records embedded in artificialanalysis.ai/evaluations/gdpval-aa (initialModels), each model's max-effort entry (\"Claude Fable 5.2 (Max, Default Fallback)\", \"Claude Opus 5.5 (Max, Default Fallback)\", \"Claude Sonnet 5.5 (Max, Default Fallback)\", \"Claude Haiku 5.5 (Max)\"): Terminal-Bench 4.0 (terminalBench40), AutomationBench-AA (automationBenchPartialScore: objectives completed without guardrail violations), GDP.pdf (gdpPdfAllPass), Harvey LAB (harveyLabBreakdown .criteriaPass, the mean criterion-pass rate; AA's headline harveyLab field is the far lower all-pass rate), CritPt, HealthBench Professional (healthbenchProfessionalBreakdown.score, the raw score; the same field's lengthAdjustedScore is 67.7 / 59.9 / 63.0 / 58.4), HLE, AA-LCR (v1.1) and SciCode. On that read Harvey LAB had been re-scored about a point lower than on Sep 28 (Opus 5.5 91.2 -> 90.0, Sonnet 5.5 93.1 -> 92.1) and Sonnet 5.5's AutomationBench had moved 71.3 -> 71.8; every other Opus 5.5 / Sonnet 5.5 value matched Sep 28.",
+        "One from Anthropic's system cards. SWE-bench Pro: Fable 5.2 93.0 (Fable 5.2 / Mythos 5.2 card, Table 8.1.A, which repeats Opus 5.5 89.9), Sonnet 5.5 81.3 (Sonnet 5.5 card), Haiku 5.5 64.8 (Haiku 5.5 card).",
+        "HealthBench Professional was a second system-card axis until 2026-11-09 (Opus 5.5 65.6, Fable 5.1 62.1, Sonnet 5.5 69.2: Anthropic's runs, graded by Opus 4.8). The Fable 5.2 card (sec. 8.16) reports AA's runs instead (graded by GPT-5.4) and says they are not comparable with the earlier cards, so the axis moved to AA for all four models. The card's raw scores match AA's records: Fable 5.2 71.1, Opus 5.5 71.4, Sonnet 5.5 70.8, Haiku 5.5 64.8.",
+        "Haiku 4.5 stood in for Haiku until this read: on 2026-10-10 AA showed only an Intelligence Index for Haiku 5.5. Fable 5.1 and Haiku 4.5 are no longer plotted. Mythos 5.2 is not plotted: its published capability figures are Anthropic's no-safeguards runs (Terminal-Bench 4.0 70.5 among them), with no AA entry.",
+        "A null score is a documented gap, never a zero: the series is drawn as an open polyline with no marker at that vertex. No current model needs one (Haiku 4.5 did, on HealthBench), but the drawing code keeps the case."
+      ],
+      "axes": [
+        {"key": "swepro", "name": "SWE-bench Pro", "short": "SWE Pro", "cat": "Coding (hard)", "source": "Anthropic system cards (Fable 5.2 / Mythos 5.2 card Table 8.1.A; Sonnet 5.5 card; Haiku 5.5 card)", "as_of": "2026-11-09", "note": "Anthropic-reported, not a board read"},
+        {"key": "terminal", "name": "Terminal-Bench 4.0", "short": "Terminal", "cat": "Agentic (coding)", "source": "Artificial Analysis model records (initialModels embedded in artificialanalysis.ai/evaluations/gdpval-aa), max-effort entry", "as_of": "2026-11-09", "note": "field terminalBench40"},
+        {"key": "automation", "name": "AutomationBench", "short": "Automation", "cat": "Agentic (workflows)", "source": "Artificial Analysis model records (initialModels embedded in artificialanalysis.ai/evaluations/gdpval-aa), max-effort entry", "as_of": "2026-11-09", "note": "field automationBenchPartialScore: objectives completed without guardrail violations"},
+        {"key": "gdppdf", "name": "GDP.pdf", "short": "GDP.pdf", "cat": "Document reasoning", "source": "Artificial Analysis model records (initialModels embedded in artificialanalysis.ai/evaluations/gdpval-aa), max-effort entry", "as_of": "2026-11-09", "note": "field gdpPdfAllPass"},
+        {"key": "harvey", "name": "Harvey LAB", "short": "Harvey LAB", "cat": "Legal", "source": "Artificial Analysis model records (initialModels embedded in artificialanalysis.ai/evaluations/gdpval-aa), max-effort entry", "as_of": "2026-11-09", "note": "field harveyLabBreakdown.criteriaPass, the mean criterion-pass rate; AA's headline harveyLab field is the far lower all-pass rate"},
+        {"key": "critpt", "name": "CritPt", "short": "CritPt", "cat": "Physics", "source": "Artificial Analysis model records (initialModels embedded in artificialanalysis.ai/evaluations/gdpval-aa), max-effort entry", "as_of": "2026-11-09"},
+        {"key": "health", "name": "HealthBench Pro", "short": "HealthBench", "cat": "Medicine", "source": "Artificial Analysis model records (initialModels embedded in artificialanalysis.ai/evaluations/gdpval-aa), max-effort entry", "as_of": "2026-11-09", "note": "field healthbenchProfessionalBreakdown.score, the raw score; graded by GPT-5.4"},
+        {"key": "hle", "name": "HLE (no tools)", "short": "HLE", "cat": "Knowledge", "source": "Artificial Analysis model records (initialModels embedded in artificialanalysis.ai/evaluations/gdpval-aa), max-effort entry", "as_of": "2026-11-09"},
+        {"key": "lcr", "name": "AA-LCR", "short": "AA-LCR", "cat": "Long context", "source": "Artificial Analysis model records (initialModels embedded in artificialanalysis.ai/evaluations/gdpval-aa), max-effort entry", "as_of": "2026-11-09", "note": "AA-LCR v1.1"},
+        {"key": "scicode", "name": "SciCode", "short": "SciCode", "cat": "Coding (science)", "source": "Artificial Analysis model records (initialModels embedded in artificialanalysis.ai/evaluations/gdpval-aa), max-effort entry", "as_of": "2026-11-09"}
+      ],
+      "models": [
+        {"key": "haiku55", "label": "Haiku 5.5", "color": "#8fa882", "scores": {"swepro": 64.8, "terminal": 32.8, "automation": 35.4, "gdppdf": 20.8, "harvey": 87.7, "critpt": 18.9, "health": 64.8, "hle": 44.4, "lcr": 82.7, "scicode": 55}},
+        {"key": "fable52", "label": "Fable 5.2", "color": "#c09a5b", "lead": true, "scores": {"swepro": 93, "terminal": 59.6, "automation": 76.4, "gdppdf": 24.2, "harvey": 91, "critpt": 35.4, "health": 71.1, "hle": 74.3, "lcr": 83.3, "scicode": 67.7}},
+        {"key": "sonnet55", "label": "Sonnet 5.5", "color": "#d4836a", "lead": true, "scores": {"swepro": 81.3, "terminal": 63.6, "automation": 71.8, "gdppdf": 25.8, "harvey": 92.1, "critpt": 31.4, "health": 70.8, "hle": 55, "lcr": 82.7, "scicode": 61}},
+        {"key": "opus55", "label": "Opus 5.5", "color": "#9d7bb0", "hero": true, "scores": {"swepro": 89.9, "terminal": 59.6, "automation": 69.5, "gdppdf": 26.2, "harvey": 90, "critpt": 31.7, "health": 71.4, "hle": 61.4, "lcr": 84.7, "scicode": 66.9}}
+      ]
+    },
+    "rli": {
+      "title": "Remote Labor Index",
+      "unit": "% of 240 projects",
+      "board": "scale-rli",
+      "source": "Scale AI / CAIS Remote Labor Index leaderboard",
+      "source_url": "https://labs.scale.com/leaderboard/rli",
+      "as_of": "2026-11-09",
+      "history": [
+        "Remote Labor Index — share of 240 real freelance projects completed to a standard a paying client would accept. Figures from the Scale AI / CAIS leaderboard and the accompanying CAIS write-up, pulled 2026-07-29; the two agree on every Claude entry (Fable 5: write-up 15.8%, board 15.83%). Opus 5 shipped after the July results.",
+        "Re-checked 2026-10-10 (labs.scale.com/leaderboard/rli, embedded entries JSON): two new Claude rows, Opus 5.5 21.25% (rank 1, flagged NEW, createdAt 2026-10-07) and Fable 5.1 17.92% (rank 3, createdAt 2026-09-17), both plotted below; GPT 6 Astra sits between them at 20.83%. No row for Opus 5, Sonnet 5 or 5.5, Haiku 4.5 or 5.5, or any Mythos. The board gives no harness or budget for the two new runs.",
+        "Re-checked 2026-11-09: no Fable 5.2 row; every Claude row above unchanged (Opus 5.5 still rank 1). The Fable 5.2 / Mythos 5.2 system card (sec. 8.14.7) reports 41.3% (99/240) from a Scale-run evaluation, which stays in the note until the public board lists it: this chart plots the board, not first-party reports."
+      ],
+      "series": {
+        "sonnet": [
+          {"model": "Sonnet 4.5", "date": "2025-09-29", "score": 2.08, "source": "Scale AI / CAIS Remote Labor Index leaderboard, embedded entries JSON", "as_of": "2026-11-09"}
+        ],
+        "opus": [
+          {"model": "Opus 4.5", "date": "2025-11-24", "score": 3.75, "source": "Scale AI / CAIS Remote Labor Index leaderboard, embedded entries JSON", "as_of": "2026-11-09"},
+          {"model": "Opus 4.6", "date": "2026-02-05", "score": 4.17, "scaffold": "Cowork scaffold", "source": "Scale AI / CAIS Remote Labor Index leaderboard, embedded entries JSON", "as_of": "2026-11-09"},
+          {"model": "Opus 4.8", "date": "2026-05-28", "score": 8.33, "source": "Scale AI / CAIS Remote Labor Index leaderboard, embedded entries JSON", "as_of": "2026-11-09"},
+          {"model": "Opus 5.5", "date": "2026-09-22", "score": 21.25, "source": "Scale AI / CAIS Remote Labor Index leaderboard, embedded entries JSON", "as_of": "2026-11-09"}
+        ],
+        "fable": [
+          {"model": "Fable 5", "date": "2026-06-09", "score": 15.83, "source": "Scale AI / CAIS Remote Labor Index leaderboard, embedded entries JSON", "as_of": "2026-11-09"},
+          {"model": "Fable 5.1", "date": "2026-09-01", "score": 17.92, "source": "Scale AI / CAIS Remote Labor Index leaderboard, embedded entries JSON", "as_of": "2026-11-09"}
+        ]
+      }
+    },
+    "swe_bench_pro": {
+      "title": "SWE-bench Pro",
+      "unit": "% pass rate, mean of five trials",
+      "board": "swebench-com",
+      "source": "Anthropic's system cards (first-party figures, not a leaderboard read)",
+      "source_url": "https://www.anthropic.com/system-cards",
+      "as_of": "2026-11-09",
+      "history": [
+        "SWE-bench Pro pass rates (%), each Anthropic's own figure (average over five trials), read 2026-09-28 from the system cards: Opus 4.5 52.0 (Opus 4.5 card, its no-thinking run; 51.6 with 64k thinking), Opus 4.6 53.4 (Mythos Preview and Opus 4.7 cards; its own card has none), Opus 4.7 64.3 (Opus 4.7 card), Opus 4.8 69.2 (Opus 4.8 card), Mythos Preview 77.8 (its card), Fable 5 80 (Fable 5 / Mythos 5 card), Sonnet 4.6 58.1 and Sonnet 5 63.2 (Sonnet 5 card), Opus 5 79.2 (Opus 5 card), Fable 5.1 81.2 and Opus 5.5 89.9 (Opus 5.5 card), Sonnet 5.5 81.3 (Sonnet 5.5 card); Haiku 5.5 64.8 (Haiku 5.5 card, Table 8.1.A, max effort, added 2026-10-10), the first Haiku with an Anthropic Pro figure. Mythos 5 (80.3) shares Fable 5's date and is omitted to avoid an exact overlap. Haiku 4.5 and Sonnet 4.5 have no Anthropic figure (the Haiku 5.5 card's table leaves Haiku 4.5's Pro cell blank too). Fable 5.2 93.0 added 2026-11-09 from the Fable 5.2 / Mythos 5.2 card (Table 8.1.A and sec. 8.2: max effort, five trials); that card repeats Fable 5.1 81.2 and Opus 5.5 89.9 and gives no separate Mythos 5.2 figure. This chart replaced SWE-bench Verified on 2026-09-28, when Anthropic had stopped reporting Verified; that history is in the note under the chart."
+      ],
+      "series": {
+        "opus": [
+          {"model": "Opus 4.5", "date": "2025-11-24", "score": 52.0, "source": "Opus 4.5 system card (its no-thinking run; 51.6 with 64k thinking)", "as_of": "2026-09-28"},
+          {"model": "Opus 4.6", "date": "2026-02-05", "score": 53.4, "source": "Mythos Preview and Opus 4.7 system cards (its own card has none)", "as_of": "2026-09-28"},
+          {"model": "Opus 4.7", "date": "2026-04-16", "score": 64.3, "source": "Opus 4.7 system card", "as_of": "2026-09-28"},
+          {"model": "Opus 4.8", "date": "2026-05-28", "score": 69.2, "source": "Opus 4.8 system card", "as_of": "2026-09-28"},
+          {"model": "Opus 5", "date": "2026-07-24", "score": 79.2, "source": "Opus 5 system card", "as_of": "2026-09-28"},
+          {"model": "Opus 5.5", "date": "2026-09-22", "score": 89.9, "source": "Opus 5.5 system card", "as_of": "2026-09-28"}
+        ],
+        "sonnet": [
+          {"model": "Sonnet 4.6", "date": "2026-02-17", "score": 58.1, "source": "Sonnet 5 system card", "as_of": "2026-09-28"},
+          {"model": "Sonnet 5", "date": "2026-06-30", "score": 63.2, "source": "Sonnet 5 system card", "as_of": "2026-09-28"},
+          {"model": "Sonnet 5.5", "date": "2026-09-28", "score": 81.3, "source": "Sonnet 5.5 system card", "as_of": "2026-09-28"}
+        ],
+        "haiku": [
+          {"model": "Haiku 5.5", "date": "2026-10-07", "score": 64.8, "source": "Haiku 5.5 system card, Table 8.1.A, max effort", "as_of": "2026-10-10"}
+        ],
+        "fable": [
+          {"model": "Fable 5", "date": "2026-06-09", "score": 80.0, "source": "Fable 5 / Mythos 5 system card", "as_of": "2026-09-28"},
+          {"model": "Fable 5.1", "date": "2026-09-01", "score": 81.2, "source": "Opus 5.5 system card", "as_of": "2026-09-28"},
+          {"model": "Fable 5.2", "date": "2026-11-09", "score": 93.0, "source": "Fable 5.2 / Mythos 5.2 system card, Table 8.1.A and sec. 8.2 (max effort, five trials)", "as_of": "2026-11-09"}
+        ],
+        "mythos": [
+          {"model": "Mythos Preview", "date": "2026-04-07", "score": 77.8, "preview": true, "source": "Mythos Preview system card", "as_of": "2026-09-28"}
+        ]
+      }
+    },
+    "terminal_bench_2_1": {
+      "title": "Terminal-Bench 2.1",
+      "unit": "% completion",
+      "board": "vals-tb21",
+      "source": "Vals AI harness snapshot",
+      "source_url": "https://www.vals.ai/benchmarks/terminal-bench-2-1",
+      "as_of": "2026-11-09",
+      "history": [
+        "Terminal-Bench 2.1 completion rates (%) from the Vals AI harness snapshot (via BenchLM), pulled 2026-07-25 and re-verified July 29; the Fable 5.1 row was read September 2, and the Opus 5.5 and Sonnet 5.5 rows September 28 from the board's September 27 update (all earlier rows unchanged on that read). Vals ran Opus 5, Fable 5.1, Opus 5.5 and Sonnet 5.5 at high effort; Sonnet 5, Fable 5 and Opus 4.8 at max. Using a single harness keeps the series internally comparable; Artificial Analysis's harness puts Opus 5 higher (89.1%), and that figure is on the radar instead. Only models with a published 2.1 run appear, which is why the series starts at Haiku 4.5 and Sonnet 4.6.",
+        "Re-checked 2026-10-10: no Haiku 5.5 run on the Vals 2.1 board yet (Haiku 4.5 Thinking still 43.82).",
+        "Re-checked 2026-11-09: no Fable 5.2 row on the Vals 2.1 board (vals.ai/benchmarks/terminal-bench-2-1; its top Fable is still 5.1 at 85.02) or on tbench.ai's 2.1 leaderboard, and still no Haiku 5.5. Vals's Fable 5.2 page lists Terminal-Bench 4.0 only (65.15% +/- 2.31, high effort), which is in the note."
+      ],
+      "series": {
+        "opus": [
+          {"model": "Opus 4.7", "date": "2026-04-16", "score": 68.5, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-09-28"},
+          {"model": "Opus 4.8", "date": "2026-05-28", "score": 71.9, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-09-28"},
+          {"model": "Opus 5", "date": "2026-07-24", "score": 84.6, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-09-28"},
+          {"model": "Opus 5.5", "date": "2026-09-22", "score": 87.6, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-09-28", "note": "87.64%; Vals's run used Opus 5 / 4.8 as fallbacks on 26 of 267 tasks, and counting those as failures would give 79.77%."}
+        ],
+        "sonnet": [
+          {"model": "Sonnet 4.6", "date": "2026-02-17", "score": 57.3, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-09-28"},
+          {"model": "Sonnet 5", "date": "2026-06-30", "score": 74.5, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-09-28"},
+          {"model": "Sonnet 5.5", "date": "2026-09-28", "score": 83.1, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-09-28", "note": "83.15% (±1.7), no fallback caveat in Vals's run notes."}
+        ],
+        "haiku": [
+          {"model": "Haiku 4.5", "date": "2025-10-15", "score": 43.8, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-10-10"}
+        ],
+        "fable": [
+          {"model": "Fable 5", "date": "2026-06-09", "score": 80.5, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-09-28"},
+          {"model": "Fable 5.1", "date": "2026-09-01", "score": 85.0, "source": "Vals AI Terminal-Bench 2.1 board (via BenchLM)", "as_of": "2026-11-09", "note": "Vals board update of Aug 31, 2026, read Sep 2: 85.02%. Vals's run used Opus 5 / 4.8 as a refusal fallback; 23 of 267 tasks were rescued that way, and counting them as failures would give 79.03%."}
+        ]
+      }
+    }
+  }
+}
