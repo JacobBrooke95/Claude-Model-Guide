@@ -29,7 +29,7 @@ SWE_PRO = {
              ("2026-07-24", 79.2), ("2026-09-22", 89.9)],
     "sonnet": [("2026-02-17", 58.1), ("2026-06-30", 63.2), ("2026-09-28", 81.3)],
     "haiku": [("2026-10-07", 64.8)],
-    "fable": [("2026-06-09", 80.0), ("2026-09-01", 81.2)],
+    "fable": [("2026-06-09", 80.0), ("2026-09-01", 81.2), ("2026-11-09", 93.0)],
 }
 
 GEN_STARTS = ["2023-03-14", "2023-07-11", "2024-03-04", "2025-05-22", "2026-06-09"]
@@ -132,7 +132,7 @@ def swe_pro_projection(family, at_date, n_draws=20000, seed=0):
     model is projected from the family's latest score:
         logit(next) = logit(last) + r · (years from last model to at_date)
     so the projection can fall below the last score only if r < 0, which
-    has not happened yet (n = 8 steps)."""
+    has not happened yet (n = 9 steps)."""
     rng = np.random.default_rng(seed)
     rates = []
     for f, pts in SWE_PRO.items():

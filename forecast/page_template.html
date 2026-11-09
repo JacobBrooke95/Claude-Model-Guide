@@ -267,19 +267,20 @@ const DATA = /*__DATA__*/null;
     const t = F.targets[W].with_signals, c0 = F.targets[W].cadence;
     $("h-fable").textContent = NAME[W] + " watch";
     const ladder = (F.markets[W] || []).filter(r => r.date >= F.as_of);
-    const pick = [7, 14, 31].map(n => ladder.find(r => (Date.parse(r.date) - Date.parse(F.as_of)) / 864e5 >= n)).filter(Boolean);
+    const pick = [7, 14, 31].map(n => ladder.find(r => (Date.parse(r.date) - Date.parse(F.as_of)) / 864e5 >= n)).filter(Boolean)
+      .filter((r, i, a) => a.indexOf(r) === i);  // a sparse ladder can satisfy two horizons with one rung
     const band = M.watch_band;
     $("watch-cap").innerHTML = "Bars show the model's probability that the release falls on each day, with signals included. The dashed outline is the cadence model alone, with no signals." + (band ? ` The shaded band marks ${esc(band[2])}.` : "");
     $("fable-lede").innerHTML = `The model puts ${NAME[W]}'s next release at <b>${pct(t.p7)}</b> within 7 days and <b>${pct(t.by[C1])}</b> by ${fmtD(C1)}. The median day is <b>${fmtD(t.median)}</b>. Cadence alone, without the signal layer, gives ${pct(c0.by[C1])} by ${fmtD(C1)}.` + (pick.length ? ` Polymarket is at ${pick.map(r => `${pct(r.market)} by ${fmtD(r.date)}`).join(", ")}.` : "");
     const D = 60, fr = frame(560, 220, { l: 40, r: 10, t: 12, b: 30 });
     const p = t.pmf180.slice(0, D), q = c0.pmf180.slice(0, D), mx = Math.max(...p, ...q) * 1.12;
     const x = i => fr.pad.l + fr.iw * i / D, y = v => fr.pad.t + fr.ih * (1 - v / mx), bw = fr.iw / D;
-    let s = `<svg viewBox="0 0 ${fr.W} ${fr.H}" role="img" aria-label="Daily probability of Fable release, next 60 days">`;
+    let s = `<svg viewBox="0 0 ${fr.W} ${fr.H}" role="img" aria-label="Daily probability of ${NAME[W]} release, next 60 days">`;
     if (band) shadeDays(F.as_of, D, d => d >= band[0] && d <= band[1]).forEach(([a, b]) => s += `<rect x="${x(a)}" y="${fr.pad.t}" width="${x(b) - x(a)}" height="${fr.ih}" fill="${css("--card-tint-2")}" />`);
     shadeDays(F.as_of, D, isHoliday).forEach(([a, b]) => s += `<rect x="${x(a)}" y="${fr.pad.t}" width="${x(b) - x(a)}" height="${fr.ih}" fill="${css("--rule-soft")}" />`);
     const step = mx > .08 ? .04 : .02;
     for (let v = 0; v <= mx; v += step) s += `<line x1="${fr.pad.l}" x2="${fr.W - fr.pad.r}" y1="${y(v)}" y2="${y(v)}" stroke="${css("--rule")}" stroke-width=".5" /><text x="${fr.pad.l - 6}" y="${y(v) + 4}" text-anchor="end" font-size="10" fill="${css("--ink-muted")}">${Math.round(v * 100)}%</text>`;
-    p.forEach((v, i) => s += `<rect x="${(x(i) + 1).toFixed(1)}" y="${y(v).toFixed(1)}" width="${Math.max(bw - 2, 1).toFixed(1)}" height="${(fr.pad.t + fr.ih - y(v)).toFixed(1)}" fill="${css("--fable")}"><title>${fmtD(addDays(F.as_of, i))}: ${pct(v, 1)}</title></rect>`);
+    p.forEach((v, i) => s += `<rect x="${(x(i) + 1).toFixed(1)}" y="${y(v).toFixed(1)}" width="${Math.max(bw - 2, 1).toFixed(1)}" height="${(fr.pad.t + fr.ih - y(v)).toFixed(1)}" fill="${css("--" + W) || css("--fable")}"><title>${fmtD(addDays(F.as_of, i))}: ${pct(v, 1)}</title></rect>`);
     s += `<polyline fill="none" stroke="${css("--ink-muted")}" stroke-dasharray="3 3" stroke-width="1.2" points="${q.map((v, i) => (x(i) + bw / 2).toFixed(1) + "," + y(v).toFixed(1)).join(" ")}" />`;
     monthTicks(F.as_of, D, 4).concat([[0, fmtD(F.as_of).split(" ")[0]]]).forEach(([i, lab]) => s += `<text x="${x(i) + 2}" y="${fr.H - 10}" font-size="10" fill="${css("--ink-muted")}">${i === 0 ? fmtD(F.as_of) : lab + " 1"}</text>`);
     s += `</svg>`; $("fable-chart").innerHTML = s;

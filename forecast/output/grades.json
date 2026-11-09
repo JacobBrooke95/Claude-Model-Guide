@@ -1,6 +1,139 @@
 {
  "forward_start": "2026-10-30",
- "releases": [],
+ "releases": [
+  {
+   "model": "Claude Fable 5.2",
+   "family": "fable",
+   "date": "2026-11-09",
+   "as_of": "2026-10-30",
+   "days_ahead": 10,
+   "p_by_date": 0.1566,
+   "p_week": 0.0978,
+   "p_day": 0.02285,
+   "median": "2026-12-15",
+   "median_error_days": 36,
+   "in80": true,
+   "market_next_rung": {
+    "date": "2026-11-09",
+    "p": 0.495823455201253
+   },
+   "log_score_week": -2.3248307019413654
+  },
+  {
+   "model": "Claude Fable 5.2",
+   "family": "fable",
+   "date": "2026-11-09",
+   "as_of": "2026-11-01",
+   "days_ahead": 8,
+   "p_by_date": 0.2565,
+   "p_week": 0.12935,
+   "p_day": 0.03142,
+   "median": "2026-12-01",
+   "median_error_days": 22,
+   "in80": true,
+   "market_next_rung": {
+    "date": "2026-11-09",
+    "p": 0.40733756405092986
+   },
+   "log_score_week": -2.045233370350099
+  },
+  {
+   "model": "Claude Fable 5.2",
+   "family": "fable",
+   "date": "2026-11-09",
+   "as_of": "2026-11-02",
+   "days_ahead": 7,
+   "p_by_date": 0.1968,
+   "p_week": 0.13794,
+   "p_day": 0.03343,
+   "median": "2026-12-07",
+   "median_error_days": 28,
+   "in80": true,
+   "market_next_rung": {
+    "date": "2026-11-09",
+    "p": 0.40733756405092986
+   },
+   "log_score_week": -1.9809364709789918
+  },
+  {
+   "model": "Claude Fable 5.2",
+   "family": "fable",
+   "date": "2026-11-09",
+   "as_of": "2026-11-08",
+   "days_ahead": 1,
+   "p_by_date": 0.0587,
+   "p_week": 0.22131,
+   "p_day": 0.05786,
+   "median": "2026-12-04",
+   "median_error_days": 25,
+   "in80": false,
+   "market_next_rung": {
+    "date": "2026-11-09",
+    "p": 0.115
+   },
+   "log_score_week": -1.5081908454178163
+  },
+  {
+   "model": "Claude Mythos 5.2",
+   "family": "mythos",
+   "date": "2026-11-09",
+   "as_of": "2026-10-30",
+   "days_ahead": 10,
+   "p_by_date": 0.2052,
+   "p_week": 0.12392,
+   "p_day": 0.02925,
+   "median": "2026-12-01",
+   "median_error_days": 22,
+   "in80": true,
+   "market_next_rung": null,
+   "log_score_week": -2.088119082873524
+  },
+  {
+   "model": "Claude Mythos 5.2",
+   "family": "mythos",
+   "date": "2026-11-09",
+   "as_of": "2026-11-01",
+   "days_ahead": 8,
+   "p_by_date": 0.3117,
+   "p_week": 0.15516,
+   "p_day": 0.03795,
+   "median": "2026-11-19",
+   "median_error_days": 10,
+   "in80": true,
+   "market_next_rung": null,
+   "log_score_week": -1.8632984364103706
+  },
+  {
+   "model": "Claude Mythos 5.2",
+   "family": "mythos",
+   "date": "2026-11-09",
+   "as_of": "2026-11-02",
+   "days_ahead": 7,
+   "p_by_date": 0.2674,
+   "p_week": 0.18109,
+   "p_day": 0.04446,
+   "median": "2026-11-20",
+   "median_error_days": 11,
+   "in80": true,
+   "market_next_rung": null,
+   "log_score_week": -1.708761133728886
+  },
+  {
+   "model": "Claude Mythos 5.2",
+   "family": "mythos",
+   "date": "2026-11-09",
+   "as_of": "2026-11-08",
+   "days_ahead": 1,
+   "p_by_date": 0.0775,
+   "p_week": 0.28739,
+   "p_day": 0.07633,
+   "median": "2026-11-24",
+   "median_error_days": 15,
+   "in80": false,
+   "market_next_rung": null,
+   "log_score_week": -1.2469151006537664
+  }
+ ],
  "checkpoints": [
   {
    "as_of": "2026-10-30",
@@ -36,10 +169,106 @@
   },
   {
    "as_of": "2026-10-30",
+   "target": "fable",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.3831,
+   "p_market": 0.885
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "fable",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.56,
+   "p_market": 0.9405
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "fable",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.6968,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "fable",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.7895,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "fable",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.8592,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "fable",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.899,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
    "target": "mythos",
    "checkpoint": "2026-10-31",
    "y": 0,
    "p_model": 0.0137,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "mythos",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.48,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "mythos",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.6696,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "mythos",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.796,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "mythos",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.8718,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "mythos",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.923,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "mythos",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9498,
    "p_market": null
   },
   {
@@ -52,18 +281,786 @@
   },
   {
    "as_of": "2026-10-30",
+   "target": "frontier",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.6425,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "frontier",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.8619,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "frontier",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.9487,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "frontier",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.9801,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "frontier",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9929,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "frontier",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.997,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
    "target": "any",
    "checkpoint": "2026-10-31",
    "y": 0,
    "p_model": 0.0257,
    "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "any",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.7084,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "any",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.9174,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "any",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.9821,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "any",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.9963,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "any",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9994,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-10-30",
+   "target": "any",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9999,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "fable",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.4944,
+   "p_market": 0.825
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "fable",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.6393,
+   "p_market": 0.9405
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "fable",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.7557,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "fable",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.8374,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "fable",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.8986,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "fable",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9326,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "fable",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 0.9543,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "mythos",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.5893,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "mythos",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.7363,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "mythos",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.8313,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "mythos",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.8903,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "mythos",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.932,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "mythos",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9547,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "mythos",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 0.9692,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "frontier",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.6993,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "frontier",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.8819,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "frontier",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.9555,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "frontier",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.9828,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "frontier",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9941,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "frontier",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9976,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "frontier",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 0.9989,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "any",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.7544,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "any",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.9295,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "any",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.9846,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "any",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.9969,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "any",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9995,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "any",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9999,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-01",
+   "target": "any",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 1.0,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "fable",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.4535,
+   "p_market": 0.825
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "fable",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.6097,
+   "p_market": 0.9405
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "fable",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.7308,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "fable",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.8152,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "fable",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.8794,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "fable",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.916,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "fable",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 0.9402,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "mythos",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.5864,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "mythos",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.7473,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "mythos",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.8476,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "mythos",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.9074,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "mythos",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9469,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "mythos",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9668,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "mythos",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 0.9786,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "frontier",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.677,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "frontier",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.8763,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "frontier",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.9548,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "frontier",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.9831,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "frontier",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9943,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "frontier",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9977,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "frontier",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 0.999,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "any",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.7321,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "any",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.9246,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "any",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.9838,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "any",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.9968,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "any",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9995,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "any",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9999,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-02",
+   "target": "any",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 1.0,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "fable",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.4544,
+   "p_market": 0.89
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "fable",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.618,
+   "p_market": 0.9655
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "fable",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.7394,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "fable",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.8237,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "fable",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.8875,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "fable",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9233,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "fable",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 0.9463,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "mythos",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.5661,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "mythos",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.7311,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "mythos",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.8312,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "mythos",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.8928,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "mythos",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9353,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "mythos",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9579,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "mythos",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 0.972,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "frontier",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.6481,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "frontier",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.8649,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "frontier",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.9483,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "frontier",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.9798,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "frontier",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9929,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "frontier",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9971,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "frontier",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 0.9987,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "any",
+   "checkpoint": "2026-11-30",
+   "y": 1,
+   "p_model": 0.7009,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "any",
+   "checkpoint": "2026-12-31",
+   "y": 1,
+   "p_model": 0.9152,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "any",
+   "checkpoint": "2027-01-31",
+   "y": 1,
+   "p_model": 0.9807,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "any",
+   "checkpoint": "2027-02-28",
+   "y": 1,
+   "p_model": 0.9959,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "any",
+   "checkpoint": "2027-03-31",
+   "y": 1,
+   "p_model": 0.9993,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "any",
+   "checkpoint": "2027-04-30",
+   "y": 1,
+   "p_model": 0.9998,
+   "p_market": null
+  },
+  {
+   "as_of": "2026-11-08",
+   "target": "any",
+   "checkpoint": "2027-05-31",
+   "y": 1,
+   "p_model": 1.0,
+   "p_market": null
   }
  ],
  "summary": {
-  "n": 5,
-  "brier_model": 8.5938e-05,
-  "n_market": 2,
-  "brier_model_on_market": 0.00011700000000000001,
-  "brier_market": 0.0010205000000000001
+  "n": 59,
+  "brier_model": 0.06249570016949152,
+  "n_market": 10,
+  "brier_model_on_market": 0.18547351599999998,
+  "brier_market": 0.010042700000000003
  }
 }

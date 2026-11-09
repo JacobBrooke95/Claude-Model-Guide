@@ -1,5 +1,3 @@
 {
- "_doc": "Next version names that grade A/B artifacts point to. live.py gives the named version 85% in the next-name table. Clear a family's entry when that model ships.",
- "fable": "Claude Fable 5.5",
- "mythos": "Claude Mythos 5.5"
+ "_doc": "Next version names that grade A/B artifacts point to. live.py gives the named version 85% in the next-name table. Clear a family's entry when that model ships."
 }

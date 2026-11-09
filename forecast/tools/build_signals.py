@@ -2,7 +2,7 @@
 into data/signals.csv: one row per (signal, family), with the target release,
 an is_false flag, and an estimation code. MARKET rows are dropped here —
 markets enter separately (engine/market.py) so their evidence isn't counted
-twice. Unresolved signals (Fable 5.5, 'Claude Next') are kept with blank
+twice. Unresolved signals ('Claude Next') are kept with blank
 release_date and is_false = 0: they are live evidence, not misses."""
 import re
 import pandas as pd
@@ -23,6 +23,7 @@ MAP = {
     "Claude Sonnet 5": ["sonnet5"], "Claude Opus 5": ["opus5"],
     "Claude Fable 5.1 + Mythos 5.1": ["fable51", "mythos51"], "Claude Opus 5.5": ["opus55"],
     "Claude Sonnet 5.5": ["sonnet55"], "Claude Haiku 5.5": ["haiku55"],
+    "Claude Fable 5.2 + Mythos 5.2": ["fable52", "mythos52"],
 }
 # false / open rows → family (None = drop). Timing-only misses whose model
 # shipped soon after (Opus 5 7/16, McAteer) are already in the true rows.
@@ -34,7 +35,10 @@ FALSE_FAM = {
     "FALSE: marshmallow-eap / snickerdoodle / nougat / churro": "unknown",
     "FALSE: Devin EAP IDs orzata/odango/verrine/vanilla/boba": "unknown",
 }
-LIVE = {"UNRELEASED Fable 5.5 (aka 5.2)": ["fable", "mythos"], "OPEN: 'Claude Next' routed under Opus 5.5": ["opus"]}
+# "UNRELEASED Fable 5.5 (aka 5.2)" resolved on 2026-11-09 as Claude Fable 5.2 + Mythos 5.2 (see MAP);
+# two of its rows were judged not to point at that release and carry DUPLICATE: / UNMAPPED:
+# ids, which no table here lists, so they are dropped.
+LIVE = {"OPEN: 'Claude Next' routed under Opus 5.5": ["opus"]}
 
 
 def code(r):

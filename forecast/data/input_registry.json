@@ -42,10 +42,10 @@
   {
    "id": "lineup_sync",
    "cat": "A_cadence",
-   "name": "Version-number alignment across the lineup (all at 5.5 except Fable 5.1)",
+   "name": "Version-number alignment across the lineup (Opus, Sonnet and Haiku at 5.5; Fable and Mythos at 5.2)",
    "layer": "params",
    "status": "rule-based",
-   "how": "Feeds the next-name distribution; the odd one out (Fable) is the family most likely to move next"
+   "how": "Feeds the next-name distribution. Until Nov 9, 2026 Fable sat alone at 5.1 and artifacts named a 5.5, so the table gave Fable 5.5 85% and Fable 5.2 13%; it shipped as 5.2, so alignment did not predict the name and Fable and Mythos are again the odd ones out"
   },
   {
    "id": "cloud_catalog",
@@ -54,7 +54,7 @@
    "layer": "signals:infra",
    "status": "fitted",
    "how": "Lead-time density + detection rate + false-alarm rate",
-   "evidence": "Bimodal: 0–1 day (3.7 Bedrock, Opus 4.6 Vertex) or 16–149 days (Fennec). Azure fable-5-5 is still open."
+   "evidence": "Bimodal: 0–1 day (3.7 Bedrock, Opus 4.6 Vertex) or 16–149 days (Fennec). Azure fable-5-5 (Oct 13) resolved at 27 days, when the model shipped on Nov 9 as Fable 5.2."
   },
   {
    "id": "first_party_doc",

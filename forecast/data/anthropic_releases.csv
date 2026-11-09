@@ -29,3 +29,5 @@ mythos51,2026-09-01,mythos,Claude Mythos 5.1,5.1,5,restricted,10,50,c51,https://
 opus55,2026-09-22,opus,Claude Opus 5.5,5.5,5,ga,4,20,,https://www.anthropic.com/claude-opus-5-5,
 sonnet55,2026-09-28,sonnet,Claude Sonnet 5.5,5.5,5,ga,2,10,,https://www.anthropic.com/claude-sonnet-5-5,verified 9/28 (Mon) — hub "9/29" was wrong
 haiku55,2026-10-07,haiku,Claude Haiku 5.5,5.5,5,ga,0.1,0.5,,https://www.anthropic.com/claude-haiku-5-5,
+fable52,2026-11-09,fable,Claude Fable 5.2,5.2,5,ga,8,40,c52,https://www.anthropic.com/claude-fable-and-mythos-5-2,verified 11/9 (Mon); first Fable price cut ($10/$50 -> $8/$40)
+mythos52,2026-11-09,mythos,Claude Mythos 5.2,5.2,5,restricted,8,40,c52,https://www.anthropic.com/claude-fable-and-mythos-5-2,verified organizations only; same day and price as Fable 5.2
