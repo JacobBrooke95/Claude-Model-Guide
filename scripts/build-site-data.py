@@ -43,7 +43,7 @@ CSV_COLUMNS = ["release_id", "date", "family", "model", "version", "generation",
                "price_in", "price_out", "colaunch_group", "source_url", "note"]
 
 # Provenance fields. They live in the JSON and are never written into the page.
-META_KEYS = {"source", "source_url", "as_of", "note", "caveats"}
+META_KEYS = {"source", "source_url", "as_of", "note", "caveats", "derivation"}
 
 # region name -> (benchmarks.json chart id, key inside the chart, JS const name)
 CHART_REGIONS = [
@@ -52,8 +52,11 @@ CHART_REGIONS = [
     ("vending-arena",    "vending_bench_arena", "rounds", "rounds"),
     ("gdpval",           "gdpval_aa",          "series", "gdpvalData"),
     ("arc-agi-2",        "arc_agi_2",          "series", "arcData"),
-    ("arc-agi-3",        "arc_agi_3",          "rows",   "arc3Data"),
-    ("arc-agi-3-extra",  "arc_agi_3",          "extra",  "arc3Extra"),
+    ("arc-agi-3",        "arc_agi_3",          "series", "arc3Data"),
+    ("arc-agi-3-adapter", "arc_agi_3",         "adapter", "arc3Adapter"),
+    ("hle",              "hle",                "series", "hleData"),
+    ("aeci",             "aeci",               "points", "aeciData"),
+    ("aeci-drift",       "aeci",               "drift",  "aeciDrift"),
     ("radar-axes",       "capability_profile", "axes",   "axes"),
     ("radar-models",     "capability_profile", "models", "models"),
     ("rli",              "rli",                "series", "rliData"),

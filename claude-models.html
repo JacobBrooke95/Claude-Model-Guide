@@ -224,6 +224,84 @@
                 </div>
             </div>
 
+            <div class="benchmark-section" id="aeci">
+                <h2 class="section-title">Anthropic ECI</h2>
+                <p class="benchmark-note" style="margin-bottom: 18px;">One number per model, fitted across hundreds of benchmarks: Anthropic's own composite index, a fork of Epoch's Capabilities Index built on internal results and not comparable to Epoch's public ECI. All points come from a single fit, dated November 6, 2026. Bars are 95% intervals.</p>
+                <div class="benchmark-chart-container">
+                    <div id="aeci-chart"></div>
+                    <div class="benchmark-legend">
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #5b8a9a;"></div>
+                            <span>Mythos</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #9d7bb0;"></div>
+                            <span>Opus</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #d4836a;"></div>
+                            <span>Sonnet</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #8fa882;"></div>
+                            <span>Haiku</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #fffdfa; border: 2px solid #8a7f78;"></div>
+                            <span>Hollow circle: read off the card's figure, approximate</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #fffdfa; border: 2px solid #8a7f78; border-radius: 0; transform: rotate(45deg) scale(0.85);"></div>
+                            <span>Diamond: estimated, rescaled from an earlier fit, not Anthropic's figure</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #555; width: 2px; border-radius: 0; height: 14px;"></div>
+                            <span>95% interval (thick: against the three prior releases)</span>
+                        </div>
+                    </div>
+                    <p class="benchmark-note">
+                        The Anthropic ECI (AECI) is how Anthropic tracks "the rate of capability improvement of our models over time". It follows the method of Epoch AI's Epoch Capabilities Index, which fits one score per model from its results across many benchmarks, but it is fed with Anthropic's internal benchmark results. The scale is pinned at two points: Claude Sonnet 3.5 at 130 and GPT-5 at 150. Everything here is first-party, from section 2.3.5 of the <a href="https://www.anthropic.com/claude-fable-5-2-mythos-5-2-system-card" target="_blank" rel="noopener">Fable 5.2 / Mythos 5.2 system card</a>.<br>
+                        <strong>One fit, and only one.</strong> The card's fit of November 6 covers 371 benchmarks and 1,026 models, and it says: "Because each refit reestimates the whole scale, AECI values from this fit are not comparable to the AECI values in earlier system cards&hellip; Comparisons between models should be made within a single fit." So this chart plots that one table and nothing else. In it: Mythos Preview 165.71, Mythos 5 168.68, Opus 5 169.40, Mythos 5.1 172.62, Opus 5.5 174.78 and <strong>Mythos 5.2 177.12</strong>. Earlier cards gave other numbers for the same models on other fits (Opus 5.5 was 169.36 in its own card), and gave Sonnet 5.5 167.93, Haiku 5.5 167.11 and Opus 4.8 155.5, each on a different fit. None of those numbers is plotted as published, and Opus 4.8 and Opus 4.7 have no point at all. When the next card ships, the whole series will be replaced, not extended.<br>
+                        <strong>The two diamonds are this site's estimates, not Anthropic's figures.</strong> Sonnet 5.5 and Haiku 5.5 were each scored only in their own card's fit, but each of those cards also gives Opus 5.5 on the same fit, and Opus 5.5 is in the November 6 table at 174.78. Shifting by Opus 5.5's move: the Sonnet 5.5 card has Opus 5.5 at 169.12 (+5.66), so Sonnet 5.5's 167.93 becomes about 173.6; the Haiku 5.5 card has Opus 5.5 at 174.56 (+0.22), so Haiku 5.5's 167.11 becomes about 167.3. One overlap model each is thin evidence. Where three overlaps are known, between the September 18 fit and this one, the shift differs by model (Opus 5 165.18 &rarr; 169.40, Mythos 5.1 168.12 &rarr; 172.62, Opus 5.5 169.36 &rarr; 174.78: +4.2, +4.5, +5.4), so each estimate carries a dotted &plusmn;1.0 whisker, which is that spread and not a confidence interval. They are drawn hollow, off the line, and only one hop is taken: Opus 4.8's 155.5 is not estimated. Its card does give Mythos Preview on the same fit (158.3), but that fit used 11 benchmarks and sits five refits back, and a single overlap across that distance is too weak to carry a number.<br>
+                        <strong>The bars.</strong> The thin bar is the card's global 95% interval: the uncertainty in a model's absolute position, from 100 refits that each drop a fifth of the benchmarks. It is wide (Mythos 5.2: 172.42 to 182.94) and, in the card's words, "largely shared across frontier models", so overlapping thin bars do not mean two models are tied. The thick bar is the local interval, how precisely the fit separates a model from the average of the three Claude releases before it (Mythos 5.2: 175.75 to 178.48).<br>
+                        <strong>The hollow points are read off a figure.</strong> The card's table stops at Mythos Preview, but its Figure 2.3.5.3.B plots eight earlier frontier models by name without printing their values. Seven are shown here as measured from that figure: Claude 3 Opus about 124.7, Claude 3.5 Sonnet (new) 133.7, Claude 3.7 Sonnet 141.3, Opus 4 144.7, Sonnet 4.5 147.7, Opus 4.5 152.2, Opus 4.6 157.3. The same measurement lands within 0.1 of the table for the three tabled models the figure also labels, so treat them as good to a few tenths, with no interval. Claude 3.5 Sonnet is 130 by definition.<br>
+                        <strong>Dates differ from the card's.</strong> Anthropic plots each model on the day it became available internally; this page uses public release dates, as every other chart here does. The line joining the points is only there to lead the eye. It is not Anthropic's fitted trend, and slopes should not be read off it.<br>
+                        <strong>The trend claim, as the card makes it.</strong> Mythos 5.2 is "about 11 points above the historical trend line and 2.3 points above Claude Opus 5.5". Fitting a single change of slope, "the fitted slope change is about 1.88x (95% CI: 1.62x-2.28x)", at a breakpoint in October 2025. "This is nominally below the 2x threshold set in our RSP, but the estimate varies considerably depending on which benchmarks and model snapshots are included in the fit." The card adds that it does not think this shows Mythos 5.2 crosses that threshold.<br>
+                        <strong>Not on the chart.</strong> An unreleased internal research model, scored on 15 benchmarks, is in the same table at 178.78 (173.75 to 185.18); it has no public release date, so it gets no point. Mythos is the restricted twin of each Fable release, and the index is reported for the Mythos model only: Fable 5.2 is not scored separately. No Haiku, and no Sonnet after 4.5, appears in this fit's table or figure, which is why those two are estimates (card read November 9, 2026).
+                    </p>
+                    <div class="benchmark-paper-links">
+                        <div class="benchmark-paper-link-row">
+                            <a href="https://www.anthropic.com/claude-fable-5-2-mythos-5-2-system-card" target="_blank" rel="noopener">Fable 5.2 / Mythos 5.2 system card, &sect;2.3.5</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://epoch.ai/benchmarks/eci" target="_blank" rel="noopener">Epoch Capabilities Index</a>
+                        </div>
+                    </div>
+                </div>
+                <h3 style="font-size: 1.05em; font-weight: 600; color: #2d3436; margin: 26px 0 6px;">Refit drift: every AECI value Anthropic has published</h3>
+                <p class="benchmark-note" style="margin-bottom: 18px;">The same models, re-scored each time a new system card refits the index. Each column is one card's fit, in release order; each line is one model. Read down a column to compare models. Read along a line to see how far one model's number moved without the model changing.</p>
+                <div class="benchmark-chart-container">
+                    <div id="aeci-drift-chart"></div>
+                    <div class="benchmark-legend">
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #8a7f78; width: 12px; height: 12px;"></div>
+                            <span>Solid: the score in the model's own card</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #fffdfa; border: 2px solid #8a7f78;"></div>
+                            <span>Hollow: restated in a later card's refit</span>
+                        </div>
+                    </div>
+                    <div id="aeci-drift-table"></div>
+                    <p class="benchmark-note">
+                        These are all 25 AECI values printed in the text or tables of Anthropic's system cards, for ten models across eight cards (PDFs re-read November 9, 2026). Colours are families, as above: Mythos teal, Opus violet, Sonnet coral, Haiku green.<br>
+                        <strong>What the drift shows.</strong> A model's score rises at almost every refit, by more than the gap between neighbouring models. Mythos 5 was 161.29 in its own card, 159.46 in the Mythos 5.1 card, 164.49 on the September 18 fit and 168.68 on November 6: 7.4 points in five months with no change to the model. Opus 5.5 was published four times in seven weeks, at 169.36, 169.12, 174.56 and 174.78. From the Mythos 5.1 card's fit to September 18 the three models in both rose 4.5 to 6.1 points; from September 18 to November 6 the five in both rose 3.8 to 5.4. Within any one column the order of the models hardly changes, which is the comparison the index is built for.<br>
+                        <strong>Why, in the cards' words.</strong> "Because each refit re-estimates the whole scale, AECI values from this fit are not comparable to the AECI values in earlier system cards." Each refit drops, adds and corrects benchmarks (338 in the Mythos 5.1 card's basket, 374 on September 18, 371 on November 6, with fixes for "misconfigured or low-signal benchmarks"), then re-pins the two anchors, Claude Sonnet 3.5 at 130 and GPT-5 at 150. The frontier sits well above the upper anchor, where, the Opus 5.5 card says, models "move together" and the uncertainty "grows with distance above the upper anchor". Earlier cards described these shifts as "well within our reported error bars"; the published 95% intervals are 8 to 12 points wide at the frontier.<br>
+                        <strong>Where the estimates above come from.</strong> The two diamonds in the first chart use cells of this one: Opus 5.5 at 169.12 in the Sonnet 5.5 column and 174.56 in the Haiku 5.5 column, each against 174.78 in the last column.<br>
+                        <strong>Gaps are gaps.</strong> Mythos Preview and Opus 4.7 have no solid point because their own cards printed no AECI value, only slope ratios and distances from trend. The Opus 4.8 column is a reduced set of 11 evaluations, not a full fit. The Opus 5 card's Mythos 5 figure (161.3) is its predecessor's 161.29 rounded, so that column may be the same fit with one model added. Every card also has a figure showing earlier models as unlabelled dots; apart from the November 6 figure read for the first chart, those were not measured, so an empty cell means "not printed", not "not scored". Sonnet 5 has no value anywhere: its card says "we did not compile AECI for Sonnet 5".
+                    </p>
+                </div>
+            </div>
+
             <div class="benchmark-section">
                 <h2 class="section-title">SWE-bench Pro</h2>
                 <p class="benchmark-note" style="margin-bottom: 18px;">Anthropic-reported pass rates on Scale AI's harder SWE-bench variant, each averaged over five trials. The y-axis starts at 40%. This chart replaced SWE-bench Verified, which Anthropic no longer reports (history in notes).</p>
@@ -490,7 +568,7 @@
 
             <div class="benchmark-section">
                 <h2 class="section-title">Remote Labor Index</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Share of 240 real freelance projects delivered to a paying-client standard. The runs along this line do not share a harness &mdash; scaffolds improved alongside the models (details in notes).</p>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Share of 240 real freelance projects delivered to a paying-client standard. The runs along this line do not share a harness &mdash; scaffolds improved alongside the models (details in notes). The hollow point is a Scale run that Anthropic has reported and Scale's board has not listed yet.</p>
                 <div class="benchmark-chart-container">
                     <div id="rli-chart"></div>
                     <div class="benchmark-legend">
@@ -506,13 +584,17 @@
                             <div class="benchmark-legend-dot" style="background: #d4836a;"></div>
                             <span>Sonnet</span>
                         </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #fffdfa; border: 2px solid #c09a5b;"></div>
+                            <span>Hollow: Scale run reported by Anthropic, not yet on Scale's board</span>
+                        </div>
                     </div>
                     <p class="benchmark-note">
                         The Remote Labor Index is the bluntest economic eval on this page: 240 real freelance projects bought off Upwork &mdash; 3D and CAD, architecture, graphic design, video, audio, data analysis, web apps &mdash; where human graders judge each deliverable against the professional work the client originally paid for. The automation rate is the share finished to a standard a paying client would actually accept. Nothing partial counts.<br>
-                        Claude has gone from 2.08% (Sonnet 4.5) to 21.25% (Opus 5.5) in a year, and the whole field topped out at 2.5% when Scale AI and CAIS launched the index in October 2025. Opus 5.5 now leads the board, just ahead of GPT 6 Astra at 20.83%, with Fable 5.1 third at 17.92%. For scale: Manus 1.6 Max sits at 2.92% and Gemini 3 Pro at 1.25%. Even so, the leader fails about four projects in five &mdash; this is the eval where frontier models still look furthest from doing a job end to end.<br>
-                        <strong>Fable 5.2 (Nov 9, 2026) is not on the chart yet.</strong> Its <a href="https://www.anthropic.com/claude-fable-5-2-mythos-5-2-system-card" target="_blank" rel="noopener">system card</a> reports 41.3% (99 of 240 projects), almost double Opus 5.5, from a run Scale AI carried out at its default settings: high effort, a 200k-token context window and a 32k-token limit per response. That is Anthropic reporting a Scale run. Scale's public leaderboard, which is what this chart plots, had no Fable 5.2 row when checked on November 9, 2026, and still listed Opus 5.5 first at 21.25%. The point will go on the line when the board carries it.<br>
+                        On Scale's board Claude has gone from 2.08% (Sonnet 4.5) to 21.25% (Opus 5.5) in a year, and the whole field topped out at 2.5% when Scale AI and CAIS launched the index in October 2025. Opus 5.5 leads the board as published, just ahead of GPT 6 Astra at 20.83%, with Fable 5.1 third at 17.92%. For scale: Manus 1.6 Max sits at 2.92% and Gemini 3 Pro at 1.25%. The leader on the board fails about four projects in five, and Fable 5.2's reported 41.3% still fails nearly three in five &mdash; this is the eval where frontier models look furthest from doing a job end to end.<br>
+                        <strong>Fable 5.2 (Nov 9, 2026) is plotted at 41.3%, as a hollow point, from Anthropic's system card rather than from the board.</strong> The <a href="https://www.anthropic.com/claude-fable-5-2-mythos-5-2-system-card" target="_blank" rel="noopener">card</a> (section 8.14.7) reports 99 of 240 projects from an evaluation Scale AI ran at its default settings: "high effort, a 200k-token context window, and a limit of 32k tokens per response". It is on the chart because it is the same kind of run the board publishes: the card's figures for Fable 5.1 (17.9) and Opus 5.5 (21.3) match Scale's board (17.92, 21.25) to rounding, so this is a Scale result that Anthropic published first. Scale's own leaderboard had no Fable 5.2 row when checked on November 9, 2026, and still listed Opus 5.5 first; the point stays hollow, on a dashed segment, until it does, and will take the board's figure then. Treat the size of the step with caution. 17.9 to 41.3 in ten weeks is far larger than any other step on this chart, the runs here do not share a harness, and Scale's board gives no harness details for the Fable 5.1 and Opus 5.5 runs, so some of the gain may be configuration rather than model.<br>
                         <strong>Read the slope carefully.</strong> These runs do not share a harness. Opus 4.5 and Sonnet 4.5 were plain model runs; Opus 4.6's 4.17% used the Claude Cowork scaffold; and the next two, Opus 4.8 and Fable 5, were run in industry scaffolds &mdash; Claude Code for the Anthropic models &mdash; modified to add a native computer-use tool, with up to 24 hours of wall-clock per project. Fable 5 also got a $150 per-project budget against the standard $50. The board does not say what harness or budget the Fable 5.1 and Opus 5.5 runs used. Part of this curve is the models getting better and part is the harness around them getting better, and the index does not separate the two.<br>
-                        <strong>Not evaluated</strong> (board checked November 9, 2026): Fable 5.2 and Mythos 5.2 (November 9), as above; Opus 5, which shipped on July 24, three weeks after the July results were published, so the Opus line runs straight from 4.8 to 5.5; Mythos 5.1 (September 1); Sonnet 5.5 (September 28); Haiku 5.5 (October 7); Sonnet 5; Haiku 4.5; and Mythos 5. CAIS's announcement post quotes Fable 5 at 16.1% and the accompanying write-up 15.8%; the leaderboard lists 15.83%, which is the figure plotted here.
+                        <strong>Not on the board</strong> (checked November 9, 2026): Fable 5.2, plotted from the system card as above; Mythos 5.2 (November 9); Opus 5, which shipped on July 24, three weeks after the July results were published, so the Opus line runs straight from 4.8 to 5.5; Mythos 5.1 (September 1); Sonnet 5.5 (September 28); Haiku 5.5 (October 7); Sonnet 5; Haiku 4.5; and Mythos 5. CAIS's announcement post quotes Fable 5 at 16.1% and the accompanying write-up 15.8%; the leaderboard lists 15.83%, which is the figure plotted here.
                     </p>
                     <div class="benchmark-paper-links">
                         <div class="benchmark-paper-link-row">
@@ -526,7 +608,7 @@
 
             <div class="benchmark-section">
                 <h2 class="section-title">ARC-AGI-2 Reasoning</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Abstract reasoning on novel visual puzzles, from the ARC Prize leaderboard &mdash; each model's strongest listed configuration. Humans score about 60%. The dashed line is the newer, interactive ARC-AGI-3; the hollow gold point is Fable 5.2 on that eval.</p>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Abstract reasoning on novel visual puzzles, from the ARC Prize leaderboard &mdash; each model's strongest listed configuration. Humans score about 60%. The newer, interactive ARC-AGI-3 has its own chart below.</p>
                 <div class="benchmark-chart-container">
                     <div id="arc-chart"></div>
                     <div class="benchmark-legend">
@@ -546,24 +628,117 @@
                             <div class="benchmark-legend-dot" style="background: #8fa882;"></div>
                             <span>Haiku</span>
                         </div>
-                        <div class="benchmark-legend-item">
-                            <div class="benchmark-legend-dot" style="background: transparent; border: 2px dashed #9d7bb0;"></div>
-                            <span>ARC-AGI-3 (dashed)</span>
-                        </div>
                     </div>
                     <p class="benchmark-note">
                         ARC-AGI-2 tests abstract reasoning on novel visual puzzles built to resist memorization — humans score ~60%, and most frontier models were in the single digits at launch. Higher is better.<br>
                         Scores are each model's strongest listed configuration on the ARC Prize leaderboard, read from its published data files on July 29, 2026 — which is why two figures differ slightly from the Max-effort runs quoted elsewhere: Opus 4.6's best run is 120K-High at 69.2% (Max: 68.8%), Sonnet 4.6's is High at 60.4% (Max: 58.3%). Opus 5 at max effort reaches 90.4% at $2.06 per task — well clear of the ~60% human bar, though not the top of the board. Note Opus 4.8 (72.1%) scored slightly <em>below</em> Opus 4.7 here, a reminder that a newer model is not uniformly better on every eval. Haiku 4.5 <em>is</em> listed, at 4.0% ($0.38/task) — roughly where whole frontier lineups sat when ARC-AGI-2 launched. The Fable line was added after that read: ARC Prize verified Fable 5 on August 3 at 89.2% (Max, $2.11/task), and Fable 5.1 on its September 1 release day at 90.0% (Max, $4.49/task) — a 0.8-point step that still leaves it 0.4 behind Opus 5, at more than twice Opus 5's cost per task. Sonnet 5.5 (September 28) and Haiku 5.5 (October 7) had no entry on October 10 and were both listed by the November 9 read: Sonnet 5.5 at 83.9% (XHigh, $0.55/task) and Haiku 5.5 at 61.3% (XHigh, $0.08/task), which puts the newest Haiku at about the human figure, where Haiku 4.5 scored 4.0%. Neither has a Max run listed. Mythos 5, 5.1 and 5.2 and Sonnet 5 have no entry (data files checked November 9, 2026).<br>
-                        <strong>Fable 5.2 (Nov 9, 2026) leads the Claude series at 93.8%</strong>, verified by ARC Prize and read from its data files on release day. That is 0.4 points over Opus 5.5 and 3.8 over Fable 5.1, at $0.98 per task against Fable 5.1's $4.49 (Opus 5.5 is still cheaper, at $0.41). Its best run is at XHigh; Max scores 92.5% at $2.81 per task. It is third on the board, behind GPT-6 Astra (95.0%) and GPT-6.1 Sol (94.2%). With five Claude models between 83.9% and 93.8%, this eval is close to used up for the series, which is why the ARC-AGI-3 line below matters more now.<br>
+                        <strong>Fable 5.2 (Nov 9, 2026) leads the Claude series at 93.8%</strong>, verified by ARC Prize and read from its data files on release day. That is 0.4 points over Opus 5.5 and 3.8 over Fable 5.1, at $0.98 per task against Fable 5.1's $4.49 (Opus 5.5 is still cheaper, at $0.41). Its best run is at XHigh; Max scores 92.5% at $2.81 per task. It is third on the board, behind GPT-6 Astra (95.0%) and GPT-6.1 Sol (94.2%). With five Claude models between 83.9% and 93.8%, this eval is close to used up for the series, which is why the <a href="#arc-agi-3">ARC-AGI-3 chart</a> below matters more now.<br>
                         <strong>Opus 5.5 (Sep 22, 2026) led the Claude series before that, at 93.3%</strong>, read from ARC Prize's data files on September 28 (it had no entry on its release day). That is 2.9 points over Opus 5 and 3.3 over Fable 5.1, and it costs $0.41 per task against Opus 5's $2.06 and Fable 5.1's $4.49. Its best run is at High effort, not Max: xhigh scores 92.5% and Max 91.7%, and ARC Prize flags the Max run as covering only part of the dataset. Opus 5.5 still has no ARC-AGI-3 run (November 9).<br>
-                        The dashed line is <strong>ARC-AGI-3</strong> — interactive environments rather than static puzzles, and nowhere near saturated. Claude's series: Opus 4.6 at 0.5%, Opus 4.7 at 0.2%, Opus 4.8 at 1.5%, then Opus 5 at 30.2% — a new state of the art, roughly 4&times; the previous best on the board, from a run that cost about $20.7k. Configs are mixed (Opus 4.6 at Max, the rest High-only; ARC Prize notes Opus 5 was "evaluated only at High reasoning effort" due to the short testing window), so read the dashed slope loosely. ARC Prize also reports Fable-class models at ~20% on ARC-AGI-3's <em>Public Demo environments</em> — a different environment set, which is why Fable 5 and Fable 5.1 have no point on this eval; neither has a semi-private ARC-AGI-3 run in the data files.<br>
-                        <strong>Fable 5.2 is the first Fable with a verified ARC-AGI-3 score, and it is 81.2%</strong> (Standard harness, XHigh), the highest Standard-harness score on the board and 51 points above Opus 5, which was the state of the art in July. It is drawn as a hollow gold point rather than joined to the dashed line, since that line is the Opus series. Anthropic's system card quotes the High-effort run, 79.3%; at Max the score drops to 65.7%, and ARC Prize notes that 28 of the 55 games ran into the 12-hour limit at that setting. ARC Prize now also reports a second, Provider Adapter harness, which lets a model use its provider's own context-management features. Fable 5.2 scores 97.7% there (High), behind GPT-6 Astra's 99.95%. Those figures are not plotted, because no earlier point on this chart has one. Two other Claude models gained ARC-AGI-3 runs in the same files and are left in this note: Sonnet 5.5 at 24.3% (XHigh; 72.4% with the Provider Adapter) and Haiku 5.5 at 0.5% (Max; 2.8% with the adapter).
+                        <strong>ARC-AGI-3 is no longer drawn here.</strong> Until November 9, 2026 this chart carried it as a dashed Opus line and a hollow Fable 5.2 point. It is a different benchmark on a different scale of difficulty, and seven Claude models now have a score on it, so it has <a href="#arc-agi-3">its own chart</a>, directly below.
                     </p>
                     <div class="benchmark-paper-links">
                         <div class="benchmark-paper-link-row">
                             <a href="https://arcprize.org/leaderboard" target="_blank" rel="noopener">ARC Prize Leaderboard</a>
                             <span class="benchmark-paper-sep">·</span>
                             <a href="https://arcprize.org/arc-agi" target="_blank" rel="noopener">About ARC-AGI</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="benchmark-section" id="arc-agi-3">
+                <h2 class="section-title">ARC-AGI-3 Interactive Reasoning</h2>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Where ARC-AGI-2 shows a static puzzle, ARC-AGI-3 drops an agent into a small game with no instructions: it has to work out the rules and the goal by acting, and is scored on how efficiently it finishes compared with people. Each model's best ARC Prize-verified score on the Standard harness, read November 9, 2026.</p>
+                <div class="benchmark-chart-container">
+                    <div id="arc3-chart"></div>
+                    <div class="benchmark-legend">
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #c09a5b;"></div>
+                            <span>Fable</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #9d7bb0;"></div>
+                            <span>Opus</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #d4836a;"></div>
+                            <span>Sonnet</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #8fa882;"></div>
+                            <span>Haiku</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #fffdfa; border: 2px dashed #8a7f78;"></div>
+                            <span>Hollow: Provider Adapter harness</span>
+                        </div>
+                    </div>
+                    <p class="benchmark-note">
+                        ARC Prize calls ARC-AGI-3 an interactive reasoning benchmark: agents "explore novel environments, acquire goals on the fly" and learn inside each game, "instead of solving static puzzles". The score is not a pass rate. In ARC Prize's words, "a 100% score means AI agents can beat every game as efficiently as humans", and every environment is one people can solve, which is what the dashed line at the top marks. It is a definition, not a measured human panel: the data files have a human-panel row for ARC-AGI-1 and -2 and none for ARC-AGI-3. Results are on the semi-private set of 55 games.<br>
+                        <strong>What is plotted.</strong> One solid point per model: its best verified score on ARC Prize's Standard harness, with the reasoning effort that produced it in the label. Seven Claude models have one. Opus 4.6 scored 0.5% (Max), Opus 4.7 0.2% (High), Opus 4.8 1.5% (High), then Opus 5 30.2% (High), which ARC Prize recorded as the highest score on the board on July 24, 2026, from a run that cost about $20.7k. Sonnet 5.5 is at 24.3% (XHigh), Haiku 5.5 at 0.5% (Max), and <strong>Fable 5.2 at 81.2% (XHigh)</strong>, the highest Standard-harness score on the board on its release day, ahead of GPT-6 Astra's 62.7%. Only the Opus points are joined, because no other family has two.<br>
+                        <strong>The efforts are not the same, and more is not always better.</strong> Four of the seven were run at one setting only: Opus 4.6 at Max, Opus 4.7, 4.8 and 5 at High (ARC Prize says Opus 5 was "evaluated only at High reasoning effort" because of the short testing window), and Haiku 5.5 at Max. The other two are plotted at their best of several. Sonnet 5.5 falls from 24.3% at XHigh to 1.2% at High and 0.4% at Medium and Low, so its point depends almost entirely on the setting. Fable 5.2 scores 79.3% at High, the figure Anthropic's system card quotes, 73.3% at Medium and 52.0% at Low, and drops to 65.7% at Max, where ARC Prize notes that 28 of the 55 games ran for the full 12-hour limit. Read the Opus slope loosely for the same reason.<br>
+                        <strong>The hollow points are a second harness.</strong> The Standard harness lets a model carry forward notes it chooses to keep. The Provider Adapter harness, which ARC Prize added this autumn, preserves the model's opaque reasoning state between requests and compacts long conversations, so it can reuse earlier work. Three Claude models have been run on both, and the gap is large: Sonnet 5.5 goes from 24.3% to 72.4% (XHigh), Haiku 5.5 from 0.5% to 2.8% (Max), and Fable 5.2 from 81.2% to 97.7% (High), second on that harness to GPT-6 Astra's 99.95%. Each hollow point sits above its own model's solid one, joined by a dotted stem, and is never joined to another model: the four Opus runs predate the split and have no adapter score. Costs are per run, not per task: about $21.9k for Fable 5.2's plotted run, $7.4k for Sonnet 5.5's and $388 for Haiku 5.5's.<br>
+                        <strong>Not evaluated</strong> (ARC Prize data files and result pages checked November 9, 2026): Opus 5.5, Fable 5.1 and Fable 5, which all have ARC-AGI-2 scores and a dash under ARC-AGI-3; Sonnet 5, which is not on the board at all; Sonnet 4.6, Opus 4.5, Haiku 4.5, Sonnet 4.5 and everything older; and Mythos 5, 5.1 and 5.2, which outside boards cannot run. So there is no Fable line yet, and nothing between Opus 5 and Fable 5.2 to say when the jump from 30% to 81% happened. All 24 Claude runs on the board, plotted or not, are recorded in <code>data/benchmarks.json</code>.
+                    </p>
+                    <div class="benchmark-paper-links">
+                        <div class="benchmark-paper-link-row">
+                            <a href="https://arcprize.org/leaderboard" target="_blank" rel="noopener">ARC Prize Leaderboard</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://arcprize.org/arc-agi/3" target="_blank" rel="noopener">About ARC-AGI-3</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://arcprize.org/results/anthropic-claude-fable-5-2" target="_blank" rel="noopener">Fable 5.2 results</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="benchmark-section" id="hle">
+                <h2 class="section-title">Humanity's Last Exam</h2>
+                <p class="benchmark-note" style="margin-bottom: 18px;">2,500 closed-ended questions at the edge of expert knowledge, across more than a hundred subjects, written by specialists and kept only if the best models of early 2025 got them wrong. Plotted: the share each model answers correctly with no tools, as Anthropic reports it in its system cards. These are first-party figures; outside boards score lower (details in notes).</p>
+                <div class="benchmark-chart-container">
+                    <div id="hle-chart"></div>
+                    <div class="benchmark-legend">
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #5b8a9a;"></div>
+                            <span>Mythos</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #c09a5b;"></div>
+                            <span>Fable</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #9d7bb0;"></div>
+                            <span>Opus</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #d4836a;"></div>
+                            <span>Sonnet</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #8fa882;"></div>
+                            <span>Haiku</span>
+                        </div>
+                    </div>
+                    <p class="benchmark-note">
+                        Humanity's Last Exam (HLE) comes from the Center for AI Safety and Scale AI, who describe it as "a multi-modal benchmark at the frontier of human knowledge, designed to be the final closed-ended academic benchmark of its kind". Its 2,500 questions, some with images, were contributed by nearly 1,000 subject experts and filtered against frontier models, so scores started in the single digits: on Scale's board Claude 3.5 Sonnet has 4.1%.<br>
+                        <strong>What is plotted.</strong> Anthropic's own no-tools result for each model: the model answers from reasoning alone, with adaptive or auto thinking at max effort, and Claude Opus 4.6 grades the answers. Seventeen Claude models have one. The Opus line runs 30.8% (Opus 4.5), 40.0, 46.9, 49.8, 56.6, then 64.4% (Opus 5.5); Sonnet goes 17.7% (Sonnet 4.5), 34.6, 43.1, 56.9% (Sonnet 5.5); Haiku 10.2% to 45.9%; Mythos Preview 56.8% and Mythos 5 59.0%; Fable 5 56.5%, Fable 5.1 60.9%, and <strong>Fable 5.2 73.2%</strong>, a 12.3-point step and the first Claude model past 70%. Effort matters less than on most evals here: Fable 5.2 scores 65.6% at low effort and 68.8% at high.<br>
+                        <strong>Why the system cards, and what that costs.</strong> Three sources were weighed. The cards cover every model since Sonnet 4.5 under one family of setups, which is the longest like-for-like Claude history available, so they are the line. The price is that every point is Anthropic grading Anthropic. Artificial Analysis runs HLE itself, but only has seven Claude models (Fable 5 onward), on the 2,158 text-only questions: Fable 5.2 74.3%, Opus 5.5 61.4%, Fable 5.1 59.1%, Fable 5 55.5%, Sonnet 5.5 55.0%, Opus 5 54.9%, Haiku 5.5 44.4%. Those are within about three points of the cards, in both directions, and they are the figures on the <em>Capability Profile</em>'s HLE axis, which is why that chart says 74.3 for Fable 5.2 and this one 73.2: different question set, grader and harness. The Scale AI / CAIS leaderboard goes back furthest, to Claude 3.5 Sonnet, but has no row for Opus 4.8, Opus 5, Opus 5.5, Fable 5 or Fable 5.2, mixes thinking and non-thinking entries, and reads much lower: Fable 5.1 46.5%, Sonnet 5.5 46.1%, Opus 4.7 36.2%, Opus 4.6 34.4%, Haiku 5.5 30.1% (checked November 9, 2026). That board's header now describes HLE-Rolling, a revised fork of the question set; which rows were scored on which version is not something this page has established. Board and card figures are never joined in one line here.<br>
+                        <strong>Some points are restatements.</strong> Later cards re-run earlier models beside the new one, and the number sometimes moves. Where that happens the restated, same-setup figure is plotted: Sonnet 4.6 is 34.6% from the Sonnet 5 card (33.2% in its own), Sonnet 5 is 43.1% from the Sonnet 5.5 card (43.2%), Opus 5 is 56.6% from the Opus 5.5 card (56.3%). Sonnet 4.5, Opus 4.5, Opus 4.6, Haiku 4.5 and Fable 5 have no no-tools number in their own cards and are plotted from the first card that gives one. Haiku 4.5 is the one point not run with adaptive thinking: the Haiku 5.5 card ran it with fixed thinking budgets. Settings also drifted: the token allowance went from a 1M cap to a 980k task budget.<br>
+                        <strong>With tools is a different eval and is not drawn.</strong> Given web search, fetch and code execution, with a blocklist of sites that discuss HLE, the same models score higher: Fable 5.2 74.2%, Opus 5.5 67.7%, Fable 5.1 65.6%, Sonnet 5.5 64.5%, Mythos 5 64.5%, Haiku 5.5 57.4%, Opus 4.8 57.9%, Opus 4.6 53.0%, Sonnet 4.5 33.6%. The tool setup changed more than the no-tools one did (context compaction up to 3M tokens at first, then a 1M cap, a restricted fetch tool, re-grading of answers found by lookup), so it makes a worse time series. The gap has also nearly closed, from 16 points for Sonnet 4.5 to one for Fable 5.2: the newest model gains almost nothing from searching.<br>
+                        <strong>The answer key is not clean.</strong> FutureHouse reported in July 2025 that 29% (&plusmn;3.7) of the text-only chemistry and biology questions had answers contradicted by published literature; the HLE team's own follow-up review found about 18% of a bio/chem subset problematic. The maintainers have since released HLE-Rolling and, in September 2026, HLE-Diamond, for when "frontier AI begins to hit the noise ceiling on the original HLE dataset". So 100% is not the practical ceiling, and Artificial Analysis already files HLE under legacy benchmarks.<br>
+                        <strong>No score</strong> (system-card index checked November 9, 2026): Mythos 5.1 and Mythos 5.2, whose cards report HLE for the Fable twin only; Opus 4.1, Opus 4, Sonnet 4 and everything earlier in Anthropic's own reporting. Every card except Fable 5.2's was read through this site's card index, not re-read in the original.
+                    </p>
+                    <div class="benchmark-paper-links">
+                        <div class="benchmark-paper-link-row">
+                            <a href="https://lastexam.ai/" target="_blank" rel="noopener">Humanity's Last Exam</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://www.anthropic.com/claude-fable-5-2-mythos-5-2-system-card" target="_blank" rel="noopener">Fable 5.2 system card</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://artificialanalysis.ai/evaluations/humanitys-last-exam" target="_blank" rel="noopener">Artificial Analysis HLE</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://labs.scale.com/leaderboard/humanitys_last_exam" target="_blank" rel="noopener">Scale leaderboard</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://www.futurehouse.org/research-announcements/hle-exam" target="_blank" rel="noopener">FutureHouse on the answer key</a>
                         </div>
                     </div>
                 </div>
@@ -1274,7 +1449,7 @@
 
             // A maintained date, not new Date(): a live stamp would silently re-date
             // July's benchmark pulls every day forever. The forecast alone is live.
-            lastUpdated.textContent = 'November 9, 2026 (Fable 5.2 and Mythos 5.2 added to the release data; Fable 5.2 added to pricing, SWE-bench Pro, OSWorld, GDPval, ARC-AGI-2 and the Capability Profile; GDPval, ARC-AGI-2 and the Capability Profile re-pulled whole from their boards, which also brought Sonnet 5.5 and Haiku 5.5 onto ARC-AGI-2 and Haiku 5.5 onto the Capability Profile; Terminal-Bench 2.1, Vending-Bench 2, the Arena and RLI re-checked, with no Fable 5.2 run on any of them yet, all November 9; Vending-Bench 2 rows October 10; Terminal-Bench 2.1 rows September 28; forecast computed on view)';
+            lastUpdated.textContent = 'November 9, 2026 (Fable 5.2 and Mythos 5.2 added to the release data; Fable 5.2 added to pricing, SWE-bench Pro, OSWorld, GDPval, ARC-AGI-2 and the Capability Profile; GDPval, ARC-AGI-2 and the Capability Profile re-pulled whole from their boards, which also brought Sonnet 5.5 and Haiku 5.5 onto ARC-AGI-2 and Haiku 5.5 onto the Capability Profile; three charts added: ARC-AGI-3, which leaves the ARC-AGI-2 chart for its own with seven Claude models, Humanity\'s Last Exam from the system cards, and the Anthropic ECI from the Fable 5.2 card\'s November 6 fit, with a second panel showing every AECI value published across eight cards; Fable 5.2 plotted on the Remote Labor Index as a hollow point from the system card, since Scale\'s board has no row for it yet; Terminal-Bench 2.1, Vending-Bench 2, the Arena and RLI re-checked, with no Fable 5.2 run on any of those boards yet, all November 9; Vending-Bench 2 rows October 10; Terminal-Bench 2.1 rows September 28; forecast computed on view)';
 
             // Create cards for each model, all reading cycles from the one forecast
             const cardForecast = ReleaseForecast.forecastAll(modelData);
@@ -2890,28 +3065,13 @@
             };
             // <<< generated:arc-agi-2
 
-            // ARC-AGI-3 (interactive environments, semi-private) is a separate, much harder
-            // eval drawn as a dashed series: configs are mixed, which is why it gets its own
-            // visual register rather than joining the solid lines. arc3Extra holds points from
-            // a different family, each drawn as a lone hollow point, not joined to the dashed
-            // line. Sourcing: data/benchmarks.json, charts.arc_agi_3
-            // >>> generated:arc-agi-3 from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
-            const arc3Data = [
-                { model: 'Opus 4.6', config: 'Max', date: '2026-02-05', score: 0.51 },
-                { model: 'Opus 4.7', config: 'High', date: '2026-04-16', score: 0.18 },
-                { model: 'Opus 4.8', config: 'High', date: '2026-05-28', score: 1.52 },
-                { model: 'Opus 5', config: 'High', date: '2026-07-24', score: 30.16 }
-            ];
-            // <<< generated:arc-agi-3
-            // >>> generated:arc-agi-3-extra from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
-            const arc3Extra = [
-                { model: 'Fable 5.2', fam: 'fable', config: 'XHigh', date: '2026-11-09', score: 81.17 }
-            ];
-            // <<< generated:arc-agi-3-extra
-
+            // ARC-AGI-3 used to be overlaid here as a dashed line; it has its own chart now
+            // (renderArc3Chart), so one benchmark is not drawn twice.
             const colors = { opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882', fable: '#c09a5b' };
 
-            const { W, H, pad } = frame(800, 380, { top: 30, right: 25, bottom: 55, left: 55 });
+            // Top padding is label room: five models sit between 89% and 94%, and their
+            // two-line labels need a second tier above the 100% gridline.
+            const { W, H, pad } = frame(800, 400, { top: 50, right: 25, bottom: 55, left: 55 });
             const cw = W - pad.left - pad.right;
             const ch = H - pad.top - pad.bottom;
 
@@ -2967,38 +3127,541 @@
                 });
             });
 
-            // ARC-AGI-3 dashed overlay. Individual points get tooltips; only the endpoint
-            // gets a text annotation — the three sub-2% points would label as clutter.
-            lineSegPoints.push(arc3Data.map(p => [x(p.date), y(p.score)]));
-            const arc3Path = arc3Data.map((p, i) => (i === 0 ? 'M' : 'L') + `${x(p.date)},${y(p.score)}`).join(' ');
-            svg += `<path d="${arc3Path}" fill="none" stroke="${colors.opus}" stroke-width="2" stroke-dasharray="5,4" stroke-opacity="0.85" stroke-linecap="round" stroke-linejoin="round" />`;
-            arc3Data.forEach(p => {
-                svg += `<circle cx="${x(p.date)}" cy="${y(p.score)}" r="4.5" fill="#fffdfa" stroke="${colors.opus}" stroke-width="2" stroke-dasharray="2.4,2">`
-                     + `<title>${p.model} (${p.config}) — ARC-AGI-3: ${p.score}%</title></circle>`;
-            });
-            const arc3End = arc3Data[arc3Data.length - 1];
-            const a3x = x(arc3End.date) - 10, a3y = y(arc3End.score) + 4;
-            svg += `<text x="${a3x}" y="${a3y}" text-anchor="end" fill="${colors.opus}" font-size="10.5" font-style="italic">ARC-AGI-3 · ${arc3End.score.toFixed(1)}%</text>`;
-
-            // Lone ARC-AGI-3 points from other families: the same hollow dashed marker in the
-            // family colour. Their text goes through placeLabels like any other point (a
-            // fixed spot beside the marker collided with the crowded top-right cluster),
-            // under their own series so phones still label them.
-            const extraBoxes = [];
-            arc3Extra.forEach(p => {
-                const ex = x(p.date), ey = y(p.score);
-                const tip = `${p.model} (${p.config}) — ARC-AGI-3: ${p.score}%`;
-                svg += `<circle cx="${ex}" cy="${ey}" r="4.5" fill="#fffdfa" stroke="${colors[p.fam]}" stroke-width="2" stroke-dasharray="2.4,2">`
-                     + `<title>${tip}</title></circle>`;
-                labelItems.push({ px: ex, py: ey, color: colors[p.fam], series: 'arc3-' + p.fam,
-                                  name: 'ARC-AGI-3', value: `${p.score.toFixed(1)}%`, tip });
-            });
-
-            svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch },
-                [annotationBox(a3x, a3y, `ARC-AGI-3 - ${arc3End.score.toFixed(1)}%`, 10.5)].concat(extraBoxes, lineObstacles(lineSegPoints)));
+            svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch }, lineObstacles(lineSegPoints));
 
             svg += '</svg>';
             setSvg('arc-chart', svg);
+        }
+
+        // ARC-AGI-3: interactive games rather than static puzzles. One solid point per model,
+        // its best ARC Prize-verified Standard-harness score; the Provider Adapter harness is
+        // a second, hollow point above it on a dotted stem, never joined model to model.
+        // Sourcing, every run on the board and the plotting rule: data/benchmarks.json,
+        // charts.arc_agi_3
+        function renderArc3Chart() {
+            // >>> generated:arc-agi-3 from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
+            const arc3Data = {
+                opus: [
+                    { model: 'Opus 4.6', date: '2026-02-05', score: 0.51, config: 'Max', cost: 8866 },
+                    { model: 'Opus 4.7', date: '2026-04-16', score: 0.18, config: 'High', cost: 10000 },
+                    { model: 'Opus 4.8', date: '2026-05-28', score: 1.52, config: 'High', cost: 10000 },
+                    { model: 'Opus 5', date: '2026-07-24', score: 30.16, config: 'High', cost: 20657 }
+                ],
+                sonnet: [
+                    { model: 'Sonnet 5.5', date: '2026-09-28', score: 24.31, config: 'XHigh', cost: 7394 }
+                ],
+                haiku: [
+                    { model: 'Haiku 5.5', date: '2026-10-07', score: 0.45, config: 'Max', cost: 388 }
+                ],
+                fable: [
+                    { model: 'Fable 5.2', date: '2026-11-09', score: 81.17, config: 'XHigh', cost: 21949 }
+                ]
+            };
+            // <<< generated:arc-agi-3
+            // >>> generated:arc-agi-3-adapter from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
+            const arc3Adapter = [
+                { model: 'Sonnet 5.5', fam: 'sonnet', date: '2026-09-28', score: 72.44, config: 'XHigh', cost: 8170 },
+                { model: 'Haiku 5.5', fam: 'haiku', date: '2026-10-07', score: 2.82, config: 'Max', cost: 437 },
+                { model: 'Fable 5.2', fam: 'fable', date: '2026-11-09', score: 97.72, config: 'High', cost: 18625 }
+            ];
+            // <<< generated:arc-agi-3-adapter
+
+            const colors = { opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882', fable: '#c09a5b' };
+
+            const { W, H, pad } = frame(800, 380, { top: 34, right: 25, bottom: 55, left: 55 });
+            const cw = W - pad.left - pad.right;
+            const ch = H - pad.top - pad.bottom;
+
+            const minDate = new Date('2026-01-01T00:00:00');
+            const maxDate = dateDomainEnd('2026-10-01', Object.values(arc3Data).flat().map(p => p.date));
+            const dateRange = maxDate - minDate;
+
+            const minScore = 0, maxScore = 100, step = 20;
+
+            function x(dateStr) {
+                const d = new Date(dateStr + 'T00:00:00');
+                return pad.left + ((d - minDate) / dateRange) * cw;
+            }
+            function y(score) {
+                return pad.top + ch - ((score - minScore) / (maxScore - minScore)) * ch;
+            }
+            const usd = c => c >= 1000 ? `$${(c / 1000).toFixed(1)}k` : `$${Math.round(c)}`;
+
+            let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+
+            for (let s = minScore; s < maxScore; s += step) {
+                const yPos = y(s);
+                svg += `<line x1="${pad.left}" y1="${yPos}" x2="${W - pad.right}" y2="${yPos}" stroke="#e8d5c8" stroke-width="1" />`;
+                svg += `<text x="${pad.left - 10}" y="${yPos + 4}" text-anchor="end" fill="#666" font-size="12">${s}%</text>`;
+            }
+
+            const dateLabels = monthTicks('2026-02-01', maxDate, 2, minDate);
+            dateLabels.forEach(dl => {
+                const xPos = x(dl.date);
+                svg += `<line x1="${xPos}" y1="${pad.top}" x2="${xPos}" y2="${pad.top + ch}" stroke="#e8d5c8" stroke-width="1" stroke-dasharray="4,4" />`;
+                svg += `<text x="${xPos}" y="${H - pad.bottom + 20}" text-anchor="middle" fill="#666" font-size="12">${dl.label}</text>`;
+            });
+
+            // 100% is ARC Prize's definition of the ceiling: every game beaten as efficiently
+            // as humans. Drawn as the RLI chart draws its launch line.
+            const topY = y(100);
+            svg += `<line x1="${pad.left}" y1="${topY}" x2="${W - pad.right}" y2="${topY}" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="6,4" stroke-opacity="0.65" />`;
+            svg += `<text x="${pad.left - 10}" y="${topY + 4}" text-anchor="end" fill="#666" font-size="12">100%</text>`;
+            const topText = UI.compact ? '100% &mdash; as efficient as humans' : '100% &mdash; every game beaten as efficiently as humans';
+            const topTextY = topY - 7;
+            const topTextRight = pad.left + 6 + annotationBox(0, 0, topText, 10.5).w;
+            svg += `<text x="${pad.left + 6}" y="${topTextY}" text-anchor="start" fill="#b8860b" font-size="10.5" font-style="italic">${topText}</text>`;
+
+            svg += `<line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+            svg += `<line x1="${pad.left}" y1="${pad.top + ch}" x2="${W - pad.right}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+
+            const labelItems = [];
+            const lineSegPoints = [];
+            const softSegPoints = [];
+            const adapterDots = [];
+            const std = {};
+            Object.entries(arc3Data).forEach(([series, points]) => {
+                const color = colors[series];
+                if (points.length > 1) {
+                    lineSegPoints.push(points.map(p => [x(p.date), y(p.score)]));
+                    const pathD = points.map((p, i) => (i === 0 ? 'M' : 'L') + `${x(p.date)},${y(p.score)}`).join(' ');
+                    svg += `<path d="${pathD}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`;
+                }
+                points.forEach(p => { std[p.model] = p; });
+            });
+
+            // Provider Adapter: stems first, so the dots sit on top of them
+            arc3Adapter.forEach(p => {
+                const base = std[p.model];
+                if (!base) return;
+                const px = x(p.date);
+                // On phones a stem is a soft line (a label may sit on it, with a halo): as a
+                // hard obstacle it walled off the only free space beside each point.
+                (UI.compact ? softSegPoints : lineSegPoints).push([[px, y(base.score)], [px, y(p.score)]]);
+                svg += `<line x1="${px}" y1="${y(base.score)}" x2="${px}" y2="${y(p.score)}" stroke="${colors[p.fam]}" stroke-width="1.6" stroke-dasharray="1.5,4" stroke-linecap="round" stroke-opacity="0.9" />`;
+            });
+
+            Object.entries(arc3Data).forEach(([series, points]) => {
+                const color = colors[series];
+                points.forEach(p => {
+                    const px = x(p.date), py = y(p.score);
+                    const tip = `${p.model} — ${p.score}% on ARC-AGI-3, Standard harness, ${p.config} effort (run cost ${usd(p.cost)})`;
+                    svg += `<circle cx="${px}" cy="${py}" r="5" fill="${color}" stroke="white" stroke-width="2"><title>${tip}</title></circle>`;
+                    // Phones drop the effort from the label (it is in the tap-tip): with it, the
+                    // wider boxes left only Fable 5.2 labelled.
+                    labelItems.push({ px, py, color, name: p.model, tip,
+                                      value: UI.compact ? `${p.score.toFixed(1)}%` : `${p.score.toFixed(1)}% (${p.config})` });
+                });
+            });
+
+            arc3Adapter.forEach(p => {
+                const px = x(p.date), py = y(p.score), color = colors[p.fam];
+                const tip = `${p.model} — ${p.score}% on ARC-AGI-3, Provider Adapter harness, ${p.config} effort (run cost ${usd(p.cost)})`;
+                svg += `<circle cx="${px}" cy="${py}" r="4.5" fill="#fffdfa" stroke="${color}" stroke-width="2" stroke-dasharray="2.4,2"><title>${tip}</title></circle>`;
+                // Phones label the four Standard points only; with the adapter labels in as
+                // well, Sonnet 5.5 and Haiku 5.5 lost theirs. The hollow points still tap.
+                if (UI.compact) {
+                    adapterDots.push({ x: px - 7, y: py - 7, w: 14, h: 14 });
+                    svg += `<circle cx="${px}" cy="${py}" r="11" fill="transparent"><title>${tip}</title></circle>`;
+                    return;
+                }
+                labelItems.push({ px, py, color, series: 'adapter-' + p.fam, name: 'with adapter',
+                                  value: `${p.score.toFixed(1)}% (${p.config})`, tip });
+            });
+
+            svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch },
+                [annotationBox(topTextRight, topTextY, topText, 10.5)]
+                    .concat(adapterDots, lineObstacles(lineSegPoints.concat([[[pad.left, topY], [W - pad.right, topY]]]))),
+                lineObstacles(softSegPoints));
+
+            svg += '</svg>';
+            setSvg('arc3-chart', svg);
+        }
+
+        // Humanity's Last Exam, no tools, as Anthropic's system cards report it. Every point is
+        // first-party; the outside boards (AA, Scale/CAIS) are in the note and in
+        // data/benchmarks.json, charts.hle.other_sources, never on these lines.
+        function renderHleChart() {
+            // >>> generated:hle from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
+            const hleData = {
+                mythos: [
+                    { model: 'Mythos Preview', date: '2026-04-07', score: 56.8, setting: 'no tools, reasoning only', card: 'Mythos Preview card' },
+                    { model: 'Mythos 5', date: '2026-06-09', score: 59.0, setting: 'no tools, adaptive thinking at max effort', card: 'Fable 5 / Mythos 5 card' }
+                ],
+                fable: [
+                    { model: 'Fable 5', date: '2026-06-09', score: 56.5, setting: 'no tools, as restated in the Opus 5 card', card: 'Opus 5 card' },
+                    { model: 'Fable 5.1', date: '2026-09-01', score: 60.9, setting: 'no tools, thinking auto, 1M-token cap', card: 'Fable 5.1 / Mythos 5.1 card' },
+                    { model: 'Fable 5.2', date: '2026-11-09', score: 73.2, setting: 'no tools, thinking auto at max effort, 980k-token task budget', card: 'Fable 5.2 / Mythos 5.2 card' }
+                ],
+                opus: [
+                    { model: 'Opus 4.5', date: '2025-11-24', score: 30.8, setting: 'no tools, as restated in the Sonnet 4.6 card', card: 'Sonnet 4.6 card' },
+                    { model: 'Opus 4.6', date: '2026-02-05', score: 40.0, setting: 'no tools, adaptive thinking', card: 'Sonnet 4.6 card' },
+                    { model: 'Opus 4.7', date: '2026-04-16', score: 46.9, setting: 'no tools, thinking auto, max effort, 1M-token cap', card: 'Opus 4.7 card' },
+                    { model: 'Opus 4.8', date: '2026-05-28', score: 49.8, setting: 'no tools, max effort', card: 'Opus 4.8 card' },
+                    { model: 'Opus 5', date: '2026-07-24', score: 56.6, setting: 'no tools, thinking auto, 1M-token cap, as restated in the Opus 5.5 card', card: 'Opus 5.5 card' },
+                    { model: 'Opus 5.5', date: '2026-09-22', score: 64.4, setting: 'no tools, thinking auto, 1M-token cap', card: 'Opus 5.5 card' }
+                ],
+                sonnet: [
+                    { model: 'Sonnet 4.5', date: '2025-09-29', score: 17.7, setting: 'no tools, as restated in the Sonnet 4.6 card', card: 'Sonnet 4.6 card' },
+                    { model: 'Sonnet 4.6', date: '2026-02-17', score: 34.6, setting: 'no tools, thinking auto, 1M tokens, as restated in the Sonnet 5 card', card: 'Sonnet 5 card' },
+                    { model: 'Sonnet 5', date: '2026-06-30', score: 43.1, setting: 'no tools, thinking auto, as restated in the Sonnet 5.5 card', card: 'Sonnet 5.5 card' },
+                    { model: 'Sonnet 5.5', date: '2026-09-28', score: 56.9, setting: 'no tools, thinking auto, 980k-token budget', card: 'Sonnet 5.5 card' }
+                ],
+                haiku: [
+                    { model: 'Haiku 4.5', date: '2025-10-15', score: 10.2, setting: 'no tools, fixed thinking budget (not an effort level)', card: 'Haiku 5.5 card' },
+                    { model: 'Haiku 5.5', date: '2026-10-07', score: 45.9, setting: 'no tools, thinking auto, 980k-token task budget', card: 'Haiku 5.5 card' }
+                ]
+            };
+            // <<< generated:hle
+
+            const colors = { mythos: '#5b8a9a', fable: '#c09a5b', opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882' };
+
+            const { W, H, pad } = frame(800, 400, { top: 34, right: 25, bottom: 55, left: 55 });
+            const cw = W - pad.left - pad.right;
+            const ch = H - pad.top - pad.bottom;
+
+            const minDate = new Date('2025-08-01T00:00:00');
+            const maxDate = dateDomainEnd('2026-10-01', Object.values(hleData).flat().map(p => p.date));
+            const dateRange = maxDate - minDate;
+
+            const minScore = 0, maxScore = 80, step = 20;
+
+            function x(dateStr) {
+                const d = new Date(dateStr + 'T00:00:00');
+                return pad.left + ((d - minDate) / dateRange) * cw;
+            }
+            function y(score) {
+                return pad.top + ch - ((score - minScore) / (maxScore - minScore)) * ch;
+            }
+
+            let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+
+            for (let s = minScore; s <= maxScore; s += step) {
+                const yPos = y(s);
+                svg += `<line x1="${pad.left}" y1="${yPos}" x2="${W - pad.right}" y2="${yPos}" stroke="#e8d5c8" stroke-width="1" />`;
+                svg += `<text x="${pad.left - 10}" y="${yPos + 4}" text-anchor="end" fill="#666" font-size="12">${s}%</text>`;
+            }
+
+            const dateLabels = monthTicks('2025-09-01', maxDate, 2, minDate);
+            dateLabels.forEach(dl => {
+                const xPos = x(dl.date);
+                svg += `<line x1="${xPos}" y1="${pad.top}" x2="${xPos}" y2="${pad.top + ch}" stroke="#e8d5c8" stroke-width="1" stroke-dasharray="4,4" />`;
+                svg += `<text x="${xPos}" y="${H - pad.bottom + 20}" text-anchor="middle" fill="#666" font-size="12">${dl.label}</text>`;
+            });
+
+            svg += `<line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+            svg += `<line x1="${pad.left}" y1="${pad.top + ch}" x2="${W - pad.right}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+
+            const labelItems = [];
+            const lineSegPoints = [];
+            Object.entries(hleData).forEach(([series, points]) => {
+                const color = colors[series];
+                if (points.length > 1) {
+                    lineSegPoints.push(points.map(p => [x(p.date), y(p.score)]));
+                    const pathD = points.map((p, i) => (i === 0 ? 'M' : 'L') + `${x(p.date)},${y(p.score)}`).join(' ');
+                    svg += `<path d="${pathD}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`;
+                }
+            });
+            Object.entries(hleData).forEach(([series, points]) => {
+                const color = colors[series];
+                points.forEach(p => {
+                    const px = x(p.date), py = y(p.score);
+                    const tip = `${p.model} — ${p.score}% on HLE, ${p.setting} (${p.card})`;
+                    svg += `<circle cx="${px}" cy="${py}" r="5" fill="${color}" stroke="white" stroke-width="2"><title>${tip}</title></circle>`;
+                    labelItems.push({ px, py, color, name: p.model, value: `${p.score}%`, tip });
+                });
+            });
+
+            svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch }, lineObstacles(lineSegPoints));
+
+            svg += '</svg>';
+            setSvg('hle-chart', svg);
+        }
+
+        // Anthropic ECI: one fit (the newest system card's), never a splice of several. Table
+        // rows carry lo/hi (global 95% CI) and localLo/localHi; figure_read rows were measured
+        // off the card's figure and are hollow with no bars. Sourcing and the earlier fits
+        // that are deliberately NOT plotted: data/benchmarks.json, charts.aeci
+        function renderAeciChart() {
+            // >>> generated:aeci from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
+            const aeciData = [
+                { model: '3 Opus', label: 'Claude 3 Opus', fam: 'opus', date: '2024-03-04', score: 124.7, figure_read: true },
+                { model: '3.5 Sonnet', label: 'Claude 3.5 Sonnet', fam: 'sonnet', date: '2024-06-20', score: 130.0, anchor: true },
+                { model: '3.5 Sonnet (new)', label: 'Claude 3.5 Sonnet (new)', fam: 'sonnet', date: '2024-10-22', score: 133.7, figure_read: true },
+                { model: '3.7 Sonnet', label: 'Claude 3.7 Sonnet', fam: 'sonnet', date: '2025-02-24', score: 141.3, figure_read: true },
+                { model: 'Opus 4', label: 'Opus 4', fam: 'opus', date: '2025-05-22', score: 144.7, figure_read: true },
+                { model: 'Sonnet 4.5', label: 'Sonnet 4.5', fam: 'sonnet', date: '2025-09-29', score: 147.7, figure_read: true },
+                { model: 'Opus 4.5', label: 'Opus 4.5', fam: 'opus', date: '2025-11-24', score: 152.2, figure_read: true },
+                { model: 'Opus 4.6', label: 'Opus 4.6', fam: 'opus', date: '2026-02-05', score: 157.3, figure_read: true },
+                { model: 'Mythos Preview', fam: 'mythos', date: '2026-04-07', score: 165.71, lo: 162.7, hi: 169.65, localLo: 164.01, localHi: 168.0 },
+                { model: 'Mythos 5', fam: 'mythos', date: '2026-06-09', score: 168.68, lo: 165.24, hi: 172.99, localLo: 167.72, localHi: 169.72 },
+                { model: 'Opus 5', fam: 'opus', date: '2026-07-24', score: 169.4, lo: 165.83, hi: 173.89, localLo: 168.27, localHi: 170.73 },
+                { model: 'Mythos 5.1', fam: 'mythos', date: '2026-09-01', score: 172.62, lo: 168.51, hi: 177.63, localLo: 171.41, localHi: 174.1 },
+                { model: 'Opus 5.5', fam: 'opus', date: '2026-09-22', score: 174.78, lo: 170.33, hi: 180.29, localLo: 173.47, localHi: 176.4 },
+                { model: 'Mythos 5.2', fam: 'mythos', date: '2026-11-09', score: 177.12, lo: 172.42, hi: 182.94, localLo: 175.75, localHi: 178.48 },
+                { model: 'Sonnet 5.5', fam: 'sonnet', date: '2026-09-28', score: 173.6, estimated: true, estLo: 172.6, estHi: 174.6, original: 167.93, originalFit: 'Sonnet 5.5 card' },
+                { model: 'Haiku 5.5', fam: 'haiku', date: '2026-10-07', score: 167.3, estimated: true, estLo: 166.3, estHi: 168.3, original: 167.11, originalFit: 'Haiku 5.5 card' }
+            ];
+            // <<< generated:aeci
+
+            const colors = { mythos: '#5b8a9a', fable: '#c09a5b', opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882' };
+
+            // Tall, with a wide right margin of dates: six tabled models and two estimates
+            // sit in the last seven months, and their labels need the room
+            const { W, H, pad } = frame(800, 460, { top: 44, right: 25, bottom: 55, left: 55 });
+            const cw = W - pad.left - pad.right;
+            const ch = H - pad.top - pad.bottom;
+
+            const minDate = new Date('2024-01-01T00:00:00');
+            const maxDate = dateDomainEnd('2027-03-01', aeciData.map(p => p.date));
+            const dateRange = maxDate - minDate;
+
+            const minScore = 120, maxScore = 190, step = 10;
+
+            function x(dateStr) {
+                const d = new Date(dateStr + 'T00:00:00');
+                return pad.left + ((d - minDate) / dateRange) * cw;
+            }
+            function y(score) {
+                return pad.top + ch - ((score - minScore) / (maxScore - minScore)) * ch;
+            }
+
+            let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+
+            for (let s = minScore; s <= maxScore; s += step) {
+                const yPos = y(s);
+                svg += `<line x1="${pad.left}" y1="${yPos}" x2="${W - pad.right}" y2="${yPos}" stroke="#e8d5c8" stroke-width="1" />`;
+                svg += `<text x="${pad.left - 10}" y="${yPos + 4}" text-anchor="end" fill="#666" font-size="12">${s}</text>`;
+            }
+
+            const dateLabels = monthTicks('2024-04-01', maxDate, 4, minDate);
+            dateLabels.forEach(dl => {
+                const xPos = x(dl.date);
+                svg += `<line x1="${xPos}" y1="${pad.top}" x2="${xPos}" y2="${pad.top + ch}" stroke="#e8d5c8" stroke-width="1" stroke-dasharray="4,4" />`;
+                svg += `<text x="${xPos}" y="${H - pad.bottom + 20}" text-anchor="middle" fill="#666" font-size="12">${dl.label}</text>`;
+            });
+
+            svg += `<line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+            svg += `<line x1="${pad.left}" y1="${pad.top + ch}" x2="${W - pad.right}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+
+            // One neutral frontier line through every point, in date order: this is a mixed
+            // Mythos / Opus / Sonnet series, so family-coloured lines would be two-point stubs.
+            const pts = aeciData.slice().sort((a, b) => a.date < b.date ? -1 : 1);
+            // Estimated rows (this site's rescaling of an earlier fit) stay off the line
+            const frontier = pts.filter(p => !p.estimated);
+            const lineSegPoints = [frontier.map(p => [x(p.date), y(p.score)])];
+            const pathD = frontier.map((p, i) => (i === 0 ? 'M' : 'L') + `${x(p.date)},${y(p.score)}`).join(' ');
+            svg += `<path d="${pathD}" fill="none" stroke="#b8a99d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />`;
+
+            // Interval bars under the dots: thin = global 95% CI, thick = local CI
+            pts.forEach(p => {
+                if (p.lo == null) return;
+                const px = x(p.date), color = colors[p.fam];
+                lineSegPoints.push([[px, y(p.hi)], [px, y(p.lo)]]);
+                svg += `<line x1="${px}" y1="${y(p.hi)}" x2="${px}" y2="${y(p.lo)}" stroke="#555" stroke-width="1.2" />`;
+                [p.hi, p.lo].forEach(v => {
+                    svg += `<line x1="${px - 4}" y1="${y(v)}" x2="${px + 4}" y2="${y(v)}" stroke="#555" stroke-width="1.2" />`;
+                });
+                svg += `<line x1="${px}" y1="${y(p.localHi)}" x2="${px}" y2="${y(p.localLo)}" stroke="${color}" stroke-width="5" stroke-opacity="0.55" stroke-linecap="butt" />`;
+            });
+
+            // Estimates: a hollow diamond with a dotted range whisker, deliberately unlike the
+            // card's solid points and capped interval bars
+            pts.filter(p => p.estimated).forEach(p => {
+                const px = x(p.date), color = colors[p.fam];
+                lineSegPoints.push([[px, y(p.estHi)], [px, y(p.estLo)]]);
+                svg += `<line x1="${px}" y1="${y(p.estHi)}" x2="${px}" y2="${y(p.estLo)}" stroke="${color}" stroke-width="1.6" stroke-dasharray="1.5,3" stroke-linecap="round" />`;
+            });
+
+            // Estimates are labelled last, below their markers: the published points get
+            // first pick of the crowded top-right corner
+            const labelItems = [], estItems = [];
+            pts.forEach(p => {
+                const px = x(p.date), py = y(p.score), color = colors[p.fam];
+                const name = p.label || p.model;
+                let tip, value;
+                if (p.estimated) {
+                    value = `est. ~${p.score.toFixed(1)}`;
+                    tip = `${name} — about ${p.score.toFixed(1)} (${p.estLo} to ${p.estHi}): this site's estimate, rescaled from ${p.original} in the ${p.originalFit}'s fit. Not Anthropic's figure`;
+                    svg += `<rect x="${px - 4.2}" y="${py - 4.2}" width="8.4" height="8.4" transform="rotate(45 ${px} ${py})" fill="#fffdfa" stroke="${color}" stroke-width="2"><title>${tip}</title></rect>`;
+                    estItems.push({ px, py, color, series: 'est-' + p.fam, name, value, tip, prefer: 'below' });
+                    return;
+                }
+                if (p.figure_read) {
+                    value = `~${p.score.toFixed(1)}`;
+                    tip = `${name} — about ${p.score.toFixed(1)}, read off the card's figure (no published value or interval)`;
+                    svg += `<circle cx="${px}" cy="${py}" r="4.5" fill="#fffdfa" stroke="${color}" stroke-width="2.2"><title>${tip}</title></circle>`;
+                } else if (p.anchor) {
+                    value = `${p.score} (anchor)`;
+                    tip = `${name} — ${p.score}: fixed by definition, one of the scale's two anchors`;
+                    svg += `<circle cx="${px}" cy="${py}" r="5" fill="${color}" stroke="white" stroke-width="2"><title>${tip}</title></circle>`;
+                } else {
+                    value = p.score.toFixed(1);
+                    tip = `${name} — AECI ${p.score}; 95% interval ${p.lo} to ${p.hi} (global), ${p.localLo} to ${p.localHi} (against the three prior releases)`;
+                    svg += `<circle cx="${px}" cy="${py}" r="5" fill="${color}" stroke="white" stroke-width="2"><title>${tip}</title></circle>`;
+                }
+                labelItems.push({ px, py, color, name, value, tip });
+            });
+
+            svg += placeLabels(labelItems.concat(estItems), { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch }, lineObstacles(lineSegPoints));
+
+            svg += '</svg>';
+            setSvg('aeci-chart', svg);
+        }
+
+        // AECI refit drift: every printed AECI value, by the card (fit) that printed it.
+        // Columns are fits in release order, one line per model; the model's own-card value
+        // is solid, later restatements hollow. Data: data/benchmarks.json, charts.aeci.drift
+        function renderAeciDriftChart() {
+            // >>> generated:aeci-drift from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
+            const aeciDrift = {
+                fits: [
+                    { id: 'opus4.8', label: 'Opus 4.8', short: 'O4.8', date: '2026-05-28', basket: 'n=11 subset' },
+                    { id: 'fable5', label: 'Mythos 5', short: 'M5', date: '2026-06-09', basket: '' },
+                    { id: 'opus5', label: 'Opus 5', short: 'O5', date: '2026-07-24', basket: '' },
+                    { id: 'fable5.1', label: 'Mythos 5.1', short: 'M5.1', date: '2026-09-01', basket: '338 benchmarks' },
+                    { id: 'opus5.5', label: 'Opus 5.5', short: 'O5.5', date: '2026-09-22', fit: '2026-09-18', basket: '374 benchmarks' },
+                    { id: 'sonnet5.5', label: 'Sonnet 5.5', short: 'S5.5', date: '2026-09-28', basket: '' },
+                    { id: 'haiku5.5', label: 'Haiku 5.5', short: 'H5.5', date: '2026-10-07', basket: '' },
+                    { id: 'fable5.2', label: 'Mythos 5.2', short: 'M5.2', date: '2026-11-09', fit: '2026-11-06', basket: '371 benchmarks' }
+                ],
+                values: [
+                    { model: 'Opus 4.7', fam: 'opus', fit: 'opus4.8', value: 154.1 },
+                    { model: 'Opus 4.8', fam: 'opus', fit: 'opus4.8', value: 155.5, n: 11, own: true },
+                    { model: 'Mythos Preview', fam: 'mythos', fit: 'opus4.8', value: 158.3 },
+                    { model: 'Mythos Preview', fam: 'mythos', fit: 'fable5', value: 158.91, lo: 156.19, hi: 162.84 },
+                    { model: 'Mythos Preview', fam: 'mythos', fit: 'opus5.5', value: 161.88, lo: 158.3, hi: 166.73 },
+                    { model: 'Mythos Preview', fam: 'mythos', fit: 'fable5.2', value: 165.71, lo: 162.7, hi: 169.65 },
+                    { model: 'Mythos 5', fam: 'mythos', fit: 'fable5', value: 161.29, lo: 157.32, hi: 165.39, n: 67, own: true },
+                    { model: 'Mythos 5', fam: 'mythos', fit: 'opus5', value: 161.3, lo: 157.3, hi: 165.4, n: 67 },
+                    { model: 'Mythos 5', fam: 'mythos', fit: 'fable5.1', value: 159.46, lo: 156.3, hi: 165.46, n: 97 },
+                    { model: 'Mythos 5', fam: 'mythos', fit: 'opus5.5', value: 164.49, lo: 160.63, hi: 170.26 },
+                    { model: 'Mythos 5', fam: 'mythos', fit: 'fable5.2', value: 168.68, lo: 165.24, hi: 172.99 },
+                    { model: 'Opus 5', fam: 'opus', fit: 'opus5', value: 162.1, lo: 158.0, hi: 167.3, n: 40, own: true },
+                    { model: 'Opus 5', fam: 'opus', fit: 'fable5.1', value: 160.73, lo: 157.35, hi: 167.11, n: 64 },
+                    { model: 'Opus 5', fam: 'opus', fit: 'opus5.5', value: 165.18, lo: 161.16, hi: 171.11 },
+                    { model: 'Opus 5', fam: 'opus', fit: 'fable5.2', value: 169.4, lo: 165.83, hi: 173.89 },
+                    { model: 'Mythos 5.1', fam: 'mythos', fit: 'fable5.1', value: 161.98, lo: 158.2, hi: 169.0, n: 46, own: true },
+                    { model: 'Mythos 5.1', fam: 'mythos', fit: 'opus5.5', value: 168.12, lo: 163.92, hi: 174.99 },
+                    { model: 'Mythos 5.1', fam: 'mythos', fit: 'fable5.2', value: 172.62, lo: 168.51, hi: 177.63 },
+                    { model: 'Opus 5.5', fam: 'opus', fit: 'opus5.5', value: 169.36, lo: 165.23, hi: 177.05, n: 43, own: true },
+                    { model: 'Opus 5.5', fam: 'opus', fit: 'sonnet5.5', value: 169.12 },
+                    { model: 'Opus 5.5', fam: 'opus', fit: 'haiku5.5', value: 174.56 },
+                    { model: 'Opus 5.5', fam: 'opus', fit: 'fable5.2', value: 174.78, lo: 170.33, hi: 180.29 },
+                    { model: 'Sonnet 5.5', fam: 'sonnet', fit: 'sonnet5.5', value: 167.93, own: true },
+                    { model: 'Haiku 5.5', fam: 'haiku', fit: 'haiku5.5', value: 167.11, own: true },
+                    { model: 'Mythos 5.2', fam: 'mythos', fit: 'fable5.2', value: 177.12, lo: 172.42, hi: 182.94, n: 37, own: true }
+                ]
+            };
+            // <<< generated:aeci-drift
+
+            const colors = { mythos: '#5b8a9a', fable: '#c09a5b', opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882' };
+            const fits = aeciDrift.fits, values = aeciDrift.values;
+            const col = Object.fromEntries(fits.map((f, i) => [f.id, i]));
+            const last = fits.length - 1;
+
+            // Wide right margin: the six lines that reach the newest fit are named there
+            const f = frame(800, 430, { top: 30, right: 150, bottom: 62, left: 55 });
+            const W = f.W, H = f.H;
+            const pad = UI.compact ? { ...f.pad, right: 96 } : f.pad;
+            const cw = W - pad.left - pad.right;
+            const ch = H - pad.top - pad.bottom;
+            const inset = UI.compact ? 12 : 34;
+
+            const minScore = 150, maxScore = 180, step = 5;
+            const x = i => pad.left + inset + (cw - inset * 2) * i / last;
+            const y = v => pad.top + ch - ((v - minScore) / (maxScore - minScore)) * ch;
+            const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+            let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+            for (let v = minScore; v <= maxScore; v += step) {
+                svg += `<line x1="${pad.left}" y1="${y(v)}" x2="${W - pad.right}" y2="${y(v)}" stroke="#e8d5c8" stroke-width="1" />`;
+                svg += `<text x="${pad.left - 10}" y="${y(v) + 4}" text-anchor="end" fill="#666" font-size="12">${v}</text>`;
+            }
+            fits.forEach((ft, i) => {
+                svg += `<line x1="${x(i)}" y1="${pad.top}" x2="${x(i)}" y2="${pad.top + ch}" stroke="#e8d5c8" stroke-width="1" stroke-dasharray="4,4" />`;
+                svg += `<text x="${x(i)}" y="${H - pad.bottom + 19}" text-anchor="middle" fill="#666" font-size="${UI.compact ? 10 : 11.5}">${UI.compact ? ft.short : ft.label}</text>`;
+                if (!UI.compact) svg += `<text x="${x(i)}" y="${H - pad.bottom + 34}" text-anchor="middle" fill="#999" font-size="10">${fmtDate(ft.date)}</text>`;
+            });
+            svg += `<text x="${pad.left + cw / 2}" y="${H - 6}" text-anchor="middle" fill="#888" font-size="10.5" font-style="italic">${UI.compact ? 'each column: one system card&#39;s fit' : 'system card whose fit the column is, with its release date'}</text>`;
+            svg += `<line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+            svg += `<line x1="${pad.left}" y1="${pad.top + ch}" x2="${W - pad.right}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+
+            const models = [];
+            values.forEach(v => {
+                let m = models.find(q => q.model === v.model);
+                if (!m) models.push(m = { model: v.model, fam: v.fam, pts: [] });
+                m.pts.push(v);
+            });
+            models.forEach(m => m.pts.sort((a, b) => col[a.fit] - col[b.fit]));
+
+            const lineSegPoints = [];
+            models.forEach(m => {
+                if (m.pts.length < 2) return;
+                const pts = m.pts.map(v => [x(col[v.fit]), y(v.value)]);
+                lineSegPoints.push(pts);
+                svg += `<path d="${pts.map((q, i) => (i ? 'L' : 'M') + q[0] + ',' + q[1]).join(' ')}" fill="none" stroke="${colors[m.fam]}" stroke-width="2" stroke-opacity="0.85" stroke-linecap="round" stroke-linejoin="round" />`;
+            });
+
+            const labelItems = [], hollowBoxes = [], endLabels = [];
+            models.forEach(m => {
+                const color = colors[m.fam];
+                m.pts.forEach(v => {
+                    const px = x(col[v.fit]), py = y(v.value), ft = fits[col[v.fit]];
+                    const ci = v.lo != null ? `, 95% interval ${v.lo} to ${v.hi}` : '';
+                    const tip = `${m.model} — ${v.value} in the ${ft.label} card${ft.fit ? ' (fit of ' + fmtDate(ft.fit) + ')' : ''}${ft.basket ? ', ' + ft.basket : ''}${ci}. ${v.own ? 'Its own card.' : 'Restated in a later refit.'}`;
+                    if (v.own) {
+                        svg += `<circle cx="${px}" cy="${py}" r="6" fill="${color}" stroke="white" stroke-width="2"><title>${tip}</title></circle>`;
+                        if (col[v.fit] !== last) labelItems.push({ px, py, color, series: m.model, name: m.model, value: String(v.value), tip });
+                    } else {
+                        svg += `<circle cx="${px}" cy="${py}" r="4.5" fill="#fffdfa" stroke="${color}" stroke-width="2"><title>${tip}</title></circle>`;
+                        hollowBoxes.push({ x: px - 6, y: py - 6, w: 12, h: 12 });
+                    }
+                });
+                const end = m.pts[m.pts.length - 1];
+                if (col[end.fit] === last) endLabels.push({ m, v: end, py: y(end.value) });
+                else if (!m.pts.some(v => v.own)) {
+                    // A model with no own-card value and no point in the newest fit (Opus 4.7)
+                    const px = x(col[end.fit]), py = y(end.value);
+                    labelItems.push({ px, py, color, series: m.model, name: m.model, value: String(end.value), prefer: 'below' });
+                }
+            });
+
+            // Names at the right edge for the lines that reach the newest fit, pushed apart
+            // so that neighbours a point apart do not print over each other
+            const gap = 13 * UI.k;
+            endLabels.sort((a, b) => a.py - b.py);
+            endLabels.forEach((e, i) => { e.ly = i ? Math.max(e.py, endLabels[i - 1].ly + gap) : e.py; });
+            endLabels.forEach(e => {
+                const px = x(last), color = colors[e.m.fam], lx = px + (UI.compact ? 12 : 18);
+                svg += `<line x1="${px + 7}" y1="${e.py}" x2="${lx - 3}" y2="${e.ly}" stroke="${color}" stroke-width="1" stroke-opacity="0.6" />`;
+                svg += `<text x="${lx}" y="${e.ly + 4}" fill="${color}" font-size="${UI.compact ? 9.5 : 12}" font-weight="600">${e.m.model}${UI.compact ? '' : `<tspan font-weight="400" fill-opacity="0.85"> ${e.v.value}</tspan>`}</text>`;
+            });
+
+            // Phones get the right-edge names only: eight columns 40 units apart leave no room
+            // for point labels, and the table below (open by default there) has every value
+            if (!UI.compact) {
+                svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch },
+                    hollowBoxes.concat(lineObstacles(lineSegPoints)));
+            }
+            svg += '</svg>';
+            setSvg('aeci-drift-chart', svg);
+
+            // The same data as a model x fit table, which is the readable form on a phone
+            const cell = (m, ft) => {
+                const v = m.pts.find(q => q.fit === ft.id);
+                if (!v) return '<td style="padding: 4px 7px; text-align: right; color: #bbb;">&ndash;</td>';
+                return `<td style="padding: 4px 7px; text-align: right; ${v.own ? 'font-weight: 700; color: #2d3436;' : 'color: #666;'}">${v.value}</td>`;
+            };
+            document.getElementById('aeci-drift-table').innerHTML =
+                `<details class="chart-notes"${UI.compact ? ' open' : ''}><summary>Values as a table</summary>`
+                + `<div style="overflow-x: auto; margin-top: 10px;"><table style="border-collapse: collapse; font-size: 12.5px; white-space: nowrap;">`
+                + `<thead><tr><th style="padding: 4px 7px; text-align: left; color: #666;">Model \\ card's fit</th>`
+                + fits.map(ft => `<th style="padding: 4px 7px; text-align: right; color: #666; font-weight: 600;">${ft.label}<br><span style="font-weight: 400; color: #999;">${fmtDate(ft.date)}</span></th>`).join('')
+                + `</tr></thead><tbody>`
+                + models.map(m => `<tr style="border-top: 1px solid #f0d9cc;"><td style="padding: 4px 7px; font-weight: 600; color: ${colors[m.fam]};">${m.model}</td>${fits.map(ft => cell(m, ft)).join('')}</tr>`).join('')
+                + `</tbody></table></div>`
+                + `<p class="benchmark-note" style="margin-top: 8px;">Bold: the value in the model's own card. Grey: restated in a later card. A dash: that card prints no value for the model.</p></details>`;
         }
 
         // Capability Profile — radar/spider chart across ten evaluations, one polygon per
@@ -3163,8 +3826,8 @@
         }
 
         // Remote Labor Index — share of 240 real freelance projects completed to a standard
-        // a paying client would accept. This chart plots the public board, not first-party
-        // reports. Sourcing and the check log: data/benchmarks.json, charts.rli
+        // a paying client would accept. This chart plots the public board; the one exception
+        // is a row flagged reported_by (see below). Sourcing and the check log: data/benchmarks.json, charts.rli
         function renderRliChart() {
             // >>> generated:rli from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
             const rliData = {
@@ -3179,7 +3842,8 @@
                 ],
                 fable: [
                     { model: 'Fable 5', date: '2026-06-09', score: 15.83 },
-                    { model: 'Fable 5.1', date: '2026-09-01', score: 17.92 }
+                    { model: 'Fable 5.1', date: '2026-09-01', score: 17.92 },
+                    { model: 'Fable 5.2', date: '2026-11-09', score: 41.3, reported_by: 'anthropic' }
                 ]
             };
             // <<< generated:rli
@@ -3195,7 +3859,8 @@
             const maxDate = dateDomainEnd('2026-08-15', Object.values(rliData).flat().map(p => p.date));
             const dateRange = maxDate - minDate;
 
-            const minScore = 0, maxScore = 24, step = 4;
+            // 48 since Fable 5.2's 41.3 (it was 24 while Opus 5.5's 21.25 was the top)
+            const minScore = 0, maxScore = 48, step = 8;
 
             function x(dateStr) {
                 const d = new Date(dateStr + 'T00:00:00');
@@ -3224,10 +3889,11 @@
             // on this chart is measured against.
             const launchY = y(2.5);
             svg += `<line x1="${pad.left}" y1="${launchY}" x2="${W - pad.right}" y2="${launchY}" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="6,4" stroke-opacity="0.65" />`;
-            // On phones the caption sits under the line, in the empty band above the axis:
-            // above it, the compressed early Opus runs printed straight over it
+            // The caption sits above the line at the right, clear of the early Opus runs.
+            // (While the axis stopped at 24% phones had room for it under the line; at 48%
+            // that band is too thin and it printed over the x-axis.)
             const launchText = UI.compact ? '2.5% &mdash; best at launch, Oct 2025' : '2.5% &mdash; best of any model at launch, Oct 2025';
-            const launchTextY = UI.compact ? launchY + 15 * UI.k : launchY - 7;
+            const launchTextY = launchY - 7;
             svg += `<text x="${W - pad.right - 4}" y="${launchTextY}" text-anchor="end" fill="#b8860b" font-size="10.5" font-style="italic">${launchText}</text>`;
 
             svg += `<line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
@@ -3235,17 +3901,34 @@
 
             const labelItems = [];
             const lineSegPoints = [];
+            // A row flagged reported_by is a figure Anthropic published from a Scale run that
+            // Scale's board does not list yet: hollow, and joined to its line by a dashed
+            // segment (the OSWorld chart's convention for a point of different provenance).
+            // Dropping the flag in data/benchmarks.json makes it an ordinary solid point.
             Object.entries(rliData).forEach(([series, points]) => {
                 const color = colors[series];
 
-                if (points.length > 1) {
-                    lineSegPoints.push(points.map(p => [x(p.date), y(p.score)]));
-                    const pathD = points.map((p, i) => (i === 0 ? 'M' : 'L') + `${x(p.date)},${y(p.score)}`).join(' ');
+                const solid = points.filter(p => !p.reported_by);
+                if (solid.length > 1) {
+                    lineSegPoints.push(solid.map(p => [x(p.date), y(p.score)]));
+                    const pathD = solid.map((p, i) => (i === 0 ? 'M' : 'L') + `${x(p.date)},${y(p.score)}`).join(' ');
                     svg += `<path d="${pathD}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`;
                 }
+                points.forEach((p, i) => {
+                    if (i === 0 || !p.reported_by) return;
+                    const q = points[i - 1];
+                    lineSegPoints.push([[x(q.date), y(q.score)], [x(p.date), y(p.score)]]);
+                    svg += `<line x1="${x(q.date)}" y1="${y(q.score)}" x2="${x(p.date)}" y2="${y(p.score)}" stroke="${color}" stroke-width="2.2" stroke-dasharray="5,4" stroke-linecap="round" />`;
+                });
 
                 points.forEach(p => {
                     const px = x(p.date), py = y(p.score);
+                    if (p.reported_by) {
+                        const tip = `${p.model} — ${p.score}% automation rate: a Scale AI run reported in Anthropic's system card, not yet on Scale's board`;
+                        svg += `<circle cx="${px}" cy="${py}" r="5" fill="#fffdfa" stroke="${color}" stroke-width="2.4"><title>${tip}</title></circle>`;
+                        labelItems.push({ px, py, color, name: p.model, value: `${p.score}% (system card)`, tip });
+                        return;
+                    }
                     svg += `<circle cx="${px}" cy="${py}" r="5" fill="${color}" stroke="white" stroke-width="2">`
                          + `<title>${p.model} — ${p.score}% automation rate${p.scaffold ? ' (' + p.scaffold + ')' : ''}</title></circle>`;
 
@@ -3595,8 +4278,9 @@
                 { id: 'aa-gdpval', name: 'Artificial Analysis GDPval-AA', short: 'AA GDPval', url: 'https://artificialanalysis.ai/evaluations/gdpval-aa', feeds: 'GDPval-AA chart', lastChecked: '2026-11-09' },
                 { id: 'aa-suite', name: 'Artificial Analysis model records', short: 'AA suite', url: 'https://artificialanalysis.ai/models', feeds: 'Capability Profile (nine of ten axes)', lastChecked: '2026-11-09' },
                 { id: 'arc-agi-2', name: 'ARC Prize ARC-AGI-2', short: 'ARC-AGI-2', url: 'https://arcprize.org/leaderboard', feeds: 'ARC-AGI-2 chart', lastChecked: '2026-11-09' },
-                { id: 'arc-agi-3', name: 'ARC Prize ARC-AGI-3', short: 'ARC-AGI-3', url: 'https://arcprize.org/leaderboard', feeds: 'ARC-AGI-2 chart (dashed line)', lastChecked: '2026-11-09' },
+                { id: 'arc-agi-3', name: 'ARC Prize ARC-AGI-3', short: 'ARC-AGI-3', url: 'https://arcprize.org/leaderboard', feeds: 'ARC-AGI-3 chart', lastChecked: '2026-11-09' },
                 { id: 'scale-rli', name: 'Scale AI / CAIS Remote Labor Index', short: 'Scale RLI', url: 'https://labs.scale.com/leaderboard/rli', feeds: 'Remote Labor Index chart', lastChecked: '2026-11-09' },
+                { id: 'scale-hle', name: 'Scale AI / CAIS Humanity\'s Last Exam', short: 'Scale HLE', url: 'https://labs.scale.com/leaderboard/humanitys_last_exam', feeds: 'Humanity\'s Last Exam chart (context only: the chart plots Anthropic\'s system-card figures)', lastChecked: '2026-11-09' },
                 { id: 'andon-vb2', name: 'Andon Labs Vending-Bench 2', short: 'Vending-Bench 2', url: 'https://andonlabs.com/evals/vending-bench-2', feeds: 'Vending-Bench Earnings chart', lastChecked: '2026-11-09' },
                 { id: 'andon-arena', name: 'Andon Labs Vending-Bench Arena', short: 'VB Arena', url: 'https://andonlabs.com/evals/vending-bench-arena', feeds: 'Vending-Bench Arena chart', lastChecked: '2026-11-09' },
                 { id: 'osworld-verified', name: 'OSWorld-Verified', short: 'OSWorld-Verified', url: 'https://os-world.github.io/', feeds: 'OSWorld chart (context only: the chart plots Anthropic\'s own figures)', lastChecked: '2026-11-09' },
@@ -3620,7 +4304,7 @@
                 { model: 'fable5', board: 'vals-tb21', status: 'listed', firstSeen: '2026-07-25', lastChecked: '2026-11-09', value: 80.5, note: 'On the chart\'s first pull of the board, 2026-07-25.' },
                 { model: 'fable5', board: 'aa-gdpval', status: 'listed', firstSeen: '2026-06-09', lastChecked: '2026-11-09', value: 1618, note: 'On the chart in the release-day commit; that commit does not say when the board was read, so it stays an upper bound.' },
                 { model: 'fable5', board: 'arc-agi-2', status: 'listed', firstListed: '2026-08-03', basis: 'ARC Prize verified Fable 5 on Aug 3, 2026 (chart note)', firstSeen: '2026-09-02', lastChecked: '2026-11-09', value: 89.2 },
-                { model: 'fable5', board: 'arc-agi-3', status: 'pending', lastChecked: '2026-11-09', note: 'Fable 5.2 is the first Fable with a verified ARC-AGI-3 score.' },
+                { model: 'fable5', board: 'arc-agi-3', status: 'pending', lastChecked: '2026-11-09', note: 'No v3 row; a dash in both ARC-AGI-3 columns of the leaderboard table on 2026-11-09. Fable 5.2 is the first Fable with a verified score.' },
                 { model: 'fable5', board: 'scale-rli', status: 'listed', firstSeen: '2026-07-29', lastChecked: '2026-11-09', value: 15.83, note: 'In the July 2026 results; first read 2026-07-29.' },
                 { model: 'fable5', board: 'andon-vb2', status: 'listed', firstSeen: '2026-07-29', lastChecked: '2026-11-09', value: 5680, note: 'On the July 29 pull, when the chart moved to the VB2 board.' },
                 { model: 'fable5', board: 'andon-arena', status: 'listed', firstSeen: '2026-07-29', lastChecked: '2026-11-09', value: 4244, note: 'In the round Andon dates 2026-06-09.' },
@@ -3634,22 +4318,23 @@
                 { model: 'sonnet5', board: 'vals-tb21', status: 'listed', firstSeen: '2026-07-25', lastChecked: '2026-11-09', value: 74.5, note: 'On the chart\'s first pull of the board, 2026-07-25.' },
                 { model: 'sonnet5', board: 'aa-gdpval', status: 'listed', firstSeen: '2026-07-01', lastChecked: '2026-11-09', value: 1470, note: 'First on the chart in the 2026-07-01 commit.' },
                 { model: 'sonnet5', board: 'arc-agi-2', status: 'pending', lastChecked: '2026-11-09', note: 'No entry in the data files on any read through 2026-11-09.' },
-                { model: 'sonnet5', board: 'arc-agi-3', status: 'pending', lastChecked: '2026-11-09', note: 'No entry in the data files.' },
+                { model: 'sonnet5', board: 'arc-agi-3', status: 'pending', lastChecked: '2026-11-09', note: 'Not on the ARC Prize board at all (no v1, v2 or v3 row) on 2026-11-09.' },
                 { model: 'sonnet5', board: 'scale-rli', status: 'pending', lastChecked: '2026-11-09', note: 'No row on any read through 2026-11-09.' },
                 { model: 'sonnet5', board: 'andon-vb2', status: 'listed', firstSeen: '2026-07-29', notListedAsOf: '2026-07-01', lastChecked: '2026-11-09', value: 6378, note: 'Not yet run on Vending-Bench on 2026-07-01; on the July 29 pull.' },
                 { model: 'sonnet5', board: 'andon-arena', status: 'pending', lastChecked: '2026-11-09', note: 'Has never entered a round.' },
                 { model: 'opus5', board: 'vals-tb21', status: 'listed', firstSeen: '2026-07-25', lastChecked: '2026-11-09', value: 84.6, note: 'On the chart\'s first pull of the board, 2026-07-25, the day after release.' },
                 { model: 'opus5', board: 'aa-gdpval', status: 'listed', firstSeen: '2026-07-25', lastChecked: '2026-11-09', value: 1730, note: 'First on the chart in the 2026-07-25 commit.' },
                 { model: 'opus5', board: 'arc-agi-2', status: 'listed', firstSeen: '2026-07-25', lastChecked: '2026-11-09', value: 90.4, note: 'First on the chart in the 2026-07-25 commit, the day after release.' },
-                { model: 'opus5', board: 'arc-agi-3', status: 'listed', firstSeen: '2026-07-29', lastChecked: '2026-11-09', value: 30.16, note: 'On the July 29 read of v3.json.' },
+                { model: 'opus5', board: 'arc-agi-3', status: 'listed', firstSeen: '2026-07-29', lastChecked: '2026-11-09', value: 30.16, note: 'High, the only effort run; on the July 29 read of v3.json. The results page says it was the top score as of July 24, which is a claim about rank, not a stated listing date.' },
                 { model: 'opus5', board: 'scale-rli', status: 'pending', lastChecked: '2026-11-09', note: 'Shipped three weeks after the July results; no row since.' },
                 { model: 'opus5', board: 'andon-vb2', status: 'listed', firstSeen: '2026-07-29', lastChecked: '2026-11-09', value: 11182, note: 'On the July 29 pull.' },
                 { model: 'opus5', board: 'andon-arena', status: 'listed', firstSeen: '2026-07-29', lastChecked: '2026-11-09', value: 7044, note: 'In the round Andon dates 2026-07-24.' },
                 { model: 'fable51', board: 'vals-tb21', status: 'listed', firstListed: '2026-08-31', basis: 'Vals board update of Aug 31, 2026, as recorded when the row was read on Sep 2', firstSeen: '2026-09-02', lastChecked: '2026-11-09', value: 85.0, note: 'The update stamp is the day before the Sep 1 release.' },
                 { model: 'fable51', board: 'aa-gdpval', status: 'listed', firstSeen: '2026-09-02', lastChecked: '2026-11-09', value: 1763, note: 'On the Sep 2 (v2) pull.' },
                 { model: 'fable51', board: 'arc-agi-2', status: 'listed', firstListed: '2026-09-01', basis: 'ARC Prize verified Fable 5.1 on its Sep 1 release day (chart note)', firstSeen: '2026-09-02', lastChecked: '2026-11-09', value: 90.0 },
-                { model: 'fable51', board: 'arc-agi-3', status: 'pending', lastChecked: '2026-11-09', note: 'Fable 5.2 is the first Fable with a verified ARC-AGI-3 score.' },
+                { model: 'fable51', board: 'arc-agi-3', status: 'pending', lastChecked: '2026-11-09', note: 'No v3 row; its results page shows a dash under ARC-AGI-3 (2026-11-09).' },
                 { model: 'fable51', board: 'scale-rli', status: 'listed', firstListed: '2026-09-17', basis: 'the board entry\'s createdAt, 2026-09-17', firstSeen: '2026-10-10', lastChecked: '2026-11-09', value: 17.92 },
+                { model: 'fable51', board: 'scale-hle', status: 'listed', firstListed: '2026-09-03', basis: 'the board entry\'s createdAt, 2026-09-03', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 46.5, note: 'Listed as \'Fable 5.1 (xhigh)\'. Not the figure the chart plots (60.9, Anthropic\'s).' },
                 { model: 'fable51', board: 'andon-vb2', status: 'listed', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 5422, note: 'Added from the board on Sep 28.' },
                 { model: 'fable51', board: 'andon-arena', status: 'listed', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 5719, note: 'Round 12, which Andon pins to 2026-09-04.' },
                 { model: 'mythos51', board: 'vals-tb21', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
@@ -3663,32 +4348,36 @@
                 { model: 'opus55', board: 'aa-gdpval', status: 'listed', firstListed: '2026-09-22', basis: 'the board was pulled on Sep 22, 2026, release day, and already had it', firstSeen: '2026-09-22', lastChecked: '2026-11-09', value: 1866 },
                 { model: 'opus55', board: 'aa-suite', status: 'listed', firstSeen: '2026-09-28', lastChecked: '2026-11-09', note: 'On the radar from the 2026-09-28 rebuild.' },
                 { model: 'opus55', board: 'arc-agi-2', status: 'listed', firstSeen: '2026-09-28', notListedAsOf: '2026-09-22', lastChecked: '2026-11-09', value: 93.3, note: 'No entry on release day; read from the data files on Sep 28.' },
-                { model: 'opus55', board: 'arc-agi-3', status: 'pending', lastChecked: '2026-11-09', note: 'Still no ARC-AGI-3 run on the Nov 9 read.' },
+                { model: 'opus55', board: 'arc-agi-3', status: 'pending', lastChecked: '2026-11-09', note: 'No v3 row; its results page lists five ARC-AGI-1 and -2 runs and a dash under ARC-AGI-3 (re-checked 2026-11-09).' },
                 { model: 'opus55', board: 'scale-rli', status: 'listed', firstListed: '2026-10-07', basis: 'the board entry\'s createdAt, 2026-10-07', firstSeen: '2026-10-10', lastChecked: '2026-11-09', value: 21.25 },
+                { model: 'opus55', board: 'scale-hle', status: 'pending', lastChecked: '2026-11-09', note: 'No row on 2026-11-09.' },
                 { model: 'opus55', board: 'andon-vb2', status: 'listed', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 9235, note: 'Added from the board on Sep 28.' },
                 { model: 'opus55', board: 'andon-arena', status: 'listed', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 8094, note: 'Round 13, which Andon gives no date.' },
                 { model: 'sonnet55', board: 'vals-tb21', status: 'listed', firstListed: '2026-09-27', basis: 'Vals\'s September 27 update, per the chart note', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 83.1, note: 'The update stamp is the day before the Sep 28 release.' },
                 { model: 'sonnet55', board: 'aa-gdpval', status: 'listed', firstListed: '2026-09-28', basis: 're-read Sep 28, 2026, release day, to add it; AA ran it on a pre-release deployment', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 1838 },
                 { model: 'sonnet55', board: 'aa-suite', status: 'listed', firstListed: '2026-09-28', basis: 'AA values for it were read on Sep 28, 2026, release day (the Nov 9 pull log compares against them)', firstSeen: '2026-09-28', lastChecked: '2026-11-09' },
                 { model: 'sonnet55', board: 'arc-agi-2', status: 'listed', firstSeen: '2026-11-09', notListedAsOf: '2026-10-10', lastChecked: '2026-11-09', value: 83.9, note: 'Listed some time between the Oct 10 and Nov 9 reads.' },
-                { model: 'sonnet55', board: 'arc-agi-3', status: 'listed', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 24.31, note: 'XHigh, Standard harness; listed but not plotted.' },
+                { model: 'sonnet55', board: 'arc-agi-3', status: 'listed', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 24.31, note: 'XHigh, Standard harness (72.44 with the Provider Adapter). The board states no result date.' },
                 { model: 'sonnet55', board: 'scale-rli', status: 'pending', lastChecked: '2026-11-09', note: 'No row on 2026-10-10 or 2026-11-09.' },
+                { model: 'sonnet55', board: 'scale-hle', status: 'listed', firstListed: '2026-10-12', basis: 'the board entry\'s createdAt, 2026-10-12', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 46.12, note: 'Listed as \'Sonnet 5.5 (xhigh)\'. Not the figure the chart plots (56.9, Anthropic\'s).' },
                 { model: 'sonnet55', board: 'andon-vb2', status: 'listed', firstSeen: '2026-10-10', notListedAsOf: '2026-09-28', lastChecked: '2026-11-09', value: 11165, note: 'No run on Sep 28, release day; on the board by Oct 10.' },
                 { model: 'sonnet55', board: 'andon-arena', status: 'pending', lastChecked: '2026-11-09', note: 'No round on 2026-10-10 or 2026-11-09.' },
                 { model: 'haiku55', board: 'vals-tb21', status: 'pending', lastChecked: '2026-11-09', note: 'No run on 2026-10-10 or 2026-11-09 (Haiku 4.5 Thinking is still the board\'s newest Haiku).' },
                 { model: 'haiku55', board: 'aa-gdpval', status: 'listed', firstSeen: '2026-10-10', lastChecked: '2026-11-09', value: 1631, note: 'On AA\'s October 10 board at 1618; no read between release and then.' },
                 { model: 'haiku55', board: 'aa-suite', status: 'listed', firstSeen: '2026-11-09', notListedAsOf: '2026-10-10', lastChecked: '2026-11-09', note: 'On 2026-10-10 AA showed only an Intelligence Index for it.' },
                 { model: 'haiku55', board: 'arc-agi-2', status: 'listed', firstSeen: '2026-11-09', notListedAsOf: '2026-10-10', lastChecked: '2026-11-09', value: 61.3, note: 'Listed some time between the Oct 10 and Nov 9 reads.' },
-                { model: 'haiku55', board: 'arc-agi-3', status: 'listed', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 0.45, note: 'Max, Standard harness; listed but not plotted.' },
+                { model: 'haiku55', board: 'arc-agi-3', status: 'listed', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 0.45, note: 'Max, Standard harness, the only effort run (2.82 with the Provider Adapter). The board states no result date.' },
                 { model: 'haiku55', board: 'scale-rli', status: 'pending', lastChecked: '2026-11-09', note: 'No row on 2026-10-10 or 2026-11-09.' },
+                { model: 'haiku55', board: 'scale-hle', status: 'listed', firstListed: '2026-10-08', basis: 'the board entry\'s createdAt, 2026-10-08', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 30.12, note: 'Not the figure the chart plots (45.9, Anthropic\'s).' },
                 { model: 'haiku55', board: 'andon-vb2', status: 'listed', firstSeen: '2026-10-10', lastChecked: '2026-11-09', value: 3602, note: 'On the board by Oct 10, flagged New.' },
                 { model: 'haiku55', board: 'andon-arena', status: 'pending', lastChecked: '2026-11-09', note: 'No round on 2026-10-10 or 2026-11-09.' },
                 { model: 'fable52', board: 'vals-tb21', status: 'pending', lastChecked: '2026-11-09', note: 'No row on the Vals 2.1 board or tbench.ai\'s 2.1 leaderboard; Vals\'s Fable 5.2 page lists Terminal-Bench 4.0 only (65.15%).' },
                 { model: 'fable52', board: 'aa-gdpval', status: 'listed', firstListed: '2026-11-09', basis: 'read from the board on release day: "Claude Fable 5.2 (Max, Default Fallback)" 1830.73', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 1831 },
                 { model: 'fable52', board: 'aa-suite', status: 'listed', firstListed: '2026-11-09', basis: 'read from AA\'s model records on release day', firstSeen: '2026-11-09', lastChecked: '2026-11-09' },
                 { model: 'fable52', board: 'arc-agi-2', status: 'listed', firstListed: '2026-11-09', basis: 'verified by ARC Prize and read from its data files on release day', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 93.8 },
-                { model: 'fable52', board: 'arc-agi-3', status: 'listed', firstListed: '2026-11-09', basis: 'read from evaluations.json (v3_Semi_Private) on release day', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 81.17, note: 'XHigh, Standard harness; the chart rounds it to 81.2.' },
-                { model: 'fable52', board: 'scale-rli', status: 'pending', lastChecked: '2026-11-09', note: 'No row. The system card reports 41.3% from a Scale-run evaluation, which is a first-party report, not a board listing.' },
+                { model: 'fable52', board: 'arc-agi-3', status: 'listed', firstListed: '2026-11-09', basis: 'read from evaluations.json (v3_Semi_Private) on release day', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 81.17, note: 'XHigh, Standard harness; the chart labels it 81.2. 97.72 with the Provider Adapter (High).' },
+                { model: 'fable52', board: 'scale-rli', status: 'pending', lastChecked: '2026-11-09', note: 'No row on the board. Meanwhile the chart plots, as a hollow point, the 41.3% (99 of 240) that Anthropic\'s system card reports from a Scale-run evaluation: a first-party report, not a board listing, so this stays pending.' },
+                { model: 'fable52', board: 'scale-hle', status: 'pending', lastChecked: '2026-11-09', note: 'No row on release day.' },
                 { model: 'fable52', board: 'andon-vb2', status: 'pending', lastChecked: '2026-11-09', note: 'No Fable 5.2 (or Mythos) entry on the board.' },
                 { model: 'fable52', board: 'andon-arena', status: 'pending', lastChecked: '2026-11-09', note: 'Round 14 has been added with no Claude entrant; no round includes Fable 5.2.' },
                 { model: 'fable52', board: 'osworld-verified', status: 'uncheckable', lastChecked: '2026-11-09', note: 'Inconclusive: the board\'s data loads dynamically and the automated read could not see it.' },
@@ -3700,6 +4389,7 @@
                 { model: 'mythos52', board: 'arc-agi-2', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
                 { model: 'mythos52', board: 'arc-agi-3', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
                 { model: 'mythos52', board: 'scale-rli', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
+                { model: 'mythos52', board: 'scale-hle', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
                 { model: 'mythos52', board: 'andon-vb2', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
                 { model: 'mythos52', board: 'andon-arena', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
                 { model: 'mythos52', board: 'osworld-verified', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
@@ -3828,6 +4518,10 @@
             renderGDPvalChart();
             renderRliChart();
             renderArcChart();
+            renderArc3Chart();
+            renderHleChart();
+            renderAeciChart();
+            renderAeciDriftChart();
         }
 
         render();

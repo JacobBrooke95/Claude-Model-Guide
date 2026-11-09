@@ -6,7 +6,7 @@ places that use them:
 | Source | Generates |
 |---|---|
 | `models.json` | `modelData` and the pricing chart rows in `claude-models.html`; all of `forecast/data/anthropic_releases.csv` |
-| `benchmarks.json` | every benchmark chart's data in `claude-models.html` (SWE-bench Pro, Terminal-Bench 2.1, OSWorld, Vending-Bench 2, Vending-Bench Arena, GDPval-AA, RLI, ARC-AGI-2/3, Capability Profile) |
+| `benchmarks.json` | every benchmark chart's data in `claude-models.html` (Anthropic ECI, SWE-bench Pro, Terminal-Bench 2.1, OSWorld, Vending-Bench 2, Vending-Bench Arena, GDPval-AA, RLI, ARC-AGI-2, ARC-AGI-3, Humanity's Last Exam, Capability Profile) |
 | `board-checks.json` | the Board Coverage section of `claude-models.html` |
 
 ```
@@ -63,6 +63,38 @@ block straight out of the page.
 Then rebuild. `matrix.since` in `board-checks.json` sets which releases get a
 column in the table; move it forward when the table gets too wide for a phone.
 
+## Charts with their own rules
+
+- **Anthropic ECI (`aeci`) is one fit, never a splice.** Each system card refits
+  the whole scale, and the card says values from different fits are not
+  comparable. When a new card publishes a new table, **replace** `points` whole
+  with that card's fit; never append a row from a newer or older card. Earlier
+  cards' values live in `earlier_fits` and are not plotted. Rows flagged
+  `figure_read` were measured off the card's figure; rows flagged `estimated`
+  are this site's own one-hop rescaling of an earlier card's value (their
+  `derivation` shows the arithmetic). Drop or re-derive both when the fit
+  changes.
+  The second panel (`aeci.drift`) is the opposite case: it is append-only.
+  When a card prints AECI values, add a column to `drift.fits` and one
+  `drift.values` row per value printed, with `"own": true` on the card's own
+  model. Only printed values go in; a model shown as an unlabelled dot in a
+  figure gets no cell. The estimates' overlap pairs must be cells of this
+  matrix, and the two panels and the note must agree on every number.
+- **Humanity's Last Exam (`hle`) plots Anthropic's no-tools figures only.**
+  With-tools runs, per-effort runs and the two outside boards (Artificial
+  Analysis, Scale/CAIS) are recorded under the rows' notes and `other_sources`
+  and are never joined to the line. If a later card restates an earlier model
+  under the newer setup, plot the restated figure and keep the own-card figure
+  in the row note.
+- **ARC-AGI-3 (`arc_agi_3`)**: `series` is each model's best Standard-harness
+  score, `adapter` its best Provider Adapter score (hollow, never joined), and
+  `configurations` every Claude run on the board.
+- **A first-party figure on a board-sourced chart** gets `"reported_by":
+  "anthropic"` on its row (today: Fable 5.2 on `rli`). The chart draws it hollow
+  on a dashed segment. When the board lists the model, switch `score` and
+  `source` to the board's and delete the flag; the point turns solid. Its
+  Board Coverage row stays `pending` until then.
+
 ## Still manual
 
 - **Prose.** The notes under each chart, the section sub-heads and the intro
@@ -70,6 +102,8 @@ column in the table; move it forward when the table gets too wide for a phone.
   hard-code a check date ("board checked November 9, 2026", "has no run yet"):
   Board Coverage updates from the JSON, those sentences do not.
 - **The `lastUpdated.textContent` stamp** in `claude-models.html`.
+- **Dated captions in sub-heads** ("read November 9, 2026" under ARC-AGI-3,
+  "a single fit, dated November 6, 2026" under Anthropic ECI).
 - **Chart furniture**: legends (a family's first appearance on a chart needs a
   legend entry), axis ranges and headroom constants such as `maxPrice`, the
   "Announcement" link rows, and which models the Capability Profile plots
