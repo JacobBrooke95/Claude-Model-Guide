@@ -7,7 +7,7 @@
     "caveats": "chart-wide warnings",
     "history": "the pull log that used to live in code comments above each array, oldest first; append to it on every re-check",
     "board": "id of the third-party board in board-checks.json that this chart is checked against",
-    "drift": "aeci chart, second panel: `fits` is the cards in release order (the fit each one used), `values` every AECI value printed in a card; `own` marks the value in the model's own card, lo/hi the 95% (global) interval where printed, n the number of benchmarks the model was scored on",
+    "drift": "aeci chart, second panel: `released` is each model's public release date (from models.json; the panel's x position), `fits` is the cards in release order (the fit each one used), `values` every AECI value printed in a card; `own` marks the value in the model's own card, lo/hi the 95% (global) interval where printed, n the number of benchmarks the model was scored on",
     "estimated / derivation": "aeci chart: `estimated` marks a value this site computed, not a published one; `derivation` (provenance, not written to the page) holds the original value, its fit, the overlap pairs and the mapping",
     "figure_read / anchor": "chart data on the aeci chart: a value measured off a published figure (approximate, drawn hollow), and the scale's fixed anchor",
     "reported_by": "chart data, not provenance: set to \"anthropic\" on a row of a board-sourced chart whose figure comes from Anthropic's own report because the board has not listed it yet. The chart draws such a point hollow; delete the field when the board lists the row",
@@ -484,6 +484,7 @@
         {"model": "Haiku 5.5", "fam": "haiku", "date": "2026-10-07", "score": 167.3, "estimated": true, "estLo": 166.3, "estHi": 168.3, "original": 167.11, "originalFit": "Haiku 5.5 card", "derivation": {"original_value": 167.11, "original_fit": "the fit in the Haiku 5.5 system card, sec. 2.3.2 (Opus 5.5 is 174.56 in it)", "overlap_pairs": [{"model": "Opus 5.5", "source_fit": 174.56, "nov6_fit": 174.78, "offset": 0.22}], "mapping": "constant offset, one overlap: 167.11 + 0.22 = 167.33", "cross_check": "stretching from the GPT-5 anchor: 150 + 17.11 x (24.78 / 24.56) = 167.26", "range": "+/-1.0, on the same basis as Sonnet 5.5's", "hops": 1}, "source": "SITE ESTIMATE, not an Anthropic figure: Haiku 5.5 card value rescaled onto the November 6 fit", "as_of": "2026-11-09"}
       ],
       "drift": {
+        "released": {"Opus 4.7": "2026-04-16", "Opus 4.8": "2026-05-28", "Mythos Preview": "2026-04-07", "Mythos 5": "2026-06-09", "Opus 5": "2026-07-24", "Mythos 5.1": "2026-09-01", "Opus 5.5": "2026-09-22", "Sonnet 5.5": "2026-09-28", "Haiku 5.5": "2026-10-07", "Mythos 5.2": "2026-11-09"},
         "fits": [
           {"id": "opus4.8", "label": "Opus 4.8", "short": "O4.8", "date": "2026-05-28", "basket": "n=11 subset", "note": "Opus 4.8 card sec. 2.3.4: values 'on this set', a reduced set of 11 evaluations (previous launches used 25). No fit date stated."},
           {"id": "fable5", "label": "Mythos 5", "short": "M5", "date": "2026-06-09", "basket": "", "note": "Fable 5 / Mythos 5 card sec. 2.3.5. No fit date or benchmark count stated; Mythos 5 scored on n=67. Mythos Preview's value is 'the highest score measured for any Claude Mythos Preview snapshot'."},

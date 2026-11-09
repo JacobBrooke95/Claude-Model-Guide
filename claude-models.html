@@ -277,27 +277,28 @@
                         </div>
                     </div>
                 </div>
-                <h3 style="font-size: 1.05em; font-weight: 600; color: #2d3436; margin: 26px 0 6px;">Refit drift: every AECI value Anthropic has published</h3>
-                <p class="benchmark-note" style="margin-bottom: 18px;">The same models, re-scored each time a new system card refits the index. A large dot is a model at its release, with the score its own card gave it. The thin trail of small dots is that same model's score as each later card restated it, placed at that card's date. The model did not change along its trail; the index did.</p>
+                <h3 style="font-size: 1.05em; font-weight: 600; color: #2d3436; margin: 26px 0 6px;">Refit drift: how each model's score has moved since release</h3>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Each model sits at its release date. The large dot is the score its own system card gave it. The pole above it carries every score Anthropic has published for that same model since, as the index was refitted. The height of the pole is how far the number moved without the model changing.</p>
                 <div class="benchmark-chart-container">
                     <div id="aeci-drift-chart"></div>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #8a7f78; width: 13px; height: 13px;"></div>
-                            <span>Large dot: score in the model's own card, at its release date</span>
+                            <span>Large dot: the score in the model's own card</span>
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #8a7f78; width: 6px; height: 6px;"></div>
-                            <span>Small dots: the same model restated in later cards' refits</span>
+                            <span>Small dots above it: the same model re-scored in later refits (ringed: the latest)</span>
                         </div>
                     </div>
                     <div id="aeci-drift-table"></div>
                     <p class="benchmark-note">
-                        These are all 25 AECI values printed in the text or tables of Anthropic's system cards, for ten models across eight cards (PDFs re-read November 9, 2026). Colours are families, as above: Mythos teal, Opus violet, Sonnet coral, Haiku green. The marks under the axis are the eight card dates; every small dot sits above one of them, and a vertical slice at a card's date compares models within that card's single fit. The last small dot on a trail, at November 9, is the model's value in the first chart.<br>
-                        <strong>What the drift shows.</strong> A model's score rises at almost every refit, by more than the gap between neighbouring models. Mythos 5 was 161.29 in its own card, 159.46 in the Mythos 5.1 card, 164.49 on the September 18 fit and 168.68 on November 6: 7.4 points in five months with no change to the model. Opus 5.5 was published four times in seven weeks, at 169.36, 169.12, 174.56 and 174.78. From the Mythos 5.1 card's fit to September 18 the three models in both rose 4.5 to 6.1 points; from September 18 to November 6 the five in both rose 3.8 to 5.4. At any one card's date the order of the models hardly changes, which is the comparison the index is built for. The large dots alone, read left to right, are the scores as first published, each on a different fit, and are not a trend.<br>
-                        <strong>Why, in the cards' words.</strong> "Because each refit re-estimates the whole scale, AECI values from this fit are not comparable to the AECI values in earlier system cards." Each refit drops, adds and corrects benchmarks (338 in the Mythos 5.1 card's basket, 374 on September 18, 371 on November 6, with fixes for "misconfigured or low-signal benchmarks"), then re-pins the two anchors, Claude Sonnet 3.5 at 130 and GPT-5 at 150. The frontier sits well above the upper anchor, where, the Opus 5.5 card says, models "move together" and the uncertainty "grows with distance above the upper anchor". Earlier cards described these shifts as "well within our reported error bars"; the published 95% intervals are 8 to 12 points wide at the frontier.<br>
-                        <strong>Where the estimates above come from.</strong> The two diamonds in the first chart use cells of this one: the small dots on Opus 5.5's trail at September 28 (169.12, the Sonnet 5.5 card) and October 7 (174.56, the Haiku 5.5 card), each against its last dot, 174.78.<br>
-                        <strong>Gaps are gaps.</strong> Mythos Preview (April 7) and Opus 4.7 (April 16) have no large dot because their own cards printed no AECI value, only slope ratios and distances from trend; each starts at the first card that did print one, the Opus 4.8 card of May 28, which is seven and six weeks after their releases. Opus 4.8, Sonnet 5.5, Haiku 5.5 and Mythos 5.2 are lone large dots: no later card has restated them. The May 28 values are from a reduced set of 11 evaluations, not a full fit. The Opus 5 card's Mythos 5 figure (161.3) is its predecessor's 161.29 rounded, so the July 24 dot may be the same fit with one model added. Every card also has a figure showing earlier models as unlabelled dots; apart from the November 6 figure read for the first chart, those were not measured, so an empty cell means "not printed", not "not scored". Sonnet 5 has no value anywhere: its card says "we did not compile AECI for Sonnet 5".
+                        These are all 25 AECI values printed in the text or tables of Anthropic's system cards, for ten models (PDFs re-read November 9, 2026). Colours are families, as above: Mythos teal, Opus violet, Sonnet coral, Haiku green. Hover or tap a small dot for the card and date it came from; the table has every value.<br>
+                        <strong>What the poles show.</strong> A model's published score climbs after release, by more than the gap between neighbouring models. Mythos 5 was 161.29 in its own card and is 168.68 now: 7.4 points in five months with no change to the model. Mythos 5.1 has gone from 161.98 to 172.62 in ten weeks, Opus 5 from 162.1 to 169.40, and Opus 5.5 was published four times in seven weeks, at 169.36, 169.12, 174.56 and 174.78. Between one refit and the next the models scored in both rose together, by 4.5 to 6.1 points from the Mythos 5.1 card to the September 18 fit and by 3.8 to 5.4 from there to November 6. The large dot is at the foot of its pole except where a model was once re-scored below its original before rising: Mythos 5 (161.29, then 159.46 in the Mythos 5.1 card) and Opus 5 (162.1, then 160.73 in the same card), each by more than a point, and Opus 5.5 by a quarter-point (169.12, hidden behind its large dot).<br>
+                        <strong>Which dots can be compared.</strong> The ringed dot at the top of a pole is the model's score on the November 6 fit. Six models have one (Mythos Preview, Mythos 5, Opus 5, Mythos 5.1, Opus 5.5 and, as its large dot, Mythos 5.2), and those six are the mutually comparable numbers, the same ones as in the first chart. The large dots are not: each is from a different fit, so read left to right they are not a trend.<br>
+                        <strong>Why the numbers move, in the cards' words.</strong> "Because each refit re-estimates the whole scale, AECI values from this fit are not comparable to the AECI values in earlier system cards." Each refit drops, adds and corrects benchmarks (338 in the Mythos 5.1 card's basket, 374 on September 18, 371 on November 6, with fixes for "misconfigured or low-signal benchmarks"), then re-pins the two anchors, Claude Sonnet 3.5 at 130 and GPT-5 at 150. The frontier sits well above the upper anchor, where, the Opus 5.5 card says, models "move together" and the uncertainty "grows with distance above the upper anchor". Earlier cards described these shifts as "well within our reported error bars"; the published 95% intervals are 8 to 12 points wide at the frontier.<br>
+                        <strong>Where the estimates above come from.</strong> The two diamonds in the first chart use dots on Opus 5.5's pole: 169.12 (from the Sonnet 5.5 card) and 174.56 (from the Haiku 5.5 card), each against the ringed 174.78.<br>
+                        <strong>Gaps are gaps.</strong> Mythos Preview (April 7) and Opus 4.7 (April 16) have no large dot because their own cards printed no AECI value, only slope ratios and distances from trend; their first published scores, 158.3 and 154.1, came seven and six weeks later in the Opus 4.8 card, from a reduced set of 11 evaluations. Opus 4.8, Sonnet 5.5, Haiku 5.5 and Mythos 5.2 are lone large dots: no later card has re-scored them, which for the first three also means no score on the current fit. The Opus 5 card's Mythos 5 figure (161.3) is its predecessor's 161.29 rounded, so that dot sits on the large one. Every card also has a figure showing earlier models as unlabelled dots; apart from the November 6 figure read for the first chart, those were not measured, so a missing dot means "not printed", not "not scored". Sonnet 5 has no value anywhere: its card says "we did not compile AECI for Sonnet 5".
                     </p>
                 </div>
             </div>
@@ -3509,14 +3510,16 @@
             setSvg('aeci-chart', svg);
         }
 
-        // AECI refit drift, over real time. Each model gets one large dot at (its release
-        // date, the score its own card printed) and a thin trail of small dots, one per later
-        // card that restated it, at (that card's release date, the restated value). A model
-        // whose own card printed no number has a trail with no large dot. A vertical slice
-        // at any card's date is one fit. Data: data/benchmarks.json, charts.aeci.drift
+        // AECI refit drift, per model. Everything a model has ever scored is drawn at that
+        // model's own release date: a large dot for the score in its own card, and a thin
+        // vertical pole carrying a small dot for each later restatement. The pole's height
+        // is how far the published number moved with the model unchanged. Which card each
+        // small dot came from is in its tooltip and the table, not in the drawing.
+        // Data: data/benchmarks.json, charts.aeci.drift
         function renderAeciDriftChart() {
             // >>> generated:aeci-drift from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
             const aeciDrift = {
+                released: { 'Opus 4.7': '2026-04-16', 'Opus 4.8': '2026-05-28', 'Mythos Preview': '2026-04-07', 'Mythos 5': '2026-06-09', 'Opus 5': '2026-07-24', 'Mythos 5.1': '2026-09-01', 'Opus 5.5': '2026-09-22', 'Sonnet 5.5': '2026-09-28', 'Haiku 5.5': '2026-10-07', 'Mythos 5.2': '2026-11-09' },
                 fits: [
                     { id: 'opus4.8', label: 'Opus 4.8', short: 'O4.8', date: '2026-05-28', basket: 'n=11 subset' },
                     { id: 'fable5', label: 'Mythos 5', short: 'M5', date: '2026-06-09', basket: '' },
@@ -3558,45 +3561,38 @@
             // <<< generated:aeci-drift
 
             const colors = { mythos: '#5b8a9a', fable: '#c09a5b', opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882' };
-            const fits = aeciDrift.fits, values = aeciDrift.values;
+            const fits = aeciDrift.fits, values = aeciDrift.values, released = aeciDrift.released;
             const fitOf = Object.fromEntries(fits.map(ft => [ft.id, ft]));
-            const lastDate = fits[fits.length - 1].date;
+            const newestFit = fits[fits.length - 1].id;
 
-            // Wide right margin: the trails that reach the newest card are named there
-            const f = frame(800, 450, { top: 30, right: 158, bottom: 55, left: 55 });
-            const W = f.W, H = f.H;
-            const pad = UI.compact ? { ...f.pad, right: 98 } : f.pad;
+            const { W, H, pad } = frame(800, UI.compact ? 560 : 460, { top: 30, right: 25, bottom: 55, left: 55 });
             const cw = W - pad.left - pad.right;
             const ch = H - pad.top - pad.bottom;
 
-            // The axis ends a few days after the newest card rather than dateDomainEnd's six
-            // weeks: the space to its right is the label margin, not more dates
-            const day = 86400000;
-            // and it starts six weeks before the first card (three on phones) so the three
-            // names at May 28 have somewhere to go
-            const minDate = new Date(new Date(fits[0].date + 'T00:00:00').getTime() - (UI.compact ? 20 : 44) * day);
-            const maxDate = new Date(new Date(lastDate + 'T00:00:00').getTime() + 6 * day);
+            // Phones spend the width on the poles: the axis starts and ends closer to the first
+            // and last release. Ten names do not fit beside the dots in 330 units, so there
+            // each name is written vertically under its own model (see below), and the scale
+            // runs past 150 and 180 to give that text somewhere to go
+            const minDate = new Date(UI.compact ? '2026-03-24T00:00:00' : '2026-03-01T00:00:00');
+            const maxDate = UI.compact
+                ? new Date(new Date(Object.values(released).sort().pop() + 'T00:00:00').getTime() + 16 * 86400000)
+                : dateDomainEnd('2026-10-01', Object.values(released));
             const dateRange = maxDate - minDate;
 
-            const minScore = 150, maxScore = 180, step = 5;
+            const minScore = UI.compact ? 141 : 150, maxScore = UI.compact ? 189 : 180, step = 5;
             const x = d => pad.left + ((new Date(d + 'T00:00:00') - minDate) / dateRange) * cw;
             const y = v => pad.top + ch - ((v - minScore) / (maxScore - minScore)) * ch;
             const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
             let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
-            for (let v = minScore; v <= maxScore; v += step) {
+            for (let v = 150; v <= 180; v += step) {
                 svg += `<line x1="${pad.left}" y1="${y(v)}" x2="${W - pad.right}" y2="${y(v)}" stroke="#e8d5c8" stroke-width="1" />`;
                 svg += `<text x="${pad.left - 10}" y="${y(v) + 4}" text-anchor="end" fill="#666" font-size="12">${v}</text>`;
             }
-            // monthTicks stops five weeks short of the edge it is given, so hand it one that far out
-            monthTicks(UI.compact ? '2026-06-01' : '2026-05-01', new Date(maxDate.getTime() + 34 * day), 1, minDate).forEach(dl => {
+            monthTicks('2026-04-01', UI.compact ? new Date(maxDate.getTime() + 30 * 86400000) : maxDate, 1, minDate).forEach(dl => {
                 const xPos = x(dl.date);
                 svg += `<line x1="${xPos}" y1="${pad.top}" x2="${xPos}" y2="${pad.top + ch}" stroke="#e8d5c8" stroke-width="1" stroke-dasharray="4,4" />`;
                 svg += `<text x="${xPos}" y="${H - pad.bottom + 20}" text-anchor="middle" fill="#666" font-size="12">${dl.label}</text>`;
-            });
-            // A tick mark under the axis at each card's date: every small dot sits above one
-            fits.forEach(ft => {
-                svg += `<line x1="${x(ft.date)}" y1="${pad.top + ch}" x2="${x(ft.date)}" y2="${pad.top + ch + 5}" stroke="#b8a99d" stroke-width="1.5"><title>${ft.label} card, ${fmtDate(ft.date)}</title></line>`;
             });
             svg += `<line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
             svg += `<line x1="${pad.left}" y1="${pad.top + ch}" x2="${W - pad.right}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
@@ -3609,61 +3605,76 @@
             });
             models.forEach(m => m.pts.sort((a, b) => fitOf[a.fit].date < fitOf[b.fit].date ? -1 : 1));
 
-            // Trails first, thin, so the release dots sit on top
-            const lineSegPoints = [];
+            const labelItems = [], obstacles = [], poles = [];
+            let small = '', large = '', topText = '';
             models.forEach(m => {
-                if (m.pts.length < 2) return;
-                const pts = m.pts.map(v => [x(fitOf[v.fit].date), y(v.value)]);
-                lineSegPoints.push(pts);
-                svg += `<path d="${pts.map((q, i) => (i ? 'L' : 'M') + q[0] + ',' + q[1]).join(' ')}" fill="none" stroke="${colors[m.fam]}" stroke-width="1.3" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round" />`;
-            });
-
-            const labelItems = [], smallBoxes = [], endLabels = [];
-            let small = '', large = '';
-            models.forEach(m => {
-                const color = colors[m.fam];
-                const hasOwn = m.pts.some(v => v.own);
-                m.pts.forEach((v, i) => {
-                    const ft = fitOf[v.fit], px = x(ft.date), py = y(v.value);
+                const color = colors[m.fam], px = x(released[m.model]);
+                const own = m.pts.find(v => v.own);
+                const vals = m.pts.map(v => v.value);
+                const lo = Math.min(...vals), hi = Math.max(...vals);
+                if (m.pts.length > 1) {
+                    svg += `<line x1="${px}" y1="${y(lo)}" x2="${px}" y2="${y(hi)}" stroke="${color}" stroke-width="1.4" stroke-opacity="0.75" stroke-linecap="round" />`;
+                    poles.push([[px, y(lo)], [px, y(hi)]]);
+                }
+                const restated = m.pts.filter(v => !v.own);
+                restated.forEach((v, i) => {
+                    const ft = fitOf[v.fit], py = y(v.value);
+                    const latest = v.fit === newestFit;
                     const ci = v.lo != null ? `, 95% interval ${v.lo} to ${v.hi}` : '';
-                    const where = `${ft.label} card, ${fmtDate(ft.date)}${ft.fit ? ' (fit of ' + fmtDate(ft.fit) + ')' : ''}${ft.basket ? ', ' + ft.basket : ''}`;
-                    if (v.own) {
-                        const tip = `${m.model} — ${v.value} at release, in its own card (${where})${ci}`;
-                        large += `<circle cx="${px}" cy="${py}" r="6.5" fill="${color}" stroke="white" stroke-width="2"><title>${tip}</title></circle>`;
-                        // Phones name a release dot only when no other release falls within ten
-                        // days of it: Opus 5.5, Sonnet 5.5 and Haiku 5.5 shipped inside fifteen,
-                        // and their three labels with connectors buried the trails. They tap.
-                        const crowded = UI.compact && models.some(q => q !== m && q.pts.some(w => w.own
-                            && Math.abs(new Date(fitOf[w.fit].date) - new Date(ft.date)) <= 10 * day));
-                        if (ft.date !== lastDate && !crowded) labelItems.push({ px, py, color, series: m.model, name: m.model, value: String(v.value), tip });
-                    } else {
-                        const tip = `${m.model} — ${v.value} as restated in the ${where}${ci}`;
-                        small += `<circle cx="${px}" cy="${py}" r="3" fill="${color}" stroke="white" stroke-width="1"><title>${tip}</title></circle>`;
-                        smallBoxes.push({ x: px - 4, y: py - 4, w: 8, h: 8 });
-                        // No own-card score: the name goes on the first printed value, and says so
-                        if (!hasOwn && i === 0 && !UI.compact) {
-                            labelItems.push({ px, py, color, series: m.model, name: m.model, value: 'no score in its own card', tip, prefer: v.value > 156 ? undefined : 'below' });
-                        }
+                    const nth = `${i + 1} of ${restated.length}`;
+                    const tip = `${m.model} — ${v.value}, re-scored in the ${ft.label} card of ${fmtDate(ft.date)}${ft.fit ? ' (fit of ' + fmtDate(ft.fit) + ')' : ''}${ft.basket ? ', ' + ft.basket : ''}${ci}. Update ${nth}${latest ? ', the latest' : ''}.`;
+                    // Earlier updates are lighter; the latest is full strength with a ring
+                    small += latest
+                        ? `<circle cx="${px}" cy="${py}" r="3.6" fill="${color}" stroke="white" stroke-width="1.2"><title>${tip}</title></circle><circle cx="${px}" cy="${py}" r="5.6" fill="none" stroke="${color}" stroke-width="1" stroke-opacity="0.7" />`
+                        : `<circle cx="${px}" cy="${py}" r="3.2" fill="${color}" fill-opacity="0.6" stroke="white" stroke-width="1"><title>${tip}</title></circle>`;
+                    obstacles.push({ x: px - 6, y: py - 6, w: 12, h: 12 });
+                    if (latest) {
+                        const tx = px + 9, ty = py + 3.5, txt = String(v.value);
+                        topText += `<text x="${tx}" y="${ty}" fill="${color}" font-size="10.5">${txt}</text>`;
+                        const b = annotationBox(tx, ty, txt, 10.5);
+                        obstacles.push({ x: tx, y: b.y, w: b.w + 4, h: b.h });
                     }
                 });
-                const end = m.pts[m.pts.length - 1];
-                if (fitOf[end.fit].date === lastDate) endLabels.push({ m, v: end, py: y(end.value), own: !!end.own });
+                if (own) {
+                    const py = y(own.value), ft = fitOf[own.fit];
+                    const ci = own.lo != null ? `, 95% interval ${own.lo} to ${own.hi}` : '';
+                    const tip = `${m.model} — ${own.value} in its own card, at release on ${fmtDate(ft.date)}${ci}${restated.length ? '' : '. Not re-scored in any later card'}`;
+                    large += `<circle cx="${px}" cy="${py}" r="6.5" fill="${color}" stroke="white" stroke-width="2"><title>${tip}</title></circle>`;
+                    // Names go below the release dot where they can: the pole rises above it
+                    labelItems.push({ px, py, color, series: m.model, name: m.model, value: String(own.value), tip, prefer: 'below' });
+                } else {
+                    // No own-card score: the name hangs off the foot of the pole, and says so
+                    labelItems.push({ px, py: y(lo), color, series: m.model, name: m.model,
+                                      value: 'no score in its own card', prefer: 'below' });
+                }
             });
-            svg += small + large;
+            svg += small + large + topText;
 
-            // Names at the right edge for everything that has a value in the newest card,
-            // pushed apart so that neighbours a point apart do not print over each other
-            const gap = 13 * UI.k;
-            endLabels.sort((a, b) => a.py - b.py);
-            endLabels.forEach((e, i) => { e.ly = i ? Math.max(e.py, endLabels[i - 1].ly + gap) : e.py; });
-            endLabels.forEach(e => {
-                const px = x(lastDate), color = colors[e.m.fam], lx = px + (UI.compact ? 13 : 20);
-                svg += `<line x1="${px + (e.own ? 8 : 5)}" y1="${e.py}" x2="${lx - 3}" y2="${e.ly}" stroke="${color}" stroke-width="1" stroke-opacity="0.6" />`;
-                svg += `<text x="${lx}" y="${e.ly + 4}" fill="${color}" font-size="${UI.compact ? 9.5 : 12}" font-weight="${e.own ? 700 : 600}">${e.m.model}${UI.compact ? '' : `<tspan font-weight="400" fill-opacity="0.85"> ${e.v.value}</tspan>`}</text>`;
-            });
-
-            svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch },
-                smallBoxes.concat(lineObstacles(lineSegPoints)));
+            if (UI.compact) {
+                // Every model named, on a phone: the name runs vertically, downward from just
+                // under the model's lowest dot. Where the next release is too close for two
+                // columns of text (Opus 5.5, six days before Sonnet 5.5), the earlier one's
+                // name runs upward from the top of its pole instead.
+                const byX = labelItems.slice().sort((a, b) => a.px - b.px);
+                byX.forEach((it, i) => {
+                    const m = models.find(q => q.model === it.name);
+                    const vals = m.pts.map(v => v.value);
+                    const next = byX[i + 1];
+                    const up = next && next.px - it.px < 11 && m.pts.length > 1;
+                    // A model with no own-card score gets a dagger, explained under the axis
+                    const text = m.pts.some(v => v.own) ? `${it.name} · ${it.value}` : `${it.name} †`;
+                    if (up) {
+                        const ty = y(Math.max(...vals)) - 10, tx = it.px + 3.4;
+                        svg += `<text x="${tx}" y="${ty}" transform="rotate(-90 ${tx} ${ty})" fill="${it.color}" font-size="9.5" font-weight="600">${text}</text>`;
+                    } else {
+                        const ty = y(Math.min(...vals)) + 10, tx = it.px - 3.4;
+                        svg += `<text x="${tx}" y="${ty}" transform="rotate(90 ${tx} ${ty})" fill="${it.color}" font-size="9.5" font-weight="600">${text}</text>`;
+                    }
+                });
+                svg += `<text x="${pad.left + cw / 2}" y="${H - 8}" text-anchor="middle" fill="#888" font-size="9.5" font-style="italic">† no score in its own card</text>`;
+            } else {
+                svg += placeLabels(labelItems, { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch }, obstacles.concat(lineObstacles(poles)));
+            }
             svg += '</svg>';
             setSvg('aeci-drift-chart', svg);
 
