@@ -35,7 +35,7 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-COPY = ["forecast", "data", "scripts", "styles.css", "package.json"]  # plus root *.html; enough to run everything
+COPY = ["forecast", "data", "scripts", "styles.css", "info.js", "package.json"]  # plus root *.html; enough to run everything
 
 
 def dry_run(argv):
@@ -77,7 +77,17 @@ def soft(cmd, what):
     return r.returncode == 0, out
 
 
+KNOWN_FLAGS = {"--dry-run", "--weekly", "--no-markets"}
+
+
 def main(argv):
+    unknown = [a for a in argv if a.startswith("-") and a not in KNOWN_FLAGS]
+    if unknown:                             # includes -h/--help: never fall through to a real run
+        print(__doc__)
+        if not set(unknown) <= {"-h", "--help"}:
+            print("unknown option(s): " + " ".join(unknown), file=sys.stderr)
+            return 2
+        return 0
     if "--dry-run" in argv:
         return dry_run(argv)
     import pandas as pd
