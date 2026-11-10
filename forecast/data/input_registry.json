@@ -198,7 +198,7 @@
    "cat": "F_corporate",
    "name": "Job postings (voice, FedRAMP, etc.)",
    "layer": "watch",
-   "status": "product signal, not model timing"
+   "status": "product signal, not model timing; speech and audio postings feed the separate voice-model forecast"
   },
   {
    "id": "weekday",

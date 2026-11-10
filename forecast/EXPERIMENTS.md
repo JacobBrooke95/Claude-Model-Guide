@@ -79,6 +79,36 @@ Status values: `ready` (can be run as written), `needs code` (a Config flag has 
 - **Observation.** `tools/build_signals.py` drops some `FALSE:` rows on purpose (timing-only misses whose model shipped soon after: "Opus 5 ships 7/16", the McAteer call, the pitch-deck story). They are false alarms about a date and are not counted in the false-alarm rate, which sits on its floor of 0.01.
 - **Question.** Should a missed dated call count as a false alarm for its class? Decide with E7's tabulation; no change before.
 
+## Voice-model forecast: assumptions held open (`voice.py`, `data/voice_params.json`)
+
+Added 2026-11-10 at Jacob's request. None of these can be backtested: the event has not happened, and the reference class is seven launches at other labs. They are assumptions, stated so they can be judged. Changing one is a model change (bump `MODEL_VERSION` in `voice.py`, log it here) and, like E1, a decision for Jacob. Status of all six: `tracking`.
+
+### V1. The base rate is the geometric mean of the pooled lab rate and Anthropic's own rate
+- **Assumed.** Pooled 0.55 a year, Anthropic alone 0.14, used 0.28. The pooled rate ignores that Anthropic has waited longer than any lab did; its own rate ignores every other lab.
+- **Would calibrate it.** Nothing soon. A proper frailty model needs more labs than exist. Revisit only if the reference class changes (a row was wrong, a lab is added).
+
+### V2. Program evidence earns the pooled rate (×2.0)
+- **Assumed.** A grade A/B sign of a staffed speech effort (the Audio research posting, the Krieger statement) moves the hazard from 0.28 to 0.55 a year.
+- **Would calibrate it.** For each reference lab, the date its speech effort became public and the time from there to launch. Collect into `data/voice_reference_class.csv` (`signal_date`, mostly blank today: only OpenAI's and xAI's are filled, and both are launch demos, not hiring).
+
+### V3. Preparation multipliers: grade weights (A 1, B 1, C 0.5), specificity weights (yes 1, partial 0.5, no 0.25)
+- **Assumed.** cap 5 and ρ 0.5 are the family model's; the weights inside the exponent are not measured. Today they give ×1.46 for the voice-recording opt-in and ×1.10 for the hidden Voice item.
+- **Would calibrate it.** Anthropic product launches with a first-party preparation artifact beforehand (data-use changes, hidden interface items) and their leads. One case on file: the 2025 voice mode, 43 days from the first hidden-interface report to launch, 126 from the CEO's statement. Tabulate five or more product launches (voice mode, memory, web search, computer use, Claude in Chrome) from TestingCatalog's archive before touching the weights.
+
+### V4. Preparation signals fade with a 365-day half-life
+- **Assumed.** Chosen long on purpose: the Fable 5.2 post-mortem found the family model aged its sightings too fast (standing rule 2).
+- **Would calibrate it.** The same tabulation as V3.
+
+### V5. Rungs B and C from A: 90-day mean delay to general availability; speech-to-speech follows at the pooled rate when it is not first
+- **Assumed.** The shares (67% open on day one, 67% speech-to-speech first) are measured on seven launches; the delays rest on one case each.
+- **Would calibrate it.** Anthropic's own preview-to-GA gaps for products (not models), and the reference labs' later launches.
+
+### V6. Market weight 0.75 (liquid) or 0.5 (thin)
+- **Assumed.** No market exists. The lean toward the market comes from the family scorecard (market 0.005, model 0.077 over two blocks) and from this model having no record.
+- **Would calibrate it.** A market opening. Until one has resolved against this forecast, the weight is a prior. E1's rule applies: do not fit a weight on fewer than 20 blocks.
+
+**Also open.** The model has no absence-of-evidence term (as E8) and no term for Anthropic choosing a deeper partnership instead; rung A depends on Anthropic saying the model is its own, which the model treats as certain if one ships.
+
 ## Done (mechanical, not experiments)
 
 | Date | What | Where |

@@ -42,7 +42,10 @@ meta.update(last_release=last, claude6_markets=claude6,
             repo="https://github.com/JacobBrooke95/Claude-Model-Guide/tree/main/forecast")
 gp = os.path.join(ROOT, "output/grades.json")
 G = json.load(open(gp)) if os.path.exists(gp) else None
-data = dict(forecast=F, backtest=B, registry=R, meta=meta, grades=G)
+# voice-model forecast (voice.py): optional, the page hides the section when the file is missing
+vp = os.path.join(ROOT, "output/voice_forecast.json")
+V = json.load(open(vp)) if os.path.exists(vp) else None
+data = dict(forecast=F, backtest=B, registry=R, meta=meta, grades=G, voice=V)
 blob = json.dumps(data, default=str, separators=(",", ":")).replace("</", "<\\/")
 tpl = open(os.path.join(ROOT, "page_template.html")).read()
 body = tpl.replace("/*__DATA__*/null", blob)

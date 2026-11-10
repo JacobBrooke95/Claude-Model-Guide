@@ -50,3 +50,18 @@ date,source_id,kind,url,status,result,detail
 2026-11-10,probe_fable_mythos_5-5_card,probe,https://www.anthropic.com/claude-fable-5-5-mythos-5-5-system-card,404,nothing,
 2026-11-10,probe_fable_mythos_6_page,probe,https://www.anthropic.com/claude-fable-and-mythos-6,404,nothing,
 2026-11-10,probe_fable_mythos_6_card,probe,https://www.anthropic.com/claude-fable-6-mythos-6-system-card,404,nothing,
+2026-11-10,voice_docs_index,voice_terms,https://platform.claude.com/llms.txt,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,voice_docs_models,voice_terms,https://platform.claude.com/docs/en/about-claude/models/overview,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,voice_docs_release_notes,voice_terms,https://platform.claude.com/docs/en/release-notes/overview,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,voice_docs_pricing,voice_terms,https://platform.claude.com/docs/en/about-claude/pricing,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,voice_anthropic_news,voice_terms,https://www.anthropic.com/news,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,voice_support_release_notes,voice_terms,https://support.claude.com/en/articles/12138966-release-notes,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,voice_support_voice_mode,voice_page,https://support.claude.com/en/articles/11101966-use-voice-mode,200,baseline,12 names recorded; nothing to compare against yet
+2026-11-10,voice_support_recordings,voice_page,https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic,200,baseline,4 names recorded; nothing to compare against yet
+2026-11-10,voice_claude_code_dictation,voice_page,https://code.claude.com/docs/en/voice-dictation.md,200,baseline,19 names recorded; nothing to compare against yet
+2026-11-10,voice_jobs,voice_jobs,https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true,200,baseline,1 names recorded; nothing to compare against yet
+2026-11-10,voice_litellm,voice_catalog,https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,voice_openrouter,voice_catalog,https://openrouter.ai/api/v1/models,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,voice_testingcatalog,voice_links,https://www.testingcatalog.com/tag/anthropic/,200,baseline,1 names recorded; nothing to compare against yet
+2026-11-10,probe_voice_page,probe,https://www.anthropic.com/claude/voice,404,nothing,
+2026-11-10,probe_voice_news,probe,https://www.anthropic.com/news/claude-voice,404,nothing,

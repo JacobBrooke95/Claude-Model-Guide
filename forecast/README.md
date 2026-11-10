@@ -13,6 +13,7 @@ python3 tools/scorecard.py        # forward scorecard → SCORECARD.md, output/s
 python3 tools/build_ledger.py     # source reliability → data/source_ledger.csv
 python3 tools/experiment.py --name X --set field=value   # one model experiment against the live config (see EXPERIMENTS.md)
 python3 live.py 2026-10-30        # live forecast → output/forecast.json, appends forecast_log.csv
+python3 voice.py [DATE]           # voice-model forecast → output/voice_forecast.json, its own snapshot and log (see below)
 python3 run_tuning.py             # stage 1: 27 configs on tuning origins (2024-06 → 2025-06)
 python3 run_tuning_v2.py          # stage 1b: recency weighting × trend × wave weight
 python3 run_all.py --part=lock    # lockbox origins 2025-07 → 2026-10 (also --part=tune, --part=events)
@@ -35,6 +36,7 @@ A scheduled task starts a fresh session every day and has it follow [`DAILY_RUNB
 | [`SCORECARD.md`](SCORECARD.md), `output/scorecard.json` | Forward Brier and log score against the market, the old EWMA model and the base rate; calibration; name calls | `tools/scorecard.py`, every run |
 | `data/source_ledger.csv` | Hits, false alarms, lead times and last-checked date per signal type and per named source | `tools/build_ledger.py`, every run |
 | `data/raw/sweep_log.csv`, `data/raw/sweep/state.json` | Every source check with its result, nulls included; the model names last seen on each page | `tools/sweep.py` |
+| `data/voice_signals.csv`, `data/voice_resolutions.json`, `voice_forecast_log.csv`, `history/voice_forecast_<date>.json` | The voice-model question: its evidence, its resolution, its frozen forecasts | hand (signals, resolution) and `voice.py` |
 | `daily/<date>.md`, `weekly/<date>.md` | What each run found, why the numbers moved, what failed, questions for the owner | `daily.py` writes the skeleton, the session fills it in |
 
 **The bar is the market.** The scorecard counts release cycles, not rows: forecasts of one question are averaged within a week, then per question, then per block (one family within one inter-release interval; Fable and Mythos share a block). Daily snapshots therefore do not inflate the sample. As of 2026-11-10 the forward record is four blocks, two of them with a market price, and on those the model is losing (Brier 0.077 against 0.005).
@@ -68,6 +70,19 @@ The history is kept because it changes how the scores should be read.
 6. The probability of backtest overfitting (CSCV, Bailey et al.) across the 27 stage-1 configs is **0.83**. Picking among near-identical configs is mostly noise. Across the 20 configs scored on every origin it is **0.20**. The gains that hold up are structural, and none of them depend on that choice: cadence over climatology, signals over none, and pooling over either part alone.
 
 **The only fully honest test from here is prospective.** A scheduled task runs `daily.py` every day, following `DAILY_RUNBOOK.md` (until 2026-11-10 it was weekly, with `weekly.py`). Each run freezes a snapshot in `history/`, appends its calls to `forecast_log.csv` (never edited), and grades every snapshot when a release resolves it. Results are in `output/grades.json` and the page's Track record section (raw row counts), and in `SCORECARD.md` (clustered by release cycle, against the market, the EWMA and the base rate). The model does not change during a run; it changes only through the experiment protocol, and each version is graded separately.
+
+## The voice-model question (`voice.py`, added 2026-11-10)
+
+A sixth question that the family engine cannot answer: when will Anthropic ship a speech model of its own? There is no cadence to fit, so `voice.py` is a separate, deliberately small model. `daily.py` runs it after the family forecast as a soft step; it never blocks the family run.
+
+| Step | What it does | From |
+|---|---|---|
+| Base rate | Events per lab-year among frontier labs with an assistant and no speech model of their own yet; pooled rate 0.55 a year (7 events, 13.5 lab-years), Anthropic's own record 0.14 (none in 3.7 years); the base rate is their geometric mean, 0.28 | `data/voice_reference_class.csv` (measured; the combination is assumed) |
+| Signals | Program evidence (hiring, executive statements) earns the pooled rate. Preparation signals multiply the hazard per class by cap^(ρ × grade × specificity), with the family model's cap 5 and ρ 0.5, fading over a year. A first-party "coming weeks" statement starts a second clock on the measured 6–18 day lead | `data/voice_signals.csv`, `data/voice_params.json` (weights assumed; "coming weeks" leads measured) |
+| Market | Log-odds blend, 0.75 on a liquid market and 0.5 on a thin one, where a market has been mapped to a rung. None exists yet | `data/raw/markets_<date>.csv`, `market.map` in the params |
+| Ladder | Rung A (any first-party speech model with outside access), B (general availability), C (native speech-to-speech); B and C are derived from A | params; criteria text is in the same file |
+
+Output: `output/voice_forecast.json`, a frozen `history/voice_forecast_<date>.json` per origin, and `voice_forecast_log.csv` (rung × horizon, with the base-rate, after-signals, market and published numbers on each row). `SCORECARD.md` scores it as one separate block. The first forecast (2026-11-10): rung A 9% by Dec 31, 2026, 25% by Mar 31, 2027, 39% by Jun 30, 2027, 56% by Dec 31, 2027 (ranges 4–14, 11–36, 17–51, 29–68), median Oct 2027. Every weight that is assumed is listed as an open item in `EXPERIMENTS.md` (V1–V6); none can be backtested, because the event has never happened. Day-to-day handling is `DAILY_RUNBOOK.md` §12.
 
 ## v3d (2026-11-01)
 

@@ -1,0 +1,6 @@
+{
+ "_about": "Set by hand on the day a rung resolves (DAILY_RUNBOOK.md, 'Voice model'). resolved_date is YYYY-MM-DD or null. Never change a date once set; if it was wrong, say so in 'note' and in LEARNINGS.md.",
+ "A": {"resolved_date": null, "source_url": null, "what": null, "note": ""},
+ "B": {"resolved_date": null, "source_url": null, "what": null, "note": ""},
+ "C": {"resolved_date": null, "source_url": null, "what": null, "note": ""}
+}

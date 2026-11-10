@@ -61,3 +61,10 @@ Long-dated rows (not in the headline): 32 rows, 1 blocks, model Brier 0.021.
 |---|---|---|---|---|
 | Claude Fable 5.2 | 4 | 17% | 75% | +28 |
 | Claude Mythos 5.2 | 4 | 22% | 75% | +14 |
+
+## Voice model (its own block; in none of the numbers above)
+
+Questions: will Anthropic ship a speech model of its own by each horizon date, on three rungs (`voice.py`, `data/voice_params.json`). 12 rows logged over 1 snapshot(s); 0 resolved, 12 open. All rungs hang on one event, so this is one block however many rows it holds.
+
+Nothing has resolved. The first horizon is 2026-12-31.
+

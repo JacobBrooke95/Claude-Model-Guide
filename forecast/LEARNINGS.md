@@ -15,6 +15,16 @@ A lesson is not a model change. A lesson that implies one becomes a backlog entr
 7. **A release-day run takes the next day as its origin.** `daily.py` does this; do not override it.
 8. **An unmapped target is invisible to the model.** A new `UNRELEASED …` row must be added to `LIVE` in `tools/build_signals.py`.
 
+## 2026-11-10 — A voice-model forecast was added; what it rests on
+
+Jacob asked for an estimate of when Anthropic ships a speech model of its own. The family engine cannot give one (no gaps to fit), so `voice.py` is a separate small model; `DAILY_RUNBOOK.md` §12 says how to run it. What a future run should know:
+
+- **Nothing shipped so far counts.** Voice mode (2025-05-27), dictation, the July 2026 upgrade and Claude Code dictation were never announced as running on an Anthropic speech model; a spokesperson called voice mode turn-based in July 2026. The question is about the next thing, and it needs Anthropic to say the model is its own.
+- **The evidence on 2026-11-10** was a research-team job posting (listed January to July 2026, gone by November), a voice-recording opt-in that reversed a no-training line (Oct 4), and a hidden "Voice / Preview" item in the web app (Oct 10, screenshot only). No first-party page, API doc, catalog row, partner test or market mentioned an audio model.
+- **Every signal weight is an assumption** (`EXPERIMENTS.md` V1–V6). The honest output is the range, about one third to two thirds by the end of 2027, not the point value.
+- **The standing rules apply here too**: a late signal is not a dead signal; dated tipster calls miss late; open the primary. And the family lesson about the market applies in advance: if a market on this opens, it gets most of the weight until this model has a record.
+- **Could not be opened on 2026-11-10:** openai.com launch pages (403), the FT's Krieger interview (paywall), Wayback captures of the job posting (connection reset; only the availability index answered), the Metaculus API (login), Anthropic's subprocessor list (script-rendered). Rows that depend on them are marked RELAYED or APPROXIMATE.
+
 ## 2026-11-10 — Post-mortem: Claude Fable 5.2 and Mythos 5.2 (shipped 2026-11-09)
 
 **What the forecast said.** Four snapshots were frozen before the release (Oct 30, Nov 1, Nov 2, Nov 8; versions v3c, v3d, v3e, v3e).

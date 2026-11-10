@@ -190,6 +190,19 @@
    "log_score": -1.9969844516462694
   }
  ],
+ "voice": {
+  "n_logged_rows": 12,
+  "n_snapshots": 1,
+  "n_open_rows": 12,
+  "n_resolved_rows": 0,
+  "first_checkpoint": "2026-12-31",
+  "resolutions": {
+   "A": null,
+   "B": null,
+   "C": null
+  },
+  "note": "one block; separate from the family headline"
+ },
  "release_timing": [
   {
    "model": "Claude Fable 5.2",

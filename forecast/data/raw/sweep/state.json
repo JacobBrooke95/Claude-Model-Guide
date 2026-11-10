@@ -941,6 +941,20 @@
   "live": false,
   "url": "https://www.anthropic.com/news/claude-sonnet-6"
  },
+ "probe_voice_news": {
+  "last_changed": null,
+  "last_checked": "2026-11-10",
+  "last_status": 404,
+  "live": false,
+  "url": "https://www.anthropic.com/news/claude-voice"
+ },
+ "probe_voice_page": {
+  "last_changed": null,
+  "last_checked": "2026-11-10",
+  "last_status": 404,
+  "live": false,
+  "url": "https://www.anthropic.com/claude/voice"
+ },
  "support_release_notes": {
   "final_url": "https://support.claude.com/en/articles/12138966-release-notes",
   "last_changed": "2026-11-10",
@@ -1048,5 +1062,177 @@
    "sonnet 5.5"
   ],
   "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/claude"
+ },
+ "voice_anthropic_news": {
+  "final_url": "https://www.anthropic.com/news",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "e3b0c44298fc1c14",
+  "tokens": [],
+  "url": "https://www.anthropic.com/news"
+ },
+ "voice_claude_code_dictation": {
+  "final_url": "https://code.claude.com/docs/en/voice-dictation.md",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "ea589874050020cc",
+  "tokens": [
+   "## requirements voice dictation streams your recorded audio to anthropic's servers for transcription.",
+   "* **`dictation stopped: no speech recognized for 15 seconds` or `dictation stopped at its 2-minute limit`**: in the vs code extension, a recording ends after 15",
+   "* **`no audio detected from microphone`**: recording started but captured silence.",
+   "* **`no speech detected`**: audio reached the transcription service but no words were recognized.",
+   "* **`voice connection failed`**: your recording never reached the transcription service because the connection failed.",
+   "* **`voice mode could not find a working audio recorder in wsl`**: wslg routes audio through pulseaudio rather than an alsa device, so sox needs its pulseaudio ",
+   "* **`voice mode requires a claude.ai account`**: claude code couldn't find a usable claude.ai sign-in when you ran `/voice` or started recording.",
+   "* **`voice mode requires a microphone, but sox could not open an audio capture device`**: sox is installed, but the host has no audio capture device, for exampl",
+   "* **`voice mode requires sox for audio recording` on linux**: the native audio module could not load and no fallback is installed.",
+   "a recording that captures no audio reports `no audio detected from microphone` instead of this message.",
+   "audio is not processed locally.",
+   "audio recording uses a built-in native module on macos, linux, and windows.",
+   "hold `space` again to append another recording, or move the cursor first to insert speech elsewhere in the prompt: ``` > refactor the auth middleware to \u25ae # hol",
+   "if you were speaking during those 15 seconds, try the fixes for `no speech detected`.",
+   "in v2.1.229 through v2.1.231, native builds didn't show this message: claude code kept recording, the hold-mode footer still showed `listening\u2026`, and it reporte",
+   "it needs all of the following: * **a claude.ai account**: the speech-to-text service is only available when you authenticate with one, and is not available when",
+   "this usually means the microphone or audio stack on this host can't capture audio, for example a headless server, a remote shell with no audio passthrough, or a",
+   "your speech appears in the prompt as you speak, dimmed until the transcript is finalized.",
+   "your speech is transcribed live into the prompt input, so you can mix voice and typing in the same message."
+  ],
+  "url": "https://code.claude.com/docs/en/voice-dictation.md"
+ },
+ "voice_docs_index": {
+  "final_url": "https://platform.claude.com/llms.txt",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "e3b0c44298fc1c14",
+  "tokens": [],
+  "url": "https://platform.claude.com/llms.txt"
+ },
+ "voice_docs_models": {
+  "final_url": "https://platform.claude.com/docs/en/models/overview",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "e3b0c44298fc1c14",
+  "tokens": [],
+  "url": "https://platform.claude.com/docs/en/about-claude/models/overview"
+ },
+ "voice_docs_pricing": {
+  "final_url": "https://platform.claude.com/docs/en/about-claude/pricing",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "e3b0c44298fc1c14",
+  "tokens": [],
+  "url": "https://platform.claude.com/docs/en/about-claude/pricing"
+ },
+ "voice_docs_release_notes": {
+  "final_url": "https://platform.claude.com/docs/en/release-notes/overview",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "e3b0c44298fc1c14",
+  "tokens": [],
+  "url": "https://platform.claude.com/docs/en/release-notes/overview"
+ },
+ "voice_jobs": {
+  "final_url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "ac16d593c54783c4",
+  "tokens": [
+   "body mentions speech/audio work: Software Engineer, Tokens and Prompt Structures"
+  ],
+  "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true"
+ },
+ "voice_litellm": {
+  "final_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "e3b0c44298fc1c14",
+  "tokens": [],
+  "url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json"
+ },
+ "voice_openrouter": {
+  "final_url": "https://openrouter.ai/api/v1/models",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "e3b0c44298fc1c14",
+  "tokens": [],
+  "url": "https://openrouter.ai/api/v1/models"
+ },
+ "voice_support_recordings": {
+  "final_url": "https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "b0020c3beabafec8",
+  "tokens": [
+   "once you've opted in, you'll sometimes see a card after a conversation asking whether to share its audio recording and voice chat data.",
+   "the setting doesn't appear on the web or in claude desktop, and we don't keep recordings from voice mode or dictation there by default, we don't keep the audio ",
+   "we only keep audio you choose to share.",
+   "your speech is converted to text, the recording is deleted, and the text is saved in your chat history."
+  ],
+  "url": "https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic"
+ },
+ "voice_support_release_notes": {
+  "final_url": "https://support.claude.com/en/articles/12138966-release-notes",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "e3b0c44298fc1c14",
+  "tokens": [],
+  "url": "https://support.claude.com/en/articles/12138966-release-notes"
+ },
+ "voice_support_voice_mode": {
+  "final_url": "https://support.claude.com/en/articles/11101966-use-voice-mode",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "a04aa034bf96d259",
+  "tokens": [
+   "claude is designed to follow natural speech patterns.",
+   "dictation converts your speech to text so you can type prompts by speaking.",
+   "full policy compliance: our usage policy remains fully enforced in voice mode, with all standard model misuse detection and enforcement systems actively monitor",
+   "generative by design : claude is designed to generate original responses rather than reproduce text exactly or mimic specific speech patterns, which prevents im",
+   "hands-free mode in hands-free mode, claude listens continuously and responds to natural pauses in your speech.",
+   "note: claude fable is not currently available in voice mode.",
+   "on mobile: click the settings button in the bottom left corner while chatting with claude in voice mode, then tap your preferred voice and pace: choose a model ",
+   "tap or click on the model selector when you're in voice mode to switch models during a conversation.",
+   "the audio itself isn't kept unless you choose to share it.",
+   "when you turn on voice mode, it starts with the model you last used in text chat (for example, sonnet, opus, haiku) and will automatically switch to the latest ",
+   "your speech is converted to text, the recording is deleted, and the transcript is saved in your chat history.",
+   "your voice recordings by default, we don't keep the audio from your voice conversations."
+  ],
+  "url": "https://support.claude.com/en/articles/11101966-use-voice-mode"
+ },
+ "voice_testingcatalog": {
+  "final_url": "https://www.testingcatalog.com/tag/anthropic/",
+  "last_changed": "2026-11-10",
+  "last_checked": "2026-11-10",
+  "last_ok": "2026-11-10",
+  "last_status": 200,
+  "sha": "f6db92a09a59166e",
+  "tokens": [
+   "anthropic-might-be-developing-its-own-voice-models"
+  ],
+  "url": "https://www.testingcatalog.com/tag/anthropic/"
  }
 }

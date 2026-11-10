@@ -36,11 +36,17 @@ from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
-PM_QUERIES = ["claude", "next claude", "next fable", "next mythos", "claude 6", "anthropic ipo by", "anthropic model released"]
+PM_QUERIES = ["claude", "next claude", "next fable", "next mythos", "claude 6", "anthropic ipo by", "anthropic model released",
+              "anthropic voice", "claude voice", "anthropic audio", "anthropic speech"]
 MODEL = r"(claude|anthropic|fable|mythos|opus|sonnet|haiku)"
 KEEP = re.compile(rf"(?i)({MODEL}.*\breleased?\b|\breleased?\b.*{MODEL}|will anthropic ipo by)")
 DROP = re.compile(r"(?i)(price|arena|exam|hle|score|valuation|market cap|weights|cheaper)")
 MF_KEEP = re.compile(r"(?i)(claude|fable|mythos).*(release date|released? (by|before|in)|be released)")
+# Voice-model questions (forecast/voice.py). Kept whatever their wording, because no such market existed on
+# 2026-11-10 and its phrasing cannot be guessed. They match no family ladder (engine/market.py anchors on
+# "Next <family> ... released by"), so the family forecast never reads them. voice.py lists them as
+# candidates until one is mapped to a rung in data/voice_params.json.
+VOICE = re.compile(r"(?i)(anthropic|claude).*\b(voice|audio|speech|speak)|\b(voice|audio|speech)\b.*(anthropic|claude)")
 
 
 def get(url):
@@ -59,7 +65,7 @@ def polymarket(now):
                 continue
             for m in ev.get("markets") or []:
                 qn = (m.get("question") or "").strip()
-                if m.get("closed") or qn in seen or not KEEP.search(qn) or DROP.search(qn):
+                if m.get("closed") or qn in seen or not ((KEEP.search(qn) and not DROP.search(qn)) or VOICE.search(qn)):
                     continue
                 try:
                     prob = float(json.loads(m["outcomePrices"])[0])
@@ -73,11 +79,11 @@ def polymarket(now):
 
 def manifold(now):
     rows, seen = [], set()
-    for term in ("claude release date", "claude released", "claude fable", "claude opus"):
+    for term in ("claude release date", "claude released", "claude fable", "claude opus", "anthropic voice", "claude voice", "anthropic speech"):
         j = get("https://api.manifold.markets/v0/search-markets?filter=open&limit=50&term=" + urllib.parse.quote(term))
         for m in j:
             qn = m.get("question", "").strip()
-            if m.get("isResolved") or m["id"] in seen or not MF_KEEP.search(qn) or DROP.search(qn):
+            if m.get("isResolved") or m["id"] in seen or not ((MF_KEEP.search(qn) and not DROP.search(qn)) or VOICE.search(qn)):
                 continue
             seen.add(m["id"])
             if m.get("outcomeType") == "BINARY" and m.get("probability") is not None:
@@ -127,6 +133,8 @@ def main(argv):
         print(f"  ladder {fam}: " + ", ".join(f"{d.date()} {p:.2f}" for d, p in zip(L.date, L.raw)))
     if not lad:
         print("  no 'Next <family> (X+) released by <date>?' ladder parsed; check the wording against engine/market.py LADDERS")
+    vq = [r for r in rows if VOICE.search(r[1])]
+    print(f"  voice-model questions: {len(vq)}" + "".join(f"\n    {r[0]}: {r[1]} = {r[2]} ({r[5]})" for r in vq))
     return 0
 
 

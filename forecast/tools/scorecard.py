@@ -33,6 +33,10 @@ Baselines, each on the rows where it exists:
   market   p_market in the log (Polymarket ladder rung for that checkpoint)
   ewma     the site's EWMA model as of the day before the origin (Opus, Sonnet, Haiku)
   clim     base rate: share of past windows of that length that held a release
+
+Voice-model questions (voice.py; voice_forecast_log.csv, graded against
+data/voice_resolutions.json) are scored in a section of their own, as one
+block, and enter none of the family numbers above.
 """
 from __future__ import annotations
 
@@ -177,6 +181,47 @@ def name_calls(rel):
     return out
 
 
+def voice_block(as_of):
+    """Voice-model questions as their own block. A row resolves Yes when its rung has a
+    resolution date on or before the checkpoint, No when the checkpoint has passed without
+    one. All three rungs hang on the same event, so together they are ONE block."""
+    lp, rp = "voice_forecast_log.csv", "data/voice_resolutions.json"
+    if not os.path.exists(lp):
+        return None
+    log = pd.read_csv(lp, parse_dates=["as_of", "checkpoint"]).drop_duplicates(["as_of", "model_version", "target", "checkpoint"])
+    res = json.load(open(rp)) if os.path.exists(rp) else {}
+    today = pd.Timestamp(as_of)
+    rows, n_open = [], 0
+    for _, q in log.iterrows():
+        rd = (res.get(q.target.split("_")[-1]) or {}).get("resolved_date")
+        rd = pd.Timestamp(rd) if rd else None
+        if rd is not None and rd < q.as_of:
+            continue                                # logged after the rung had resolved: not a forecast
+        if rd is not None and rd <= q.checkpoint:
+            y = 1
+        elif q.checkpoint < today:
+            y = 0
+        else:
+            n_open += 1
+            continue
+        rows.append(dict(block="voice (first speech model)", target=q.target, checkpoint=q.checkpoint, y=y, version=q.model_version,
+                         week=f"{q.as_of.isocalendar().year}-W{q.as_of.isocalendar().week:02d}",
+                         p_model=float(q.p_model), p_final=float(q.p_final), p_base=float(q.p_base),
+                         p_market=(np.nan if pd.isna(q.p_market) else float(q.p_market))))
+    out = dict(n_logged_rows=int(len(log)), n_snapshots=int(log.as_of.nunique()), n_open_rows=int(n_open), n_resolved_rows=len(rows),
+               first_checkpoint=str(log.checkpoint.min().date()) if len(log) else None,
+               resolutions={k: v.get("resolved_date") for k, v in res.items() if isinstance(v, dict)},
+               note="one block; separate from the family headline")
+    if rows:
+        d = pd.DataFrame(rows)
+        out.update(n_blocks=1, n_questions=int(d.groupby(["target", "checkpoint"]).ngroups),
+                   brier_model=clustered(d, "p_model")[0], brier_published=clustered(d, "p_final")[0], brier_base_rate=clustered(d, "p_base")[0],
+                   logloss_model=clustered(d, "p_model", logloss)[0], vs_market=versus(d, "p_market"),
+                   per_rung={t: dict(n_questions=int(g.checkpoint.nunique()), brier_model=clustered(g, "p_model")[0],
+                                     brier_base_rate=clustered(g, "p_base")[0]) for t, g in d.groupby("target")})
+    return out
+
+
 def main(as_of):
     df, rel = load_rows(as_of)
     sc = dict(as_of=as_of, generated_by="tools/scorecard.py", primary_max_lead_days=PRIMARY_MAX_LEAD,
@@ -215,6 +260,12 @@ def main(as_of):
                                  for w in (0, .25, .5, .75, .9, 1)}
             sc["blend_curve_n_blocks"] = int(mk.block.nunique())
     sc["name_calls"] = name_calls(rel)
+    try:
+        v = voice_block(as_of)
+        if v:
+            sc["voice"] = v
+    except Exception as e:      # the voice block must never break the family scorecard
+        sc["voice"] = dict(error=f"{type(e).__name__}: {e}")
     gp = "output/grades.json"
     if os.path.exists(gp):
         g = pd.DataFrame(json.load(open(gp)).get("releases", []))
@@ -257,7 +308,7 @@ def render(sc):
          f"Primary set: per-family questions with the checkpoint at most {sc['primary_max_lead_days']} days out. "
          f"Below {sc['min_blocks_for_claims']} blocks, treat every comparison as an anecdote.", ""]
     if "primary" not in sc:
-        return "\n".join(L + ["No resolved questions yet.", ""])
+        return "\n".join(L + ["No resolved questions yet.", ""] + render_voice(sc))
     p = sc["primary"]
     L += ["## Headline", "",
           "| Comparison | Model | Baseline | Blocks | Blocks model better / worse | Questions | Rows | Log loss model / baseline |",
@@ -299,7 +350,32 @@ def render(sc):
         L += ["", "## Release timing", "", "| Shipped | Snapshots | Mean P(by release day) | Inside 80% window | Mean median error (days) |", "|---|---|---|---|---|"]
         L += [f"| {t['model']} | {t['n_snapshots']} | {t['mean_p_by_release_day']:.0%} | {t['in80_share']:.0%} | {_f(t['mean_median_error_days'], '+.0f')} |"
               for t in sc["release_timing"]]
+    L += render_voice(sc)
     return "\n".join(L) + "\n"
+
+
+def render_voice(sc):
+    v = sc.get("voice")
+    if not v:
+        return []
+    L = ["", "## Voice model (its own block; in none of the numbers above)", ""]
+    if v.get("error"):
+        return L + [f"Could not be scored: {v['error']}", ""]
+    L += [f"Questions: will Anthropic ship a speech model of its own by each horizon date, on three rungs (`voice.py`, `data/voice_params.json`). "
+          f"{v['n_logged_rows']} rows logged over {v['n_snapshots']} snapshot(s); {v['n_resolved_rows']} resolved, {v['n_open_rows']} open. "
+          f"All rungs hang on one event, so this is one block however many rows it holds."]
+    if not v["n_resolved_rows"]:
+        return L + ["", f"Nothing has resolved. The first horizon is {v['first_checkpoint']}.", ""]
+    L += ["", "| Comparison | Brier | Questions |", "|---|---|---|",
+          f"| Model (base rate + signals) | {_f(v['brier_model'])} | {v['n_questions']} |",
+          f"| Published (after any market blend) | {_f(v['brier_published'])} | {v['n_questions']} |",
+          f"| Base rate alone | {_f(v['brier_base_rate'])} | {v['n_questions']} |"]
+    m = v.get("vs_market")
+    L.append(f"| Market, on the {m['n_questions']} questions with a price: model {_f(m['brier_model'])} | {_f(m['brier_baseline'])} | {m['n_questions']} |"
+             if m else "| Market | — (no matching market) | 0 |")
+    L += ["", "| Rung | Questions | Model | Base rate |", "|---|---|---|---|"]
+    L += [f"| {k} | {x['n_questions']} | {_f(x['brier_model'])} | {_f(x['brier_base_rate'])} |" for k, x in v["per_rung"].items()]
+    return L + [""]
 
 
 if __name__ == "__main__":

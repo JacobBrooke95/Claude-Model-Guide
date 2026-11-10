@@ -6,8 +6,10 @@
     python3 daily.py --weekly             # also write weekly/<date>.md (automatic on Sundays)
     python3 daily.py --no-markets         # skip the market pull (use the latest markets file on disk)
 
-Order: build signals → pull markets → forecast + frozen snapshot → grade →
-scorecard → source ledger → daily note → (Sunday) weekly summary → page.
+Order: build signals → pull markets → forecast + frozen snapshot → voice-model
+forecast (voice.py, its own snapshot and log; a failure there never stops the
+run) → grade → scorecard → source ledger → daily note → (Sunday) weekly
+summary → page.
 The judgment steps (the sweep, reading sources, logging signals, registering a
 release, the narrative, the day's experiment) are in DAILY_RUNBOOK.md; do
 them before this script, then fill in the note it writes.
@@ -126,6 +128,19 @@ def main(argv):
     step("forecast + snapshot")
     made = W.forecast_and_snapshot(origin)
 
+    step("voice model (first-of-kind question; separate snapshot and log, see voice.py)")
+    # Soft step: the family forecast above is already frozen, and nothing below depends on this.
+    # Origin is the run date itself: a text-model release does not move it.
+    voice = None
+    ok, _ = soft([sys.executable, "voice.py", run_date], "voice forecast")
+    if ok and os.path.exists("output/voice_forecast.json"):
+        try:
+            voice = json.load(open("output/voice_forecast.json"))
+        except Exception as e:      # a corrupt file must not stop the run either
+            print(f"!! could not read output/voice_forecast.json ({e})")
+    if voice is None:
+        gaps.append("voice forecast failed or is missing; the page shows the last one on disk, if any")
+
     step("grade")
     grades, snaps = W.grade(run_date)
     print(f"output/grades.json: {len(grades['releases'])} release grades, {len(grades['checkpoints'])} resolved checkpoint rows")
@@ -197,7 +212,19 @@ def main(argv):
           f"**Sweep.** {len(sweep_rows)} checks logged today: {n['changed']} changed, {n['signal']} signal, {n['release']} release, "
           f"{n['nothing'] + n['baseline']} nothing, {n['error']} failed, {n['skipped']} skipped."]
     L += [f"- `{r['source_id']}`: {r['result']}. {r['detail']}" for r in sweep_rows if r["result"] in ("changed", "signal", "release", "error")]
-    L += ["", "## New signals", "", "<!-- one line per row added to signals_research.csv today, with grade and URL; or 'None.' -->", "",
+    if voice:
+        L += ["", f"**Voice model** ({voice['model_version']}, origin {voice['as_of']}; no cadence history, assumed signal weights, see `voice.py`). "
+                  f"Markets mapped: {len(voice['markets']['mapped'])}"
+                  + (f"; unmapped voice-like market questions to read: {len(voice['markets']['candidates'])}" if voice['markets']['candidates'] else "") + ".", "",
+              "| Rung | " + " | ".join(f"P(by {h})" for h in voice["horizons"]) + " | Median | 80% interval |",
+              "|---|" + "---|" * (len(voice["horizons"]) + 2)]
+        for k, r in voice["rungs"].items():
+            if r["resolved"]:
+                L.append(f"| {k}. {r['short']} | resolved {r['resolution']['resolved_date']} |" + " |" * (len(voice["horizons"]) + 1))
+            else:
+                L.append(f"| {k}. {r['short']} | " + " | ".join(f"{r['by'][h]['final']:.0%} ({r['by'][h]['low']:.0%}–{r['by'][h]['high']:.0%})" if h in r["by"] else "—"
+                                                             for h in voice["horizons"]) + f" | {r['median']} | {r['q10']} – {r['q90']} |")
+    L += ["", "## New signals", "", "<!-- one line per row added to signals_research.csv or voice_signals.csv today, with grade and URL; or 'None.' -->", "",
           "## Why the numbers moved", "", "<!-- one line per family that moved 3 points or more: which input changed -->", "",
           "## Experiment", "", "<!-- the one experiment run today (id, verdict, one line), or 'None today.' -->", "",
           "## Failures and gaps", ""]

@@ -1,0 +1,117 @@
+{
+ "_about": "Inputs of forecast/voice.py. Every number is marked measured (from a file in this repo) or assumed. Changing an assumed number is a model change: bump model_version in voice.py and log it in EXPERIMENTS.md (V-entries). Editing the criteria text after a rung could resolve is not allowed.",
+ "horizons": ["2026-12-31", "2027-03-31", "2027-06-30", "2027-12-31"],
+ "horizon_days": 2192,
+
+ "rungs": {
+  "A": {
+   "title": "First-party speech model, any external access",
+   "short": "Any first-party speech model",
+   "criteria": "Anthropic states on a first-party page (anthropic.com, claude.com, platform.claude.com, support.claude.com or code.claude.com) that a model it trained itself natively takes speech or audio as input or produces speech or audio as output (speech-to-speech, text-to-speech or speech-to-text), and that model is usable by at least some people outside Anthropic: in the API, in the Claude apps, or in a named preview or beta. The page must name the model or say in words that it is Anthropic's own. The resolution date is the first day of external access given on that page."
+  },
+  "B": {
+   "title": "General availability",
+   "short": "Generally available",
+   "criteria": "A model that satisfies rung A is available with no waitlist, application or allowlist: either to any API account, with a model ID or endpoint in the public docs, or to every user of at least one self-serve Claude plan. A 'beta' label does not matter if anyone on the plan can use it. The resolution date is the first day that is true according to a first-party page."
+  },
+  "C": {
+   "title": "Native real-time speech-to-speech",
+   "short": "Native speech-to-speech",
+   "criteria": "A model that satisfies rung A takes audio in and gives audio out itself, with no separate text-to-speech or speech-to-text model in between, and a first-party page says so (for example 'speech-to-speech', 'native audio', 'end-to-end' or 'full duplex'). Any external access counts, as in rung A."
+  }
+ },
+ "does_not_count": [
+  "A new or improved voice mode, dictation or read-aloud feature whose speech model is a partner's or is not stated. Claude voice mode (2025-05-27), dictation, the July 2026 upgrade and Claude Code voice dictation are all in this group: none was announced as running on an Anthropic speech model.",
+  "New voices, languages, a new Voice tab or screen, push-to-talk, or other interface changes.",
+  "A text model that reads transcripts, or audio files handled by a tool such as code execution.",
+  "A research paper, demo video, or internal preview with no access for people outside Anthropic.",
+  "A press report, leak, job posting, client string or cloud catalog row, however specific. These are signals.",
+  "A partner's product built on Claude (for example a voice agent platform that uses Claude for the text step)."
+ ],
+ "already_shipped_note": "Nothing shipped by 2026-11-10 satisfies any rung. Voice mode has been described by Anthropic as turn-based and its text-to-speech was traced to a partner; who does the speech-to-text is not documented. If Anthropic later says that an existing feature has been running on its own speech model, rung A resolves on the date of that statement, not earlier.",
+ "grading_note": "Grade from first-party pages you opened yourself. If a launch is ambiguous about whose model it is, the rung stays open until a first-party page settles it; write the ambiguity down in the daily note. Rung C implies rung A. Rung B implies rung A.",
+
+ "base_rate": {
+  "method": "Events per lab-year among labs with a flagship assistant and no speech model of their own yet (data/voice_reference_class.csv), with Anthropic's own run counted as censored. pooled = (events + 0.5) / lab-years. self = 0.5 / Anthropic's own years, the Jeffreys estimate from zero events. The base rate before any signal is the geometric mean of the two: Anthropic has waited far longer than any other lab did, so its own rate is probably below the pooled one, and the data cannot say by how much.",
+  "status": "measured inputs, assumed combination (geometric mean)"
+ },
+
+ "signals": {
+  "program": {
+   "rule": "With at least one open grade A or B signal in stage 'program' (hiring for a speech-model team, an executive saying one is being built, a research paper), the hazard uses the pooled lab rate instead of the shrunken one. Every lab in the reference class had a known speech effort before it shipped, so the pooled rate is already a rate for labs with a program.",
+   "status": "assumed mapping, measured rates"
+  },
+  "prep": {
+   "rule": "Stage 'prep' signals (data collection, hidden interface items, client strings, codenames, catalog rows, partner tests, press reports of testing) multiply the hazard. One multiplier per class (infra, client, report, soft), taken from that class's best open signal: cap ^ (rho x grade weight x specificity weight x recency). cap and rho are the family model's own settings (engine/forecast.py: cap 5, rho 0.5). Recency halves the exponent every half_life_days after the class's most recent sighting.",
+   "cap": 5.0,
+   "rho": 0.5,
+   "grade_weight": {"A": 1.0, "B": 1.0, "C": 0.5},
+   "specific_weight": {"yes": 1.0, "partial": 0.5, "no": 0.25},
+   "half_life_days": 365,
+   "status": "cap and rho reused from the family model; grade weights, specificity weights and the half-life are assumed"
+  },
+  "dated_weeks": {
+   "rule": "A first-party statement that the model is coming 'in the coming weeks' or 'soon', or a first-party page that names it with a date. Adds a second clock: with probability p_hit the release follows a log-normal lead time fitted to lead_days, measured from the statement.",
+   "lead_days": [9, 6, 15, 12, 18],
+   "p_hit": 0.917,
+   "status": "measured: the five first-party 'coming weeks' cases in data/raw/signals_notes.md (6 to 18 days, five of five delivered); p_hit = (5 + 0.5) / (5 + 1)"
+  },
+  "dated_months": {
+   "rule": "A first-party statement of 'later this year' or 'in the coming months'.",
+   "median_days": 124,
+   "sigma": 0.5,
+   "p_hit": 0.5,
+   "status": "one delivered case (124 days, Claude 3.5 Haiku) and one never delivered (Claude 3.5 Opus) in data/raw/signals_notes.md; p_hit = (1 + 0.5) / (2 + 1); sigma assumed. For reference, Anthropic's own voice mode took 126 days from Dario Amodei's statement (2025-01-21) to launch (2025-05-27)."
+  },
+  "counter": {
+   "rule": "Stage 'counter' and 'context' rows are shown on the page and enter no formula. The family model's absence-of-evidence term was tested and switched off (EXPERIMENTS.md E8); the same caution applies here.",
+   "status": "not modelled"
+  }
+ },
+
+ "calendar": {
+  "rule": "The family model's low-hazard days (Dec 20 to Jan 4, Thanksgiving Thursday and Friday, US election day) cut the daily hazard to a quarter, using the same functions (engine/data.py, engine/modifiers.py).",
+  "factor": 0.25,
+  "status": "reused prior, not fitted for this question"
+ },
+
+ "ladder": {
+  "C_first_share": 0.667,
+  "C_first_share_status": "measured, tiny n: in 5 of the 7 reference labs the first speech model of the assistant era was speech-to-speech; (5 + 1) / (7 + 2)",
+  "C_follow_rate": "pooled",
+  "C_follow_status": "assumed: if the first model is text-to-speech or speech-to-text only, speech-to-speech follows at the pooled lab rate",
+  "B_same_day_share": 0.667,
+  "B_same_day_status": "measured, tiny n: 5 of the 7 reference launches were open on day one to any API account or to everyone on a plan (not OpenAI's alpha, not Google's experimental audio output); (5 + 1) / (7 + 2)",
+  "B_delay_mean_days": 90,
+  "B_delay_status": "assumed: one measured case (OpenAI Advanced Voice, 56 days from alpha to all subscribers); exponential delay with a 90-day mean"
+ },
+
+ "range": {
+  "low": "program evidence not credited (the shrunken base rate stays), and every specificity weight one step lower",
+  "high": "pooled rate, and signal classes treated as independent (rho = 1)",
+  "status": "structural alternatives, not a confidence interval"
+ },
+
+ "market": {
+  "weight_liquid": 0.75,
+  "weight_thin": 0.5,
+  "liquid_volume_usd": 10000,
+  "rule": "Where a market matches a rung and a horizon date, the published number is a log-odds blend of the model and the market (engine/market.py pool). Weight on the market: 0.75 for a Polymarket or Kalshi market with at least $10,000 of volume, 0.5 for a thinner or play-money market.",
+  "status": "assumed. Reason for leaning on the market: on the family scorecard at 2026-11-10 the market scored 0.005 against the model's 0.077 over two release cycles, and every step toward the market in the blend curve scored better. This voice model has no track record at all.",
+  "map": [],
+  "_map_format": "{\"platform\": \"Polymarket\", \"pattern\": \"<regex with one group capturing the date, matched against the exact question>\", \"rung\": \"A\", \"why\": \"how its resolution rule lines up with the rung\"}. Add an entry only after reading the market's resolution rule. A near-miss stays in near_misses.",
+  "near_misses": [
+   {"platform": "Manifold", "question": "Anthropic releases a voice assistant before June 21st 2025", "url": "https://manifold.markets/DenCoder/anthropic-releases-a-voice-assistan", "status": "resolved YES", "why_not": "About the voice mode feature, which shipped on a partner's speech model; closed."},
+   {"platform": "Manifold", "question": "When will Anthropic announce Claude's voice mode?", "url": "https://manifold.markets/JacobBrooke/when-will-anthropic-announce-claude", "status": "resolved", "why_not": "Same: the feature, not a first-party speech model; closed."},
+   {"platform": "Manifold", "question": "Will Anthropic add voice support to Claude before EOY 2024?", "url": "https://manifold.markets/Soli/will-anthropic-add-voice-support-to-qwuijecdeb", "status": "resolved", "why_not": "Same; closed."},
+   {"platform": "Kalshi", "question": "KXCLAUDE (Claude model release) and KXANTHPERSONALAGENT (Anthropic personal AI agent)", "url": "https://kalshi.com", "status": "open series", "why_not": "About text-model releases and an agent product; neither resolves on a speech model."}
+  ],
+  "last_search": "2026-11-10: Polymarket gamma search (anthropic voice, claude voice, anthropic audio model, anthropic speech; open and closed), Manifold search (open and resolved; voice, audio, speech-to-speech), Kalshi series list (16,059 series): no open market on an Anthropic speech or voice model. Metaculus: API needs a login, not searched; a web search found nothing."
+ },
+
+ "cases": {
+  "sooner": "Anthropic advertised for a research team building end-to-end conversational speech systems from at least January to July 2026. On October 4 it began asking users for voice recordings, reversing a stated no-training policy, and on October 10 a hidden Voice item labelled Preview was seen in the web app. Its own voice mode shipped 43 days after the first hidden-interface sighting in 2025. Every other frontier lab now has a speech model of its own, and OpenAI's full-duplex GPT-Live makes the turn-based gap visible.",
+  "later": "Anthropic has gone 3.7 years without a speech model, longer than any other lab took, and has put its effort into coding and agents. In July 2026 it upgraded voice mode by routing its text models through the existing pipeline. Recordings collected from October 2026 are raw material for training or evaluation, which points to months, not weeks. The Voice item may be only a new screen. No first-party page mentions an audio model, no API page exists, no partner or cloud catalog trace has been seen, and the research job posting is no longer listed. Rung A also needs Anthropic to say the model is its own; it could ship a better voice mode and not say.",
+  "movers": "Up, most: a first-party page that names a speech model or an audio endpoint (then the 6 to 18 day 'coming weeks' clock applies); an audio or realtime page in the API docs index; a client string naming a voice model; a press report that partners are testing one. Down, most: Anthropic announcing a deeper speech partnership; the voice-recording opt-in being withdrawn; a redesigned Voice screen shipping on the current pipeline; several quarters with nothing new."
+ }
+}

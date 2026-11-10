@@ -1,0 +1,594 @@
+{
+ "as_of": "2026-11-10",
+ "model_version": "voice-v1",
+ "generated_by": "forecast/voice.py",
+ "horizons": [
+  "2026-12-31",
+  "2027-03-31",
+  "2027-06-30",
+  "2027-12-31"
+ ],
+ "rungs": {
+  "A": {
+   "title": "First-party speech model, any external access",
+   "short": "Any first-party speech model",
+   "criteria": "Anthropic states on a first-party page (anthropic.com, claude.com, platform.claude.com, support.claude.com or code.claude.com) that a model it trained itself natively takes speech or audio as input or produces speech or audio as output (speech-to-speech, text-to-speech or speech-to-text), and that model is usable by at least some people outside Anthropic: in the API, in the Claude apps, or in a named preview or beta. The page must name the model or say in words that it is Anthropic's own. The resolution date is the first day of external access given on that page.",
+   "resolved": false,
+   "resolution": null,
+   "by": {
+    "2026-12-31": {
+     "base": 0.03078968360045331,
+     "signals": 0.09422387288962641,
+     "market": null,
+     "market_weight": null,
+     "final": 0.09422387288962641,
+     "low": 0.03675260259625579,
+     "high": 0.14395197419309003
+    },
+    "2027-03-31": {
+     "base": 0.09229447519844314,
+     "signals": 0.25489706733961337,
+     "market": null,
+     "market_weight": null,
+     "final": 0.25489706733961337,
+     "low": 0.10780186810420733,
+     "high": 0.3586312780310291
+    },
+    "2027-06-30": {
+     "base": 0.15245488762635762,
+     "signals": 0.38519018068889554,
+     "market": null,
+     "market_weight": null,
+     "final": 0.38519018068889554,
+     "low": 0.17493493705553576,
+     "high": 0.5091302624861429
+    },
+    "2027-12-31": {
+     "base": 0.25632982702040263,
+     "signals": 0.5627813096336441,
+     "market": null,
+     "market_weight": null,
+     "final": 0.5627813096336441,
+     "low": 0.2862239899730896,
+     "high": 0.6842760931627445
+    }
+   },
+   "median": "2027-10-12",
+   "q10": "2027-01-06",
+   "q90": "2030-06-26",
+   "median_low": "2027-06-24",
+   "median_high": "2029-04-08",
+   "median_base": "2029-06-28",
+   "curve": {
+    "2026-12-31": 0.0942,
+    "2027-03-31": 0.2549,
+    "2027-06-30": 0.3852,
+    "2027-09-30": 0.4887,
+    "2027-12-31": 0.5628,
+    "2028-03-31": 0.6283,
+    "2028-06-30": 0.6842,
+    "2028-09-30": 0.731,
+    "2028-12-31": 0.7657,
+    "2029-03-31": 0.7974,
+    "2029-06-30": 0.8256,
+    "2029-09-30": 0.8499,
+    "2029-12-31": 0.8683,
+    "2030-03-31": 0.8854,
+    "2030-06-30": 0.9008,
+    "2030-09-30": 0.9141,
+    "2030-12-31": 0.9243
+   }
+  },
+  "B": {
+   "title": "General availability",
+   "short": "Generally available",
+   "criteria": "A model that satisfies rung A is available with no waitlist, application or allowlist: either to any API account, with a model ID or endpoint in the public docs, or to every user of at least one self-serve Claude plan. A 'beta' label does not matter if anyone on the plan can use it. The resolution date is the first day that is true according to a first-party page.",
+   "resolved": false,
+   "resolution": null,
+   "by": {
+    "2026-12-31": {
+     "base": 0.023415345372801575,
+     "signals": 0.07175830267788673,
+     "market": null,
+     "market_weight": null,
+     "final": 0.07175830267788673,
+     "low": 0.027958225811232973,
+     "high": 0.1097682384357196
+    },
+    "2027-03-31": {
+     "base": 0.07659498762559402,
+     "signals": 0.21322849754480194,
+     "market": null,
+     "market_weight": null,
+     "final": 0.21322849754480194,
+     "low": 0.08960853569921623,
+     "high": 0.30198588775676505
+    },
+    "2027-06-30": {
+     "base": 0.1342792976146675,
+     "signals": 0.34343974510014386,
+     "market": null,
+     "market_weight": null,
+     "final": 0.34343974510014386,
+     "low": 0.15444478975248008,
+     "high": 0.4581451073734111
+    },
+    "2027-12-31": {
+     "base": 0.2405861573396535,
+     "signals": 0.5355149898379763,
+     "market": null,
+     "market_weight": null,
+     "final": 0.5355149898379763,
+     "low": 0.2693311853500558,
+     "high": 0.6567385106925852
+    }
+   },
+   "median": "2027-11-16",
+   "q10": "2027-01-20",
+   "q90": "2030-07-29",
+   "median_low": "2027-07-30",
+   "median_high": "2029-05-09",
+   "median_base": "2029-07-29",
+   "curve": {
+    "2026-12-31": 0.0718,
+    "2027-03-31": 0.2132,
+    "2027-06-30": 0.3434,
+    "2027-09-30": 0.4526,
+    "2027-12-31": 0.5355,
+    "2028-03-31": 0.6048,
+    "2028-06-30": 0.6642,
+    "2028-09-30": 0.7143,
+    "2028-12-31": 0.7529,
+    "2029-03-31": 0.7861,
+    "2029-06-30": 0.8157,
+    "2029-09-30": 0.8414,
+    "2029-12-31": 0.8617,
+    "2030-03-31": 0.8794,
+    "2030-06-30": 0.8954,
+    "2030-09-30": 0.9095,
+    "2030-12-31": 0.9207
+   }
+  },
+  "C": {
+   "title": "Native real-time speech-to-speech",
+   "short": "Native speech-to-speech",
+   "criteria": "A model that satisfies rung A takes audio in and gives audio out itself, with no separate text-to-speech or speech-to-text model in between, and a first-party page says so (for example 'speech-to-speech', 'native audio', 'end-to-end' or 'full duplex'). Any external access counts, as in rung A.",
+   "resolved": false,
+   "resolution": null,
+   "by": {
+    "2026-12-31": {
+     "base": 0.021000734449248805,
+     "signals": 0.06428574467264218,
+     "market": null,
+     "market_weight": null,
+     "final": 0.06428574467264218,
+     "low": 0.025069334099090106,
+     "high": 0.09823865655094245
+    },
+    "2027-03-31": {
+     "base": 0.06459897996661008,
+     "signals": 0.17884515265222492,
+     "market": null,
+     "market_weight": null,
+     "final": 0.17884515265222492,
+     "low": 0.07549018380698129,
+     "high": 0.25214988363863466
+    },
+    "2027-06-30": {
+     "base": 0.10965195495548415,
+     "signals": 0.2785772507863433,
+     "market": null,
+     "market_weight": null,
+     "final": 0.2785772507863433,
+     "low": 0.12595411439604828,
+     "high": 0.36982444710722717
+    },
+    "2027-12-31": {
+     "base": 0.1941268316178245,
+     "signals": 0.43148370789227836,
+     "market": null,
+     "market_weight": null,
+     "final": 0.43148370789227836,
+     "low": 0.21725377836190526,
+     "high": 0.5291575279581715
+    }
+   },
+   "median": "2028-04-10",
+   "q10": "2027-01-29",
+   "q90": "2031-10-22",
+   "median_low": "2027-11-16",
+   "median_high": "2029-11-26",
+   "median_base": "2030-02-21",
+   "curve": {
+    "2026-12-31": 0.0643,
+    "2027-03-31": 0.1788,
+    "2027-06-30": 0.2786,
+    "2027-09-30": 0.3639,
+    "2027-12-31": 0.4315,
+    "2028-03-31": 0.4936,
+    "2028-06-30": 0.5495,
+    "2028-09-30": 0.5994,
+    "2028-12-31": 0.6405,
+    "2029-03-31": 0.6784,
+    "2029-06-30": 0.7132,
+    "2029-09-30": 0.7446,
+    "2029-12-31": 0.7711,
+    "2030-03-31": 0.7953,
+    "2030-06-30": 0.8175,
+    "2030-09-30": 0.8376,
+    "2030-12-31": 0.8546
+   }
+  }
+ },
+ "base_rate": {
+  "n_labs": 8,
+  "events": 7,
+  "lab_years": 13.52,
+  "anthropic_years": 3.66,
+  "pooled": 0.5546416278598907,
+  "self": 0.13659311892296186,
+  "shrunk": 0.27524576260842093,
+  "method": "Events per lab-year among labs with a flagship assistant and no speech model of their own yet (data/voice_reference_class.csv), with Anthropic's own run counted as censored. pooled = (events + 0.5) / lab-years. self = 0.5 / Anthropic's own years, the Jeffreys estimate from zero events. The base rate before any signal is the geometric mean of the two: Anthropic has waited far longer than any other lab did, so its own rate is probably below the pooled one, and the data cannot say by how much."
+ },
+ "hazard": {
+  "program": {
+   "credited": true,
+   "signals": [
+    "V1",
+    "V2"
+   ],
+   "multiplier": 2.0150778075699316
+  },
+  "classes": {
+   "infra": {
+    "signal": "V3",
+    "weight": 0.5,
+    "last_seen": "2026-10-04",
+    "multiplier_today": 1.4550763510889242
+   },
+   "client": {
+    "signal": "V4",
+    "weight": 0.125,
+    "last_seen": "2026-10-10",
+    "multiplier_today": 1.0994819077717992
+   }
+  },
+  "prep_multiplier_today": 1.5998301224488787,
+  "annual_hazard_today": 0.8873323834143343,
+  "annual_hazard_base": 0.5546416278598907,
+  "dated": []
+ },
+ "hazard_low": 0.3320194554304863,
+ "hazard_high": 1.4195810756106104,
+ "signals": [
+  {
+   "id": "V7",
+   "code": "FIRST_PARTY_DOC",
+   "stage": "counter",
+   "cls": "infra",
+   "first_seen": "2026-11-10",
+   "grade": "A",
+   "specific": "no",
+   "status": "open",
+   "verified": "VERIFIED",
+   "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+   "headline": "API docs: every current model takes text and image in and gives text out. No audio page, endpoint or price; Fable 5.2 is not offered in voice mode.",
+   "note": "Models overview fetched 2026-11-10 19:35 UTC: 'All current models support text and image input, text output'. No audio, speech, voice or realtime page in the docs index (platform.claude.com/llms.txt), the API release notes or the pricing page. The Fable 5.2 / Mythos 5.2 launch page (2026-11-09) announces no audio capability, and the voice-mode help page says Fable is not available in voice mode."
+  },
+  {
+   "id": "V4",
+   "code": "CLIENT_STRING",
+   "stage": "prep",
+   "cls": "client",
+   "first_seen": "2026-10-10",
+   "grade": "C",
+   "specific": "no",
+   "status": "open",
+   "verified": "RELAYED",
+   "url": "https://www.testingcatalog.com/anthropic-might-be-developing-its-own-voice-models/",
+   "headline": "TestingCatalog screenshot: a hidden \"Voice\" item marked \"Preview\" in Claude's web navigation. Nothing ties it to a new model.",
+   "note": "TestingCatalog: a hidden 'Voice' item with a 'Preview' badge in Claude's web navigation, next to the existing voice-mode button; the badge is said to mark Anthropic's internal preview environment. Screenshot only, not desk-verified, so grade C. Article opened 2026-11-10. It says nothing about a new model: the item could be a redesign of the current pipeline. Relays: orcarouter.ai and progressiverobot.com 2026-10-10 (opened)."
+  },
+  {
+   "id": "V3",
+   "code": "FIRST_PARTY_DOC",
+   "stage": "prep",
+   "cls": "infra",
+   "first_seen": "2026-10-04",
+   "grade": "A",
+   "specific": "partial",
+   "status": "open",
+   "verified": "VERIFIED",
+   "url": "https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic",
+   "headline": "Anthropic starts asking mobile users to share voice recordings \"to evaluate and improve voice mode and dictation\", reversing its no-voice-training line.",
+   "note": "Opt-in to share voice-mode and dictation recordings with Anthropic (iOS and Android; off by default; separate from the text-training setting). Help-center article fetched 2026-11-10 19:35 UTC: recordings are used 'to evaluate and improve voice mode and dictation'. first_seen_date from BleepingComputer 2026-10-04 (opened), which quotes the in-app prompt: recordings 'help improve how Anthropic AI models understand and respond to speech'. Reverses the privacy-center line 'We do not use your voice for training our models' (still on privacy.claude.com, fetched 2026-11-10). Names no model and no date."
+  },
+  {
+   "id": "V5",
+   "code": "FIRST_PARTY_DOC",
+   "stage": "context",
+   "cls": "infra",
+   "first_seen": "2026-09-16",
+   "grade": "A",
+   "specific": "no",
+   "status": "open",
+   "verified": "VERIFIED",
+   "url": "https://job-boards.greenhouse.io/anthropic/jobs/5421263008",
+   "headline": "Engineering job posting gives \"ship a new multimodal data type (audio, video, etc) to production\" as a sample project.",
+   "note": "JOB_POSTING: 'Software Engineer, Tokens and Prompt Structures' lists as a representative project 'Working with a research team to ship a new multimodal data type (audio, video, etc) to production'. Greenhouse API fetched 2026-11-10 19:40 UTC (first_published 2026-09-16). An example, not a commitment; shown for context and given no weight."
+  },
+  {
+   "id": "V6",
+   "code": "PRESS_REPORT",
+   "stage": "counter",
+   "cls": "report",
+   "first_seen": "2026-07-23",
+   "grade": "B",
+   "specific": "partial",
+   "status": "open",
+   "verified": "VERIFIED",
+   "url": "https://engadget.com/2221938/claude-voice-mode-just-got-smarter",
+   "headline": "Anthropic spokesperson to Engadget: voice mode \"uses a turn-based architecture\". The July upgrade routed text models through the existing pipeline.",
+   "note": "Engadget, 2026-07-23 (opened 2026-11-10): an Anthropic spokesperson said voice mode 'uses a turn-based architecture'; it is not full duplex. Same day Anthropic moved voice mode to Opus and Sonnet on web, desktop and mobile. Evidence that the shipped system was still a cascaded pipeline in July 2026."
+  },
+  {
+   "id": "V2",
+   "code": "OTHER",
+   "stage": "program",
+   "cls": "report",
+   "first_seen": "2026-01-20",
+   "grade": "B",
+   "specific": "partial",
+   "status": "open",
+   "verified": "RELAYED",
+   "url": "https://www.mediabistro.com/jobs/3541974066-research-engineer-research-scientist-audio",
+   "headline": "Job posting for an Audio research team building \"end-to-end conversational systems\" and \"speech synthesis\"; listed from at least January to July 2026, gone from the board by November.",
+   "note": "JOB_POSTING: 'Research Engineer/Research Scientist, Audio' on Anthropic's Greenhouse board (job 5074815008). Text: the Audio team builds 'end-to-end conversational systems, speech and audio understanding models, and speech synthesis capabilities' and trains 'large-scale speech language models'. first_seen_date APPROXIMATE: earliest Wayback capture listed by the availability API is 2026-01-20 (capture itself would not load). Relay copies opened 2026-11-10 (Mediabistro, datePosted 2026-07-15; jobs.therundown.ai). The first-party posting returned 404 on 2026-11-10 and no job with audio, speech or voice in its title is on the board (675 jobs fetched 2026-11-10 19:40 UTC): closed or filled, not known which."
+  },
+  {
+   "id": "V8",
+   "code": "OTHER",
+   "stage": "context",
+   "cls": "report",
+   "first_seen": "2025-05-31",
+   "grade": "B",
+   "specific": "partial",
+   "status": "open",
+   "verified": "RELAYED",
+   "url": "https://the-decoder.com/anthropics-claude-uses-elevenlabs-technology-for-speech-features-rather-than-an-in-house-model/",
+   "headline": "ElevenLabs named as text-to-speech subprocessor in 2025 (relay). Whether it still is, and who does speech-to-text, is not documented.",
+   "note": "SUBPROCESSOR: The Decoder (opened 2026-11-10) relays Simon Willison's find that Anthropic's subprocessor list names ElevenLabs for text-to-speech. trust.anthropic.com/subprocessors is rendered by script and could not be read on 2026-11-10, so whether ElevenLabs is still listed is NOT VERIFIED. Who does speech-to-text is not documented: the Claude Code docs say audio goes 'to Anthropic's servers for transcription' and name no model."
+  },
+  {
+   "id": "V1",
+   "code": "EXEC_TEASE",
+   "stage": "program",
+   "cls": "soft",
+   "first_seen": "2025-03-01",
+   "grade": "B",
+   "specific": "partial",
+   "status": "open",
+   "verified": "RELAYED",
+   "url": "https://techcrunch.com/2025/05/27/anthropic-launches-a-voice-mode-for-claude/",
+   "headline": "Then-CPO Mike Krieger to the FT: \"We will do voice internally \u2026 We have prototypes.\" Voice mode then shipped on a partner's text-to-speech.",
+   "note": "Mike Krieger (then CPO) to the Financial Times, early March 2025: 'We will do voice internally ... We have prototypes'; the FT also reported talks with Amazon and ElevenLabs. first_seen_date APPROXIMATE: 'early March 2025', day unknown, set to the 1st. Original FT interview not opened (paywall); relays opened 2026-11-10: TechCrunch 2025-05-27 and progressiverobot.com 2026-10-10. Voice mode then shipped on 2025-05-27 with a partner's text-to-speech, so this did not lead to a first-party speech model within 20 months."
+  }
+ ],
+ "reference_class": [
+  {
+   "lab": "OpenAI",
+   "era_start": "2022-11-30",
+   "first_speech_date": "2024-07-30",
+   "model": "GPT-4o Advanced Voice Mode (alpha, some Plus users)",
+   "kind": "speech-to-speech",
+   "days": 608,
+   "status": "shipped",
+   "url": "https://techcrunch.com/2024/07/30/openai-releases-chatgpts-super-realistic-voice-feature/",
+   "verified": "VERIFIED 2026-11-10 (TechCrunch 2024-07-30 and 2024-09-24 opened); era start and demo date RELAYED (openai.com returned 403)"
+  },
+  {
+   "lab": "Google",
+   "era_start": "2023-12-06",
+   "first_speech_date": "2024-12-11",
+   "model": "Gemini 2.0 Flash native audio via the Multimodal Live API (developers, experimental)",
+   "kind": "speech-to-speech",
+   "days": 371,
+   "status": "shipped",
+   "url": "https://blog.google/technology/google-deepmind/google-gemini-ai-update-december-2024/",
+   "verified": "VERIFIED 2026-11-10 (both Google blog posts opened)"
+  },
+  {
+   "lab": "Amazon",
+   "era_start": "2024-12-03",
+   "first_speech_date": "2025-04-08",
+   "model": "Nova Sonic",
+   "kind": "speech-to-speech",
+   "days": 126,
+   "status": "shipped",
+   "url": "https://www.aboutamazon.com/news/innovation-at-amazon/nova-sonic-voice-speech-foundation-model",
+   "verified": "VERIFIED 2026-11-10 (both aboutamazon.com posts opened)"
+  },
+  {
+   "lab": "xAI",
+   "era_start": "2023-11-03",
+   "first_speech_date": "2025-02-24",
+   "model": "Grok voice mode in the app",
+   "kind": "speech-to-speech",
+   "days": 479,
+   "status": "shipped",
+   "url": "https://x.ai/news/grok-voice-agent-api",
+   "verified": "RELAYED: Wikipedia opened 2026-11-10; first_speech_date APPROXIMATE (announced as within a week of the Grok 3 launch). Voice Agent API 2025-12-17 VERIFIED on x.ai"
+  },
+  {
+   "lab": "Mistral",
+   "era_start": "2024-02-26",
+   "first_speech_date": "2025-07-15",
+   "model": "Voxtral (speech understanding, API and open weights)",
+   "kind": "speech-to-text",
+   "days": 505,
+   "status": "shipped",
+   "url": "https://mistral.ai/news/voxtral",
+   "verified": "VERIFIED 2026-11-10 (mistral.ai/news/voxtral opened); era start month from Wikipedia, day APPROXIMATE"
+  },
+  {
+   "lab": "Microsoft",
+   "era_start": "2023-02-07",
+   "first_speech_date": "2025-08-28",
+   "model": "MAI-Voice-1",
+   "kind": "text-to-speech",
+   "days": 933,
+   "status": "shipped",
+   "url": "https://microsoft.ai/news/two-new-in-house-models/",
+   "verified": "VERIFIED 2026-11-10 (microsoft.ai post opened; Copilot date from Wikipedia)"
+  },
+  {
+   "lab": "Meta",
+   "era_start": "2023-09-27",
+   "first_speech_date": "2025-04-29",
+   "model": "Full-duplex speech demo in the Meta AI app",
+   "kind": "speech-to-speech",
+   "days": 580,
+   "status": "shipped",
+   "url": "https://about.fb.com/news/2025/04/introducing-meta-ai-app-new-way-access-ai-assistant/",
+   "verified": "VERIFIED 2026-11-10 for the 2025-04-29 post; era start NOT OPENED today (Connect 2023, from memory of the record)"
+  },
+  {
+   "lab": "Anthropic",
+   "era_start": "2023-03-14",
+   "first_speech_date": "",
+   "model": "none",
+   "kind": "",
+   "days": 1337,
+   "status": "censored",
+   "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+   "verified": "VERIFIED 2026-11-10: models overview says all current models take text and image input and give text output"
+  }
+ ],
+ "markets": {
+  "file": "data/raw/markets_2026-11-09.csv",
+  "mapped": [],
+  "candidates": [],
+  "near_misses": [
+   {
+    "platform": "Manifold",
+    "question": "Anthropic releases a voice assistant before June 21st 2025",
+    "url": "https://manifold.markets/DenCoder/anthropic-releases-a-voice-assistan",
+    "status": "resolved YES",
+    "why_not": "About the voice mode feature, which shipped on a partner's speech model; closed."
+   },
+   {
+    "platform": "Manifold",
+    "question": "When will Anthropic announce Claude's voice mode?",
+    "url": "https://manifold.markets/JacobBrooke/when-will-anthropic-announce-claude",
+    "status": "resolved",
+    "why_not": "Same: the feature, not a first-party speech model; closed."
+   },
+   {
+    "platform": "Manifold",
+    "question": "Will Anthropic add voice support to Claude before EOY 2024?",
+    "url": "https://manifold.markets/Soli/will-anthropic-add-voice-support-to-qwuijecdeb",
+    "status": "resolved",
+    "why_not": "Same; closed."
+   },
+   {
+    "platform": "Kalshi",
+    "question": "KXCLAUDE (Claude model release) and KXANTHPERSONALAGENT (Anthropic personal AI agent)",
+    "url": "https://kalshi.com",
+    "status": "open series",
+    "why_not": "About text-model releases and an agent product; neither resolves on a speech model."
+   }
+  ],
+  "last_search": "2026-11-10: Polymarket gamma search (anthropic voice, claude voice, anthropic audio model, anthropic speech; open and closed), Manifold search (open and resolved; voice, audio, speech-to-speech), Kalshi series list (16,059 series): no open market on an Anthropic speech or voice model. Metaculus: API needs a login, not searched; a web search found nothing."
+ },
+ "criteria": {
+  "does_not_count": [
+   "A new or improved voice mode, dictation or read-aloud feature whose speech model is a partner's or is not stated. Claude voice mode (2025-05-27), dictation, the July 2026 upgrade and Claude Code voice dictation are all in this group: none was announced as running on an Anthropic speech model.",
+   "New voices, languages, a new Voice tab or screen, push-to-talk, or other interface changes.",
+   "A text model that reads transcripts, or audio files handled by a tool such as code execution.",
+   "A research paper, demo video, or internal preview with no access for people outside Anthropic.",
+   "A press report, leak, job posting, client string or cloud catalog row, however specific. These are signals.",
+   "A partner's product built on Claude (for example a voice agent platform that uses Claude for the text step)."
+  ],
+  "already_shipped_note": "Nothing shipped by 2026-11-10 satisfies any rung. Voice mode has been described by Anthropic as turn-based and its text-to-speech was traced to a partner; who does the speech-to-text is not documented. If Anthropic later says that an existing feature has been running on its own speech model, rung A resolves on the date of that statement, not earlier.",
+  "grading_note": "Grade from first-party pages you opened yourself. If a launch is ambiguous about whose model it is, the rung stays open until a first-party page settles it; write the ambiguity down in the daily note. Rung C implies rung A. Rung B implies rung A."
+ },
+ "assumptions": {
+  "base_rate": "measured inputs, assumed combination (geometric mean)",
+  "program": {
+   "rule": "With at least one open grade A or B signal in stage 'program' (hiring for a speech-model team, an executive saying one is being built, a research paper), the hazard uses the pooled lab rate instead of the shrunken one. Every lab in the reference class had a known speech effort before it shipped, so the pooled rate is already a rate for labs with a program.",
+   "status": "assumed mapping, measured rates"
+  },
+  "prep": {
+   "rule": "Stage 'prep' signals (data collection, hidden interface items, client strings, codenames, catalog rows, partner tests, press reports of testing) multiply the hazard. One multiplier per class (infra, client, report, soft), taken from that class's best open signal: cap ^ (rho x grade weight x specificity weight x recency). cap and rho are the family model's own settings (engine/forecast.py: cap 5, rho 0.5). Recency halves the exponent every half_life_days after the class's most recent sighting.",
+   "cap": 5.0,
+   "rho": 0.5,
+   "grade_weight": {
+    "A": 1.0,
+    "B": 1.0,
+    "C": 0.5
+   },
+   "specific_weight": {
+    "yes": 1.0,
+    "partial": 0.5,
+    "no": 0.25
+   },
+   "half_life_days": 365,
+   "status": "cap and rho reused from the family model; grade weights, specificity weights and the half-life are assumed"
+  },
+  "dated_weeks": {
+   "rule": "A first-party statement that the model is coming 'in the coming weeks' or 'soon', or a first-party page that names it with a date. Adds a second clock: with probability p_hit the release follows a log-normal lead time fitted to lead_days, measured from the statement.",
+   "lead_days": [
+    9,
+    6,
+    15,
+    12,
+    18
+   ],
+   "p_hit": 0.917,
+   "status": "measured: the five first-party 'coming weeks' cases in data/raw/signals_notes.md (6 to 18 days, five of five delivered); p_hit = (5 + 0.5) / (5 + 1)"
+  },
+  "dated_months": {
+   "rule": "A first-party statement of 'later this year' or 'in the coming months'.",
+   "median_days": 124,
+   "sigma": 0.5,
+   "p_hit": 0.5,
+   "status": "one delivered case (124 days, Claude 3.5 Haiku) and one never delivered (Claude 3.5 Opus) in data/raw/signals_notes.md; p_hit = (1 + 0.5) / (2 + 1); sigma assumed. For reference, Anthropic's own voice mode took 126 days from Dario Amodei's statement (2025-01-21) to launch (2025-05-27)."
+  },
+  "counter": {
+   "rule": "Stage 'counter' and 'context' rows are shown on the page and enter no formula. The family model's absence-of-evidence term was tested and switched off (EXPERIMENTS.md E8); the same caution applies here.",
+   "status": "not modelled"
+  },
+  "calendar": {
+   "rule": "The family model's low-hazard days (Dec 20 to Jan 4, Thanksgiving Thursday and Friday, US election day) cut the daily hazard to a quarter, using the same functions (engine/data.py, engine/modifiers.py).",
+   "factor": 0.25,
+   "status": "reused prior, not fitted for this question"
+  },
+  "ladder": {
+   "C_first_share": 0.667,
+   "C_first_share_status": "measured, tiny n: in 5 of the 7 reference labs the first speech model of the assistant era was speech-to-speech; (5 + 1) / (7 + 2)",
+   "C_follow_rate": "pooled",
+   "C_follow_status": "assumed: if the first model is text-to-speech or speech-to-text only, speech-to-speech follows at the pooled lab rate",
+   "B_same_day_share": 0.667,
+   "B_same_day_status": "measured, tiny n: 5 of the 7 reference launches were open on day one to any API account or to everyone on a plan (not OpenAI's alpha, not Google's experimental audio output); (5 + 1) / (7 + 2)",
+   "B_delay_mean_days": 90,
+   "B_delay_status": "assumed: one measured case (OpenAI Advanced Voice, 56 days from alpha to all subscribers); exponential delay with a 90-day mean"
+  },
+  "range": {
+   "low": "program evidence not credited (the shrunken base rate stays), and every specificity weight one step lower",
+   "high": "pooled rate, and signal classes treated as independent (rho = 1)",
+   "status": "structural alternatives, not a confidence interval"
+  },
+  "market": {
+   "weight_liquid": 0.75,
+   "weight_thin": 0.5,
+   "liquid_volume_usd": 10000,
+   "rule": "Where a market matches a rung and a horizon date, the published number is a log-odds blend of the model and the market (engine/market.py pool). Weight on the market: 0.75 for a Polymarket or Kalshi market with at least $10,000 of volume, 0.5 for a thinner or play-money market.",
+   "status": "assumed. Reason for leaning on the market: on the family scorecard at 2026-11-10 the market scored 0.005 against the model's 0.077 over two release cycles, and every step toward the market in the blend curve scored better. This voice model has no track record at all."
+  }
+ },
+ "cases": {
+  "sooner": "Anthropic advertised for a research team building end-to-end conversational speech systems from at least January to July 2026. On October 4 it began asking users for voice recordings, reversing a stated no-training policy, and on October 10 a hidden Voice item labelled Preview was seen in the web app. Its own voice mode shipped 43 days after the first hidden-interface sighting in 2025. Every other frontier lab now has a speech model of its own, and OpenAI's full-duplex GPT-Live makes the turn-based gap visible.",
+  "later": "Anthropic has gone 3.7 years without a speech model, longer than any other lab took, and has put its effort into coding and agents. In July 2026 it upgraded voice mode by routing its text models through the existing pipeline. Recordings collected from October 2026 are raw material for training or evaluation, which points to months, not weeks. The Voice item may be only a new screen. No first-party page mentions an audio model, no API page exists, no partner or cloud catalog trace has been seen, and the research job posting is no longer listed. Rung A also needs Anthropic to say the model is its own; it could ship a better voice mode and not say.",
+  "movers": "Up, most: a first-party page that names a speech model or an audio endpoint (then the 6 to 18 day 'coming weeks' clock applies); an audio or realtime page in the API docs index; a client string naming a voice model; a press report that partners are testing one. Down, most: Anthropic announcing a deeper speech partnership; the voice-recording opt-in being withdrawn; a redesigned Voice screen shipping on the current pipeline; several quarters with nothing new."
+ }
+}

@@ -95,6 +95,12 @@ ul.tight { margin: 6px 0; padding-left: 20px; } ul.tight li { margin: 3px 0; }
 .sig { display: grid; grid-template-columns: 92px 74px 1fr; gap: 2px 10px; font-size: .86em; padding: 6px 0; border-bottom: 1px dashed var(--rule-soft); }
 @media (max-width: 520px) { .sig { grid-template-columns: 1fr 1fr; } .sig .what { grid-column: 1 / -1; } }
 .sig .d { font-family: var(--f-data); color: var(--ink-strong); } .sig .c { color: var(--coral-dark); font-size: .9em; }
+.sig .what a { white-space: nowrap; }
+.voice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 12px; }
+.voice-grid .fam dd { white-space: normal; }
+.voice-grid .fam dd small { color: var(--ink-muted); font-size: .92em; }
+table.fit { min-width: 0; } table.fit td { white-space: nowrap; }
+.info-panel .tbl table { min-width: 460px; } .info-panel .tbl td.num { white-space: nowrap; }
 .reg-cat { margin-top: 14px; }
 .reg-row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 4px 14px; font-size: .88em; padding: 6px 0; border-bottom: 1px solid var(--rule-soft); }
 @media (max-width: 560px) { .reg-row { grid-template-columns: 1fr; } }
@@ -137,6 +143,28 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
       </div>
     </div>
     <div class="callout warn" style="margin-top:14px" id="fable-slip"></div>
+  </section>
+
+  <section class="rf-card" aria-labelledby="h-voice" id="voice-card" hidden>
+    <h2 id="h-voice">Voice <span class="info-tail">model&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-voice" aria-label="About the voice model forecast: what counts and how it is estimated"><span aria-hidden="true">i</span></button></span></h2>
+    <div class="info-panel" id="info-voice" hidden="until-found"></div>
+    <p class="note" id="voice-lede"></p>
+    <div class="voice-grid" id="voice-grid"></div>
+    <p class="tiny" id="voice-range"></p>
+    <div class="cols">
+      <div>
+        <h3>What moves the estimate</h3>
+        <div class="tbl"><table class="fit" id="voice-decomp"></table></div>
+        <p class="tiny" id="voice-market"></p>
+        <h3>The case for sooner, and for <span class="info-tail">later&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-voice-cases" aria-label="The case for sooner and for later"><span aria-hidden="true">i</span></button></span></h3>
+        <div class="info-panel" id="info-voice-cases" hidden="until-found"></div>
+        <p class="tiny" id="voice-movers"></p>
+      </div>
+      <div>
+        <h3>Evidence on file</h3>
+        <div id="voice-signals"></div>
+      </div>
+    </div>
   </section>
 
   <section class="rf-card" aria-labelledby="h-params">
@@ -288,6 +316,70 @@ const DATA = /*__DATA__*/null;
       `<p class="tiny">The model uses the earliest sighting per class. Source grades: A = primary artifact, B = reputable report, C = single tipster. Markets are left out here so the same leak isn't counted twice.</p>`;
     $("fable-slip").innerHTML = M.watch_html || "";
     $("fable-slip").hidden = !M.watch_html;
+  })();
+
+  // ---------- voice model (voice.py; a first-of-kind question, separate from the family engine) ----------
+  (function () {
+    const V = DATA.voice;
+    if (!V || !V.rungs) return;
+    $("voice-card").hidden = false;
+    const yr = s => fmtD(s) + (s.slice(0, 4) === "2026" ? ", 2026" : "");
+    const span = (a, b) => pct(a) + "–" + pct(b);
+    const HZ = V.horizons.filter(h => V.rungs.A.by[h]);
+    const far = HZ.find(h => (Date.parse(h) - Date.parse(V.as_of)) / 864e5 >= 180) || HZ[HZ.length - 1];
+    const COL = { A: "--coral", B: "--fable", C: "--mythos" };
+    const BR = V.base_rate, HA = V.hazard, AS = V.assumptions;
+    $("voice-lede").innerHTML = `When will Anthropic ship a speech model of its own? Claude's voice mode exists, but no Anthropic-built model that hears or speaks has been announced. This is a first-of-kind question: there is no release cadence to fit, the comparison set is ${BR.n_labs - 1} other labs, the signal weights are assumed, and no prediction market exists to check it against. Read the ranges, not the point values.`;
+    $("voice-grid").innerHTML = Object.entries(V.rungs).map(([k, r]) => {
+      if (r.resolved) return `<article class="fam" style="--c: var(${COL[k]})"><div class="fname">${k}. ${esc(r.short)}</div><div class="lab">Resolved</div><div class="big">${fmtD(r.resolution.resolved_date)}</div>${r.resolution.source_url ? `<div class="tiny"><a href="${esc(r.resolution.source_url)}">${esc(r.resolution.what || "announcement")}</a></div>` : ""}</article>`;
+      const b = r.by[far];
+      return `<article class="fam" style="--c: var(${COL[k]})">
+        <div class="fname">${k}. ${esc(r.short)}</div>
+        <div class="lab">P(by ${yr(far)})</div>
+        <div class="big">${pct(b.final)}</div>
+        <div><span class="chip">range ${span(b.low, b.high)}</span></div>
+        <dl>${HZ.filter(h => h !== far).map(h => `<dt>by ${yr(h)}</dt><dd>${pct(r.by[h].final)} <small>(${span(r.by[h].low, r.by[h].high)})</small></dd>`).join("")}
+          <dt class="w">median date</dt><dd class="w">${fmtD(r.median)} <small>(${fmtS(r.median_low)} to ${fmtS(r.median_high)})</small></dd>
+          <dt class="w">80% interval</dt><dd class="w">${fmtS(r.q10)} – ${fmtS(r.q90)}</dd>
+        </dl></article>`;
+    }).join("");
+    $("voice-range").innerHTML = `A: any Anthropic-built speech model that people outside the company can use. B: one open to everyone on a plan or any API account. C: one that goes from audio to audio with no text step. The bracketed range runs from a reading that gives no credit to Anthropic's known speech effort to one that treats every signal as independent; it is not a confidence interval.`;
+    // decomposition, rung A
+    const A = V.rungs.A;
+    if (!A.resolved) {
+      const anyMkt = HZ.some(h => A.by[h].market != null);
+      $("voice-decomp").innerHTML = `<thead><tr><th>Rung A, by</th><th>Base rate</th><th>After signals</th><th>After market</th></tr></thead><tbody>` +
+        HZ.map(h => { const b = A.by[h]; return `<tr><td class="l">${yr(h)}</td><td class="num">${pct(b.base)}</td><td class="num">${pct(b.signals)}</td><td class="num">${b.market != null ? `${pct(b.final)} <span class="tiny">(market ${pct(b.market)})</span>` : "—"}</td></tr>`; }).join("") +
+        `<tr><td class="l">Median date</td><td class="num">${fmtS(A.median_base)}</td><td class="num">${fmtS(A.median)}</td><td class="num">${anyMkt ? "" : "—"}</td></tr></tbody>`;
+    } else $("voice-decomp").parentNode.hidden = true;
+    const MK = V.markets;
+    $("voice-market").innerHTML = (MK.mapped.length
+      ? `Market prices used: ${MK.mapped.map(m => `<a href="${esc(m.url)}">${esc(m.platform)}</a> ${pct(m.prob)} by ${fmtD(m.date)} (rung ${m.rung}, weight ${m.weight})`).join("; ")}.`
+      : `No open market on Polymarket, Manifold or Kalshi asks this question, so nothing is blended and the last column is empty. If one opens it gets ${pct(AS.market.weight_liquid)} of the weight in log-odds (${pct(AS.market.weight_thin)} if thin): on the text-model forecasts above, the market has beaten this site's model so far.`)
+      + (MK.candidates.length ? ` Not yet mapped: ${MK.candidates.map(c => `<a href="${esc(c.url)}">${esc(c.question)}</a> (${pct(c.prob)})`).join("; ")}.` : "");
+    $("info-voice-cases").innerHTML = `<p><b>Sooner.</b> ${esc(V.cases.sooner)}</p><p><b>Later.</b> ${esc(V.cases.later)}</p>`;
+    $("voice-movers").innerHTML = `<b>What would move it.</b> ${esc(V.cases.movers)}`;
+    // evidence
+    const ST = { program: "program", prep: "preparation", dated_weeks: "dated", dated_months: "dated", counter: "against", context: "context" };
+    const ORD = { dated_weeks: 0, dated_months: 0, prep: 1, program: 2, counter: 3, context: 4 };
+    const sig = V.signals.filter(r => r.status === "open").sort((a, b) => (ORD[a.stage] - ORD[b.stage]) || (a.first_seen < b.first_seen ? 1 : -1));
+    $("voice-signals").innerHTML = sig.map(r => `<div class="sig"><span class="d">${fmtD(r.first_seen)}</span><span class="c">${ST[r.stage] || esc(r.stage)} · ${esc(r.grade)}</span><span class="what">${esc(r.headline)} <a href="${esc(r.url)}">source</a>${/^VERIFIED/.test(r.verified) ? "" : ` <span class="tiny">(relay)</span>`}</span></div>`).join("") +
+      `<p class="tiny">Only "program" and "preparation" rows enter the estimate. "Against" and "context" rows are shown and carry no weight. Grades as above: A = first-party artifact fetched by this project, B = verified third-party artifact or named outlet, C = screenshot or claim.</p>`;
+    // (i): what counts, then how it is estimated
+    const cls = Object.entries(HA.classes || {}).map(([c, x]) => `${c} ×${x.multiplier_today.toFixed(2)} (${esc(x.signal)})`).join(", ");
+    $("info-voice").innerHTML =
+      `<p><b>What counts.</b></p><ul class="tight">${Object.entries(V.rungs).map(([k, r]) => `<li><b>${k}. ${esc(r.title)}.</b> ${esc(r.criteria)}</li>`).join("")}</ul>` +
+      `<p><b>What does not count.</b></p><ul class="tight">${V.criteria.does_not_count.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` +
+      `<p>${esc(V.criteria.already_shipped_note)}</p>` +
+      `<p><b>How it is estimated.</b> Three steps, each shown in the table.</p><ul class="tight">` +
+      `<li><b>Base rate.</b> ${BR.events} of ${BR.n_labs} frontier labs have shipped a speech model of their own in the assistant era, over ${BR.lab_years} lab-years of waiting: ${BR.pooled.toFixed(2)} per lab-year. Anthropic alone has gone ${BR.anthropic_years} years with none, which on its own suggests ${BR.self.toFixed(2)} a year. The base rate is the geometric mean, ${BR.shrunk.toFixed(2)} a year. Seven events is a tiny sample and the labs differ: five of them sold speech products long before their assistants.</li>` +
+      `<li><b>Signals.</b> ${HA.program.credited ? `A staffed speech effort is on record (${esc(HA.program.signals.join(", "))}), so the pooled rate replaces the shrunken one (×${HA.program.multiplier.toFixed(2)}). ` : "No program evidence is credited. "}Preparation signals multiply the rate by class: ${cls || "none open"}. Each multiplier is cap^(ρ × grade × specificity), with the text model's cap of ${AS.prep.cap} and ρ of ${AS.prep.rho}, fading with a ${AS.prep.half_life_days}-day half-life. Together: ${HA.annual_hazard_today.toFixed(2)} a year today (range ${V.hazard_low.toFixed(2)}–${V.hazard_high.toFixed(2)}). The holiday freeze and other low-hazard days are applied as in the text-model forecast. If Anthropic says a voice model is coming "in the coming weeks", a second clock starts from its record of delivering such promises in ${Math.min(...AS.dated_weeks.lead_days)}–${Math.max(...AS.dated_weeks.lead_days)} days.</li>` +
+      `<li><b>Market.</b> ${esc(AS.market.rule)} ${esc(MK.last_search)}</li>` +
+      `<li><b>Rungs B and C</b> follow from A. In ${pct(AS.ladder.B_same_day_share)} of cases the first model is open to all on day one, otherwise after a delay averaging ${AS.ladder.B_delay_mean_days} days. In ${pct(AS.ladder.C_first_share)} the first model is itself speech-to-speech, otherwise one follows at the pooled lab rate.</li></ul>` +
+      `<p><b>Measured, and assumed.</b> Measured: the reference-class dates, the "coming weeks" lead times, and the shares for rungs B and C (each from seven cases or fewer). Assumed: taking the geometric mean of the two rates, the rule that program evidence earns the pooled rate, the grade and specificity weights, the half-life, the delay after a limited first release, and the market weight. None of these can be backtested, because the event has never happened; the open items are listed in the repo's experiment log.</p>` +
+      `<div class="tbl"><table><thead><tr><th>Lab</th><th>First own speech model of the assistant era</th><th>Date</th><th>Days from first assistant</th></tr></thead><tbody>` +
+      V.reference_class.map(r => `<tr><td class="l">${esc(r.lab)}</td><td class="l">${r.status === "shipped" ? `<a href="${esc(r.url)}">${esc(r.model)}</a> <span class="tiny">${esc(r.kind)}</span>` : "none yet"}</td><td class="num">${r.first_speech_date ? fmtD(r.first_speech_date) : "—"}</td><td class="num">${r.days}${r.status === "shipped" ? "" : "+"}</td></tr>`).join("") + `</tbody></table></div>` +
+      `<p class="tiny">Model ${esc(V.model_version)}, as of ${fmtD(V.as_of)}. Every daily forecast is frozen and will be graded against these criteria.</p>`;
   })();
 
   // ---------- parameters ----------

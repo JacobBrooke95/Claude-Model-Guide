@@ -4592,6 +4592,10 @@
                         '</b> ' + Math.round(100 * p) + '% by ' + (C2 ? fmt(C2) : 'Dec 31') + ' &middot; median ' + fmt(t.median) + '</span>';
                 });
                 box.innerHTML = rows.join('') + '<div style="color:#8a7565;font-size:0.9em;margin-top:4px">As of ' + fmt(F.as_of) + '</div>';
+                return fetch('forecast/output/voice_forecast.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(V => {
+                    const a = V && V.rungs && V.rungs.A, h = a && !a.resolved && V.horizons[V.horizons.length - 1], b = h && a.by[h];
+                    if (b) box.insertAdjacentHTML('beforeend', '<div style="margin-top:4px"><b>Voice model</b> (an Anthropic-built speech model) ' + Math.round(100 * b.final) + '% by ' + fmt(h) + ', ' + h.slice(0, 4) + ', range ' + Math.round(100 * b.low) + '&ndash;' + Math.round(100 * b.high) + '% &middot; <a href="release-forecast.html#h-voice">details</a></div>');
+                });
             }).catch(() => {});
         })();
     </script>
