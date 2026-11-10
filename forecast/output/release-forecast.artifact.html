@@ -15,7 +15,7 @@
   --f-body: Arial, "Helvetica Neue", Helvetica, sans-serif;
   --f-data: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   /* the shared (i) disclosure (styles.css, info-disclosure) reads these */
-  --info-accent: var(--coral); --info-muted: var(--ink-muted); --info-ink: var(--ink-soft); --info-bg: var(--card-tint); --info-card: var(--card);
+  --info-accent: var(--coral); --info-muted: var(--ink-muted); --info-ink: var(--ink-soft); --info-bg: var(--card-tint); --info-card: var(--card); --info-rule: var(--rule);
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --ground-a: #1d1815; --ground-b: #241d19; --card: #2a2320; --card-tint: #302825; --card-tint-2: #3a2e29;
@@ -73,6 +73,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline
 .chart { width: 100%; overflow-x: auto; }
 .chart svg { display: block; width: 100%; height: auto; min-width: 560px; }
 .chart.small svg { min-width: 0; max-width: 340px; }
+/* calibration: the chart with its reading beside it, stacked on a phone */
+.rel-cols { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 6px 28px; align-items: center; }
+@media (max-width: 640px) { .rel-cols { grid-template-columns: 1fr; } }
+/* secondary blocks fold behind a text label (the shared .more-btn / .more-panel) */
+.folds { margin-top: 16px; border-bottom: 1px solid var(--rule-soft); }
+.fold { border-top: 1px solid var(--rule-soft); padding: 5px 0; }
+.fold .more-panel { margin: 4px 0 12px; }
+.fold .more-panel > h3:first-child { margin-top: 6px; }
+.more-panel li { max-width: 72ch; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .84em; color: var(--ink-soft); margin-top: 8px; }
 .legend i { display: inline-block; width: 18px; height: 3px; border-radius: 2px; background: var(--c); vertical-align: middle; margin-right: 6px; }
 .legend i.dot { width: 9px; height: 9px; border-radius: 50%; background: transparent; border: 2px solid var(--c); }
@@ -192,7 +201,7 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
 
 .info-panel p,
 .info-panel li {
-  max-width: none;
+  max-width: 76ch;
   font-size: inherit;
   line-height: inherit;
   color: inherit;
@@ -215,10 +224,102 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
   margin-bottom: 0;
 }
 
+/* The (i) on a centred page title hangs off the last word, so the title stays centred. */
+.info-tail--hang {
+  position: relative;
+  display: inline-block;
+}
+
+.info-tail--hang .info-btn {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin: -9px 0 0 0.3em;
+}
+
+/* A second part inside a panel ("Notes & sources" after the description). */
+.info-part {
+  margin: 1em 0 0.55em;
+  padding-top: 0.8em;
+  border-top: 1px solid var(--info-rule, var(--color-border, #f0d9cc));
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--info-muted, var(--color-text-muted, #636e72));
+}
+
+/* Text-labelled disclosure for a secondary block (a table, a registry, a log). */
+.more-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--info-muted, var(--color-text-muted, #636e72));
+  font: 700 0.7rem/1.3 Arial, "Helvetica Neue", Helvetica, sans-serif;
+  letter-spacing: 0.8px;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.more-btn::before {
+  content: "";
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.more-btn[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.more-btn:hover,
+.more-btn[aria-expanded="true"] {
+  color: var(--info-accent, var(--color-primary, #e07a5f));
+}
+
+.more-btn:focus-visible {
+  outline: 2px solid var(--info-accent, var(--color-primary, #e07a5f));
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (pointer: coarse), (max-width: 768px) {
+  .more-btn {
+    min-height: 44px;
+  }
+}
+
+.more-panel {
+  margin: 0.35rem 0 0.9rem;
+}
+
+.more-panel > :first-child {
+  margin-top: 0;
+}
+
+.more-panel > :last-child {
+  margin-bottom: 0;
+}
+
+
 @media screen {
   /* hidden="until-found" keeps the box in the layout so find-in-page can reach the text;
      give that box no size of its own. */
-  .info-panel[hidden] {
+  .info-panel[hidden],
+  .more-panel[hidden] {
     margin: 0;
     padding: 0;
     border: 0;
@@ -226,13 +327,15 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .info-panel:not([hidden]) {
+  .info-panel:not([hidden]),
+  .more-panel:not([hidden]) {
     animation: info-panel-in 0.16s ease-out;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .info-btn {
+  .info-btn,
+  .more-btn::before {
     transition: none;
   }
 }
@@ -243,11 +346,13 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
 }
 
 @media print {
-  .info-btn {
+  .info-btn,
+  .more-btn::before {
     display: none;
   }
 
-  .info-panel[hidden] {
+  .info-panel[hidden],
+  .more-panel[hidden] {
     display: block !important;
     content-visibility: visible !important;
   }
@@ -294,19 +399,23 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
     <p class="note" id="voice-lede"></p>
     <div class="voice-grid" id="voice-grid"></div>
     <p class="tiny" id="voice-range"></p>
-    <div class="cols">
-      <div>
+    <div class="folds">
+      <div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="voice-how">How it is estimated</button>
+      <div class="more-panel" id="voice-how" hidden="until-found">
         <h3>What moves the estimate</h3>
         <div class="tbl"><table class="fit" id="voice-decomp"></table></div>
         <p class="tiny" id="voice-market"></p>
-        <h3>The case for sooner, and for <span class="info-tail">later&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-voice-cases" aria-label="The case for sooner and for later"><span aria-hidden="true">i</span></button></span></h3>
-        <div class="info-panel" id="info-voice-cases" hidden="until-found"></div>
-        <p class="tiny" id="voice-movers"></p>
-      </div>
-      <div>
-        <h3>Evidence on file</h3>
+        <div class="note" id="voice-method"></div>
+      </div></div>
+      <div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="voice-evidence" id="voice-evidence-btn">Evidence on file</button>
+      <div class="more-panel" id="voice-evidence" hidden="until-found">
         <div id="voice-signals"></div>
-      </div>
+      </div></div>
+      <div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="voice-cases">The case for sooner, and for later</button>
+      <div class="more-panel" id="voice-cases" hidden="until-found">
+        <div id="info-voice-cases"></div>
+        <p class="note" id="voice-movers"></p>
+      </div></div>
     </div>
   </section>
 
@@ -323,17 +432,23 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
     <h2 id="h-test">Does it work? The <span class="info-tail">backtest&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-test" aria-label="About the backtest"><span aria-hidden="true">i</span></button></span></h2>
     <div class="info-panel" id="info-test" hidden="until-found"><p id="score-foot"></p></div>
     <div id="test-lede"></div>
-    <div class="tbl"><table id="score-table"></table></div>
-    <h3>Calibration by period (final model, 30-day <span class="info-tail">questions)&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-rel" aria-label="About the calibration chart"><span aria-hidden="true">i</span></button></span></h3>
-    <div class="info-panel" id="info-rel" hidden="until-found"><p id="rel-text"></p></div>
-    <div class="chart small" id="rel-chart"></div>
-    <h3>Head-to-head <span class="info-tail">tests&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-tests" aria-label="About the head-to-head tests"><span aria-hidden="true">i</span></button></span></h3>
-    <div class="info-panel" id="info-tests" hidden="until-found"><p>Opus, Sonnet and Haiku questions. Each row gives the mean Brier difference per block (A − B; negative means A is better). Significance treats each inter-release interval as one observation, so n is the number of blocks, close to the number of release events. The 95% interval bootstraps those blocks, and p is a t-test on the block means. Green means the interval favours A; red means it favours B.</p></div>
-    <div class="tbl"><table id="tests-table"></table></div>
-    <h3>Dating individual <span class="info-tail">releases&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-event" aria-label="About dating individual releases"><span aria-hidden="true">i</span></button></span></h3>
-    <div class="info-panel" id="info-event" hidden="until-found"><p id="event-foot"></p></div>
-    <div class="tbl"><table id="event-table"></table></div>
-    <p class="tiny">Only the first row is a fair test of calibration. The later rows are diagnostics.</p>
+    <div class="folds">
+      <div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="test-detail">Backtest detail: scores, calibration, head-to-head tests</button>
+      <div class="more-panel" id="test-detail" hidden="until-found">
+        <div class="tbl"><table id="score-table"></table></div>
+        <h3>Calibration by period (final model, 30-day questions)</h3>
+        <div class="rel-cols">
+          <div class="chart small" id="rel-chart"></div>
+          <div id="info-rel"><p class="note" id="rel-text"></p></div>
+        </div>
+        <h3>Head-to-head tests</h3>
+        <p class="note" id="info-tests">Opus, Sonnet and Haiku questions. Each row gives the mean Brier difference per block (A − B; negative means A is better). Significance treats each inter-release interval as one observation, so n is the number of blocks, close to the number of release events. The 95% interval bootstraps those blocks, and p is a t-test on the block means. Green means the interval favours A; red means it favours B.</p>
+        <div class="tbl"><table id="tests-table"></table></div>
+        <h3>Dating individual releases</h3>
+        <div class="tbl"><table id="event-table"></table></div>
+        <div id="info-event"><p class="note" id="event-foot"></p></div>
+      </div></div>
+    </div>
   </section>
 
   <section class="rf-card" aria-labelledby="h-track">
@@ -343,11 +458,19 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
 
   <section class="rf-card" aria-labelledby="h-inputs">
     <h2 id="h-inputs">Inputs, and what each one is worth</h2>
-    <p class="note">Every input the forecaster knows about, sorted into seven categories. Status says whether the input is <span class="st-fit"><b>fitted</b></span> from data, set as a <span class="st-prior"><b>prior or rule</b></span>, <span class="st-null"><b>tested and found empty</b></span>, or <span class="st-watch"><b>watched only</b></span>.</p>
-    <div id="registry"></div>
-    <h3>Signal classes, as estimated <span class="info-tail">today&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-sig" aria-label="About the signal classes"><span aria-hidden="true">i</span></button></span></h3>
-    <div class="info-panel" id="info-sig" hidden="until-found"><p>Detection rate is the share of the past year's releases that had a signal of this class. Typical lead is the median days from first sighting to release, from the log-normal fit. False alarms are counted per family-day. Classes share sources, so the model shrinks their combined weight (ρ = 0.5) and caps each class's likelihood ratio at 5×.</p></div>
-    <div class="tbl"><table id="sigclass-table"></table></div>
+    <p class="note">Every input the forecaster knows about, sorted into seven categories.</p>
+    <div class="folds">
+      <div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="inputs-all" id="inputs-all-btn">All inputs, by category</button>
+      <div class="more-panel" id="inputs-all" hidden="until-found">
+        <p class="note">Status says whether the input is <span class="st-fit"><b>fitted</b></span> from data, set as a <span class="st-prior"><b>prior or rule</b></span>, <span class="st-null"><b>tested and found empty</b></span>, or <span class="st-watch"><b>watched only</b></span>.</p>
+        <div id="registry"></div>
+      </div></div>
+      <div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="inputs-sig">Signal classes, as estimated today</button>
+      <div class="more-panel" id="inputs-sig" hidden="until-found">
+        <div class="tbl"><table id="sigclass-table"></table></div>
+        <p class="note" id="info-sig">Detection rate is the share of the past year's releases that had a signal of this class. Typical lead is the median days from first sighting to release, from the log-normal fit. False alarms are counted per family-day. Classes share sources, so the model shrinks their combined weight (ρ = 0.5) and caps each class's likelihood ratio at 5×.</p>
+      </div></div>
+    </div>
   </section>
 
   <section class="rf-card" aria-labelledby="h-method">
@@ -457,8 +580,17 @@ const DATA = {"forecast":{"as_of":"2026-11-10","checkpoints":["2026-11-30","2026
     const sig = (F.signals[W] || []);
     $("fable-signals").innerHTML = sig.map(r => `<div class="sig"><span class="d">${fmtD(r.first_seen)}</span><span class="c">${esc(r.cls)} · ${esc(r.grade)}</span><span class="what">${esc(r.note)}</span></div>`).join("") +
       `<p class="tiny">The model uses the earliest sighting per class. Source grades: A = primary artifact, B = reputable report, C = single tipster. Markets are left out here so the same leak isn't counted twice.</p>`;
-    $("fable-slip").innerHTML = M.watch_html || "";
-    $("fable-slip").hidden = !M.watch_html;
+    const slip = $("fable-slip");
+    slip.innerHTML = M.watch_html || "";
+    slip.hidden = !M.watch_html;
+    // The note is paragraphs separated by blank lines (<br><br>). The first stays in view; the rest fold.
+    const kids = Array.from(slip.childNodes), cut = kids.findIndex((n, i) => n.nodeName === "BR" && kids[i + 1] && kids[i + 1].nodeName === "BR");
+    if (cut > 0) {
+      const rest = kids.slice(cut + 2), more = rest.filter((n, i) => n.nodeName === "BR" && rest[i + 1] && rest[i + 1].nodeName === "BR").length + 1;
+      kids[cut].remove(); kids[cut + 1].remove();
+      slip.insertAdjacentHTML("beforeend", `<div><button type="button" class="more-btn" aria-expanded="false" aria-controls="watch-more">Rest of this note · ${more} more paragraph${more === 1 ? "" : "s"}</button></div><div class="more-panel" id="watch-more" hidden="until-found"></div>`);
+      rest.forEach(n => $("watch-more").appendChild(n));
+    }
   })();
 
   // ---------- voice model (voice.py; a first-of-kind question, separate from the family engine) ----------
@@ -510,10 +642,12 @@ const DATA = {"forecast":{"as_of":"2026-11-10","checkpoints":["2026-11-30","2026
       `<p class="tiny">Only "program" and "preparation" rows enter the estimate. "Against" and "context" rows are shown and carry no weight. Grades as above: A = first-party artifact fetched by this project, B = verified third-party artifact or named outlet, C = screenshot or claim.</p>`;
     // (i): what counts, then how it is estimated
     const cls = Object.entries(HA.classes || {}).map(([c, x]) => `${c} ×${x.multiplier_today.toFixed(2)} (${esc(x.signal)})`).join(", ");
+    $("voice-evidence-btn").textContent = `Evidence on file (${sig.length})`;
     $("info-voice").innerHTML =
       `<p><b>What counts.</b></p><ul class="tight">${Object.entries(V.rungs).map(([k, r]) => `<li><b>${k}. ${esc(r.title)}.</b> ${esc(r.criteria)}</li>`).join("")}</ul>` +
       `<p><b>What does not count.</b></p><ul class="tight">${V.criteria.does_not_count.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` +
-      `<p>${esc(V.criteria.already_shipped_note)}</p>` +
+      `<p>${esc(V.criteria.already_shipped_note)}</p>`;
+    $("voice-method").innerHTML =
       `<p><b>How it is estimated.</b> Three steps, each shown in the table.</p><ul class="tight">` +
       `<li><b>Base rate.</b> ${BR.events} of ${BR.n_labs} frontier labs have shipped a speech model of their own in the assistant era, over ${BR.lab_years} lab-years of waiting: ${BR.pooled.toFixed(2)} per lab-year. Anthropic alone has gone ${BR.anthropic_years} years with none, which on its own suggests ${BR.self.toFixed(2)} a year. The base rate is the geometric mean, ${BR.shrunk.toFixed(2)} a year. Seven events is a tiny sample and the labs differ: five of them sold speech products long before their assistants.</li>` +
       `<li><b>Signals.</b> ${HA.program.credited ? `A staffed speech effort is on record (${esc(HA.program.signals.join(", "))}), so the pooled rate replaces the shrunken one (×${HA.program.multiplier.toFixed(2)}). ` : "No program evidence is credited. "}Preparation signals multiply the rate by class: ${cls || "none open"}. Each multiplier is cap^(ρ × grade × specificity), with the text model's cap of ${AS.prep.cap} and ρ of ${AS.prep.rho}, fading with a ${AS.prep.half_life_days}-day half-life. Together: ${HA.annual_hazard_today.toFixed(2)} a year today (range ${V.hazard_low.toFixed(2)}–${V.hazard_high.toFixed(2)}). The holiday freeze and other low-hazard days are applied as in the text-model forecast. If Anthropic says a voice model is coming "in the coming weeks", a second clock starts from its record of delivering such promises in ${Math.min(...AS.dated_weeks.lead_days)}–${Math.max(...AS.dated_weeks.lead_days)} days.</li>` +
@@ -582,6 +716,7 @@ const DATA = {"forecast":{"as_of":"2026-11-10","checkpoints":["2026-11-30","2026
   // ---------- registry ----------
   (function () {
     const cls = st => /not fitted|scenario|rule|a priori|regime/i.test(st) ? "st-prior" : /tested|no effect|empty/i.test(st) ? "st-null" : /^fitted|fitted/i.test(st) ? "st-fit" : /watch|not modelled|descriptive|cross-check/i.test(st) ? "st-watch" : "st-prior";
+    $("inputs-all-btn").textContent = `All inputs, by category (${R.inputs.length})`;
     $("registry").innerHTML = Object.entries(R.categories).map(([k, label]) => {
       const rows = R.inputs.filter(i => i.cat === k);
       return `<div class="reg-cat"><h3>${esc(label)}</h3>` + rows.map(i => `<div class="reg-row"><div><b>${esc(i.name)}</b>${i.how ? `<div class="tiny">${esc(i.how)}</div>` : ""}</div><div class="status ${cls(i.status)}">${esc(i.status)}${i.evidence ? `<div class="tiny">${esc(i.evidence)}</div>` : ""}</div></div>`).join("") + `</div>`;
@@ -595,11 +730,11 @@ const DATA = {"forecast":{"as_of":"2026-11-10","checkpoints":["2026-11-30","2026
   (function () {
     const G = DATA.grades || { releases: [], checkpoints: [], summary: {} }, S = G.summary || {};
     let h = `<p class="note">Every weekly run since ${fmtD(G.forward_start || F.as_of)} is saved and graded when the outcome is known. Nothing is backfilled.</p>`;
-    if (G.releases.length) {
-      h += `<h3>How likely did it say each release was?</h3><div class="tbl"><table><thead><tr><th>Release</th><th>Forecast made</th><th>Days ahead</th><th>P(by that day)</th><th>P(that week)</th><th>Median call</th><th>In 80% window</th></tr></thead><tbody>` +
-        G.releases.map(r => `<tr><td class="l">${esc(r.model)} <span class="tiny">${fmtD(r.date)}</span></td><td class="l">${fmtD(r.as_of)}</td><td class="num">${r.days_ahead}</td><td class="num">${pct(r.p_by_date)}</td><td class="num">${pct(r.p_week)}</td><td class="num">${fmtS(r.median)} (${r.median_error_days > 0 ? "+" : ""}${r.median_error_days}d)</td><td class="num">${r.in80 ? "yes" : "no"}</td></tr>`).join("") + `</tbody></table></div>`;
-    } else h += `<p>No release has been graded yet. The first weekly forecast was saved on ${fmtD(G.forward_start || F.as_of)}.</p>`;
     if (S.n) h += `<h3>Dated questions resolved so far</h3><p>${S.n} questions of the form "released by date X?" have resolved. Model Brier <b class="num">${S.brier_model.toFixed(3)}</b>${S.n_market ? `, Polymarket on the ${S.n_market} with a price: model <b class="num">${S.brier_model_on_market.toFixed(3)}</b> vs market <b class="num">${S.brier_market.toFixed(3)}</b>` : ""}. Lower is better.</p>`;
+    if (G.releases.length) {
+      h += `<div class="folds"><div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="track-releases">How likely did it say each release was? (${G.releases.length} forecasts)</button><div class="more-panel" id="track-releases" hidden="until-found"><div class="tbl"><table><thead><tr><th>Release</th><th>Forecast made</th><th>Days ahead</th><th>P(by that day)</th><th>P(that week)</th><th>Median call</th><th>In 80% window</th></tr></thead><tbody>` +
+        G.releases.map(r => `<tr><td class="l">${esc(r.model)} <span class="tiny">${fmtD(r.date)}</span></td><td class="l">${fmtD(r.as_of)}</td><td class="num">${r.days_ahead}</td><td class="num">${pct(r.p_by_date)}</td><td class="num">${pct(r.p_week)}</td><td class="num">${fmtS(r.median)} (${r.median_error_days > 0 ? "+" : ""}${r.median_error_days}d)</td><td class="num">${r.in80 ? "yes" : "no"}</td></tr>`).join("") + `</tbody></table></div></div></div></div>`;
+    } else h += `<p>No release has been graded yet. The first weekly forecast was saved on ${fmtD(G.forward_start || F.as_of)}.</p>`;
     $("track").innerHTML = h;
   })();
 
@@ -608,45 +743,58 @@ const DATA = {"forecast":{"as_of":"2026-11-10","checkpoints":["2026-11-30","2026
 })();
 </script>
 <script>
-/* Info disclosures: the (i) button at the end of a heading reveals the explanation below it.
-   Markup (see DESIGN.md, "Info disclosure"):
+/* Disclosures shared by all four pages.
+   (i) button: sits at the end of a heading and reveals the explanation below it.
      <h2>Title&nbsp;<button type="button" class="info-btn" aria-expanded="false"
          aria-controls="info-x" aria-label="About Title"><span aria-hidden="true">i</span></button></h2>
      <div class="info-panel" id="info-x" hidden="until-found">…</div>
-   Delegated, so it also covers headings a page renders later. Nothing is remembered between visits. */
+   Text-labelled button: folds away a secondary block (a table, a registry, a log).
+     <button type="button" class="more-btn" aria-expanded="false" aria-controls="more-x">Evidence on file</button>
+     <div class="more-panel" id="more-x" hidden="until-found">…</div>
+   See DESIGN.md, "Info disclosure". Delegated, so it also covers markup a page renders later.
+   Nothing is remembered between visits. */
 (function () {
   'use strict';
-  function panelOf(btn) { return document.getElementById(btn.getAttribute('aria-controls')); }
+  var BTN = '.info-btn, .more-btn', PANEL = '.info-panel, .more-panel';
   function set(btn, open) {
-    var panel = panelOf(btn);
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
     if (!panel) return;
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (open) panel.removeAttribute('hidden');
     else panel.setAttribute('hidden', 'until-found');
   }
   function buttonFor(panel) {
-    return panel && panel.id ? document.querySelector('.info-btn[aria-controls="' + panel.id + '"]') : null;
+    return panel && panel.id ? document.querySelector('[aria-controls="' + panel.id + '"]') : null;
   }
-  // A link to a heading with an (i), or to something inside a closed panel, opens that panel.
+  // Every panel that encloses el, innermost first (a panel can sit inside a folded block).
+  function enclosing(el, each) {
+    for (var p = el && el.closest ? el.closest(PANEL) : null; p; p = p.parentElement && p.parentElement.closest(PANEL)) each(p);
+  }
+  // A link to a heading with an (i) opens its panel; a link to something inside closed panels opens them.
   function reveal(id) {
     var target = id && document.getElementById(id);
     if (!target) return;
-    var btn = (target.querySelector && target.querySelector('.info-btn')) || buttonFor(target.closest('.info-panel'));
-    if (btn) set(btn, true);
+    enclosing(target, function (p) { var b = buttonFor(p); if (b) set(b, true); });
+    var own = /^H[1-6]$/.test(target.tagName) && target.querySelector(BTN);
+    if (own) set(own, true);
   }
   document.addEventListener('click', function (e) {
     if (!e.target.closest) return;
-    var btn = e.target.closest('.info-btn');
+    var btn = e.target.closest(BTN);
     if (btn) { set(btn, btn.getAttribute('aria-expanded') !== 'true'); return; }
     var link = e.target.closest('a[href^="#"]');
     if (link) reveal(decodeURIComponent(link.getAttribute('href').slice(1)));
   });
-  // Find-in-page reveals a hidden="until-found" panel by itself; keep the button in step.
+  // Find-in-page reveals hidden="until-found" panels by itself; keep the buttons in step.
   document.addEventListener('beforematch', function (e) {
-    var btn = buttonFor(e.target.closest ? e.target.closest('.info-panel') : null);
-    if (btn) btn.setAttribute('aria-expanded', 'true');
+    enclosing(e.target, function (p) { var b = buttonFor(p); if (b) b.setAttribute('aria-expanded', 'true'); });
   });
-  function fromHash() { reveal(decodeURIComponent(location.hash.slice(1))); }
+  function fromHash() {
+    var id = decodeURIComponent(location.hash.slice(1)), target = id && document.getElementById(id);
+    reveal(id);
+    // the browser scrolled before the panels opened, so a target inside one needs a second go
+    if (target && target.closest(PANEL)) target.scrollIntoView();
+  }
   window.addEventListener('hashchange', fromHash);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fromHash);
   else fromHash();

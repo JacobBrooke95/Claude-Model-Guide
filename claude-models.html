@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude Model Guide - Release Cycle Tracker</title>
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css?v=7">
     <style>
         /* Board Coverage: page-specific. Shared tokens and components come from styles.css (see DESIGN.md). */
         .bc-heading:first-child { margin-top: 0; padding-top: 0; border-top: none; }
@@ -67,7 +67,7 @@
     <div class="container">
         <div class="page-card">
             <div class="page-header">
-                <h1>Claude Model <span class="info-tail">Guide&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-guide" aria-label="About this guide"><span aria-hidden="true">i</span></button></span></h1>
+                <h1>Claude Model <span class="info-tail info-tail--hang">Guide<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-guide" aria-label="About this guide"><span aria-hidden="true">i</span></button></span></h1>
                 <p>Track the age of Anthropic's Claude models</p>
             </div>
 
@@ -79,21 +79,25 @@
 
             <div class="fleet-freshness" id="fleet-freshness"></div>
 
-            <p class="last-updated">Last updated: <strong id="last-updated"></strong></p>
+            <p class="last-updated">Last updated <strong id="last-updated"></strong>
+                <button type="button" class="more-btn" aria-expanded="false" aria-controls="update-log">What changed</button>
+                <label class="section-index"><span class="visually-hidden">Jump to a section</span>
+                    <select id="section-index"><option value="">Jump to&hellip;</option></select></label></p>
+            <div class="more-panel update-log" id="update-log" hidden="until-found"><ul id="update-log-list"></ul></div>
 
             <div class="model-grid" id="model-grid">
                 <!-- Cards will be populated by JavaScript -->
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="calendar">
                 <h2 class="section-title">Release <span class="info-tail">Calendar&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-release-calendar" aria-label="About Release Calendar"><span aria-hidden="true">i</span></button></span></h2>
-                <div class="info-panel" id="info-release-calendar" hidden="until-found"><p>Six weeks back, and forward as far as the furthest estimate within four months, on one date axis — a lane per family, pivoting on today. An estimate further out than that is named at the right edge of its lane. Solid dots are releases that happened, with dotted ticks showing what the EWMA cadence model had called for them the day before they shipped. Hollow dots and bars come from the <a href="release-forecast.html">statistical forecast</a>: each hollow dot is the median date of the family's next release, and its bar spans the 80% window. The forecast updates weekly, and the calendar reads the latest run. A small grey tick under each lane marks the older EWMA estimate for comparison. If the forecast file can't load, the calendar falls back to the EWMA alone.</p></div>
+                <div class="info-panel" id="info-release-calendar" hidden="until-found"><p>Six weeks back, and forward as far as the furthest estimate within four months, on one date axis — a lane per family, pivoting on today. An estimate further out than that is named at the right edge of its lane. Solid dots are releases that happened, with dotted ticks showing what the EWMA cadence model had called for them the day before they shipped. Hollow dots and bars come from the <a href="release-forecast.html">statistical forecast</a>: each hollow dot is the median date of the family's next release, and its bar spans the 80% window. The forecast updates weekly, and the calendar reads the latest run. A small grey tick under each lane marks the older EWMA estimate for comparison. If the forecast file can't load, the calendar falls back to the EWMA alone.</p><p><strong>Key.</strong> Solid dot: shipped (family colour). Dashed circle: predicted. Bar: estimate window. Dotted line: the model's past call &rarr; actual. Coral line: today.</p><p><strong>Statistical forecast.</strong> A backtested probabilistic model now runs alongside this cadence view. It combines family cadence, calendar effects and pre-release signals, and pools that 70/30 with the EWMA cadence estimate. <a href="release-forecast.html">See the full forecast, backtest and inputs &rarr;</a></p></div>
                 <div class="benchmark-chart-container">
                     <div id="release-calendar"></div>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #7a6957;"></div>
-                            <span>Shipped (family colour)</span>
+                            <span>Shipped</span>
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: transparent; border: 2px dashed #9d7bb0;"></div>
@@ -105,7 +109,7 @@
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: transparent; border-bottom: 2px dotted #9d7bb0; width: 20px; height: 2px; border-radius: 0;"></div>
-                            <span>Model's past call &rarr; actual</span>
+                            <span>Past call &rarr; actual</span>
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #e07a5f; width: 2px; height: 14px; border-radius: 0;"></div>
@@ -113,28 +117,36 @@
                         </div>
                     </div>
 
-                    <div class="stat-forecast" id="stat-forecast" style="margin: 18px 0 8px; padding: 12px 16px; border-left: 4px solid #e07a5f; background: #fdf8f5; border-radius: 0 8px 8px 0;">
-                        <strong>Statistical forecast.</strong> A backtested probabilistic model now runs alongside this cadence view. It combines family cadence, calendar effects and pre-release signals, and pools that 70/30 with the estimate below.
-                        <a href="release-forecast.html">See the full forecast, backtest and inputs &rarr;</a>
-                        <div id="stat-forecast-rows" style="margin-top: 8px; font-size: 0.92em;"></div>
+                    <div class="stat-forecast" id="stat-forecast" hidden>
+                        <h4 class="forecast-heading">Statistical forecast <a href="release-forecast.html">Full forecast &rarr;</a></h4>
+                        <div id="stat-forecast-rows"></div>
                     </div>
-                    <h4 class="forecast-heading">Cadence estimate (EWMA)</h4>
-                    <div class="forecast-list" id="forecast-list"></div>
+                    <div class="ewma-fold">
+                        <button type="button" class="more-btn" aria-expanded="false" aria-controls="ewma-estimate">Older cadence estimate (EWMA), for comparison</button>
+                        <div class="more-panel" id="ewma-estimate" hidden="until-found">
+                            <div class="forecast-list" id="forecast-list"></div>
+                        </div>
+                    </div>
 
                     <p class="benchmark-note" id="forecast-method"></p>
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="release-timeline">
                 <h2 class="section-title">Release <span class="info-tail">Timeline&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-release-timeline" aria-label="About Release Timeline"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-release-timeline" hidden="until-found"><p>Every Claude model release plotted chronologically; a white slash marks preview-only or restricted-access drops. Hover over or tap a point for the date.</p></div>
-                <p class="benchmark-note" style="margin-bottom: 18px;">A white slash marks a preview-only or restricted-access drop.</p>
                 <div class="benchmark-chart-container">
                     <div id="timeline-chart"></div>
+                    <div class="benchmark-legend">
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: linear-gradient(135deg, #7a6957 0 38%, #fff 38% 62%, #7a6957 62%);"></div>
+                            <span>White slash: preview-only or restricted access</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="shipping-pace">
                 <h2 class="section-title">Shipping <span class="info-tail">Pace&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-shipping-pace" aria-label="About Shipping Pace"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-shipping-pace" hidden="until-found"><p>Cumulative Claude releases over time, stacked by family. Each step up is a ship — the steeper the slope, the faster the pace. Numbers under the quarter bands show releases shipped that quarter. Fable and Mythos launched together three times (5, 5.1 and 5.2), so each pair counts as one step, colored Fable.</p></div>
                 <div class="benchmark-chart-container">
@@ -142,12 +154,26 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="api-pricing">
                 <h2 class="section-title">API <span class="info-tail">Pricing&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-api-pricing" aria-label="About API Pricing"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-api-pricing" hidden="until-found"><p>Claude API list price per million tokens for the current lineup. Lighter bars are input tokens, solid bars are output tokens. Dashed marks show each tier's price before its most recent change.</p></div>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Per million tokens. Lighter bar: input. Solid bar: output. Dashed mark: price before the last change.</p>
                 <div class="benchmark-chart-container">
                     <div id="pricing-chart"></div>
+                    <p class="chart-caveat">Per million tokens.</p>
+                    <div class="benchmark-legend">
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: rgba(157,123,176,0.4); border-radius: 2px;"></div>
+                            <span>Input</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #9d7bb0; border-radius: 2px;"></div>
+                            <span>Output</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: transparent; border: 1.5px dashed #9d7bb0; border-radius: 2px;"></div>
+                            <span>Dashed: previous price</span>
+                        </div>
+                    </div>
                     <p class="benchmark-note">
                         <strong>Opus 5.5 (Sep 22, 2026) is the first Opus price cut in ten months:</strong> $4 in / $20 out, down from $5 / $25, with cache reads at $0.20 (from $0.50 — now 5% of the input price rather than 10%) and cache writes at $5. Anthropic's headline is that it costs 40% less than Opus 5 on typical workloads; only the 20% list cut is on this chart, and the rest of that claim is the cheaper cache plus fewer tokens per task, which the bars can't show. Fast mode drops in step, to $8 in / $40 out. The cut also widened the Fable premium from 2&times; to 2.5&times; on both input and output, until Fable 5.2's own cut on November 9 brought it back to 2&times;.<br>
                         <strong>Sonnet 5.5 (Sep 28, 2026) takes Sonnet 5's bar at the same price:</strong> $2 in / $10 out, cache reads $0.20 at launch (the standard 10% of input) and cache writes $2.50, with the Batch API at $1 / $5. So the bar didn't move. Anthropic's "up to 30% less per task" claim rests entirely on Sonnet 5.5 using fewer tokens for the same work, which a per-token chart can't show. One side effect of Opus 5.5's 5% cache rate: at Sonnet 5.5's launch both models charged the same $0.20 per million for a cache read (Sonnet 5.5's has since been halved; see Haiku 5.5 below). Sonnet 5 stays on the API at $2 / $10.<br>
@@ -177,7 +203,7 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="capability-profile">
                 <h2 class="section-title">Capability <span class="info-tail">Profile&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-capability-profile" aria-label="About Capability Profile"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-capability-profile" hidden="until-found"><p>Where each family's newest model is strongest. Ten evaluations, all scored 0&ndash;100, re-pulled together on November 9, 2026. Nine come from Artificial Analysis's single harness at max effort; SWE-bench Pro is Anthropic's own system-card figure. Hover over or tap any point for the raw score.</p></div>
                 <div class="benchmark-chart-container">
@@ -226,10 +252,10 @@
 
             <div class="benchmark-section" id="aeci">
                 <h2 class="section-title">Anthropic <span class="info-tail">ECI&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-anthropic-eci" aria-label="About Anthropic ECI"><span aria-hidden="true">i</span></button></span></h2>
-                <div class="info-panel" id="info-anthropic-eci" hidden="until-found"><p>One number per model, fitted across hundreds of benchmarks: Anthropic's own composite index, a fork of Epoch's Capabilities Index built on internal results and not comparable to Epoch's public ECI. All points come from a single fit, dated November 6, 2026. Bars are 95% intervals.</p></div>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Anthropic's own index, not comparable to Epoch's public ECI. One fit, dated November 6, 2026.</p>
+                <div class="info-panel" id="info-anthropic-eci" hidden="until-found"><p>One number per model, fitted across hundreds of benchmarks: Anthropic's own composite index, a fork of Epoch's Capabilities Index built on internal results and not comparable to Epoch's public ECI. All points come from a single fit, dated November 6, 2026. Bars are 95% intervals.</p><p><strong>Key.</strong> Hollow circle: read off the card's figure, approximate. Diamond: estimated, rescaled from an earlier fit, not Anthropic's figure. Bar: 95% interval (thick: against the three prior releases).</p></div>
                 <div class="benchmark-chart-container">
                     <div id="aeci-chart"></div>
+                    <p class="chart-caveat">Anthropic's own index, not comparable to Epoch's public ECI. One fit, dated November 6, 2026.</p>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #5b8a9a;"></div>
@@ -249,15 +275,15 @@
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #fffdfa; border: 2px solid #8a7f78;"></div>
-                            <span>Hollow circle: read off the card's figure, approximate</span>
+                            <span>Hollow: read off a figure</span>
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #fffdfa; border: 2px solid #8a7f78; border-radius: 0; transform: rotate(45deg) scale(0.85);"></div>
-                            <span>Diamond: estimated, rescaled from an earlier fit, not Anthropic's figure</span>
+                            <span>Diamond: estimated</span>
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #555; width: 2px; border-radius: 0; height: 14px;"></div>
-                            <span>95% interval (thick: against the three prior releases)</span>
+                            <span>95% interval</span>
                         </div>
                     </div>
                     <p class="benchmark-note">
@@ -279,17 +305,17 @@
                     </div>
                 </div>
                 <h3 style="font-size: 1.05em; font-weight: 600; color: #2d3436; margin: 26px 0 6px;">Refit drift: how each model's score has moved since <span class="info-tail">release&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-refit-drift" aria-label="About refit drift"><span aria-hidden="true">i</span></button></span></h3>
-                <div class="info-panel" id="info-refit-drift" hidden="until-found"><p>Each model sits at its release date. The large dot is the score its own system card gave it. The pole above it carries every score Anthropic has published for that same model since, as the index was refitted. The height of the pole is how far the number moved without the model changing.</p></div>
+                <div class="info-panel" id="info-refit-drift" hidden="until-found"><p>Each model sits at its release date. The large dot is the score its own system card gave it. The pole above it carries every score Anthropic has published for that same model since, as the index was refitted. The height of the pole is how far the number moved without the model changing.</p><p><strong>Key.</strong> Large dot: the score in the model's own card. Small dots above it: the same model re-scored in later refits (ringed: the latest).</p></div>
                 <div class="benchmark-chart-container">
                     <div id="aeci-drift-chart"></div>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #8a7f78; width: 13px; height: 13px;"></div>
-                            <span>Large dot: the score in the model's own card</span>
+                            <span>Large dot: own card</span>
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #8a7f78; width: 6px; height: 6px;"></div>
-                            <span>Small dots above it: the same model re-scored in later refits (ringed: the latest)</span>
+                            <span>Small dots: later refits (ringed: latest)</span>
                         </div>
                     </div>
                     <div id="aeci-drift-table"></div>
@@ -304,12 +330,12 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="swe-bench-pro">
                 <h2 class="section-title">SWE-bench <span class="info-tail">Pro&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-swe-bench-pro" aria-label="About SWE-bench Pro"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-swe-bench-pro" hidden="until-found"><p>Anthropic-reported pass rates on Scale AI's harder SWE-bench variant, each averaged over five trials. The y-axis starts at 40%. This chart replaced SWE-bench Verified, which Anthropic no longer reports (history in notes).</p></div>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Anthropic-reported. The y-axis starts at 40%.</p>
                 <div class="benchmark-chart-container">
                     <div id="swebench-chart"></div>
+                    <p class="chart-caveat">Anthropic-reported. The y-axis starts at 40%.</p>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #5b8a9a;"></div>
@@ -357,12 +383,12 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="terminal-bench-2-1">
                 <h2 class="section-title">Terminal-Bench <span class="info-tail">2.1&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-terminal-bench-2-1" aria-label="About Terminal-Bench 2.1"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-terminal-bench-2-1" hidden="until-found"><p>Vals AI's independent harness snapshot. The Capability Profile's Terminal-Bench axis is the newer 4.0 suite, so compare within this chart only. The y-axis starts at 40%.</p></div>
-                <p class="benchmark-note" style="margin-bottom: 18px;">The y-axis starts at 40%. Compare within this chart only.</p>
                 <div class="benchmark-chart-container">
                     <div id="terminalbench-chart"></div>
+                    <p class="chart-caveat">The y-axis starts at 40%. Compare within this chart only.</p>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #c09a5b;"></div>
@@ -397,12 +423,12 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="osworld-benchmark-progress">
                 <h2 class="section-title">OSWorld Benchmark <span class="info-tail">Progress&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-osworld-benchmark-progress" aria-label="About OSWorld Benchmark Progress"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-osworld-benchmark-progress" hidden="until-found"><p>One line per family, three versions of the eval. Scores switch from original OSWorld to the stricter OSWorld-Verified at Sonnet 4.5 (the 42&rarr;61 segment straddles that switch), and each family's newest release (Fable 5.2, Opus 5.5, Sonnet 5.5 and Haiku 5.5), drawn hollow on a dashed segment, is an OSWorld 2.1 partial-credit score on the 82-task offline set, because Anthropic no longer reports Verified. The y-axis spans 10&ndash;100%.</p></div>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Three versions of the eval on one line. The y-axis spans 10&ndash;100%.</p>
                 <div class="benchmark-chart-container">
                     <div id="benchmark-chart"></div>
+                    <p class="chart-caveat">Three versions of the eval on one line. The y-axis spans 10&ndash;100%.</p>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #5b8a9a;"></div>
@@ -444,7 +470,7 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="vending-bench-earnings">
                 <h2 class="section-title">Vending-Bench <span class="info-tail">Earnings&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-vending-bench-earnings" aria-label="About Vending-Bench Earnings"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-vending-bench-earnings" hidden="until-found"><p>Vending-Bench 2, strongest reasoning tier per model &mdash; tiers can differ 2&times; on the same model (Opus 4.8: $5,787 High vs $2,992 Max).</p></div>
                 <div class="benchmark-chart-container">
@@ -485,12 +511,12 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="vending-bench-arena">
                 <h2 class="section-title">Vending-Bench <span class="info-tail">Arena&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-vending-bench-arena" aria-label="About Vending-Bench Arena"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-vending-bench-arena" hidden="until-found"><p>The multi-player version: three or four agents run rival machines on the same simulated street, able to email, trade and undercut each other. Andon publishes no aggregate Arena leaderboard — each dated round is its own contest, so read this as a series of match results, not one comparable scale. Only Claude entries are plotted; a ring marks the rounds a Claude model won.</p></div>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Each dated round is its own contest, not one comparable scale.</p>
                 <div class="benchmark-chart-container">
                     <div id="arena-chart"></div>
+                    <p class="chart-caveat">Each dated round is its own contest, not one comparable scale.</p>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #9d7bb0;"></div>
@@ -530,7 +556,7 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="gdpval-aa-v2-1">
                 <h2 class="section-title">GDPval-AA <span class="info-tail">v2.1&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-gdpval-aa-v2-1" aria-label="About GDPval-AA v2.1"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-gdpval-aa-v2-1" hidden="until-found"><p>Max-effort Elo on Artificial Analysis's v2.1 board, every point from one read on November 9, 2026. The Opus line starts at 4.7 because Opus 4.5/4.6 have no v2-series Elo &mdash; missing data, not a debut.</p></div>
                 <div class="benchmark-chart-container">
@@ -572,12 +598,12 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="remote-labor-index">
                 <h2 class="section-title">Remote Labor <span class="info-tail">Index&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-remote-labor-index" aria-label="About Remote Labor Index"><span aria-hidden="true">i</span></button></span></h2>
-                <div class="info-panel" id="info-remote-labor-index" hidden="until-found"><p>Share of 240 real freelance projects delivered to a paying-client standard. The runs along this line do not share a harness &mdash; scaffolds improved alongside the models (details in notes). The hollow point is a Scale run that Anthropic has reported and Scale's board has not listed yet.</p></div>
-                <p class="benchmark-note" style="margin-bottom: 18px;">The runs along this line do not share a harness.</p>
+                <div class="info-panel" id="info-remote-labor-index" hidden="until-found"><p>Share of 240 real freelance projects delivered to a paying-client standard. The runs along this line do not share a harness &mdash; scaffolds improved alongside the models (details in notes). The hollow point is a Scale run that Anthropic has reported and Scale's board has not listed yet.</p><p><strong>Key.</strong> Hollow: Scale run reported by Anthropic, not yet on Scale's board.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="rli-chart"></div>
+                    <p class="chart-caveat">The runs along this line do not share a harness.</p>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #c09a5b;"></div>
@@ -593,7 +619,7 @@
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #fffdfa; border: 2px solid #c09a5b;"></div>
-                            <span>Hollow: Scale run reported by Anthropic, not yet on Scale's board</span>
+                            <span>Hollow: reported by Anthropic</span>
                         </div>
                     </div>
                     <p class="benchmark-note">
@@ -613,7 +639,7 @@
                 </div>
             </div>
 
-            <div class="benchmark-section">
+            <div class="benchmark-section" id="arc-agi-2-reasoning">
                 <h2 class="section-title">ARC-AGI-2 <span class="info-tail">Reasoning&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-arc-agi-2-reasoning" aria-label="About ARC-AGI-2 Reasoning"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-arc-agi-2-reasoning" hidden="until-found"><p>Abstract reasoning on novel visual puzzles, from the ARC Prize leaderboard &mdash; each model's strongest listed configuration. Humans score about 60%. The newer, interactive ARC-AGI-3 has its own chart below.</p></div>
                 <div class="benchmark-chart-container">
@@ -702,9 +728,9 @@
             <div class="benchmark-section" id="hle">
                 <h2 class="section-title">Humanity's Last <span class="info-tail">Exam&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-humanity-s-last-exam" aria-label="About Humanity's Last Exam"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-humanity-s-last-exam" hidden="until-found"><p>2,500 closed-ended questions at the edge of expert knowledge, across more than a hundred subjects, written by specialists and kept only if the best models of early 2025 got them wrong. Plotted: the share each model answers correctly with no tools, as Anthropic reports it in its system cards. These are first-party figures; outside boards score lower (details in notes).</p></div>
-                <p class="benchmark-note" style="margin-bottom: 18px;">First-party figures; outside boards score lower.</p>
                 <div class="benchmark-chart-container">
                     <div id="hle-chart"></div>
+                    <p class="chart-caveat">First-party figures; outside boards score lower.</p>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #5b8a9a;"></div>
@@ -754,7 +780,7 @@
 
             <div class="benchmark-section" id="board-coverage">
                 <h2 class="section-title">Board <span class="info-tail">Coverage&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-board-coverage" aria-label="About Board Coverage"><span aria-hidden="true">i</span></button></span></h2>
-                <div class="info-panel" id="info-board-coverage" hidden="until-found"><p>Several charts above plot third-party leaderboards, which pick up a new model days or months after it ships. This is the queue of releases still waiting on a board, and how long each board has taken before.</p></div>
+                <div class="info-panel" id="info-board-coverage" hidden="until-found"><p>Several charts above plot third-party leaderboards, which pick up a new model days or months after it ships. This is the queue of releases still waiting on a board, and how long each board has taken before.</p><p><strong>Key.</strong> <span class="bc-chip bc-listed">5d</span> Listed, days after release. <span class="bc-chip bc-bound">&le;6d</span> Listed, date not known: at most this many days. <span class="bc-chip bc-pending">pending</span> No entry at last check. <span class="bc-chip bc-unknown">?</span> Could not be checked.</p></div>
                 <div class="benchmark-chart-container">
                     <h4 class="forecast-heading bc-heading">Waiting on a board</h4>
                     <div id="board-queue"></div>
@@ -762,10 +788,10 @@
                     <h4 class="forecast-heading">Recent releases by board</h4>
                     <div id="board-matrix" class="bc-scroll"></div>
                     <div class="benchmark-legend">
-                        <div class="benchmark-legend-item"><span class="bc-chip bc-listed">5d</span><span>Listed, days after release</span></div>
-                        <div class="benchmark-legend-item"><span class="bc-chip bc-bound">&le;6d</span><span>Listed, date not known: at most this many days</span></div>
-                        <div class="benchmark-legend-item"><span class="bc-chip bc-pending">pending</span><span>No entry at last check</span></div>
-                        <div class="benchmark-legend-item"><span class="bc-chip bc-unknown">?</span><span>Could not be checked</span></div>
+                        <div class="benchmark-legend-item"><span class="bc-chip bc-listed">5d</span><span>Days to listing</span></div>
+                        <div class="benchmark-legend-item"><span class="bc-chip bc-bound">&le;6d</span><span>Upper bound</span></div>
+                        <div class="benchmark-legend-item"><span class="bc-chip bc-pending">pending</span><span>Not listed yet</span></div>
+                        <div class="benchmark-legend-item"><span class="bc-chip bc-unknown">?</span><span>Not checkable</span></div>
                     </div>
 
                     <h4 class="forecast-heading">Typical lag by board</h4>
@@ -795,7 +821,7 @@
         </div>
     </div>
 
-    <script src="info.js?v=1" defer></script>
+    <script src="info.js?v=2" defer></script>
     <script>
         // ===== release-data:begin =====
         // Claude model release data with announcement links
@@ -1459,6 +1485,15 @@
             // A maintained date, not new Date(): a live stamp would silently re-date
             // July's benchmark pulls every day forever. The forecast alone is live.
             lastUpdated.textContent = 'November 9, 2026 (Fable 5.2 and Mythos 5.2 added to the release data; Fable 5.2 added to pricing, SWE-bench Pro, OSWorld, GDPval, ARC-AGI-2 and the Capability Profile; GDPval, ARC-AGI-2 and the Capability Profile re-pulled whole from their boards, which also brought Sonnet 5.5 and Haiku 5.5 onto ARC-AGI-2 and Haiku 5.5 onto the Capability Profile; three charts added: ARC-AGI-3, which leaves the ARC-AGI-2 chart for its own with seven Claude models, Humanity\'s Last Exam from the system cards, and the Anthropic ECI from the Fable 5.2 card\'s November 6 fit, with a second panel showing every AECI value published across eight cards; Fable 5.2 plotted on the Remote Labor Index as a hollow point from the system card, since Scale\'s board has no row for it yet; Terminal-Bench 2.1, Vending-Bench 2, the Arena and RLI re-checked, with no Fable 5.2 run on any of those boards yet, all November 9; Vending-Bench 2 rows October 10; Terminal-Bench 2.1 rows September 28; forecast computed on view)';
+            // The stamp above is one hand-written line, "date (what changed; what changed; …)".
+            // The date stays in view; the changes fold behind "What changed".
+            const stamp = /^(.*?) \((.*)\)$/.exec(lastUpdated.textContent);
+            if (stamp) {
+                lastUpdated.textContent = stamp[1];
+                const log = document.getElementById('update-log-list');
+                log.textContent = '';
+                stamp[2].split('; ').forEach(item => { const li = document.createElement('li'); li.textContent = item; log.appendChild(li); });
+            }
 
             // Create cards for each model, all reading cycles from the one forecast
             const cardForecast = ReleaseForecast.forecastAll(modelData);
@@ -4279,24 +4314,74 @@
             setSvg('pricing-chart', svg);
         }
 
-        // Fold the prose under each chart into a disclosure. The notes earn their place —
-        // several carry caveats that change how a chart should be read — but stacked a
-        // dozen deep they bury the charts they belong to. Legends and the forecast table
-        // are data, not commentary, so they stay out in the open.
+        // Move the prose under each chart into the section's (i) panel, as a second part after
+        // the description, so a section has one place for words. The notes earn their place
+        // (several carry caveats that change how a chart should be read) but stacked a dozen
+        // deep they bury the charts they belong to. Legends, the one-line caveat under a chart
+        // and the forecast table are data, not commentary, so they stay out in the open.
         function collapseChartNotes() {
             document.querySelectorAll('.benchmark-chart-container').forEach(container => {
                 const notes = Array.from(container.children).filter(el =>
                     el.classList.contains('benchmark-note') || el.classList.contains('benchmark-paper-links'));
-                if (!notes.length) return;
+                let panel = container.previousElementSibling;
+                while (panel && !panel.classList.contains('info-panel')) panel = panel.previousElementSibling;
+                if (!notes.length || !panel) return;
 
-                const details = document.createElement('details');
-                details.className = 'chart-notes';
-                const summary = document.createElement('summary');
-                summary.textContent = notes.some(n => n.classList.contains('benchmark-paper-links'))
+                const label = document.createElement('h4');
+                label.className = 'info-part';
+                label.textContent = notes.some(n => n.classList.contains('benchmark-paper-links'))
                     ? 'Notes & sources' : 'Notes';
-                details.appendChild(summary);
-                container.insertBefore(details, notes[0]);
-                notes.forEach(n => details.appendChild(n));
+                panel.appendChild(label);
+                notes.forEach(note => {
+                    if (!note.classList.contains('benchmark-note')) { panel.appendChild(note); return; }
+                    // One paragraph per <br>-separated block, for spacing a long note can be read at
+                    let para = note;
+                    panel.appendChild(para);
+                    Array.from(note.childNodes).forEach(node => {
+                        if (node.nodeName === 'BR') {
+                            node.remove();
+                            para = document.createElement('p');
+                            para.className = 'benchmark-note';
+                            panel.appendChild(para);
+                        } else if (para !== note) para.appendChild(node);
+                    });
+                });
+            });
+        }
+
+        // The jump list under the title: one native menu of every section, grouped.
+        function renderSectionIndex() {
+            const select = document.getElementById('section-index');
+            const GROUPS = [
+                ['Releases', ['calendar', 'release-timeline', 'shipping-pace']],
+                ['Pricing', ['api-pricing']],
+                ['Coverage', ['board-coverage']]
+            ];
+            const grouped = new Set(GROUPS.flatMap(g => g[1]));
+            const rest = Array.from(document.querySelectorAll('.benchmark-section[id]')).map(el => el.id).filter(id => !grouped.has(id));
+            GROUPS.splice(2, 0, ['Benchmarks', rest]);
+            GROUPS.forEach(([name, ids]) => {
+                const group = document.createElement('optgroup');
+                group.label = name;
+                ids.forEach(id => {
+                    const title = document.querySelector('#' + id + ' .section-title');
+                    if (!title) return;
+                    const option = document.createElement('option');
+                    option.value = id;
+                    option.textContent = title.textContent.replace(/\s*i\s*$/, '').replace(/\s+/g, ' ').trim();
+                    group.appendChild(option);
+                });
+                select.appendChild(group);
+            });
+            select.addEventListener('change', () => {
+                const section = document.getElementById(select.value);
+                select.selectedIndex = 0;
+                if (!section) return;
+                history.replaceState(null, '', '#' + section.id);
+                section.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+                const heading = section.querySelector('.section-title');
+                heading.setAttribute('tabindex', '-1');
+                heading.focus({ preventScroll: true });
             });
         }
 
@@ -4561,6 +4646,7 @@
         renderCharts();
         renderBoardCoverage();
         collapseChartNotes();
+        renderSectionIndex();
 
         // Crossing the phone breakpoint (a rotated tablet, a resized window) redraws the
         // charts on the other canvas
@@ -4575,11 +4661,16 @@
         // written by forecast/live.py). The page still works if the file is missing.
         (function () {
             const box = document.getElementById('stat-forecast-rows');
-            if (!box || !window.fetch) return;
+            // Without the statistical forecast, the EWMA list is the only estimate: show it.
+            const showEwma = () => {
+                const b = document.querySelector('[aria-controls="ewma-estimate"]');
+                if (b && b.getAttribute('aria-expanded') !== 'true' && document.getElementById('stat-forecast').hidden) b.click();
+            };
+            if (!box || !window.fetch) { showEwma(); return; }
             const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
             const fmt = s => s && s[0] !== '>' ? MON[+s.slice(5, 7) - 1] + ' ' + (+s.slice(8)) : 'later';
             fetch('forecast/output/forecast.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(F => {
-                if (!F) return;
+                if (!F) { showEwma(); return; }
                 window.__statForecast = F;
                 if (typeof renderReleaseCalendar === 'function') {
                     try { renderReleaseCalendar(); } catch (e) { window.__statForecast = null; renderReleaseCalendar(); }
@@ -4592,11 +4683,12 @@
                         '</b> ' + Math.round(100 * p) + '% by ' + (C2 ? fmt(C2) : 'Dec 31') + ' &middot; median ' + fmt(t.median) + '</span>';
                 });
                 box.innerHTML = rows.join('') + '<div style="color:#8a7565;font-size:0.9em;margin-top:4px">As of ' + fmt(F.as_of) + '</div>';
+                document.getElementById('stat-forecast').hidden = false;
                 return fetch('forecast/output/voice_forecast.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(V => {
                     const a = V && V.rungs && V.rungs.A, h = a && !a.resolved && V.horizons[V.horizons.length - 1], b = h && a.by[h];
                     if (b) box.insertAdjacentHTML('beforeend', '<div style="margin-top:4px"><b>Voice model</b> (an Anthropic-built speech model) ' + Math.round(100 * b.final) + '% by ' + fmt(h) + ', ' + h.slice(0, 4) + ', range ' + Math.round(100 * b.low) + '&ndash;' + Math.round(100 * b.high) + '% &middot; <a href="release-forecast.html#h-voice">details</a></div>');
                 });
-            }).catch(() => {});
+            }).catch(showEwma);
         })();
     </script>
 </body>

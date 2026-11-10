@@ -70,7 +70,7 @@ site = f"""<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 {head_bits}
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=7">
 """
 style_end = rest.index("</style>") + len("</style>")
 site += rest[:style_end] + """
@@ -88,6 +88,6 @@ site += rest[:style_end] + """
             </ul>
         </div>
     </nav>
-""" + rest[style_end:] + '\n<script src="info.js?v=1" defer></script>\n</body>\n</html>\n'
+""" + rest[style_end:] + '\n<script src="info.js?v=2" defer></script>\n</body>\n</html>\n'
 open(os.path.join(ROOT, "..", "release-forecast.html"), "w").write(site)
 print("built", len(site), "bytes")

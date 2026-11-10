@@ -463,6 +463,18 @@ Explanatory prose (section descriptions, page intros, method and how-to-read tex
 
 - The `info-tail` span wraps the heading's last word and the button, so the icon never drops to a line of its own.
 - Panels start closed and nothing is remembered between visits. The text stays in the DOM, opens for find-in-page, opens when a link targets the heading, and prints expanded.
-- Stays visible, outside the panel: legends and provenance keys (hollow, diamond, large dot), freshness stamps, and any caveat a chart is misleading without. Keep a one-line version of the caveat under the heading and put the full sentence in the panel.
-- "Notes & sources" under a chart is a separate, older disclosure and stays at the bottom of the card.
-- A page with its own palette sets `--info-accent`, `--info-muted`, `--info-ink`, `--info-bg` and `--info-card` (see `forecast/page_template.html`).
+- Stays visible, outside the panel: legends and provenance keys (hollow, diamond, large dot, white slash, dashed), freshness stamps, and any caveat a chart is misleading without. The caveat is one line in a `<p class="chart-caveat">` directly under the chart, above the legend; the full sentence goes in the panel. Keep legend labels to a few words and put the long form in the panel as a "Key." paragraph.
+- A section has one place for words. The notes and source links written under a chart (`.benchmark-note`, `.benchmark-paper-links` inside `.benchmark-chart-container`) are moved at load into that section's panel, after the description, under a "Notes & sources" label (`.info-part`). Write them under the chart as before; `collapseChartNotes()` in `claude-models.html` does the move.
+- On a centred page title, add `info-tail--hang` to the span and drop the `&nbsp;`: the button then hangs off the last word and the title stays centred.
+- A page with its own palette sets `--info-accent`, `--info-muted`, `--info-ink`, `--info-bg`, `--info-card` and `--info-rule` (see `forecast/page_template.html`).
+
+### Text-labelled disclosure
+
+The (i) is for explanations. A secondary block of content (a table, a registry, an evidence list, a change log, an older estimate kept for comparison) folds behind a plain text label instead, using the same script and the same rules (closed by default, opens for find-in-page and for a link to anything inside it, prints expanded):
+
+```html
+<button type="button" class="more-btn" aria-expanded="false" aria-controls="more-x">Evidence on file (8)</button>
+<div class="more-panel" id="more-x" hidden="until-found">…</div>
+```
+
+Say what is inside, with a count where there is one. Do not put an (i) inside a folded block: write the explanation as a visible note there, so nothing is more than one tap away. On the forecast page a stack of these sits in `.folds` / `.fold`.

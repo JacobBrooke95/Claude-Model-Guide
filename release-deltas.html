@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Release Deltas - What Moved Between Claude System Cards</title>
     <meta name="description" content="For each Claude release, which system card figures moved against its predecessor, and which cannot be compared.">
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css?v=7">
     <style>
         /* Page-specific styles. Shared tokens and components come from styles.css (see DESIGN.md).
            Dark mode follows release-forecast.html: system preference, overridable with data-theme. */
@@ -59,14 +59,6 @@
         .rd .navbar ul.nav-links { flex-wrap: wrap; }
         .rd .page-card { padding: 40px 32px; }
 
-        .rd-intro {
-            max-width: 760px;
-            margin: 0 auto 1.75rem;
-            text-align: center;
-            color: var(--color-text-light);
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
 
         .rd-panel {
             background: linear-gradient(135deg, var(--color-bg-card-accent) 0%, var(--color-bg-card-accent-end) 100%);
@@ -407,7 +399,7 @@
     <div class="container-wide">
         <div class="page-card">
             <div class="page-header">
-                <h1>Release <span class="info-tail">Deltas&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-rd" aria-label="About this page"><span aria-hidden="true">i</span></button></span></h1>
+                <h1>Release <span class="info-tail info-tail--hang">Deltas<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-rd" aria-label="About this page"><span aria-hidden="true">i</span></button></span></h1>
                 <p>What moved between one Claude system card and the next</p>
             </div>
 
@@ -510,7 +502,7 @@
         </div>
     </div>
 
-    <script src="info.js?v=1" defer></script>
+    <script src="info.js?v=2" defer></script>
     <script>
     (function () {
         const FAM_VAR = { opus: 'var(--fam-opus)', sonnet: 'var(--fam-sonnet)', haiku: 'var(--fam-haiku)', fable: 'var(--fam-fable)', mythos: 'var(--fam-mythos)' };
