@@ -14,6 +14,8 @@
   --shadow: 0 10px 30px rgba(92,74,61,0.15);
   --f-body: Arial, "Helvetica Neue", Helvetica, sans-serif;
   --f-data: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* the shared (i) disclosure (styles.css, info-disclosure) reads these */
+  --info-accent: var(--coral); --info-muted: var(--ink-muted); --info-ink: var(--ink-soft); --info-bg: var(--card-tint); --info-card: var(--card);
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --ground-a: #1d1815; --ground-b: #241d19; --card: #2a2320; --card-tint: #302825; --card-tint-2: #3a2e29;
@@ -71,8 +73,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline
 .chart { width: 100%; overflow-x: auto; }
 .chart svg { display: block; width: 100%; height: auto; min-width: 560px; }
 .chart.small svg { min-width: 0; max-width: 340px; }
-.rel-row { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 22px; align-items: center; }
-@media (max-width: 640px) { .rel-row { grid-template-columns: 1fr; } }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .84em; color: var(--ink-soft); margin-top: 8px; }
 .legend i { display: inline-block; width: 18px; height: 3px; border-radius: 2px; background: var(--c); vertical-align: middle; margin-right: 6px; }
 .legend i.dot { width: 9px; height: 9px; border-radius: 50%; background: transparent; border: 2px solid var(--c); }
@@ -113,14 +113,14 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
   </header>
 
   <section class="rf-card" aria-labelledby="h-now">
-    <h2 id="h-now">The forecast</h2>
-    <p class="note">Each card gives the probability that the family's next model is publicly released by the date shown. The big number is the model's own estimate, using cadence, calendar and pre-release signals. The market column is the Polymarket price where a market exists. The blend averages the two in log-odds with equal weight.</p>
+    <h2 id="h-now">The <span class="info-tail">forecast&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-now" aria-label="About the forecast"><span aria-hidden="true">i</span></button></span></h2>
+    <div class="info-panel" id="info-now" hidden="until-found"><p>Each card gives the probability that the family's next model is publicly released by the date shown. The big number is the model's own estimate, using cadence, calendar and pre-release signals. The market column is the Polymarket price where a market exists. The blend averages the two in log-odds with equal weight.</p></div>
     <div class="fam-grid" id="fam-grid"></div>
     <div class="agg-grid" id="agg-grid"></div>
-    <h3>Cumulative probability, next 120 days</h3>
+    <h3>Cumulative probability, next 120 <span class="info-tail">days&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-cdf" aria-label="About the cumulative probability chart"><span aria-hidden="true">i</span></button></span></h3>
+    <div class="info-panel" id="info-cdf" hidden="until-found"><p>Lines show the model's P(released by date). Circles show Polymarket "released by" prices after a monotone fit, because thin daily rungs are sometimes out of order. Shading marks US election days (even years), Thanksgiving Thursday–Friday and the Dec 20 – Jan 4 freeze, where the model cuts the daily hazard to a quarter.</p></div>
     <div class="chart" id="cdf-chart"></div>
     <div class="legend" id="cdf-legend"></div>
-    <p class="tiny">Lines show the model's P(released by date). Circles show Polymarket "released by" prices after a monotone fit, because thin daily rungs are sometimes out of order. Shading marks US election days (even years), Thanksgiving Thursday–Friday and the Dec 20 – Jan 4 freeze, where the model cuts the daily hazard to a quarter.</p>
   </section>
 
   <section class="rf-card" aria-labelledby="h-fable">
@@ -140,30 +140,29 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
   </section>
 
   <section class="rf-card" aria-labelledby="h-params">
-    <h2 id="h-params">What the next release will look like</h2>
-    <p class="note">Release parameters beyond the date. Each line says whether the estimate is fitted from data (and from how many points) or rule-based.</p>
+    <h2 id="h-params">What the next release will look <span class="info-tail">like&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-params" aria-label="About the release parameters"><span aria-hidden="true">i</span></button></span></h2>
+    <div class="info-panel" id="info-params" hidden="until-found"><p>Release parameters beyond the date. Each line says whether the estimate is fitted from data (and from how many points) or rule-based.</p><p>Names: the step sizes the family has used since Claude 4, plus the generation clock; for Fable and Mythos, a rule gives 85% to the version named in the Azure row and the commit trailer. Price: the share of launches since 2025 that kept, cut or raised list price (n in brackets). Co-launch: the share of the family's releases that shared a day with another family. SWE-bench Pro: Anthropic-reported scores, projected by pooling the per-release rate of progress across families. Treat it as a rough extrapolation on a benchmark nearing saturation.</p></div>
     <div class="tbl"><table id="params-table"></table></div>
-    <p class="tiny">Names: the step sizes the family has used since Claude 4, plus the generation clock; for Fable and Mythos, a rule gives 85% to the version named in the Azure row and the commit trailer. Price: the share of launches since 2025 that kept, cut or raised list price (n in brackets). Co-launch: the share of the family's releases that shared a day with another family. SWE-bench Pro: Anthropic-reported scores, projected by pooling the per-release rate of progress across families. Treat it as a rough extrapolation on a benchmark nearing saturation.</p>
-    <h3>When does generation 6 arrive?</h3>
+    <h3>When does generation 6 <span class="info-tail">arrive?&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-gen" aria-label="About the generation clock"><span aria-hidden="true">i</span></button></span></h3>
+    <div class="info-panel" id="info-gen" hidden="until-found"><p>The generation clock fits a log-normal to the four gaps between generation debuts (Claude 1 → 2 → 3 → 4 → 5, where 5 means Fable 5 on Jun 9, 2026), conditioned on no Claude 6 yet. With four data points the band is wide, but it lands close to both markets.</p></div>
     <div class="tbl"><table id="gen-table"></table></div>
-    <p class="tiny">The generation clock fits a log-normal to the four gaps between generation debuts (Claude 1 → 2 → 3 → 4 → 5, where 5 means Fable 5 on Jun 9, 2026), conditioned on no Claude 6 yet. With four data points the band is wide, but it lands close to both markets.</p>
   </section>
 
   <section class="rf-card" aria-labelledby="h-test">
-    <h2 id="h-test">Does it work? The backtest</h2>
+    <h2 id="h-test">Does it work? The <span class="info-tail">backtest&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-test" aria-label="About the backtest"><span aria-hidden="true">i</span></button></span></h2>
+    <div class="info-panel" id="info-test" hidden="until-found"><p id="score-foot"></p></div>
     <div id="test-lede"></div>
     <div class="tbl"><table id="score-table"></table></div>
-    <p class="tiny" id="score-foot"></p>
-    <div class="rel-row" style="margin-top:10px">
-      <div><h3>Calibration by period (final model, 30-day questions)</h3><div class="chart small" id="rel-chart"></div></div>
-      <div class="rel-text"><p class="note" id="rel-text"></p></div>
-    </div>
-    <h3>Head-to-head tests</h3>
+    <h3>Calibration by period (final model, 30-day <span class="info-tail">questions)&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-rel" aria-label="About the calibration chart"><span aria-hidden="true">i</span></button></span></h3>
+    <div class="info-panel" id="info-rel" hidden="until-found"><p id="rel-text"></p></div>
+    <div class="chart small" id="rel-chart"></div>
+    <h3>Head-to-head <span class="info-tail">tests&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-tests" aria-label="About the head-to-head tests"><span aria-hidden="true">i</span></button></span></h3>
+    <div class="info-panel" id="info-tests" hidden="until-found"><p>Opus, Sonnet and Haiku questions. Each row gives the mean Brier difference per block (A − B; negative means A is better). Significance treats each inter-release interval as one observation, so n is the number of blocks, close to the number of release events. The 95% interval bootstraps those blocks, and p is a t-test on the block means. Green means the interval favours A; red means it favours B.</p></div>
     <div class="tbl"><table id="tests-table"></table></div>
-    <p class="tiny">Opus, Sonnet and Haiku questions. Each row gives the mean Brier difference per block (A − B; negative means A is better). Significance treats each inter-release interval as one observation, so n is the number of blocks, close to the number of release events. The 95% interval bootstraps those blocks, and p is a t-test on the block means. Green means the interval favours A; red means it favours B.</p>
-    <h3>Dating individual releases</h3>
+    <h3>Dating individual <span class="info-tail">releases&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-event" aria-label="About dating individual releases"><span aria-hidden="true">i</span></button></span></h3>
+    <div class="info-panel" id="info-event" hidden="until-found"><p id="event-foot"></p></div>
     <div class="tbl"><table id="event-table"></table></div>
-    <p class="tiny" id="event-foot"></p>
+    <p class="tiny">Only the first row is a fair test of calibration. The later rows are diagnostics.</p>
   </section>
 
   <section class="rf-card" aria-labelledby="h-track">
@@ -175,14 +174,14 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
     <h2 id="h-inputs">Inputs, and what each one is worth</h2>
     <p class="note">Every input the forecaster knows about, sorted into seven categories. Status says whether the input is <span class="st-fit"><b>fitted</b></span> from data, set as a <span class="st-prior"><b>prior or rule</b></span>, <span class="st-null"><b>tested and found empty</b></span>, or <span class="st-watch"><b>watched only</b></span>.</p>
     <div id="registry"></div>
-    <h3>Signal classes, as estimated today</h3>
+    <h3>Signal classes, as estimated <span class="info-tail">today&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-sig" aria-label="About the signal classes"><span aria-hidden="true">i</span></button></span></h3>
+    <div class="info-panel" id="info-sig" hidden="until-found"><p>Detection rate is the share of the past year's releases that had a signal of this class. Typical lead is the median days from first sighting to release, from the log-normal fit. False alarms are counted per family-day. Classes share sources, so the model shrinks their combined weight (ρ = 0.5) and caps each class's likelihood ratio at 5×.</p></div>
     <div class="tbl"><table id="sigclass-table"></table></div>
-    <p class="tiny">Detection rate is the share of the past year's releases that had a signal of this class. Typical lead is the median days from first sighting to release, from the log-normal fit. False alarms are counted per family-day. Classes share sources, so the model shrinks their combined weight (ρ = 0.5) and caps each class's likelihood ratio at 5×.</p>
   </section>
 
   <section class="rf-card" aria-labelledby="h-method">
-    <h2 id="h-method">How the model works</h2>
-    <div id="method"></div>
+    <h2 id="h-method">How the model <span class="info-tail">works&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="method" aria-label="About how the model works"><span aria-hidden="true">i</span></button></span></h2>
+    <div class="info-panel" id="method" hidden="until-found"></div>
   </section>
 
   <footer class="rf-foot" id="foot"></footer>
@@ -311,6 +310,8 @@ const DATA = /*__DATA__*/null;
   // ---------- backtest ----------
   (function () {
     $("test-lede").innerHTML = M.test_lede_html;
+    // the set-up paragraphs go behind the heading's (i); the verdict callout stays in view
+    Array.from($("test-lede").children).filter(el => el.tagName === "P").forEach(el => $("info-test").insertBefore(el, $("score-foot")));
     const S = B.scores, show = M.score_rows;
     const get = (period, model, h) => S.find(r => r.period === period && r.model === model && r.h === h);
     let h = `<thead><tr><th>Model</th><th>Brier 7d</th><th>Brier 30d</th><th>Brier 90d</th><th>Log loss 30d</th><th>Skill vs base rate, 30d</th></tr></thead><tbody>`;

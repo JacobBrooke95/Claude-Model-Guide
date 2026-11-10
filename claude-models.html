@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude Model Guide - Release Cycle Tracker</title>
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="styles.css?v=6">
     <style>
         /* Board Coverage: page-specific. Shared tokens and components come from styles.css (see DESIGN.md). */
         .bc-heading:first-child { margin-top: 0; padding-top: 0; border-top: none; }
@@ -67,16 +67,14 @@
     <div class="container">
         <div class="page-card">
             <div class="page-header">
-                <h1>Claude Model Guide</h1>
+                <h1>Claude Model <span class="info-tail">Guide&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-guide" aria-label="About this guide"><span aria-hidden="true">i</span></button></span></h1>
                 <p>Track the age of Anthropic's Claude models</p>
             </div>
 
-            <div class="guide-intro">
-                <p>
-                    This guide tracks Anthropic's Claude model releases to help you understand
+            <div class="info-panel" id="info-guide" hidden="until-found">
+                <p>This guide tracks Anthropic's Claude model releases to help you understand
                     how current each model family is. Based on historical release patterns,
-                    it shows where each model sits in its typical update cycle.
-                </p>
+                    it shows where each model sits in its typical update cycle.</p>
             </div>
 
             <div class="fleet-freshness" id="fleet-freshness"></div>
@@ -88,8 +86,8 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">Release Calendar</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Six weeks back, and forward as far as the furthest estimate within four months, on one date axis — a lane per family, pivoting on today. An estimate further out than that is named at the right edge of its lane. Solid dots are releases that happened, with dotted ticks showing what the EWMA cadence model had called for them the day before they shipped. Hollow dots and bars come from the <a href="release-forecast.html">statistical forecast</a>: each hollow dot is the median date of the family's next release, and its bar spans the 80% window. The forecast updates weekly, and the calendar reads the latest run. A small grey tick under each lane marks the older EWMA estimate for comparison. If the forecast file can't load, the calendar falls back to the EWMA alone.</p>
+                <h2 class="section-title">Release <span class="info-tail">Calendar&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-release-calendar" aria-label="About Release Calendar"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-release-calendar" hidden="until-found"><p>Six weeks back, and forward as far as the furthest estimate within four months, on one date axis — a lane per family, pivoting on today. An estimate further out than that is named at the right edge of its lane. Solid dots are releases that happened, with dotted ticks showing what the EWMA cadence model had called for them the day before they shipped. Hollow dots and bars come from the <a href="release-forecast.html">statistical forecast</a>: each hollow dot is the median date of the family's next release, and its bar spans the 80% window. The forecast updates weekly, and the calendar reads the latest run. A small grey tick under each lane marks the older EWMA estimate for comparison. If the forecast file can't load, the calendar falls back to the EWMA alone.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="release-calendar"></div>
                     <div class="benchmark-legend">
@@ -128,24 +126,26 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">Release Timeline</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Every Claude model release plotted chronologically; a white slash marks preview-only or restricted-access drops. Hover over or tap a point for the date.</p>
+                <h2 class="section-title">Release <span class="info-tail">Timeline&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-release-timeline" aria-label="About Release Timeline"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-release-timeline" hidden="until-found"><p>Every Claude model release plotted chronologically; a white slash marks preview-only or restricted-access drops. Hover over or tap a point for the date.</p></div>
+                <p class="benchmark-note" style="margin-bottom: 18px;">A white slash marks a preview-only or restricted-access drop.</p>
                 <div class="benchmark-chart-container">
                     <div id="timeline-chart"></div>
                 </div>
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">Shipping Pace</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Cumulative Claude releases over time, stacked by family. Each step up is a ship — the steeper the slope, the faster the pace. Numbers under the quarter bands show releases shipped that quarter. Fable and Mythos launched together three times (5, 5.1 and 5.2), so each pair counts as one step, colored Fable.</p>
+                <h2 class="section-title">Shipping <span class="info-tail">Pace&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-shipping-pace" aria-label="About Shipping Pace"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-shipping-pace" hidden="until-found"><p>Cumulative Claude releases over time, stacked by family. Each step up is a ship — the steeper the slope, the faster the pace. Numbers under the quarter bands show releases shipped that quarter. Fable and Mythos launched together three times (5, 5.1 and 5.2), so each pair counts as one step, colored Fable.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="gap-chart"></div>
                 </div>
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">API Pricing</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Claude API list price per million tokens for the current lineup. Lighter bars are input tokens, solid bars are output tokens. Dashed marks show each tier's price before its most recent change.</p>
+                <h2 class="section-title">API <span class="info-tail">Pricing&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-api-pricing" aria-label="About API Pricing"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-api-pricing" hidden="until-found"><p>Claude API list price per million tokens for the current lineup. Lighter bars are input tokens, solid bars are output tokens. Dashed marks show each tier's price before its most recent change.</p></div>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Per million tokens. Lighter bar: input. Solid bar: output. Dashed mark: price before the last change.</p>
                 <div class="benchmark-chart-container">
                     <div id="pricing-chart"></div>
                     <p class="benchmark-note">
@@ -178,8 +178,8 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">Capability Profile</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Where each family's newest model is strongest. Ten evaluations, all scored 0&ndash;100, re-pulled together on November 9, 2026. Nine come from Artificial Analysis's single harness at max effort; SWE-bench Pro is Anthropic's own system-card figure. Hover over or tap any point for the raw score.</p>
+                <h2 class="section-title">Capability <span class="info-tail">Profile&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-capability-profile" aria-label="About Capability Profile"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-capability-profile" hidden="until-found"><p>Where each family's newest model is strongest. Ten evaluations, all scored 0&ndash;100, re-pulled together on November 9, 2026. Nine come from Artificial Analysis's single harness at max effort; SWE-bench Pro is Anthropic's own system-card figure. Hover over or tap any point for the raw score.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="radar-chart"></div>
                     <div class="benchmark-legend">
@@ -225,8 +225,9 @@
             </div>
 
             <div class="benchmark-section" id="aeci">
-                <h2 class="section-title">Anthropic ECI</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">One number per model, fitted across hundreds of benchmarks: Anthropic's own composite index, a fork of Epoch's Capabilities Index built on internal results and not comparable to Epoch's public ECI. All points come from a single fit, dated November 6, 2026. Bars are 95% intervals.</p>
+                <h2 class="section-title">Anthropic <span class="info-tail">ECI&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-anthropic-eci" aria-label="About Anthropic ECI"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-anthropic-eci" hidden="until-found"><p>One number per model, fitted across hundreds of benchmarks: Anthropic's own composite index, a fork of Epoch's Capabilities Index built on internal results and not comparable to Epoch's public ECI. All points come from a single fit, dated November 6, 2026. Bars are 95% intervals.</p></div>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Anthropic's own index, not comparable to Epoch's public ECI. One fit, dated November 6, 2026.</p>
                 <div class="benchmark-chart-container">
                     <div id="aeci-chart"></div>
                     <div class="benchmark-legend">
@@ -277,8 +278,8 @@
                         </div>
                     </div>
                 </div>
-                <h3 style="font-size: 1.05em; font-weight: 600; color: #2d3436; margin: 26px 0 6px;">Refit drift: how each model's score has moved since release</h3>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Each model sits at its release date. The large dot is the score its own system card gave it. The pole above it carries every score Anthropic has published for that same model since, as the index was refitted. The height of the pole is how far the number moved without the model changing.</p>
+                <h3 style="font-size: 1.05em; font-weight: 600; color: #2d3436; margin: 26px 0 6px;">Refit drift: how each model's score has moved since <span class="info-tail">release&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-refit-drift" aria-label="About refit drift"><span aria-hidden="true">i</span></button></span></h3>
+                <div class="info-panel" id="info-refit-drift" hidden="until-found"><p>Each model sits at its release date. The large dot is the score its own system card gave it. The pole above it carries every score Anthropic has published for that same model since, as the index was refitted. The height of the pole is how far the number moved without the model changing.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="aeci-drift-chart"></div>
                     <div class="benchmark-legend">
@@ -304,8 +305,9 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">SWE-bench Pro</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Anthropic-reported pass rates on Scale AI's harder SWE-bench variant, each averaged over five trials. The y-axis starts at 40%. This chart replaced SWE-bench Verified, which Anthropic no longer reports (history in notes).</p>
+                <h2 class="section-title">SWE-bench <span class="info-tail">Pro&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-swe-bench-pro" aria-label="About SWE-bench Pro"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-swe-bench-pro" hidden="until-found"><p>Anthropic-reported pass rates on Scale AI's harder SWE-bench variant, each averaged over five trials. The y-axis starts at 40%. This chart replaced SWE-bench Verified, which Anthropic no longer reports (history in notes).</p></div>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Anthropic-reported. The y-axis starts at 40%.</p>
                 <div class="benchmark-chart-container">
                     <div id="swebench-chart"></div>
                     <div class="benchmark-legend">
@@ -356,8 +358,9 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">Terminal-Bench 2.1</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Vals AI's independent harness snapshot. The Capability Profile's Terminal-Bench axis is the newer 4.0 suite, so compare within this chart only. The y-axis starts at 40%.</p>
+                <h2 class="section-title">Terminal-Bench <span class="info-tail">2.1&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-terminal-bench-2-1" aria-label="About Terminal-Bench 2.1"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-terminal-bench-2-1" hidden="until-found"><p>Vals AI's independent harness snapshot. The Capability Profile's Terminal-Bench axis is the newer 4.0 suite, so compare within this chart only. The y-axis starts at 40%.</p></div>
+                <p class="benchmark-note" style="margin-bottom: 18px;">The y-axis starts at 40%. Compare within this chart only.</p>
                 <div class="benchmark-chart-container">
                     <div id="terminalbench-chart"></div>
                     <div class="benchmark-legend">
@@ -395,8 +398,9 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">OSWorld Benchmark Progress</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">One line per family, three versions of the eval. Scores switch from original OSWorld to the stricter OSWorld-Verified at Sonnet 4.5 (the 42&rarr;61 segment straddles that switch), and each family's newest release (Fable 5.2, Opus 5.5, Sonnet 5.5 and Haiku 5.5), drawn hollow on a dashed segment, is an OSWorld 2.1 partial-credit score on the 82-task offline set, because Anthropic no longer reports Verified. The y-axis spans 10&ndash;100%.</p>
+                <h2 class="section-title">OSWorld Benchmark <span class="info-tail">Progress&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-osworld-benchmark-progress" aria-label="About OSWorld Benchmark Progress"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-osworld-benchmark-progress" hidden="until-found"><p>One line per family, three versions of the eval. Scores switch from original OSWorld to the stricter OSWorld-Verified at Sonnet 4.5 (the 42&rarr;61 segment straddles that switch), and each family's newest release (Fable 5.2, Opus 5.5, Sonnet 5.5 and Haiku 5.5), drawn hollow on a dashed segment, is an OSWorld 2.1 partial-credit score on the 82-task offline set, because Anthropic no longer reports Verified. The y-axis spans 10&ndash;100%.</p></div>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Three versions of the eval on one line. The y-axis spans 10&ndash;100%.</p>
                 <div class="benchmark-chart-container">
                     <div id="benchmark-chart"></div>
                     <div class="benchmark-legend">
@@ -441,8 +445,8 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">Vending-Bench Earnings</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Vending-Bench 2, strongest reasoning tier per model &mdash; tiers can differ 2&times; on the same model (Opus 4.8: $5,787 High vs $2,992 Max).</p>
+                <h2 class="section-title">Vending-Bench <span class="info-tail">Earnings&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-vending-bench-earnings" aria-label="About Vending-Bench Earnings"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-vending-bench-earnings" hidden="until-found"><p>Vending-Bench 2, strongest reasoning tier per model &mdash; tiers can differ 2&times; on the same model (Opus 4.8: $5,787 High vs $2,992 Max).</p></div>
                 <div class="benchmark-chart-container">
                     <div id="earnings-chart"></div>
                     <div class="benchmark-legend">
@@ -482,8 +486,9 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">Vending-Bench Arena</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">The multi-player version: three or four agents run rival machines on the same simulated street, able to email, trade and undercut each other. Andon publishes no aggregate Arena leaderboard — each dated round is its own contest, so read this as a series of match results, not one comparable scale. Only Claude entries are plotted; a ring marks the rounds a Claude model won.</p>
+                <h2 class="section-title">Vending-Bench <span class="info-tail">Arena&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-vending-bench-arena" aria-label="About Vending-Bench Arena"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-vending-bench-arena" hidden="until-found"><p>The multi-player version: three or four agents run rival machines on the same simulated street, able to email, trade and undercut each other. Andon publishes no aggregate Arena leaderboard — each dated round is its own contest, so read this as a series of match results, not one comparable scale. Only Claude entries are plotted; a ring marks the rounds a Claude model won.</p></div>
+                <p class="benchmark-note" style="margin-bottom: 18px;">Each dated round is its own contest, not one comparable scale.</p>
                 <div class="benchmark-chart-container">
                     <div id="arena-chart"></div>
                     <div class="benchmark-legend">
@@ -526,8 +531,8 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">GDPval-AA v2.1</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Max-effort Elo on Artificial Analysis's v2.1 board, every point from one read on November 9, 2026. The Opus line starts at 4.7 because Opus 4.5/4.6 have no v2-series Elo &mdash; missing data, not a debut.</p>
+                <h2 class="section-title">GDPval-AA <span class="info-tail">v2.1&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-gdpval-aa-v2-1" aria-label="About GDPval-AA v2.1"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-gdpval-aa-v2-1" hidden="until-found"><p>Max-effort Elo on Artificial Analysis's v2.1 board, every point from one read on November 9, 2026. The Opus line starts at 4.7 because Opus 4.5/4.6 have no v2-series Elo &mdash; missing data, not a debut.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="gdpval-chart"></div>
                     <div class="benchmark-legend">
@@ -568,8 +573,9 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">Remote Labor Index</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Share of 240 real freelance projects delivered to a paying-client standard. The runs along this line do not share a harness &mdash; scaffolds improved alongside the models (details in notes). The hollow point is a Scale run that Anthropic has reported and Scale's board has not listed yet.</p>
+                <h2 class="section-title">Remote Labor <span class="info-tail">Index&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-remote-labor-index" aria-label="About Remote Labor Index"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-remote-labor-index" hidden="until-found"><p>Share of 240 real freelance projects delivered to a paying-client standard. The runs along this line do not share a harness &mdash; scaffolds improved alongside the models (details in notes). The hollow point is a Scale run that Anthropic has reported and Scale's board has not listed yet.</p></div>
+                <p class="benchmark-note" style="margin-bottom: 18px;">The runs along this line do not share a harness.</p>
                 <div class="benchmark-chart-container">
                     <div id="rli-chart"></div>
                     <div class="benchmark-legend">
@@ -608,8 +614,8 @@
             </div>
 
             <div class="benchmark-section">
-                <h2 class="section-title">ARC-AGI-2 Reasoning</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Abstract reasoning on novel visual puzzles, from the ARC Prize leaderboard &mdash; each model's strongest listed configuration. Humans score about 60%. The newer, interactive ARC-AGI-3 has its own chart below.</p>
+                <h2 class="section-title">ARC-AGI-2 <span class="info-tail">Reasoning&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-arc-agi-2-reasoning" aria-label="About ARC-AGI-2 Reasoning"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-arc-agi-2-reasoning" hidden="until-found"><p>Abstract reasoning on novel visual puzzles, from the ARC Prize leaderboard &mdash; each model's strongest listed configuration. Humans score about 60%. The newer, interactive ARC-AGI-3 has its own chart below.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="arc-chart"></div>
                     <div class="benchmark-legend">
@@ -648,8 +654,8 @@
             </div>
 
             <div class="benchmark-section" id="arc-agi-3">
-                <h2 class="section-title">ARC-AGI-3 Interactive Reasoning</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Where ARC-AGI-2 shows a static puzzle, ARC-AGI-3 drops an agent into a small game with no instructions: it has to work out the rules and the goal by acting, and is scored on how efficiently it finishes compared with people. Each model's best ARC Prize-verified score on the Standard harness, read November 9, 2026.</p>
+                <h2 class="section-title">ARC-AGI-3 Interactive <span class="info-tail">Reasoning&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-arc-agi-3-interactive-reasoning" aria-label="About ARC-AGI-3 Interactive Reasoning"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-arc-agi-3-interactive-reasoning" hidden="until-found"><p>Where ARC-AGI-2 shows a static puzzle, ARC-AGI-3 drops an agent into a small game with no instructions: it has to work out the rules and the goal by acting, and is scored on how efficiently it finishes compared with people. Each model's best ARC Prize-verified score on the Standard harness, read November 9, 2026.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="arc3-chart"></div>
                     <div class="benchmark-legend">
@@ -694,8 +700,9 @@
             </div>
 
             <div class="benchmark-section" id="hle">
-                <h2 class="section-title">Humanity's Last Exam</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">2,500 closed-ended questions at the edge of expert knowledge, across more than a hundred subjects, written by specialists and kept only if the best models of early 2025 got them wrong. Plotted: the share each model answers correctly with no tools, as Anthropic reports it in its system cards. These are first-party figures; outside boards score lower (details in notes).</p>
+                <h2 class="section-title">Humanity's Last <span class="info-tail">Exam&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-humanity-s-last-exam" aria-label="About Humanity's Last Exam"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-humanity-s-last-exam" hidden="until-found"><p>2,500 closed-ended questions at the edge of expert knowledge, across more than a hundred subjects, written by specialists and kept only if the best models of early 2025 got them wrong. Plotted: the share each model answers correctly with no tools, as Anthropic reports it in its system cards. These are first-party figures; outside boards score lower (details in notes).</p></div>
+                <p class="benchmark-note" style="margin-bottom: 18px;">First-party figures; outside boards score lower.</p>
                 <div class="benchmark-chart-container">
                     <div id="hle-chart"></div>
                     <div class="benchmark-legend">
@@ -746,8 +753,8 @@
             </div>
 
             <div class="benchmark-section" id="board-coverage">
-                <h2 class="section-title">Board Coverage</h2>
-                <p class="benchmark-note" style="margin-bottom: 18px;">Several charts above plot third-party leaderboards, which pick up a new model days or months after it ships. This is the queue of releases still waiting on a board, and how long each board has taken before.</p>
+                <h2 class="section-title">Board <span class="info-tail">Coverage&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-board-coverage" aria-label="About Board Coverage"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-board-coverage" hidden="until-found"><p>Several charts above plot third-party leaderboards, which pick up a new model days or months after it ships. This is the queue of releases still waiting on a board, and how long each board has taken before.</p></div>
                 <div class="benchmark-chart-container">
                     <h4 class="forecast-heading bc-heading">Waiting on a board</h4>
                     <div id="board-queue"></div>
@@ -783,11 +790,12 @@
         </div>
 
         <div class="footer">
-            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Mon 11•09•26</p>
+            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Tue 11•10•26</p>
             <p>Data sourced from <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic News</a></p>
         </div>
     </div>
 
+    <script src="info.js?v=1" defer></script>
     <script>
         // ===== release-data:begin =====
         // Claude model release data with announcement links
@@ -1836,12 +1844,14 @@
             const crowded = Math.abs(Math.max(3, Math.min(97, n.percent)) - Math.max(3, Math.min(97, a.percent))) < 15;
             document.getElementById('fleet-freshness').innerHTML = `
                 <div class="fleet-head">
-                    <h2 class="fleet-title">Lineup Freshness</h2>
+                    <h2 class="fleet-title">Lineup <span class="info-tail">Freshness&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-fleet" aria-label="About Lineup Freshness"><span aria-hidden="true">i</span></button></span></h2>
                     <div class="fleet-verdicts">
                         <span class="fleet-verdict zone-${n.zone}">Newest: ${zoneName(n.zone)}</span>
                         <span class="fleet-verdict zone-${a.zone}">Lineup average: ${zoneName(a.zone)}</span>
                     </div>
                 </div>
+
+                <div class="info-panel" id="info-fleet" hidden="until-found"><p>The left dot measures the newest release of any family against that family's own release cycle (${n.version} is ${n.daysSince} day${n.daysSince === 1 ? '' : 's'} into an estimated ${n.cycleDays}-day ${n.family} cycle). The right dot measures the average age of the ${f.modelCount} family flagships (${a.ageDays} days) against how long a family typically goes between refreshes (${a.cycleDays} days). ${agreement}. For reference, something in the lineup ships about every ${f.shipCadence} days.</p></div>
 
                 <div class="fleet-rail">
                     <div class="fleet-rail-labels">
@@ -1877,15 +1887,6 @@
                         <div class="fleet-stat-label">Avg family cycle (days)</div>
                     </div>
                 </div>
-
-                <p class="fleet-note">
-                    The left dot measures the newest release of any family against that family's own
-                    release cycle (${n.version} is ${n.daysSince} day${n.daysSince === 1 ? '' : 's'} into an estimated ${n.cycleDays}-day ${n.family}
-                    cycle). The right dot measures the average age of the ${f.modelCount} family flagships
-                    (${a.ageDays} days) against how long a family typically goes between refreshes
-                    (${a.cycleDays} days). ${agreement}. For reference, something in the
-                    lineup ships about every ${f.shipCadence} days.
-                </p>
             `;
         }
 

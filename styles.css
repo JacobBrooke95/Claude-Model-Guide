@@ -1679,6 +1679,158 @@ a:hover {
   }
 }
 
+/* ==========================================================================
+   Info disclosure: the (i) at the end of a heading, and the panel it opens.
+   Shared by all four pages; behaviour is in info.js. A page with its own palette
+   or a dark theme sets --info-accent, --info-muted, --info-ink, --info-bg, --info-card.
+   forecast/tools/build_page.py copies the block between these two markers into the
+   standalone forecast artifact, so keep it self-contained.
+   ========================================================================== */
+/* >>> info-disclosure */
+/* Wraps the heading's last word and the button, so the icon never drops to a line of its own. */
+.info-tail {
+  white-space: nowrap;
+}
+
+.info-btn {
+  --_accent: var(--info-accent, var(--color-primary, #e07a5f));
+  --_muted: var(--info-muted, var(--color-text-muted, #636e72));
+  --_card: var(--info-card, var(--color-bg-card, #fff));
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  top: -0.08em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  border: 1.5px solid var(--_muted);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--_muted);
+  font: italic 700 12px/1 Georgia, "Times New Roman", serif;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+/* The hit area is larger than the drawn circle: 28px with a mouse, 44px on touch. */
+.info-btn::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+}
+
+@media (pointer: coarse), (max-width: 768px) {
+  .info-btn::after {
+    inset: -13px;
+  }
+}
+
+.info-btn:hover {
+  border-color: var(--_accent);
+  color: var(--_accent);
+}
+
+.info-btn:focus-visible {
+  outline: 2px solid var(--_accent);
+  outline-offset: 3px;
+}
+
+.info-btn[aria-expanded="true"] {
+  border-color: var(--_accent);
+  background: var(--_accent);
+  color: var(--_card);
+}
+
+.info-panel {
+  margin: 0.5rem 0 1.1rem;
+  padding: 0.7rem 0.95rem;
+  border-left: 3px solid var(--info-accent, var(--color-primary, #e07a5f));
+  border-radius: 0 8px 8px 0;
+  background: var(--info-bg, var(--color-bg-card-accent, #fdf8f5));
+  color: var(--info-ink, var(--color-text-light, #666));
+  font-size: 0.88rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.section-title + .info-panel {
+  margin-top: -8px;
+}
+
+.info-panel p,
+.info-panel li {
+  max-width: none;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.info-panel p,
+.info-panel ul {
+  margin: 0 0 0.6em;
+}
+
+.info-panel ul {
+  padding-left: 18px;
+}
+
+.info-panel > :first-child {
+  margin-top: 0;
+}
+
+.info-panel > :last-child {
+  margin-bottom: 0;
+}
+
+@media screen {
+  /* hidden="until-found" keeps the box in the layout so find-in-page can reach the text;
+     give that box no size of its own. */
+  .info-panel[hidden] {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .info-panel:not([hidden]) {
+    animation: info-panel-in 0.16s ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .info-btn {
+    transition: none;
+  }
+}
+
+@keyframes info-panel-in {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media print {
+  .info-btn {
+    display: none;
+  }
+
+  .info-panel[hidden] {
+    display: block !important;
+    content-visibility: visible !important;
+  }
+}
+/* <<< info-disclosure */
+
 .benchmark-note {
   text-align: center;
   color: #999;

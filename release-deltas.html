@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Release Deltas - What Moved Between Claude System Cards</title>
     <meta name="description" content="For each Claude release, which system card figures moved against its predecessor, and which cannot be compared.">
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="styles.css?v=6">
     <style>
         /* Page-specific styles. Shared tokens and components come from styles.css (see DESIGN.md).
            Dark mode follows release-forecast.html: system preference, overridable with data-theme. */
@@ -407,15 +407,15 @@
     <div class="container-wide">
         <div class="page-card">
             <div class="page-header">
-                <h1>Release Deltas</h1>
+                <h1>Release <span class="info-tail">Deltas&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-rd" aria-label="About this page"><span aria-hidden="true">i</span></button></span></h1>
                 <p>What moved between one Claude system card and the next</p>
             </div>
 
-            <p class="rd-intro">
-                Each Claude system card set against its predecessor: which figures went up, which went down,
+            <div class="info-panel" id="info-rd" hidden="until-found">
+                <p>Each Claude system card set against its predecessor: which figures went up, which went down,
                 and which only look comparable. A delta appears only where both figures measure the same thing the same way.
-                The rule is under <a href="#how">How to read this</a>.
-            </p>
+                The rule is under <a href="#how">How to read this</a>.</p>
+            </div>
 
             <section aria-labelledby="pick-title">
                 <h2 class="section-title" id="pick-title">Pick a release</h2>
@@ -468,46 +468,49 @@
             </section>
 
             <section class="rd-notes" aria-labelledby="how" >
-                <h2 class="section-title" id="how">How to read this</h2>
-                <p>
-                    Every row is one printed figure from the newer card, paired with the matching figure for its predecessor.
-                    Largest moves come first in each category: percentage figures by points moved, everything else by relative change.
-                    Select a row to see how each card describes the measurement.
-                </p>
-                <ul>
-                    <li><strong>The comparability rule.</strong> Two figures get a delta only if they sit under the same canonical metric,
-                        name the same sub-evaluation and measure, belong to the same model line (Fable against Fable, Mythos against Mythos),
-                        and nothing in their descriptions conflicts: effort level, thinking on or off, tools, search, safeguards, strict against partial scoring,
-                        single against multi-turn, a named subset, or a different task-set size. Both values must parse as one number in the same unit.
-                        A figure the card only shows in a chart, a range, or a "less than" bound gets no delta.</li>
-                    <li><strong>Same-card comparison</strong> means the newer card restates the predecessor's score in its own table, so both numbers come from one setup.
-                        That figure is preferred, and it can differ from what the predecessor's own card printed; the row detail shows both.
-                        <strong>Card-to-card</strong> means each number comes from its own card. Those are held back when the newer card says its setup changed,
-                        when it re-measures another earlier model at a different value than that model's card printed,
-                        when one card prints several variants and the other does not say which it means,
-                        or when the two cards describe the evaluation differently and the figure jumps by more than 25 points.</li>
-                    <li><strong>Not comparable</strong> rows show both values side by side with the reason and no delta.
-                        <strong>New</strong> and <strong>dropped</strong> count figures, not metrics, so a metric both cards report can still add or lose a variant.</li>
-                    <li><strong>Better or worse</strong> is colored only where the card says which way is good or the measure makes it plain
-                        (accuracy, resolve rate, attack success rate, over-refusal). Welfare, interpretability, evaluation-awareness and the RSP capability evaluations
-                        are never judged, and neither is a bare "score" outside the capability benchmarks. The arrow always shows which way the number went.</li>
-                </ul>
-                <p><strong>Limits.</strong> The matching is done by rule on short text descriptions, so it is conservative and still fallible: it will miss true pairs whose
-                    wording differs, and a card-to-card pair can pass every check while the harness, prompt or grader changed without the card saying so.
-                    Treat card-to-card deltas as weaker evidence than same-card ones. Older pairs have few deltas because the early cards put many results only in charts,
-                    which were recorded without a number. Some values were read off figures and are approximate (marked ≈). Every number is Anthropic's own first-party measurement
-                    of its own model, extracted from the PDFs by machine, so check the cited section before relying on one.</p>
+                <h2 class="section-title" id="how">How to read <span class="info-tail">this&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-how" aria-label="About how to read this"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-how" hidden="until-found">
+                    <p>
+                        Every row is one printed figure from the newer card, paired with the matching figure for its predecessor.
+                        Largest moves come first in each category: percentage figures by points moved, everything else by relative change.
+                        Select a row to see how each card describes the measurement.
+                    </p>
+                    <ul>
+                        <li><strong>The comparability rule.</strong> Two figures get a delta only if they sit under the same canonical metric,
+                            name the same sub-evaluation and measure, belong to the same model line (Fable against Fable, Mythos against Mythos),
+                            and nothing in their descriptions conflicts: effort level, thinking on or off, tools, search, safeguards, strict against partial scoring,
+                            single against multi-turn, a named subset, or a different task-set size. Both values must parse as one number in the same unit.
+                            A figure the card only shows in a chart, a range, or a "less than" bound gets no delta.</li>
+                        <li><strong>Same-card comparison</strong> means the newer card restates the predecessor's score in its own table, so both numbers come from one setup.
+                            That figure is preferred, and it can differ from what the predecessor's own card printed; the row detail shows both.
+                            <strong>Card-to-card</strong> means each number comes from its own card. Those are held back when the newer card says its setup changed,
+                            when it re-measures another earlier model at a different value than that model's card printed,
+                            when one card prints several variants and the other does not say which it means,
+                            or when the two cards describe the evaluation differently and the figure jumps by more than 25 points.</li>
+                        <li><strong>Not comparable</strong> rows show both values side by side with the reason and no delta.
+                            <strong>New</strong> and <strong>dropped</strong> count figures, not metrics, so a metric both cards report can still add or lose a variant.</li>
+                        <li><strong>Better or worse</strong> is colored only where the card says which way is good or the measure makes it plain
+                            (accuracy, resolve rate, attack success rate, over-refusal). Welfare, interpretability, evaluation-awareness and the RSP capability evaluations
+                            are never judged, and neither is a bare "score" outside the capability benchmarks. The arrow always shows which way the number went.</li>
+                    </ul>
+                    <p><strong>Limits.</strong> The matching is done by rule on short text descriptions, so it is conservative and still fallible: it will miss true pairs whose
+                        wording differs, and a card-to-card pair can pass every check while the harness, prompt or grader changed without the card saying so.
+                        Treat card-to-card deltas as weaker evidence than same-card ones. Older pairs have few deltas because the early cards put many results only in charts,
+                        which were recorded without a number. Some values were read off figures and are approximate (marked ≈). Every number is Anthropic's own first-party measurement
+                        of its own model, extracted from the PDFs by machine, so check the cited section before relying on one.</p>
+                </div>
                 <p>Built from the same data as <a href="system-card-metrics.html">System Card Metrics</a> by
                     <code>scripts/build-release-deltas.py</code>, which writes <code>system-cards/deltas.json</code>.</p>
             </section>
         </div>
 
         <div class="footer">
-            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Mon 11•09•26</p>
+            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Tue 11•10•26</p>
             <p>Data from <a href="https://www.anthropic.com/system-cards" target="_blank" rel="noopener">Anthropic system cards</a></p>
         </div>
     </div>
 
+    <script src="info.js?v=1" defer></script>
     <script>
     (function () {
         const FAM_VAR = { opus: 'var(--fam-opus)', sonnet: 'var(--fam-sonnet)', haiku: 'var(--fam-haiku)', fable: 'var(--fam-fable)', mythos: 'var(--fam-mythos)' };

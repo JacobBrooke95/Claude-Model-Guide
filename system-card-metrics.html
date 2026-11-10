@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System Card Metrics - What Anthropic Measures</title>
     <meta name="description" content="Every evaluation reported in Anthropic's Claude system cards since Claude Opus 4, indexed across models.">
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="styles.css?v=6">
     <style>
         /* Page-specific styles. Shared tokens and components come from styles.css (see DESIGN.md). */
         :root {
@@ -548,20 +548,21 @@
     <div class="container-wide">
         <div class="page-card">
             <div class="page-header">
-                <h1>System Card Metrics</h1>
+                <h1>System Card <span class="info-tail">Metrics&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-scm" aria-label="About this page"><span aria-hidden="true">i</span></button></span></h1>
                 <p>What Anthropic measures in every Claude system card</p>
             </div>
 
-            <p class="scm-intro" id="scm-intro">
-                Every evaluation reported in Anthropic's Claude system cards since Claude Opus&nbsp;4, indexed across models.
-                See which benchmarks every card carries, which came and went, and what each card actually reported.
-            </p>
+            <div class="info-panel" id="info-scm" hidden="until-found">
+                <p id="scm-intro">Every evaluation reported in Anthropic's Claude system cards since Claude Opus&nbsp;4, indexed across models.
+                See which benchmarks every card carries, which came and went, and what each card actually reported.</p>
+            </div>
 
             <div class="scm-stats" id="scm-stats" aria-live="polite"></div>
 
             <section class="scm-section" aria-labelledby="heat-title">
-                <h2 class="section-title" id="heat-title">Where the measurement goes</h2>
-                <p class="scm-lede">Distinct metrics each card reports, by category. Darker cells mean more metrics. The empty capability rows on the left are real: until Claude Opus&nbsp;4.5 (November 2025), system cards were safety documents and benchmark scores went in the launch posts. Select a cell to open that category in the index below.</p>
+                <h2 class="section-title" id="heat-title">Where the measurement <span class="info-tail">goes&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-heat" aria-label="About Where the measurement goes"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-heat" hidden="until-found"><p>Distinct metrics each card reports, by category. Darker cells mean more metrics. The empty capability rows on the left are real: until Claude Opus&nbsp;4.5 (November 2025), system cards were safety documents and benchmark scores went in the launch posts. Select a cell to open that category in the index below.</p></div>
+                <p class="scm-lede">Empty capability rows before Claude Opus&nbsp;4.5 are real, not missing data.</p>
                 <div class="scm-panel">
                     <div class="scm-scroll" id="heat-scroll"><div class="scm-loading">Loading…</div></div>
                     <div class="scm-heat-legend" id="heat-legend"></div>
@@ -569,14 +570,14 @@
             </section>
 
             <section class="scm-section" aria-labelledby="hl-title">
-                <h2 class="section-title" id="hl-title">Constants, newcomers and retirements</h2>
-                <p class="scm-lede">What has been measured from the start, what only recent cards measure, and what stopped being reported. Select a metric to find it in the index.</p>
+                <h2 class="section-title" id="hl-title">Constants, newcomers and <span class="info-tail">retirements&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-hl" aria-label="About Constants, newcomers and retirements"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-hl" hidden="until-found"><p>What has been measured from the start, what only recent cards measure, and what stopped being reported. Select a metric to find it in the index.</p></div>
                 <div class="scm-highlights" id="scm-highlights"></div>
             </section>
 
             <section class="scm-section" aria-labelledby="idx-title" id="index">
-                <h2 class="section-title" id="idx-title">The index</h2>
-                <p class="scm-lede">One row per metric, one column per system card. Select a row for what the metric measures and the exact figures each card reported.</p>
+                <h2 class="section-title" id="idx-title">The <span class="info-tail">index&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-idx" aria-label="About the index"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-idx" hidden="until-found"><p>One row per metric, one column per system card. Select a row for what the metric measures and the exact figures each card reported.</p></div>
                 <div class="scm-panel">
                     <div class="scm-controls">
                         <input type="search" id="q" placeholder="Search metrics, e.g. SWE-bench, sycophancy, CBRN" aria-label="Search metrics">
@@ -596,20 +597,22 @@
             </section>
 
             <section class="scm-notes" aria-labelledby="notes-title">
-                <h2 class="section-title" id="notes-title">How this was built</h2>
-                <p>
-                    Each system card PDF was converted to text and read end to end by a Claude agent, which recorded every evaluation the card reports
-                    for its own model or models: capability benchmarks, safeguards and refusal rates, agentic and prompt-injection safety,
-                    alignment and behavioral audits, honesty, model welfare, interpretability, and the Responsible Scaling Policy evaluations for CBRN, cyber and autonomy.
-                    It then audited each section for figures it had missed. A second pass grouped the same evaluation across cards, so a benchmark renamed between cards counts once.
-                </p>
-                <ul>
-                    <li><strong>A new version is a new metric.</strong> SWE-bench Verified and SWE-bench Pro, or Terminal-Bench 2.0 and 2.1, are separate rows. Effort levels, thinking budgets and subsets are variants within one row.</li>
-                    <li><strong>A filled dot</strong> means the card prints a figure for that metric. <strong>A hollow dot</strong> means it reports the evaluation without a printed number, for example a result shown only in a chart image, a qualitative finding, or a threshold pass/fail.</li>
-                    <li><strong>Only the card's own models are recorded.</strong> Cards also quote competitors and earlier Claude models; those figures belong to the other model's own card.</li>
-                    <li><strong>Joint cards</strong> (Opus&nbsp;4 with Sonnet&nbsp;4, and the three Fable/Mythos releases) are one column each, colored by the first-named family.</li>
-                    <li>Machine extraction from PDFs can misread a table. Every figure cites its card section, so check the source before relying on a number.</li>
-                </ul>
+                <h2 class="section-title" id="notes-title">How this was <span class="info-tail">built&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-notes" aria-label="About how this was built"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-notes" hidden="until-found">
+                    <p>
+                        Each system card PDF was converted to text and read end to end by a Claude agent, which recorded every evaluation the card reports
+                        for its own model or models: capability benchmarks, safeguards and refusal rates, agentic and prompt-injection safety,
+                        alignment and behavioral audits, honesty, model welfare, interpretability, and the Responsible Scaling Policy evaluations for CBRN, cyber and autonomy.
+                        It then audited each section for figures it had missed. A second pass grouped the same evaluation across cards, so a benchmark renamed between cards counts once.
+                    </p>
+                    <ul>
+                        <li><strong>A new version is a new metric.</strong> SWE-bench Verified and SWE-bench Pro, or Terminal-Bench 2.0 and 2.1, are separate rows. Effort levels, thinking budgets and subsets are variants within one row.</li>
+                        <li><strong>A filled dot</strong> means the card prints a figure for that metric. <strong>A hollow dot</strong> means it reports the evaluation without a printed number, for example a result shown only in a chart image, a qualitative finding, or a threshold pass/fail.</li>
+                        <li><strong>Only the card's own models are recorded.</strong> Cards also quote competitors and earlier Claude models; those figures belong to the other model's own card.</li>
+                        <li><strong>Joint cards</strong> (Opus&nbsp;4 with Sonnet&nbsp;4, and the three Fable/Mythos releases) are one column each, colored by the first-named family.</li>
+                        <li>Machine extraction from PDFs can misread a table. Every figure cites its card section, so check the source before relying on a number.</li>
+                    </ul>
+                </div>
                 <p>The Markdown version of this index, with a page per card, is in the <a href="https://github.com/JacobBrooke95/Claude-Model-Guide/tree/main/system-cards" target="_blank" rel="noopener">system-cards folder</a> of this site's repository.</p>
                 <p><strong>Source system cards</strong></p>
                 <div class="scm-sources" id="sources"></div>
@@ -617,13 +620,14 @@
         </div>
 
         <div class="footer">
-            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Mon 11•09•26</p>
+            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Tue 11•10•26</p>
             <p>Data from <a href="https://www.anthropic.com/system-cards" target="_blank" rel="noopener">Anthropic system cards</a></p>
         </div>
     </div>
 
     <div class="scm-tip" id="tip" role="tooltip"></div>
 
+    <script src="info.js?v=1" defer></script>
     <script>
     (function () {
         const FAM = { opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882', fable: '#c09a5b', mythos: '#5b8a9a' };

@@ -47,8 +47,16 @@ blob = json.dumps(data, default=str, separators=(",", ":")).replace("</", "<\\/"
 tpl = open(os.path.join(ROOT, "page_template.html")).read()
 body = tpl.replace("/*__DATA__*/null", blob)
 
+# The (i) info disclosure is the site's shared component: CSS in ../styles.css between the
+# info-disclosure markers, behaviour in ../info.js. The site page loads both files; the
+# artifact has no access to them, so it gets a copy of each inlined.
+css = open(os.path.join(ROOT, "..", "styles.css")).read()
+info_css = css[css.index("/* >>> info-disclosure */"):css.index("/* <<< info-disclosure */")]
+info_js = open(os.path.join(ROOT, "..", "info.js")).read()
+
 # artifact: body only (the artifact host adds the document skeleton)
-open(os.path.join(ROOT, "output/release-forecast.artifact.html"), "w").write(body)
+open(os.path.join(ROOT, "output/release-forecast.artifact.html"), "w").write(
+    body.replace("</style>", info_css + "</style>", 1) + "<script>\n" + info_js + "</script>\n")
 
 # site page: full document with the site's navbar
 title_end = body.index("</title>") + len("</title>")
@@ -59,7 +67,7 @@ site = f"""<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 {head_bits}
-<link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 """
 style_end = rest.index("</style>") + len("</style>")
 site += rest[:style_end] + """
@@ -77,6 +85,6 @@ site += rest[:style_end] + """
             </ul>
         </div>
     </nav>
-""" + rest[style_end:] + "\n</body>\n</html>\n"
+""" + rest[style_end:] + '\n<script src="info.js?v=1" defer></script>\n</body>\n</html>\n'
 open(os.path.join(ROOT, "..", "release-forecast.html"), "w").write(site)
 print("built", len(site), "bytes")

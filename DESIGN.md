@@ -448,3 +448,21 @@ transition: color 0.2s ease;
 | Dashboard | Centered coral h1 | Stats boxes, activity sections | `now.html` |
 | Data/Tracker | Centered coral h1 | Model/activity cards with unique colors | `claude-models.html` |
 | Year Review | Centered coral h1 | Stats grids, charts, highlights | `year_in_review_2025.html` |
+
+---
+
+## Info disclosure (i)
+
+Explanatory prose (section descriptions, page intros, method and how-to-read text) sits behind a small circled "i" at the end of the heading it explains. The heading and its chart stay in view; the explanation opens directly below the heading and pushes content down. CSS is in `styles.css` (between the `info-disclosure` markers), behaviour in `info.js`, and all four pages use the same markup:
+
+```html
+<h2 class="section-title">SWE-bench <span class="info-tail">Pro&nbsp;<button type="button" class="info-btn" aria-expanded="false"
+    aria-controls="info-swe-bench-pro" aria-label="About SWE-bench Pro"><span aria-hidden="true">i</span></button></span></h2>
+<div class="info-panel" id="info-swe-bench-pro" hidden="until-found"><p>…</p></div>
+```
+
+- The `info-tail` span wraps the heading's last word and the button, so the icon never drops to a line of its own.
+- Panels start closed and nothing is remembered between visits. The text stays in the DOM, opens for find-in-page, opens when a link targets the heading, and prints expanded.
+- Stays visible, outside the panel: legends and provenance keys (hollow, diamond, large dot), freshness stamps, and any caveat a chart is misleading without. Keep a one-line version of the caveat under the heading and put the full sentence in the panel.
+- "Notes & sources" under a chart is a separate, older disclosure and stays at the bottom of the card.
+- A page with its own palette sets `--info-accent`, `--info-muted`, `--info-ink`, `--info-bg` and `--info-card` (see `forecast/page_template.html`).
