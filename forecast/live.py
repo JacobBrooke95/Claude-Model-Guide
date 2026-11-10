@@ -74,7 +74,10 @@ import glob, os
 _mfiles = sorted(f for f in glob.glob("data/raw/markets_*.csv") if os.path.basename(f)[8:18] <= str(asof.date()))
 MARKET_FILE = _mfiles[-1]
 mkts = pd.read_csv(MARKET_FILE)
-lad = mk.ladders(mkts)
+# keep only ladders about a model that has not shipped as of the origin
+_latest = {f: float(rel[(rel.family == f) & (rel.date < asof)].sort_values("date").version.iloc[-1])
+           for f in FAMILIES if len(rel[(rel.family == f) & (rel.date < asof)])}
+lad = mk.ladders(mkts, latest=_latest)
 for fam, L in lad.items():
     p = res["with_signals"][fam][0]
     cdf = np.cumsum(p)

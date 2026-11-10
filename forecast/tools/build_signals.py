@@ -51,7 +51,8 @@ def code(r):
 
 
 rows = []
-fam_of = dict(zip(rel.release_id, rel.family))
+dropped = {}
+fam_of =dict(zip(rel.release_id, rel.family))
 date_of = dict(zip(rel.release_id, rel.date))
 for i, r in raw.iterrows():
     if r.signal_code in ("NONE", "MARKET") or pd.isna(r.first_seen_date):
@@ -71,6 +72,17 @@ for i, r in raw.iterrows():
             continue  # pruned, never-mapped EAP IDs are counted as false alarms, not Fable evidence
         for f in LIVE[r.release_id]:
             rows.append({**base, "release_id": r.release_id, "family": f, "release_date": None, "is_false": 0, "lead_days": None})
+    else:
+        dropped.setdefault(str(r.release_id), 0)
+        dropped[str(r.release_id)] += 1
+# A release_id that no table lists is left out of signals.csv without affecting the model.
+# That is intended for DUPLICATE:/UNMAPPED: rows and timing-only FALSE rows, but it is also
+# what happens to a new "UNRELEASED ..." or "OPEN: ..." target that was not added to LIVE,
+# or a shipped model missing from MAP. Say so every time, loudly for the second kind.
+for k, n in dropped.items():
+    live = k.startswith(("UNRELEASED", "OPEN")) or not k.startswith(("FALSE", "DUPLICATE", "UNMAPPED"))
+    print(f"{'WARNING: ' if live else 'note: '}{n} row(s) with release_id '{k}' not in MAP, FALSE_FAM or LIVE: dropped"
+          + (" - the model will NOT see them; add the target to LIVE (or MAP if it shipped)" if live else ""))
 out = pd.DataFrame(rows)
 out = out[~((out.family == "legacy"))]
 out.to_csv("data/signals.csv", index=False)

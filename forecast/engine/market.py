@@ -24,11 +24,19 @@ import pandas as pd
 
 W_MARKET = 0.5
 
+# Polymarket ladder wording, e.g. "Next Fable Model (5.2+) released by November 30, 2026?"
+# and "Next Claude Opus (5.6+) released by December 31, 2026?". The version in brackets is
+# the lowest version that resolves the ladder Yes, so it says which "next model" the ladder
+# is about. It is captured, not hard-coded: when a model ships Polymarket opens a new ladder
+# with a higher threshold, and `ladders(..., latest=)` keeps only ladders whose threshold is
+# above the family's latest released version. A ladder about a model that has already
+# shipped is a closed question and is dropped. This is data parsing, not a model setting.
+_V = r"\((\d+(?:\.\d+)?)\+\)"
 LADDERS = {
-    "fable": r"^Next Fable Model \(5\.2\+\) released by (.+?)\?$",
-    "opus": r"^Next Claude Opus \(5\.6\+\) released by (.+?)\?$",
-    "sonnet": r"^Next Claude Sonnet \(5\.6\+\) released by (.+?)\?$",
-    "haiku": r"^Next Claude Haiku \(5\.6\+\) released by (.+?)\?$",
+    "fable": r"^Next (?:Claude )?Fable(?: Model)? " + _V + r" released by (.+?)\?$",
+    "opus": r"^Next (?:Claude )?Opus(?: Model)? " + _V + r" released by (.+?)\?$",
+    "sonnet": r"^Next (?:Claude )?Sonnet(?: Model)? " + _V + r" released by (.+?)\?$",
+    "haiku": r"^Next (?:Claude )?Haiku(?: Model)? " + _V + r" released by (.+?)\?$",
 }
 
 
@@ -58,7 +66,11 @@ def isotonic(x, w):
     return np.array(out)
 
 
-def ladders(markets: pd.DataFrame, platform="Polymarket"):
+def ladders(markets: pd.DataFrame, platform="Polymarket", latest: dict | None = None):
+    """Per-family ladder of P(released by date). `latest` maps family -> latest
+    released version; a ladder is kept only if its threshold version is above
+    it. If a family has ladders at two thresholds, the lowest remaining one is
+    used (it is the one about the next model)."""
     out = {}
     m = markets[markets.platform == platform]
     for fam, pat in LADDERS.items():
@@ -66,14 +78,18 @@ def ladders(markets: pd.DataFrame, platform="Polymarket"):
         for _, r in m.iterrows():
             g = re.match(pat, str(r.question))
             if g:
+                thr = float(g.group(1))
+                if latest and fam in latest and thr <= float(latest[fam]) + 1e-9:
+                    continue
                 try:
-                    dt = pd.Timestamp(g.group(1))
+                    dt = pd.Timestamp(g.group(2))
                 except Exception:
                     continue
-                rows.append((dt, float(r.prob), _vol(r.volume)))
+                rows.append((thr, dt, float(r.prob), _vol(r.volume)))
         if not rows:
             continue
-        rows.sort()
+        lo = min(x[0] for x in rows)
+        rows = sorted(x[1:] for x in rows if x[0] == lo)
         dts, p, w = zip(*rows)
         out[fam] = pd.DataFrame(dict(date=dts, raw=p, volume=w, prob=isotonic(np.array(p), np.log1p(np.array(w)))))
     return out

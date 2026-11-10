@@ -5,7 +5,13 @@ A statistical model of when Anthropic will ship its next Claude model in each fa
 The results page is [`release-forecast.html`](../release-forecast.html). The old cadence view on [`claude-models.html`](../claude-models.html) stays as it was and links here.
 
 ```
-python3 weekly.py                 # weekly update: forecast, snapshot, grade, summary, page (see WEEKLY_RUNBOOK.md)
+python3 daily.py [DATE] [--dry-run]  # the daily run: signals, markets, forecast, snapshot, grade, scorecard, note, page (see DAILY_RUNBOOK.md)
+python3 weekly.py                 # weekly-only entry point: forecast, snapshot, grade, summary, page (see WEEKLY_RUNBOOK.md)
+python3 tools/sweep.py run        # fetch the fixed sources, diff model names against the last run, log every check
+python3 tools/pull_markets.py     # Polymarket + Manifold → data/raw/markets_<date>.csv
+python3 tools/scorecard.py        # forward scorecard → SCORECARD.md, output/scorecard.json
+python3 tools/build_ledger.py     # source reliability → data/source_ledger.csv
+python3 tools/experiment.py --name X --set field=value   # one model experiment against the live config (see EXPERIMENTS.md)
 python3 live.py 2026-10-30        # live forecast → output/forecast.json, appends forecast_log.csv
 python3 run_tuning.py             # stage 1: 27 configs on tuning origins (2024-06 → 2025-06)
 python3 run_tuning_v2.py          # stage 1b: recency weighting × trend × wave weight
@@ -18,6 +24,25 @@ python3 tools/build_page.py       # → ../release-forecast.html
 
 Requires Python 3.10+ with numpy, scipy and pandas. Node is needed for the EWMA baseline, which runs the existing `scripts/predict-releases.js`.
 
+## How it is run, and where its memory lives
+
+A scheduled task starts a fresh session every day and has it follow [`DAILY_RUNBOOK.md`](DAILY_RUNBOOK.md): sweep the sources, record what was found (including "checked, nothing"), run the forecast, grade what resolved, and try at most one model experiment. On Sundays the same session also does the deeper weekly work in [`WEEKLY_RUNBOOK.md`](WEEKLY_RUNBOOK.md). The sessions remember nothing, so the repo carries the memory:
+
+| File | What it holds | Written by |
+|---|---|---|
+| [`LEARNINGS.md`](LEARNINGS.md) | Dated lessons and release post-mortems, with the evidence | hand, on release days and when a run learns something |
+| [`EXPERIMENTS.md`](EXPERIMENTS.md) | The prioritized backlog of model changes, the adoption rules, and the log of everything tried, including rejections | hand, one entry per experiment |
+| [`SCORECARD.md`](SCORECARD.md), `output/scorecard.json` | Forward Brier and log score against the market, the old EWMA model and the base rate; calibration; name calls | `tools/scorecard.py`, every run |
+| `data/source_ledger.csv` | Hits, false alarms, lead times and last-checked date per signal type and per named source | `tools/build_ledger.py`, every run |
+| `data/raw/sweep_log.csv`, `data/raw/sweep/state.json` | Every source check with its result, nulls included; the model names last seen on each page | `tools/sweep.py` |
+| `daily/<date>.md`, `weekly/<date>.md` | What each run found, why the numbers moved, what failed, questions for the owner | `daily.py` writes the skeleton, the session fills it in |
+
+**The bar is the market.** The scorecard counts release cycles, not rows: forecasts of one question are averaged within a week, then per question, then per block (one family within one inter-release interval; Fable and Mythos share a block). Daily snapshots therefore do not inflate the sample. As of 2026-11-10 the forward record is four blocks, two of them with a market price, and on those the model is losing (Brier 0.077 against 0.005).
+
+**One forecast per origin date.** `history/forecast_<date>.json` is written once. A second run the same day, by either entry point, restores it and adds no log rows. On a release day the origin is the day after the release, because the engine counts only releases dated before its origin; `daily.py` applies that rule itself.
+
+**Model changes** go through the protocol in `EXPERIMENTS.md` and `DAILY_RUNBOOK.md` §10: one pre-declared variant, selected on the tuning period, checked for harm on the holdout and the forward snapshots, logged whatever the result, version bumped and committed separately when adopted. The holdout is never used to choose between variants. Data and parsing fixes are not model changes.
+
 ## The model, layer by layer
 
 | Layer | What it does | Fitted from |
@@ -28,7 +53,7 @@ Requires Python 3.10+ with numpy, scipy and pandas. Node is needed for the EWMA 
 | **Competitors** (`engine/modifiers.py`) | A competitor-release hazard multiplier `exp(γ·x_t)`, pre-registered with two definitions. **Tested and excluded.** It made scores worse, and γ is slightly negative. | `data/competitor_releases.csv` |
 | **Signals** (`engine/signals.py`) | Bayesian update on the date distribution from pre-release sightings in four classes (infrastructure, client strings, reports, soft). For each class: detection rate, log-normal lead-time density and false-alarm rate, all estimated from signals already resolved at the origin. The false-alarm rate has a floor of 0.01 per family-day, and grade A/B sightings take precedence. Tempered by ρ = 0.5 and capped at 5× per class. The absence-of-evidence term is **switched off** in the final model, because it hurt in both periods. | `data/signals.csv` (98 true and 9 false sightings, 2023–2026) |
 | **EWMA pool** (`engine/ewma.py`) | Linear pool, 70% this model and 30% the repo's EWMA model, for Opus, Sonnet and Haiku. The EWMA window is read as an 80% interval. | — |
-| **Markets** (`engine/market.py`) | Polymarket ladders, cleaned with an isotonic fit, shown beside the model. A 50/50 log-odds blend is displayed but is not the model, because markets and signals share sources. | `data/raw/markets_2026-10-30.csv` |
+| **Markets** (`engine/market.py`) | Polymarket ladders, cleaned with an isotonic fit, shown beside the model. A 50/50 log-odds blend is displayed but is not the model, because markets and signals share sources. The ladder's threshold version is read from the question; a ladder about a model that has already shipped is dropped. | `data/raw/markets_<date>.csv` (latest on or before the origin) |
 | **Parameters** (`engine/params.py`) | Generation clock (P(Claude 6 by date)), next-name distribution, price change, co-launch rate, SWE-bench Pro projection. | Release table, repo benchmark data |
 
 ## How the configuration was chosen
@@ -42,7 +67,7 @@ The history is kept because it changes how the scores should be read.
 5. **Adversarial review** (an independent agent, 12 findings; `data/raw/adversarial_review.md`). Fixes: the EWMA baseline was leaking same-day releases, now called as of origin − 1. A false-alarm floor and A/B precedence in signals. Four MCMC chains averaged. A 180-day recent-rate baseline. Per-family scoring, block-level significance tests, calibration by period, and claims rewritten. Re-run as `run_final.py` → `score_final.py`. Model version `v3c-post-review`.
 6. The probability of backtest overfitting (CSCV, Bailey et al.) across the 27 stage-1 configs is **0.83**. Picking among near-identical configs is mostly noise. Across the 20 configs scored on every origin it is **0.20**. The gains that hold up are structural, and none of them depend on that choice: cadence over climatology, signals over none, and pooling over either part alone.
 
-**The only fully honest test from here is prospective.** A weekly scheduled task runs `weekly.py`, following `WEEKLY_RUNBOOK.md`. Each run freezes a snapshot in `history/`, appends its calls to `forecast_log.csv` (never edited), and grades every snapshot when a release resolves it. Results are in `output/grades.json` and the page's Track record section. The model stays frozen during weekly runs.
+**The only fully honest test from here is prospective.** A scheduled task runs `daily.py` every day, following `DAILY_RUNBOOK.md` (until 2026-11-10 it was weekly, with `weekly.py`). Each run freezes a snapshot in `history/`, appends its calls to `forecast_log.csv` (never edited), and grades every snapshot when a release resolves it. Results are in `output/grades.json` and the page's Track record section (raw row counts), and in `SCORECARD.md` (clustered by release cycle, against the market, the EWMA and the base rate). The model does not change during a run; it changes only through the experiment protocol, and each version is graded separately.
 
 ## v3d (2026-11-01)
 
@@ -82,6 +107,6 @@ Approved by Jacob. US federal election day (the Tuesday after the first Monday o
 - **The Fable call, graded.** Fable 5.2 and Mythos 5.2 shipped on Nov 9, 2026. The last forecast before that (Nov 8) gave Fable 6% by that day and 45% by Nov 30, and its 80% window opened on Nov 10, one day late. Polymarket had 11.5% and 89%. With a thin two-release cadence, the model read the October sightings as stale; they were late, not wrong, and the market was closer. On the ten dated questions where both had a number, the model's Brier score is 0.185 and the market's 0.010.
 - **Named versions can be wrong.** The next-name table gave "Claude Fable 5.5" 85% because grade A/B artifacts (an Azure catalog row, a commit trailer, a page heading) used that name. The model shipped as 5.2, which had 13%. The 85% weight is a rule, not a fitted value, and its one forward test is a miss.
 - **The live Fable and Mythos calls** now rest on two gaps each (84 and 69 days), with no sightings and no market ladder for the next model. They are cadence-only numbers.
-- **Release-day runs.** The engine counts only releases dated before the forecast origin. A run made on a release day therefore needs the next day as its origin, or it forecasts a release that has already happened and the snapshot gets graded as if it had been made beforehand. The Nov 9 run used a Nov 10 origin for that reason.
+- **Release-day runs.** The engine counts only releases dated before the forecast origin. A run made on a release day therefore needs the next day as its origin, or it forecasts a release that has already happened and the snapshot gets graded as if it had been made beforehand. The Nov 9 run used a Nov 10 origin for that reason. `daily.py` now moves the origin itself; `weekly.py` run directly does not.
 - **Hard-coded structure.** The change-point date (2025-06-01) and the holiday freeze were chosen knowing the full record.
 - **Not modelled:** the IPO calendar (no base rate exists), the S-1's safety-gating disclosures (qualitative), compute coming online.

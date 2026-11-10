@@ -1,0 +1,52 @@
+date,source_id,kind,url,status,result,detail
+2026-11-10,anthropic_news,tokens,https://www.anthropic.com/news,200,baseline,18 names recorded; nothing to compare against yet
+2026-11-10,docs_release_notes,tokens,https://platform.claude.com/docs/en/release-notes/overview,200,baseline,62 names recorded; nothing to compare against yet
+2026-11-10,docs_models_overview,tokens,https://platform.claude.com/docs/en/about-claude/models/overview,200,baseline,54 names recorded; nothing to compare against yet
+2026-11-10,docs_deprecations,tokens,https://platform.claude.com/docs/en/about-claude/model-deprecations,200,baseline,73 names recorded; nothing to compare against yet
+2026-11-10,docs_pricing,tokens,https://platform.claude.com/docs/en/about-claude/pricing,200,baseline,54 names recorded; nothing to compare against yet
+2026-11-10,support_release_notes,tokens,https://support.claude.com/en/articles/12138966-release-notes,200,baseline,39 names recorded; nothing to compare against yet
+2026-11-10,page_opus,tokens,https://www.anthropic.com/claude/opus,200,baseline,13 names recorded; nothing to compare against yet
+2026-11-10,page_sonnet,tokens,https://www.anthropic.com/claude/sonnet,200,baseline,14 names recorded; nothing to compare against yet
+2026-11-10,page_haiku,tokens,https://www.anthropic.com/claude/haiku,200,baseline,11 names recorded; nothing to compare against yet
+2026-11-10,page_fable,tokens,https://www.anthropic.com/claude/fable,200,baseline,14 names recorded; nothing to compare against yet
+2026-11-10,page_mythos,tokens,https://www.anthropic.com/claude/mythos,200,baseline,11 names recorded; nothing to compare against yet
+2026-11-10,anthropic_system_cards,tokens,https://www.anthropic.com/system-cards,200,baseline,35 names recorded; nothing to compare against yet
+2026-11-10,litellm_prices,tokens,https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json,200,baseline,66 names recorded; nothing to compare against yet
+2026-11-10,openrouter_models,tokens,https://openrouter.ai/api/v1/models,200,baseline,32 names recorded; nothing to compare against yet
+2026-11-10,npm_claude_code,tokens,https://registry.npmjs.org/@anthropic-ai/claude-code/latest,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,npm_anthropic_sdk,tokens,https://registry.npmjs.org/@anthropic-ai/sdk/latest,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,bedrock,tokens,https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,vertex,tokens,https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/claude,200,baseline,19 names recorded; nothing to compare against yet
+2026-11-10,azure_foundry,tokens,https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/models-sold-directly-by-azure,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-10,bench_artificial_analysis,tokens,https://artificialanalysis.ai/models,200,baseline,81 names recorded; nothing to compare against yet
+2026-11-10,testingcatalog_anthropic,tokens,https://www.testingcatalog.com/tag/anthropic/,200,baseline,17 names recorded; nothing to compare against yet
+2026-11-10,probe_opus_5-6_news,probe,https://www.anthropic.com/news/claude-opus-5-6,404,nothing,
+2026-11-10,probe_opus_5-6_card,probe,https://www.anthropic.com/claude-opus-5-6-system-card,404,nothing,
+2026-11-10,probe_opus_6_news,probe,https://www.anthropic.com/news/claude-opus-6,404,nothing,
+2026-11-10,probe_opus_6_card,probe,https://www.anthropic.com/claude-opus-6-system-card,404,nothing,
+2026-11-10,probe_sonnet_5-6_news,probe,https://www.anthropic.com/news/claude-sonnet-5-6,404,nothing,
+2026-11-10,probe_sonnet_5-6_card,probe,https://www.anthropic.com/claude-sonnet-5-6-system-card,404,nothing,
+2026-11-10,probe_sonnet_6_news,probe,https://www.anthropic.com/news/claude-sonnet-6,404,nothing,
+2026-11-10,probe_sonnet_6_card,probe,https://www.anthropic.com/claude-sonnet-6-system-card,404,nothing,
+2026-11-10,probe_haiku_6_news,probe,https://www.anthropic.com/news/claude-haiku-6,404,nothing,
+2026-11-10,probe_haiku_6_card,probe,https://www.anthropic.com/claude-haiku-6-system-card,404,nothing,
+2026-11-10,probe_haiku_5-6_news,probe,https://www.anthropic.com/news/claude-haiku-5-6,404,nothing,
+2026-11-10,probe_haiku_5-6_card,probe,https://www.anthropic.com/claude-haiku-5-6-system-card,404,nothing,
+2026-11-10,probe_fable_5-3_news,probe,https://www.anthropic.com/news/claude-fable-5-3,404,nothing,
+2026-11-10,probe_fable_5-3_card,probe,https://www.anthropic.com/claude-fable-5-3-system-card,404,nothing,
+2026-11-10,probe_fable_6_news,probe,https://www.anthropic.com/news/claude-fable-6,404,nothing,
+2026-11-10,probe_fable_6_card,probe,https://www.anthropic.com/claude-fable-6-system-card,404,nothing,
+2026-11-10,probe_fable_5-5_news,probe,https://www.anthropic.com/news/claude-fable-5-5,404,nothing,
+2026-11-10,probe_fable_5-5_card,probe,https://www.anthropic.com/claude-fable-5-5-system-card,404,nothing,
+2026-11-10,probe_mythos_5-3_news,probe,https://www.anthropic.com/news/claude-mythos-5-3,404,nothing,
+2026-11-10,probe_mythos_5-3_card,probe,https://www.anthropic.com/claude-mythos-5-3-system-card,404,nothing,
+2026-11-10,probe_mythos_6_news,probe,https://www.anthropic.com/news/claude-mythos-6,404,nothing,
+2026-11-10,probe_mythos_6_card,probe,https://www.anthropic.com/claude-mythos-6-system-card,404,nothing,
+2026-11-10,probe_mythos_5-5_news,probe,https://www.anthropic.com/news/claude-mythos-5-5,404,nothing,
+2026-11-10,probe_mythos_5-5_card,probe,https://www.anthropic.com/claude-mythos-5-5-system-card,404,nothing,
+2026-11-10,probe_fable_mythos_5-3_page,probe,https://www.anthropic.com/claude-fable-and-mythos-5-3,404,nothing,
+2026-11-10,probe_fable_mythos_5-3_card,probe,https://www.anthropic.com/claude-fable-5-3-mythos-5-3-system-card,404,nothing,
+2026-11-10,probe_fable_mythos_5-5_page,probe,https://www.anthropic.com/claude-fable-and-mythos-5-5,404,nothing,
+2026-11-10,probe_fable_mythos_5-5_card,probe,https://www.anthropic.com/claude-fable-5-5-mythos-5-5-system-card,404,nothing,
+2026-11-10,probe_fable_mythos_6_page,probe,https://www.anthropic.com/claude-fable-and-mythos-6,404,nothing,
+2026-11-10,probe_fable_mythos_6_card,probe,https://www.anthropic.com/claude-fable-6-mythos-6-system-card,404,nothing,

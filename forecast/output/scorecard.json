@@ -1,0 +1,209 @@
+{
+ "as_of": "2026-11-10",
+ "generated_by": "tools/scorecard.py",
+ "primary_max_lead_days": 92,
+ "unit": "block = one family within one inter-release interval; n_blocks is the sample size",
+ "min_blocks_for_claims": 8,
+ "primary": {
+  "n_rows": 27,
+  "n_questions": 11,
+  "n_blocks": 4,
+  "brier_model": 0.026107362265624996,
+  "logloss_model": 0.0889453149234365,
+  "per_block": {
+   "fable+mythos, after 2026-09-01": 0.10429148906249999,
+   "haiku, after 2026-10-07": 1.6e-07,
+   "opus, after 2026-09-22": 0.00012996,
+   "sonnet, after 2026-09-28": 7.84e-06
+  },
+  "raw_row_brier_model": 0.12031289777777777
+ },
+ "vs_market": {
+  "n_rows": 10,
+  "n_questions": 4,
+  "n_blocks": 2,
+  "brier_model": 0.07735320166666668,
+  "brier_baseline": 0.004972916666666668,
+  "logloss_model": 0.22605238659751187,
+  "logloss_baseline": 0.059055990975473496,
+  "blocks_model_better": 1,
+  "blocks_baseline_better": 1,
+  "per_block": {
+   "fable+mythos, after 2026-09-01": {
+    "model": 0.15457644333333334,
+    "baseline": 0.008345833333333335
+   },
+   "opus, after 2026-09-22": {
+    "model": 0.00012996,
+    "baseline": 0.0016
+   }
+  },
+  "raw_row_brier_model": 0.18547351599999998,
+  "raw_row_brier_baseline": 0.010042700000000003
+ },
+ "vs_ewma": {
+  "n_rows": 3,
+  "n_questions": 3,
+  "n_blocks": 3,
+  "brier_model": 4.598666666666667e-05,
+  "brier_baseline": 0.00027444162649037455,
+  "logloss_model": 0.004889828487784016,
+  "logloss_baseline": 0.011189003929070624,
+  "blocks_model_better": 2,
+  "blocks_baseline_better": 1,
+  "per_block": {
+   "haiku, after 2026-10-07": {
+    "model": 1.6e-07,
+    "baseline": 8.070996178574227e-20
+   },
+   "opus, after 2026-09-22": {
+    "model": 0.00012996,
+    "baseline": 0.0008007641367993903
+   },
+   "sonnet, after 2026-09-28": {
+    "model": 7.84e-06,
+    "baseline": 2.2560742671733235e-05
+   }
+  },
+  "raw_row_brier_model": 4.598666666666667e-05,
+  "raw_row_brier_baseline": 0.00027444162649037455
+ },
+ "vs_climatology": {
+  "n_rows": 27,
+  "n_questions": 11,
+  "n_blocks": 4,
+  "brier_model": 0.026107362265624996,
+  "brier_baseline": 0.03717796224717682,
+  "logloss_model": 0.0889453149234365,
+  "logloss_baseline": 0.11144618387064115,
+  "blocks_model_better": 4,
+  "blocks_baseline_better": 0,
+  "per_block": {
+   "fable+mythos, after 2026-09-01": {
+    "model": 0.10429148906249999,
+    "baseline": 0.14804310656315328
+   },
+   "haiku, after 2026-10-07": {
+    "model": 1.6e-07,
+    "baseline": 5.316840277777778e-05
+   },
+   "opus, after 2026-09-22": {
+    "model": 0.00012996,
+    "baseline": 0.0003077870113881194
+   },
+   "sonnet, after 2026-09-28": {
+    "model": 7.84e-06,
+    "baseline": 0.0003077870113881194
+   }
+  },
+  "raw_row_brier_model": 0.12031289777777777,
+  "raw_row_brier_baseline": 0.17536757334881073
+ },
+ "by_version": {
+  "v3c-post-review": {
+   "n_rows": 9,
+   "n_blocks": 4,
+   "brier_model": 0.03978538583333334
+  },
+  "v3d": {
+   "n_rows": 6,
+   "n_blocks": 1,
+   "brier_model": 0.11868170166666665
+  },
+  "v3e": {
+   "n_rows": 12,
+   "n_blocks": 1,
+   "brier_model": 0.13184988083333332
+  }
+ },
+ "by_lead": {
+  "0-30d": {
+   "n_rows": 11,
+   "n_blocks": 4,
+   "brier_model": 0.028244714999999997,
+   "brier_market": 0.007408687500000003,
+   "brier_clim": 0.06571036467401171
+  },
+  "31-92d": {
+   "n_rows": 16,
+   "n_blocks": 1,
+   "brier_model": 0.16287816375,
+   "brier_market": 0.008088874999999999,
+   "brier_clim": 0.1746671489482243
+  }
+ },
+ "long_dated": {
+  "n_rows": 32,
+  "n_blocks": 1,
+  "brier_model": 0.021061848,
+  "note": "checkpoints more than 92 days out; not part of the headline"
+ },
+ "calibration": [
+  {
+   "bucket": "0%\u201310%",
+   "n_rows": 5,
+   "n_blocks": 4,
+   "mean_p": 0.0066375,
+   "observed": 0.0
+  },
+  {
+   "bucket": "30%\u201370%",
+   "n_rows": 13,
+   "n_blocks": 1,
+   "mean_p": 0.5464461538461538,
+   "observed": 1.0
+  },
+  {
+   "bucket": "70%\u201390%",
+   "n_rows": 9,
+   "n_blocks": 1,
+   "mean_p": 0.7723,
+   "observed": 1.0
+  }
+ ],
+ "blend_curve": {
+  "w_market=0.00": 0.07735320166666668,
+  "w_market=0.25": 0.04213021635937767,
+  "w_market=0.50": 0.02080246318110352,
+  "w_market=0.75": 0.009832935416091664,
+  "w_market=0.90": 0.006405508475447571,
+  "w_market=1.00": 0.00497291666666667
+ },
+ "blend_curve_n_blocks": 2,
+ "name_calls": [
+  {
+   "model": "Claude Fable 5.2",
+   "date": "2026-11-09",
+   "n_snapshots": 4,
+   "mean_p_shipped_name": 0.12699935783076227,
+   "top_call": "Claude Fable 5.5",
+   "top_call_hit": false,
+   "log_score": -2.0635732489870207
+  },
+  {
+   "model": "Claude Mythos 5.2",
+   "date": "2026-11-09",
+   "n_snapshots": 4,
+   "mean_p_shipped_name": 0.135744009284028,
+   "top_call": "Claude Mythos 5.5",
+   "top_call_hit": false,
+   "log_score": -1.9969844516462694
+  }
+ ],
+ "release_timing": [
+  {
+   "model": "Claude Fable 5.2",
+   "n_snapshots": 4,
+   "mean_p_by_release_day": 0.16715,
+   "in80_share": 0.75,
+   "mean_median_error_days": 27.75
+  },
+  {
+   "model": "Claude Mythos 5.2",
+   "n_snapshots": 4,
+   "mean_p_by_release_day": 0.21545,
+   "in80_share": 0.75,
+   "mean_median_error_days": 14.5
+  }
+ ]
+}

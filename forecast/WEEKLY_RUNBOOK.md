@@ -1,11 +1,17 @@
 # Weekly forecast run: runbook
 
-A scheduled task runs this every week. It updates the release forecast, grades it if Anthropic shipped a model, refreshes the Claude Model Guide, and writes a weekly summary. It's written so a fresh session with no memory of past runs can follow it start to finish.
+The weekly run updates the release forecast, grades it if Anthropic shipped a model, refreshes the Claude Model Guide, and writes a weekly summary. It's written so a fresh session with no memory of past runs can follow it start to finish.
+
+**How this fits with the daily run.** Since 2026-11-10 a daily task follows [`DAILY_RUNBOOK.md`](DAILY_RUNBOOK.md): a light sweep, the forecast, grading, the scorecard and at most one experiment. On **Sundays** that same session does this runbook's deeper steps on top: §3 at full depth (vault boards, a 7–10 day search, competitors, corporate), §5 (the narrative and the page's watch text), §6 (render check) and §7 (vault note). `daily.py` writes `weekly/<date>.md` on Sundays. Sections 1, 2 and 4 are covered by the daily runbook (its §1, §9 and §5) when the daily task is running; they stay here so this file still works on its own.
+
+There is one forecast per origin date whichever script runs. If `history/forecast_<date>.json` exists, neither `daily.py` nor `weekly.py` recomputes it or adds log rows, so a separate weekly task firing on the same day as the daily one does no harm.
+
+Before starting, read `LEARNINGS.md` and the last few `daily/*.md` notes as well as the newest weekly note.
 
 ## Ground rules
 
 - **Current model: v3e** (v3d adopted 2026-11-01, plus US election day as a low-hazard day on 2026-11-02, both with Jacob's approval; see README).
-- **The model is frozen.** Don't change `engine/`, `live.py`, the config, or the pool weight during a weekly run. Forward grading is only honest if the model stays fixed. If something looks wrong with the model, write it up under "Proposed changes" in the summary for Jacob to decide.
+- **The model does not change during a run.** Don't change `engine/`, `live.py`, the config, or the pool weight while producing a forecast. The only route to a model change is the experiment protocol in `DAILY_RUNBOOK.md` §10 and `EXPERIMENTS.md`: one pre-declared variant, tested on the backtest, logged whatever the result, committed separately with a version bump. If something looks wrong with the model, add a backlog entry there and mention it under "Proposed changes" in the summary. Changes to what the headline number means, or to the page, are Jacob's to decide.
 - **Never edit or delete** `history/*.json`, existing rows of `forecast_log.csv`, or past `weekly/*.md` files. Add new ones only.
 - **No fabrication.** Every new release, signal, market price or competitor row needs a URL you actually opened, or a vault path. If a source won't load, say so in the summary and leave the data out.
 - **External actions allowed:** pushing to `JacobBrooke95/Claude-Model-Guide` (`main`) and writing one note to Jacob's vault. Nothing else.
@@ -44,13 +50,15 @@ For each new model:
    - Board checks: for each leaderboard you looked at, record the result in `../data/board-checks.json` (the board's `last_checked`, and the model's check as `listed` or `pending`), then rebuild. Never enter a listing date you did not see stated.
    - The prose notes under the charts are hand-written; update the sentences the release makes false.
    - Finish with `python3 ../scripts/build-site-data.py --check`. The pre-commit hook runs the same check and refuses a stale page.
-3. **Named versions.** Remove that family's entry from `data/named_versions.json`. If artifacts already name the next version, put that name in its place.
+3. **Named versions.** Remove that family's entry from `data/named_versions.json`. Put a next-version name in its place only if it appears in a first-party API identifier or on two independent grade-A surfaces. A catalog row, commit trailer or page heading alone is not enough: that is how "Fable 5.5" got 85% before 5.2 shipped (`LEARNINGS.md`, 2026-11-10).
 4. **Signals.** In `data/raw/signals_research.csv`:
    - Rows that pointed at this model (for example `UNRELEASED Fable 5.5 (aka 5.2)`) get the real `release_id` and `release_date`.
    - Add a mapping for the new name in `MAP` in `tools/build_signals.py`.
    - Run `python3 tools/build_signals.py`.
 
-The grading itself happens automatically in `weekly.py`: every frozen snapshot made between the family's previous release and this one is scored.
+The grading itself happens automatically in `daily.py` and `weekly.py`: every frozen snapshot made between the family's previous release and this one is scored.
+
+**Origin on a release day.** The engine counts only releases dated before its origin. If the model shipped today, the forecast origin must be tomorrow. `daily.py` does this itself; if you run `weekly.py` directly on a release day, pass tomorrow's date. Then write the post-mortem into `LEARNINGS.md` (`DAILY_RUNBOOK.md` §9).
 
 ## 3. New inputs this week
 
@@ -67,15 +75,16 @@ Where to look:
 
 How to log them:
 - Add each sighting as a row in `data/raw/signals_research.csv` with the existing columns and codes: `CLOUD_CATALOG, FIRST_PARTY_DOC, CLIENT_STRING, ARENA_CODENAME, EAP_PARTNER, PRESS_REPORT, EXEC_TEASE, TIPSTER, OTHER` (OTHER notes start with `RED_TEAM_CODENAME:` or `AB_ROUTING:`). Grade A, B or C, with a URL.
-- An unreleased target uses `release_id` "UNRELEASED <name>". If the target is new, add it to `LIVE` in `tools/build_signals.py`, listing the families it points at.
+- An unreleased target uses `release_id` "UNRELEASED <name>". If the target is new, add it to `LIVE` in `tools/build_signals.py`, listing the families it points at. If you forget, the builder drops the row and prints a `WARNING`; do not finish a run with one.
+- The daily sweep's checklist, grading rules and evidence hygiene are in `DAILY_RUNBOOK.md` §3. Log each source you check with `python3 tools/sweep.py note <source_id> nothing|signal|…`, nulls included.
 - A dated call that has passed without a release gets "missed" in its note.
 - When you're done, run `python3 tools/build_signals.py`.
 
-**Markets.** Write today's prices to `data/raw/markets_<YYYY-MM-DD>.csv` with the columns `platform, question, prob, volume, close_date, url, retrieved_at`.
-- Polymarket: `https://gamma-api.polymarket.com/public-search?q=claude` and the event pages.
-- Manifold: `https://api.manifold.markets/v0/search-markets?term=claude`.
-- Keep Polymarket's question wording exactly. `engine/market.py` (`LADDERS`) parses "Next Fable Model (5.2+) released by <date>?", "Next Claude Opus (5.6+) released by <date>?" and so on.
-- If the wording changes after a release (for example a new "5.6+" ladder), update the regexes in `LADDERS`. That is data parsing, not a model change.
+**Markets.** `python3 tools/pull_markets.py` (run by `daily.py`) writes today's prices to `data/raw/markets_<YYYY-MM-DD>.csv` with the columns `platform, question, prob, volume, close_date, url, retrieved_at`. If it fails, write the file by hand from pages you opened:
+- Polymarket: `https://gamma-api.polymarket.com/public-search?q=claude&limit_per_type=50&events_status=active` and the event pages.
+- Manifold: `https://api.manifold.markets/v0/search-markets?term=claude&filter=open`.
+- Keep Polymarket's question wording exactly. `engine/market.py` (`LADDERS`) parses "Next Fable Model (5.2+) released by <date>?", "Next Claude Opus (5.6+) released by <date>?" and so on. The version in brackets is read from the question, and a ladder whose threshold is not above the family's latest release is dropped, so a new "(5.3+)" ladder after a release needs no edit.
+- If the sentence itself changes, update the regexes in `LADDERS`. That is data parsing, not a model change.
 
 **Competitors** (logged, not used in the final model). Append new frontier releases to `data/competitor_releases.csv`.
 
@@ -84,10 +93,13 @@ How to log them:
 ## 4. Run the forecast
 
 ```
-python3 weekly.py
+python3 daily.py --weekly      # the normal route: everything weekly.py does, plus markets, scorecard, ledger and the daily note
+python3 weekly.py              # weekly-only route, if the daily tooling is not wanted
 ```
 
-This writes `output/forecast.json`, `history/forecast_<date>.json`, new rows in `forecast_log.csv`, `output/grades.json` and `weekly/<date>.md`, and rebuilds `../release-forecast.html`.
+Either writes `output/forecast.json`, `history/forecast_<date>.json`, new rows in `forecast_log.csv`, `output/grades.json` and `weekly/<date>.md`, and rebuilds `../release-forecast.html`. If today's snapshot already exists, the forecast and the log are left as they are.
+
+When quoting the track record in the narrative, use `SCORECARD.md`: it counts release cycles ("blocks"), not rows. The "N questions resolved" line in the generated summary is a row count; say so if you repeat it.
 
 ## 5. Narrative
 
