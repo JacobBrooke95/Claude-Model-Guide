@@ -478,3 +478,19 @@ The (i) is for explanations. A secondary block of content (a table, a registry, 
 ```
 
 Say what is inside, with a count where there is one. Do not put an (i) inside a folded block: write the explanation as a visible note there, so nothing is more than one tap away. On the forecast page a stack of these sits in `.folds` / `.fold`.
+
+---
+
+## Forecast widget (`forecast-widget.html`)
+
+A summary of `release-forecast.html` made to sit in an `<iframe>` inside a note (the Obsidian daily log), 360 to 720px wide. It is the one page with no navbar, no footer, no page card and no shadow: the background is transparent so the host note shows through, and the type is the system sans at 13px so it reads as part of the note. Everything is inline and the only requests are the site's own forecast files. Usage and snippets: `forecast/WIDGET.md`.
+
+- **Content, top to bottom:** as-of date and model version; "Next most likely" in one line; one row per family (Opus, Sonnet, Haiku, Fable, Mythos) with the probability by each of the forecast's two checkpoints, the median date and the 80% window as a slim bar with a median tick on a shared time axis; one line for the voice model (rung A) with the "Full forecast →" link at its end.
+- **Colour:** the forecast page's palette, copied inline (`--opus`, `--sonnet`, `--haiku`, `--fable`, `--mythos`, inks and rule, light and dark). Family names are text here, so on the light theme they are darkened (`color-mix` with 32% black) to stay readable; bars use the palette colour as is. No `color-scheme` is declared, which keeps the iframe transparent in a host of the other theme.
+- **Numbers:** identical to the full page for the same snapshot. Same fields (`with_signals.by[checkpoint]`, `median`, `q10`–`q90`; voice `rungs.A.by[h].final`), same rounding, same date forms.
+- **Query options:** `date=YYYY-MM-DD` (that day's snapshot from `forecast/history/`, else the newest one on or before it, with a line saying so; default is the latest), `theme=light|dark|auto` (default `auto`, which follows the operating system, not Obsidian), `voice=0` (hide the voice line), `compact=1` (rows only, no headline or bars).
+- **Size:** iframe height 260 by default and 190 for `compact=1`, at width 100% up to 720px. Any change must still fit those heights at 360px with no inner scrollbar.
+- **Changes:** ▲/▼ with the point change is shown beside a probability that moved 3 points or more against the previous snapshot (from `forecast/forecast_log.csv`).
+- **Failure:** one line of text and the link, never an empty box.
+
+`forecast/tools/widget_md.py` prints the same content as a Markdown table for notes where an iframe does not render or a permanent copy is wanted.

@@ -4,6 +4,8 @@ A statistical model of when Anthropic will ship its next Claude model in each fa
 
 The results page is [`release-forecast.html`](../release-forecast.html). The old cadence view on [`claude-models.html`](../claude-models.html) stays as it was and links here.
 
+A small embeddable version for a daily note (an iframe, or a Markdown block from `tools/widget_md.py`) is described in [`WIDGET.md`](WIDGET.md).
+
 ```
 python3 daily.py [DATE] [--dry-run]  # the daily run: signals, markets, forecast, snapshot, grade, scorecard, note, page (see DAILY_RUNBOOK.md)
 python3 weekly.py                 # weekly-only entry point: forecast, snapshot, grade, summary, page (see WEEKLY_RUNBOOK.md)
