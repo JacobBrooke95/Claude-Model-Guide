@@ -1,0 +1,225 @@
+{
+ "name": "E5-ewma-half",
+ "overrides": {
+  "w_ewma": 0.5
+ },
+ "every": 1,
+ "run_at": "2026-11-12",
+ "periods": {
+  "tune": {
+   "n_origins": 57,
+   "rows": [
+    {
+     "group": "opus/sonnet/haiku",
+     "h": 7,
+     "n": 171,
+     "n_blocks": 6,
+     "base": 0.03338274928356186,
+     "variant": 0.03392526527259542,
+     "blocks_better": 1,
+     "blocks_worse": 4
+    },
+    {
+     "group": "opus/sonnet/haiku",
+     "h": 30,
+     "n": 171,
+     "n_blocks": 6,
+     "base": 0.12337649354732934,
+     "variant": 0.1301526737772044,
+     "blocks_better": 1,
+     "blocks_worse": 4
+    },
+    {
+     "group": "opus/sonnet/haiku",
+     "h": 90,
+     "n": 171,
+     "n_blocks": 6,
+     "base": 0.26338138436968994,
+     "variant": 0.2874227246618397,
+     "blocks_better": 1,
+     "blocks_worse": 4
+    },
+    {
+     "group": "all five",
+     "h": 7,
+     "n": 171,
+     "n_blocks": 6,
+     "base": 0.03338274928356186,
+     "variant": 0.03392526527259542,
+     "blocks_better": 1,
+     "blocks_worse": 4
+    },
+    {
+     "group": "all five",
+     "h": 30,
+     "n": 171,
+     "n_blocks": 6,
+     "base": 0.12337649354732934,
+     "variant": 0.1301526737772044,
+     "blocks_better": 1,
+     "blocks_worse": 4
+    },
+    {
+     "group": "all five",
+     "h": 90,
+     "n": 171,
+     "n_blocks": 6,
+     "base": 0.26338138436968994,
+     "variant": 0.2874227246618397,
+     "blocks_better": 1,
+     "blocks_worse": 4
+    }
+   ]
+  },
+  "lock": {
+   "n_origins": 69,
+   "rows": [
+    {
+     "group": "opus/sonnet/haiku",
+     "h": 7,
+     "n": 207,
+     "n_blocks": 16,
+     "base": 0.05282645048633171,
+     "variant": 0.05297271082940643,
+     "blocks_better": 8,
+     "blocks_worse": 8
+    },
+    {
+     "group": "opus/sonnet/haiku",
+     "h": 30,
+     "n": 198,
+     "n_blocks": 15,
+     "base": 0.18159966954029227,
+     "variant": 0.17376527422686042,
+     "blocks_better": 13,
+     "blocks_worse": 2
+    },
+    {
+     "group": "opus/sonnet/haiku",
+     "h": 90,
+     "n": 174,
+     "n_blocks": 13,
+     "base": 0.18842344894321536,
+     "variant": 0.16206081385259308,
+     "blocks_better": 11,
+     "blocks_worse": 2
+    },
+    {
+     "group": "fable/mythos",
+     "h": 7,
+     "n": 49,
+     "n_blocks": 9,
+     "base": 0.058798955515878985,
+     "variant": 0.058798955515878985,
+     "blocks_better": 0,
+     "blocks_worse": 0
+    },
+    {
+     "group": "fable/mythos",
+     "h": 30,
+     "n": 43,
+     "n_blocks": 8,
+     "base": 0.2107400253918139,
+     "variant": 0.2107400253918139,
+     "blocks_better": 0,
+     "blocks_worse": 0
+    },
+    {
+     "group": "fable/mythos",
+     "h": 90,
+     "n": 27,
+     "n_blocks": 6,
+     "base": 0.2372833295253562,
+     "variant": 0.2372833295253562,
+     "blocks_better": 0,
+     "blocks_worse": 0
+    },
+    {
+     "group": "all five",
+     "h": 7,
+     "n": 256,
+     "n_blocks": 16,
+     "base": 0.053969625277143496,
+     "variant": 0.054087890476426564,
+     "blocks_better": 8,
+     "blocks_worse": 8
+    },
+    {
+     "group": "all five",
+     "h": 30,
+     "n": 241,
+     "n_blocks": 15,
+     "base": 0.1867989861445057,
+     "variant": 0.18036242899903057,
+     "blocks_better": 13,
+     "blocks_worse": 2
+    },
+    {
+     "group": "all five",
+     "h": 90,
+     "n": 201,
+     "n_blocks": 13,
+     "base": 0.19498671648409993,
+     "variant": 0.17216533088326275,
+     "blocks_better": 11,
+     "blocks_worse": 2
+    }
+   ]
+  }
+ },
+ "forward": {
+  "base": {
+   "brier": 0.0270901861217259,
+   "n_blocks": 4
+  },
+  "variant": {
+   "brier": 0.02712441740081724,
+   "n_blocks": 4
+  },
+  "n_rows": 27
+ },
+ "layer": "cadence",
+ "checks": [
+  {
+   "check": "selection: tuning O/S/H 30-day Brier improves by >= 0.002",
+   "passed": false
+  },
+  {
+   "check": "no-harm: holdout opus/sonnet/haiku 30-day not worse by > 0.002",
+   "passed": true
+  },
+  {
+   "check": "no-harm: holdout fable/mythos 30-day not worse by > 0.002",
+   "passed": true
+  },
+  {
+   "check": "no-harm: tune opus/sonnet/haiku 7-day not worse by > 0.005",
+   "passed": true
+  },
+  {
+   "check": "no-harm: tune opus/sonnet/haiku 90-day not worse by > 0.005",
+   "passed": false
+  },
+  {
+   "check": "no-harm: lock opus/sonnet/haiku 7-day not worse by > 0.005",
+   "passed": true
+  },
+  {
+   "check": "no-harm: lock opus/sonnet/haiku 90-day not worse by > 0.005",
+   "passed": true
+  },
+  {
+   "check": "no-harm: lock fable/mythos 7-day not worse by > 0.005",
+   "passed": true
+  },
+  {
+   "check": "no-harm: lock fable/mythos 90-day not worse by > 0.005",
+   "passed": true
+  },
+  {
+   "check": "no-harm: forward snapshots not worse by > 0.005",
+   "passed": true
+  }
+ ],
+ "verdict": "FAIL"
+}

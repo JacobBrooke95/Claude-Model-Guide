@@ -36,24 +36,24 @@ type_x_grade,RED_TEAM_CODENAME grade B,4,4,0,0,1.0,0,7.5,4,32,2026-06-03,
 type_x_grade,RED_TEAM_CODENAME grade C,1,1,0,0,1.0,0,27.0,27,27,2026-05-01,
 type_x_grade,TIPSTER grade B,8,7,1,0,0.88,1,14.0,1,49,2026-10-17,
 type_x_grade,TIPSTER grade C,10,7,3,0,0.7,2,8.0,0,88,2026-11-02,
-named_source,"Anthropic first-party pages (anthropic.com, docs, support)",8,7,1,0,0.88,0,18.0,8,124,2026-11-01,2026-11-10
-named_source,TestingCatalog,24,21,2,1,0.91,1,8.0,0,32,2026-11-01,2026-11-10
-named_source,The Information,4,4,0,0,1.0,0,9.5,2,20,2026-10-20,
-named_source,Reuters / Bloomberg / FT / Fortune / TechCrunch / Verge,8,8,0,0,1.0,0,12.0,3,332,2026-09-19,
+named_source,"Anthropic first-party pages (anthropic.com, docs, support)",8,7,1,0,0.88,0,18.0,8,124,2026-11-01,2026-11-12
+named_source,TestingCatalog,24,21,2,1,0.91,1,8.0,0,32,2026-11-01,2026-11-12
+named_source,The Information,4,4,0,0,1.0,0,9.5,2,20,2026-10-20,2026-11-12
+named_source,Reuters / Bloomberg / FT / Fortune / TechCrunch / Verge,8,8,0,0,1.0,0,12.0,3,332,2026-09-19,2026-11-12
 named_source,Devin CLI model list,4,3,1,0,0.75,0,15.0,2,25,2026-11-07,
 named_source,"Cursor (picker, forum)",2,2,0,0,1.0,0,8.0,0,16,2026-07-08,
 named_source,GitHub Copilot,1,0,1,0,0.0,0,,,,2026-09-21,
-named_source,Claude Code / SDK / npm,6,4,2,0,0.67,0,11.5,2,17,2026-09-20,2026-11-10
-named_source,LiteLLM / Azure Foundry catalog,2,2,0,0,1.0,1,26.5,26,27,2026-10-14,2026-11-10
-named_source,Google Vertex,5,5,0,0,1.0,1,10.0,1,149,2026-07-14,2026-11-10
-named_source,AWS Bedrock,1,1,0,0,1.0,0,0.0,0,0,2025-02-24,2026-11-10
-named_source,OpenRouter,1,0,1,0,0.0,0,,,,2026-09-10,2026-11-10
-named_source,LiveBench / Artificial Analysis / benchmark trackers,6,6,0,0,1.0,0,8.0,0,25,2026-10-15,2026-11-10
+named_source,Claude Code / SDK / npm,6,4,2,0,0.67,0,11.5,2,17,2026-09-20,2026-11-12
+named_source,LiteLLM / Azure Foundry catalog,2,2,0,0,1.0,1,26.5,26,27,2026-10-14,2026-11-12
+named_source,Google Vertex,5,5,0,0,1.0,1,10.0,1,149,2026-07-14,2026-11-12
+named_source,AWS Bedrock,1,1,0,0,1.0,0,0.0,0,0,2025-02-24,2026-11-12
+named_source,OpenRouter,1,0,1,0,0.0,0,,,,2026-09-10,2026-11-12
+named_source,LiveBench / Artificial Analysis / benchmark trackers,6,6,0,0,1.0,0,8.0,0,25,2026-10-15,2026-11-12
 named_source,Polymarket,3,2,0,1,1.0,1,21.0,16,26,2026-10-14,
 named_source,Manifold,5,5,0,0,1.0,0,10.0,2,47,2026-10-17,
 named_source,Kalshi,1,0,1,0,0.0,0,,,,2026-10-10,
-named_source,kimmonismus (X),2,2,0,0,1.0,2,36.0,7,65,2026-11-02,
-named_source,lyra (X),5,5,0,0,1.0,0,4.0,1,29,2026-10-15,
-named_source,Tibor Blaho (X),3,3,0,0,1.0,0,1.0,0,2,2025-11-22,
-named_source,Other X / Reddit posts,19,16,3,0,0.84,0,12.0,1,88,2026-08-18,
-named_source,Owner's vault desk checks (vault:),39,31,7,1,0.82,3,14.0,1,88,2026-11-07,
+named_source,kimmonismus (X),2,2,0,0,1.0,2,36.0,7,65,2026-11-02,2026-11-12
+named_source,lyra (X),5,5,0,0,1.0,0,4.0,1,29,2026-10-15,2026-11-12
+named_source,Tibor Blaho (X),3,3,0,0,1.0,0,1.0,0,2,2025-11-22,2026-11-12
+named_source,Other X / Reddit posts,19,16,3,0,0.84,0,12.0,1,88,2026-08-18,2026-11-12
+named_source,Owner's vault desk checks (vault:),39,31,7,1,0.82,3,14.0,1,88,2026-11-07,2026-11-12

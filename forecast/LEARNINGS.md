@@ -15,6 +15,12 @@ A lesson is not a model change. A lesson that implies one becomes a backlog entr
 7. **A release-day run takes the next day as its origin.** `daily.py` does this; do not override it.
 8. **An unmapped target is invisible to the model.** A new `UNRELEASED …` row must be added to `LIVE` in `tools/build_signals.py`.
 
+## 2026-11-12 — A quiet day can move a family 4 points through the refit alone
+
+With no new signal, release or model change, Opus fell 4 points at both checkpoints between the 11-10 and 11-12 origins. The cadence posterior is refitted at every origin and it moved: Opus median gap 90 → 97 days, shared sigma 0.37 → 0.44, Haiku median gap 266 → 227 days. Refitting at 11-10 in the 11-12 session reproduced the frozen 11-10 values exactly, so the fit is deterministic per origin and the change comes from the origin date, not the machine. Consequences: (1) when a family moves 3–5 points on a day with no new input, compare `cadence_params` in the two snapshots before looking for another cause, and say "cadence refit" in the note; (2) do not read a move of that size as information. Whether more chains would steady it is a question for an experiment, not a fix to make in passing.
+
+Also: the scheduled runs of 11-11 and 11-12 could not push, so 11-11 has no snapshot or sweep rows. A missing day is a gap in E8's null record, not something to back-fill.
+
 ## 2026-11-10 — A voice-model forecast was added; what it rests on
 
 Jacob asked for an estimate of when Anthropic ships a speech model of its own. The family engine cannot give one (no gaps to fit), so `voice.py` is a separate small model; `DAILY_RUNBOOK.md` §12 says how to run it. What a future run should know:

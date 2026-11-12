@@ -48,7 +48,7 @@ Status values: `ready` (can be run as written), `needs code` (a Config flag has 
 - **Test.** `python3 tools/experiment.py --name E4-heavy-tail --set sig_sd_floor=1.0 --layer signal`.
 - **Note.** E2 and E4 address the same miss. Run E2 first; if it is adopted, re-read E4 before running it.
 
-### E5. Regime bias: more weight on the fast-adapting part — `ready`
+### E5. Regime bias: more weight on the fast-adapting part — `rejected` (2026-11-12, see log)
 - **Hypothesis.** The model under-predicts in the current regime; raising the EWMA pool weight from 0.3 to 0.5 for Opus, Sonnet and Haiku reduces that without breaking 2024–25.
 - **Mechanism.** The hierarchical cadence adapts slowly to a cadence shift; the EWMA adapts fast (README, v3). Holdout calibration intercept +0.74; the EWMA won the holdout at 90 days.
 - **Pre-registration.** One value, 0.5 (equal weights, the default of the forecast-combination literature). Not a grid.
@@ -122,6 +122,23 @@ Added 2026-11-10 at Jacob's request. None of these can be backtested: the event 
 Still open from the 2026-11-10 note: proposal 5 (the SWE-bench Pro table lives in `engine/params.py`; it is data and may belong in `data/`). Left for Jacob; it would move a file the page builder does not read, so nothing depends on it.
 
 ## Log (newest first; rejected ideas stay here so they are not retried)
+
+### 2026-11-12 — E5. EWMA pool weight 0.3 → 0.5 — `rejected`
+Pre-registered (backlog entry, written 2026-11-10): one value, 0.5, equal weights; metric: tuning-period Opus/Sonnet/Haiku 30-day Brier; pass rule: protocol rules 1, 2 and 5.
+Command: `python3 tools/experiment.py --name E5-ewma-half --set w_ewma=0.5`
+
+| Period | Group | Horizon | Blocks | Base | Variant | Diff | Blocks better / worse |
+|---|---|---|---|---|---|---|---|
+| tune | opus/sonnet/haiku | 7 d | 6 | 0.0334 | 0.0339 | +0.0005 | 1 / 4 |
+| tune | opus/sonnet/haiku | 30 d | 6 | 0.1234 | 0.1302 | +0.0068 | 1 / 4 |
+| tune | opus/sonnet/haiku | 90 d | 6 | 0.2634 | 0.2874 | +0.0240 | 1 / 4 |
+| lock | opus/sonnet/haiku | 7 d | 16 | 0.0528 | 0.0530 | +0.0001 | 8 / 8 |
+| lock | opus/sonnet/haiku | 30 d | 15 | 0.1816 | 0.1738 | -0.0078 | 13 / 2 |
+| lock | opus/sonnet/haiku | 90 d | 13 | 0.1884 | 0.1621 | -0.0264 | 11 / 2 |
+| lock | fable/mythos | 7 / 30 / 90 d | 9 / 8 / 6 | 0.0588 / 0.2107 / 0.2373 | same | +0.0000 | 0 / 0 |
+| forward | primary questions | ≤ 92 d | 4 | 0.0271 | 0.0271 | +0.0000 | |
+
+Verdict: FAIL. Rule 1 failed (tuning 30-day worse by 0.0068 where an improvement of 0.002 was needed) and the tuning 90-day score got worse by 0.024, past the 0.005 no-harm limit. The holdout improved at 30 and 90 days, as the entry expected, and that cannot be used to choose (rule 3). Learned: the two periods pull the pool weight in opposite directions, so the backtest cannot tell a lasting regime change from the EWMA having been lucky in 2025–26; the forward log showed no difference at all (four blocks, identical to four decimals). Do not retry another pool weight. To reopen this needs forward evidence: several resolved Opus/Sonnet/Haiku blocks on which the EWMA part alone beats the pooled model, or a mechanism that sets the weight from the data at each origin and is not a fixed number.
 
 ### 2026-11-10 — E0. Signal likelihood-ratio cap 5 → 3 — `rejected` (harness check)
 Run to validate `tools/experiment.py`, not as a serious candidate. Mechanism offered: with false-alarm rates on their floor every sighting hits the cap, so the cap is doing the work (adversarial review finding 5). `python3 tools/experiment.py --name E0-cap3 --set cap=3 --layer signal`.
