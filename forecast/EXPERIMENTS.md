@@ -26,11 +26,17 @@ Status values: `ready` (can be run as written), `needs code` (a Config flag has 
 - **Decision rule.** At 8 resolved blocks: if the blend beats the model in at least three quarters of blocks, propose to Jacob that the blend becomes the headline for families with a ladder. Do not fit the weight on fewer than 20 blocks.
 - **Caveat.** If the headline is a market blend, "beating the market" has to be judged on the model's own number, which the log keeps recording.
 
-### E2. A sighted model exists and will ship: an existence term — `needs code`
+### E2. A sighted model exists and will ship: an existence term — `rejected` (2026-11-13, see log)
 - **Hypothesis.** Once a family has a grade A/B artifact (catalog row, EAP string, first-party page), the probability that its next release lands within about 75 days should be near the historical rate, about 16 of 17, whatever the cadence prior says.
 - **Mechanism.** The signal layer only reshapes timing against a far-future reference; it cannot lift total probability mass much inside the window. A model that already has partner strings has finished training. Adversarial review finding 10; Fable 5.2 post-mortem lesson 1 (the model never exceeded 49% by Nov 30 with seven A/B rows visible).
 - **Pre-registration (write before running).** One variant: with at least one visible A/B sighting in classes `infra` or `client`, mix the family's pmf with a "ships within 75 days of the first A/B sighting" component at weight q = 0.85 × (hits + 0.5)/(n + 1) computed from resolved sightings at the origin (no free parameter beyond the window, fixed at 75 from the review). Config flag `sig_exist` (default off).
 - **Test.** `python3 tools/experiment.py --name E2-existence --set sig_exist=True --layer signal`.
+- **Pre-registration, completed 2026-11-13 before any run** (the lines above left the component's shape and the hit count open; fixed here with no free number beyond the 75 days and the 0.85 already stated):
+  - *Eligible sighting*: grade A or B, class `infra` or `client`, mapped to one of the five families, first seen before the origin.
+  - *When it applies*: family f has an eligible sighting since its last release whose target has not shipped. Let a = days from the earliest such sighting to the origin. If a ≥ 75 the window has lapsed and nothing is done.
+  - *Component*: the family's own pmf after the signal update, cut to the days still inside the window (origin + j with j + a ≤ 75) and renormalised. Result: pmf' = (1 − q)·pmf + q·component; mass beyond the horizon scaled by (1 − q). Aggregates follow through the existing survival-ratio step.
+  - *q* = 0.85 × (hits + 0.5)/(n + 1). A case is one target (`release_id`, false targets included) with an eligible sighting before the origin, dated by its earliest one. Resolved at the origin if the target shipped before the origin (hit if within 75 days of that sighting, else miss) or if 75 days have passed without it (miss). Unresolved cases are not counted.
+  - *Metric and pass rule*: protocol rule 4 (holdout all-family 30-day Brier better by ≥ 0.004, more blocks better than worse), rules 2 and 5 as printed by the tool. One run, this value only.
 - **Risk.** Half of EAP codenames never map; the term must key on sightings mapped to a family, and the false rows (`sonnet-4-8`, Claude 3.5 Opus) have to count against q.
 
 ### E3. Calibrate the named-version weight — `needs data`
@@ -122,6 +128,26 @@ Added 2026-11-10 at Jacob's request. None of these can be backtested: the event 
 Still open from the 2026-11-10 note: proposal 5 (the SWE-bench Pro table lives in `engine/params.py`; it is data and may belong in `data/`). Left for Jacob; it would move a file the page builder does not read, so nothing depends on it.
 
 ## Log (newest first; rejected ideas stay here so they are not retried)
+
+### 2026-11-13 — E2. Existence term for a sighted model (`sig_exist`) — `rejected`
+Pre-registered (backlog entry; shape of the component and the hit count completed 2026-11-13 before the run): with a grade A/B `infra` or `client` sighting less than 75 days old, mix the family's pmf with itself cut to the rest of the 75-day window, weight q = 0.85 × (hits + 0.5)/(n + 1) from cases resolved at the origin; metric: holdout all-family 30-day Brier (rule 4); pass rule: rules 2, 4 and 5 as printed. One run.
+Command: `python3 tools/experiment.py --name E2-existence --set sig_exist=True --layer signal`
+
+| Period | Group | Horizon | Blocks | Base | Variant | Diff | Blocks better / worse |
+|---|---|---|---|---|---|---|---|
+| tune | opus/sonnet/haiku | 7 d | 6 | 0.0334 | 0.0360 | +0.0026 | 2 / 2 |
+| tune | opus/sonnet/haiku | 30 d | 6 | 0.1234 | 0.1361 | +0.0127 | 3 / 1 |
+| tune | opus/sonnet/haiku | 90 d | 6 | 0.2634 | 0.2841 | +0.0207 | 3 / 1 |
+| lock | opus/sonnet/haiku | 7 d | 16 | 0.0528 | 0.0534 | +0.0006 | 4 / 5 |
+| lock | opus/sonnet/haiku | 30 d | 15 | 0.1816 | 0.1785 | -0.0031 | 5 / 4 |
+| lock | opus/sonnet/haiku | 90 d | 13 | 0.1884 | 0.1800 | -0.0085 | 8 / 0 |
+| lock | fable/mythos | 7 d | 9 | 0.0588 | 0.0555 | -0.0033 | 2 / 2 |
+| lock | fable/mythos | 30 d | 8 | 0.2107 | 0.1805 | -0.0302 | 3 / 0 |
+| lock | fable/mythos | 90 d | 6 | 0.2373 | 0.2164 | -0.0209 | 2 / 0 |
+| lock | all five | 30 d | 15 | 0.1868 | 0.1789 | -0.0079 | 6 / 4 |
+| forward | primary questions | ≤ 92 d | 4 | 0.0271 | 0.0068 | -0.0203 | |
+
+Verdict: FAIL, on one check of eleven. The selection rule passed (holdout all-family 30-day better by 0.0079, 6 blocks better / 4 worse) and so did every holdout and forward no-harm check, but the tuning-period 90-day score got worse by 0.0207 against a limit of 0.005 (30-day worse by 0.0127 as well; three tuning blocks better, one worse). The term does fire in the tuning period: at a 2024-07-15 origin it applies to Opus on the first-party "Claude 3.5 Opus" line of 2024-06-20, a target that never shipped, with q = 0.64 computed from a single resolved case; whether that block is the whole of the damage was not isolated. The forward figure (0.027 → 0.007) can only veto (rule 5: today's signal file carries after-the-fact mappings) and is not evidence for the term. Learned: the idea helps where sightings are dense and well mapped (2026) and is unsafe where q rests on one or two cases. Not adopted and not re-run with another window, weight or minimum-case threshold chosen after seeing this table. To reopen it needs a different mechanism stated in advance (for example a q that is shrunk toward zero until a stated number of cases has resolved, the number fixed for a reason other than this result) or forward evidence from further releases. The flag `sig_exist` stays in `engine/forecast.py`, default off. E4 (heavier lead-time tail) addresses the same miss and is now the next signal-layer candidate; it needs its flag written first.
 
 ### 2026-11-12 — E5. EWMA pool weight 0.3 → 0.5 — `rejected`
 Pre-registered (backlog entry, written 2026-11-10): one value, 0.5, equal weights; metric: tuning-period Opus/Sonnet/Haiku 30-day Brier; pass rule: protocol rules 1, 2 and 5.

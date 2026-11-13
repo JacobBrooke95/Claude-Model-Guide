@@ -46,6 +46,7 @@ class Config:
     rho: float = 0.5
     cap: float = 5.0
     absence: bool = True
+    sig_exist: bool = False       # E2: a family with a grade A/B infra/client sighting ships within 75 days at the historical rate
     seed: int = 0
 
     def key(self):
@@ -167,6 +168,15 @@ def forecast(rel, comp, sig, asof, cfg: Config, cache: FitCache | None = None, e
             L, Lt, det = sm.likelihood(f, last, H, use_absence=cfg.absence)
             upd[f] = SignalModel.update(mod[f][0], mod[f][1], L, Lt)
             info.setdefault("signals", {})[f] = det
+            if cfg.sig_exist:
+                ex = sm.existence(f, last)
+                if ex is not None:
+                    keep = np.arange(H) + ex["age"] <= ex["window"]
+                    comp_pmf = np.where(keep, upd[f][0], 0.0)
+                    if comp_pmf.sum() > 0:
+                        q = ex["q"]
+                        upd[f] = ((1 - q) * upd[f][0] + q * comp_pmf / comp_pmf.sum(), (1 - q) * upd[f][1])
+                        info.setdefault("existence", {})[f] = ex
         # carry the per-family survival changes into the aggregates
         for key, members in (("frontier", ["opus", "fable", "mythos"]), ("any", ["opus", "sonnet", "haiku", "fable", "mythos"])):
             S = _surv(mod[key][0])

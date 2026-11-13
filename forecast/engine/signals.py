@@ -135,6 +135,33 @@ class SignalModel:
         v = v.assign(_weak=(v.grade.astype(str) == "C").astype(int))
         return v.sort_values(["_weak", "first_seen"], ascending=[True, not self.recent]).drop_duplicates("cls").drop(columns="_weak")
 
+    def existence(self, family, last_release, window=75, discount=0.85):
+        """E2 (EXPERIMENTS.md): a family with a grade A/B infra/client sighting has a model that
+        exists. Returns the age of its earliest such live sighting and the share q of resolved
+        cases that shipped within `window` days, or None when the term does not apply."""
+        from .data import FAMILIES
+        s = self.sig
+        e = s[s.cls.isin(["infra", "client"]) & s.grade.astype(str).isin(["A", "B"]) & s.family.isin(FAMILIES)
+              & (s.first_seen < self.cut)]
+        live = e[(e.family == family) & (e.first_seen > d(last_release))]
+        live = live[~((live.is_false == 0) & (live.release_date < self.asof))]
+        if live.empty:
+            return None
+        age = int((self.asof - live.first_seen.min()).days)
+        if age >= window:
+            return None
+        hits = n = 0
+        for _, g in e.groupby("release_id"):
+            first = g.first_seen.min()
+            shipped = (g.is_false.iloc[0] == 0) and pd.notna(g.release_date.iloc[0]) and g.release_date.iloc[0] < self.asof
+            if shipped:
+                n += 1
+                hits += int((g.release_date.iloc[0] - first).days <= window)
+            elif first < self.asof - pd.Timedelta(days=window):
+                n += 1
+        return dict(age=age, window=window, q=float(discount * (hits + 0.5) / (n + 1.0)), hits=int(hits), n=int(n),
+                    first_seen=str(live.first_seen.min().date()))
+
     def likelihood(self, family, last_release, H, use_absence=True):
         j = np.arange(H, dtype=float)
         since_last = (self.asof - d(last_release)).days
