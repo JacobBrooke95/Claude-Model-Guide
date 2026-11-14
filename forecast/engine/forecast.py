@@ -47,6 +47,7 @@ class Config:
     cap: float = 5.0
     absence: bool = True
     sig_exist: bool = False       # E2: a family with a grade A/B infra/client sighting ships within 75 days at the historical rate
+    sig_sd_floor: float = 0.6     # E4: floor on the pooled log-lead standard deviation (and the class shrinkage target)
     seed: int = 0
 
     def key(self):
@@ -158,7 +159,7 @@ def forecast(rel, comp, sig, asof, cfg: Config, cache: FitCache | None = None, e
     # ---- signals ----------------------------------------------------------------
     if cfg.signals and sig is not None and len(sig):
         sm = SignalModel(sig, rel, asof, rho=cfg.rho, cap=cfg.cap, recent=cfg.sig_recent, same_day=cfg.same_day,
-                         split_first_party=cfg.split_fp)
+                         split_first_party=cfg.split_fp, sd_floor=cfg.sig_sd_floor)
         info["signal_params"] = sm.par
         upd = {}
         for f in FAMILIES:

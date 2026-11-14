@@ -61,7 +61,7 @@ RESOLVE_DAYS = 120
 class SignalModel:
     def __init__(self, sig: pd.DataFrame, rel: pd.DataFrame, asof, era_days=365,
                  rho=0.5, cap=5.0, lambda_floor=0.01, q_discount=0.85, recent=False, same_day=False,
-                 split_first_party=False):
+                 split_first_party=False, sd_floor=0.6):
         self.asof = d(asof)
         # split_first_party: Anthropic's own surfaces (docs, model pages, pricing,
         # system-card URLs) get their own class instead of sharing "infra" with
@@ -91,7 +91,7 @@ class SignalModel:
         n_rel = max(len(rel_known), 1)
         fam_days = era_days * 4.0  # ~4 active family groups over the era
         all_leads = np.log1p(tp.lead_days.clip(lower=0).values) if len(tp) else np.array([np.log(8.0)])
-        g_mu, g_sd = float(np.mean(all_leads)), float(max(np.std(all_leads), 0.6))
+        g_mu, g_sd = float(np.mean(all_leads)), float(max(np.std(all_leads), sd_floor))  # sd_floor: E4 (default 0.6)
         self.par = {}
         for c in self.classes:
             tpc = tp[tp.cls == c]

@@ -70,7 +70,12 @@ def ladders(markets: pd.DataFrame, platform="Polymarket", latest: dict | None = 
     """Per-family ladder of P(released by date). `latest` maps family -> latest
     released version; a ladder is kept only if its threshold version is above
     it. If a family has ladders at two thresholds, the lowest remaining one is
-    used (it is the one about the next model)."""
+    used (it is the one about the next model).
+
+    The isotonic weights get a small floor: a rung with zero volume has
+    log1p(0) = 0, and pooling two such rungs divided by zero (NaN on the
+    2026-11-14 Fable 5.3+ ladder, whose January and February rungs had no
+    trades)."""
     out = {}
     m = markets[markets.platform == platform]
     for fam, pat in LADDERS.items():
@@ -91,7 +96,7 @@ def ladders(markets: pd.DataFrame, platform="Polymarket", latest: dict | None = 
         lo = min(x[0] for x in rows)
         rows = sorted(x[1:] for x in rows if x[0] == lo)
         dts, p, w = zip(*rows)
-        out[fam] = pd.DataFrame(dict(date=dts, raw=p, volume=w, prob=isotonic(np.array(p), np.log1p(np.array(w)))))
+        out[fam] = pd.DataFrame(dict(date=dts, raw=p, volume=w, prob=isotonic(np.array(p), np.log1p(np.array(w)) + 1e-6)))
     return out
 
 

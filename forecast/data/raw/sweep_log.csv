@@ -225,3 +225,82 @@ date,source_id,kind,url,status,result,detail
 2026-11-13,page_sonnet,manual,,,nothing,Opened the changed page 2026-11-13 13:10 UTC: added names are Fable 5.2 / Mythos 5.2 (released 11-09); no unreleased name or version
 2026-11-13,page_haiku,manual,,,nothing,Opened the changed page 2026-11-13 13:10 UTC: added names are Fable 5.2 / Mythos 5.2 (released 11-09); no unreleased name or version
 2026-11-13,anthropic_system_cards,manual,,,nothing,Opened the changed page 2026-11-13 13:10 UTC: added names are Fable 5.2 / Mythos 5.2 (released 11-09); no unreleased name or version
+2026-11-14,anthropic_news,tokens,https://www.anthropic.com/news,200,nothing,
+2026-11-14,docs_release_notes,tokens,https://platform.claude.com/docs/en/release-notes/overview,200,nothing,
+2026-11-14,docs_models_overview,tokens,https://platform.claude.com/docs/en/about-claude/models/overview,200,nothing,
+2026-11-14,docs_deprecations,tokens,https://platform.claude.com/docs/en/about-claude/model-deprecations,200,nothing,
+2026-11-14,docs_pricing,tokens,https://platform.claude.com/docs/en/about-claude/pricing,200,nothing,
+2026-11-14,support_release_notes,tokens,https://support.claude.com/en/articles/12138966-release-notes,200,nothing,
+2026-11-14,page_opus,tokens,https://www.anthropic.com/claude/opus,200,nothing,
+2026-11-14,page_sonnet,tokens,https://www.anthropic.com/claude/sonnet,200,nothing,
+2026-11-14,page_haiku,tokens,https://www.anthropic.com/claude/haiku,200,nothing,
+2026-11-14,page_fable,tokens,https://www.anthropic.com/claude/fable,200,nothing,
+2026-11-14,page_mythos,tokens,https://www.anthropic.com/claude/mythos,200,nothing,
+2026-11-14,anthropic_system_cards,tokens,https://www.anthropic.com/system-cards,200,changed,removed: claude-2
+2026-11-14,litellm_prices,tokens,https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json,200,nothing,
+2026-11-14,openrouter_models,tokens,https://openrouter.ai/api/v1/models,200,nothing,
+2026-11-14,npm_claude_code,tokens,https://registry.npmjs.org/@anthropic-ai/claude-code/latest,200,nothing,
+2026-11-14,npm_anthropic_sdk,tokens,https://registry.npmjs.org/@anthropic-ai/sdk/latest,200,nothing,
+2026-11-14,bedrock,tokens,https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html,200,nothing,
+2026-11-14,vertex,tokens,https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/claude,200,nothing,
+2026-11-14,azure_foundry,tokens,https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/models-sold-directly-by-azure,200,nothing,
+2026-11-14,bench_artificial_analysis,tokens,https://artificialanalysis.ai/models,200,changed,"removed: claude-3-7-sonnet-thinking, claude-4-1-opus-thinking, claude-4-5-haiku-reasoning, claude-4-5-sonnet-thinking, claude-4-opus-thinking, claude-4-sonnet-thinking, claude-fable-5-1-high, claude-fable-5-1-low, claude-fable-5-1-medium, claude-fable-5-1-xhigh, claude-fable-5-2-high, claude-fable-5-2-low, claude-fable-5-2-medium, claude-fable-5-2-xhigh, claude-haiku-5-5-high, claude-haiku-5-5-low, claude-haiku-5-5-medium, claude-haiku-5-5-xhigh, claude-opus-4-5-thinking, claude-opus-4-6-adaptive, claude-opus-4-7-non-reasoning, claude-opus-5-5-high, claude-opus-5-5-low, claude-opus-5-5-medium, claude-opus-5-5-xhigh, claude-opus-5-high, claude-opus-5-low, claude-opus-5-medium, claude-opus-5-xhigh, claude-sonnet-4-6-adaptive, claude-sonnet-4-6-non-reasoning-low, claude-sonnet-5-5-high, claude-sonnet-5-5-low, claude-sonnet-5-5-medium, claude-sonnet-5-5-xhigh, claude-sonnet-5-high, claude-sonnet-5-low, claude-sonnet-5-medium, claude-sonnet-5-non-reasoning, claude-sonnet-5-xhigh"
+2026-11-14,testingcatalog_anthropic,tokens,https://www.testingcatalog.com/tag/anthropic/,200,nothing,
+2026-11-14,voice_docs_index,voice_terms,https://platform.claude.com/llms.txt,200,nothing,
+2026-11-14,voice_docs_models,voice_terms,https://platform.claude.com/docs/en/about-claude/models/overview,200,nothing,
+2026-11-14,voice_docs_release_notes,voice_terms,https://platform.claude.com/docs/en/release-notes/overview,200,nothing,
+2026-11-14,voice_docs_pricing,voice_terms,https://platform.claude.com/docs/en/about-claude/pricing,200,nothing,
+2026-11-14,voice_anthropic_news,voice_terms,https://www.anthropic.com/news,200,nothing,
+2026-11-14,voice_support_release_notes,voice_terms,https://support.claude.com/en/articles/12138966-release-notes,200,nothing,
+2026-11-14,voice_support_voice_mode,voice_page,https://support.claude.com/en/articles/11101966-use-voice-mode,200,nothing,
+2026-11-14,voice_support_recordings,voice_page,https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic,200,nothing,
+2026-11-14,voice_claude_code_dictation,voice_page,https://code.claude.com/docs/en/voice-dictation.md,200,nothing,
+2026-11-14,voice_jobs,voice_jobs,https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true,200,nothing,
+2026-11-14,voice_litellm,voice_catalog,https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json,200,nothing,
+2026-11-14,voice_openrouter,voice_catalog,https://openrouter.ai/api/v1/models,200,nothing,
+2026-11-14,voice_testingcatalog,voice_links,https://www.testingcatalog.com/tag/anthropic/,200,nothing,
+2026-11-14,probe_opus_5-6_news,probe,https://www.anthropic.com/news/claude-opus-5-6,404,nothing,
+2026-11-14,probe_opus_5-6_card,probe,https://www.anthropic.com/claude-opus-5-6-system-card,404,nothing,
+2026-11-14,probe_opus_6_news,probe,https://www.anthropic.com/news/claude-opus-6,404,nothing,
+2026-11-14,probe_opus_6_card,probe,https://www.anthropic.com/claude-opus-6-system-card,404,nothing,
+2026-11-14,probe_sonnet_5-6_news,probe,https://www.anthropic.com/news/claude-sonnet-5-6,404,nothing,
+2026-11-14,probe_sonnet_5-6_card,probe,https://www.anthropic.com/claude-sonnet-5-6-system-card,404,nothing,
+2026-11-14,probe_sonnet_6_news,probe,https://www.anthropic.com/news/claude-sonnet-6,404,nothing,
+2026-11-14,probe_sonnet_6_card,probe,https://www.anthropic.com/claude-sonnet-6-system-card,404,nothing,
+2026-11-14,probe_haiku_6_news,probe,https://www.anthropic.com/news/claude-haiku-6,404,nothing,
+2026-11-14,probe_haiku_6_card,probe,https://www.anthropic.com/claude-haiku-6-system-card,404,nothing,
+2026-11-14,probe_haiku_5-6_news,probe,https://www.anthropic.com/news/claude-haiku-5-6,404,nothing,
+2026-11-14,probe_haiku_5-6_card,probe,https://www.anthropic.com/claude-haiku-5-6-system-card,404,nothing,
+2026-11-14,probe_fable_5-3_news,probe,https://www.anthropic.com/news/claude-fable-5-3,404,nothing,
+2026-11-14,probe_fable_5-3_card,probe,https://www.anthropic.com/claude-fable-5-3-system-card,404,nothing,
+2026-11-14,probe_fable_6_news,probe,https://www.anthropic.com/news/claude-fable-6,404,nothing,
+2026-11-14,probe_fable_6_card,probe,https://www.anthropic.com/claude-fable-6-system-card,404,nothing,
+2026-11-14,probe_fable_5-5_news,probe,https://www.anthropic.com/news/claude-fable-5-5,404,nothing,
+2026-11-14,probe_fable_5-5_card,probe,https://www.anthropic.com/claude-fable-5-5-system-card,404,nothing,
+2026-11-14,probe_mythos_5-3_news,probe,https://www.anthropic.com/news/claude-mythos-5-3,404,nothing,
+2026-11-14,probe_mythos_5-3_card,probe,https://www.anthropic.com/claude-mythos-5-3-system-card,404,nothing,
+2026-11-14,probe_mythos_6_news,probe,https://www.anthropic.com/news/claude-mythos-6,404,nothing,
+2026-11-14,probe_mythos_6_card,probe,https://www.anthropic.com/claude-mythos-6-system-card,404,nothing,
+2026-11-14,probe_mythos_5-5_news,probe,https://www.anthropic.com/news/claude-mythos-5-5,404,nothing,
+2026-11-14,probe_mythos_5-5_card,probe,https://www.anthropic.com/claude-mythos-5-5-system-card,404,nothing,
+2026-11-14,probe_fable_mythos_5-3_page,probe,https://www.anthropic.com/claude-fable-and-mythos-5-3,404,nothing,
+2026-11-14,probe_fable_mythos_5-3_card,probe,https://www.anthropic.com/claude-fable-5-3-mythos-5-3-system-card,404,nothing,
+2026-11-14,probe_fable_mythos_5-5_page,probe,https://www.anthropic.com/claude-fable-and-mythos-5-5,404,nothing,
+2026-11-14,probe_fable_mythos_5-5_card,probe,https://www.anthropic.com/claude-fable-5-5-mythos-5-5-system-card,404,nothing,
+2026-11-14,probe_fable_mythos_6_page,probe,https://www.anthropic.com/claude-fable-and-mythos-6,404,nothing,
+2026-11-14,probe_fable_mythos_6_card,probe,https://www.anthropic.com/claude-fable-6-mythos-6-system-card,404,nothing,
+2026-11-14,probe_voice_page,probe,https://www.anthropic.com/claude/voice,404,nothing,
+2026-11-14,probe_voice_news,probe,https://www.anthropic.com/news/claude-voice,404,nothing,
+2026-11-14,vault,manual,,,nothing,"Connector read 2026-11-14 ~11:40 UTC: hub Live board still says desk paused since 11-09; newest instrument run 11-08, newest sighting file 11-08; last Claude-Rumors commit 11-11 (audit renames, no new sighting)"
+2026-11-14,devin_cli,manual,,,skipped,"Desk paused since 11-09 (vault read today), so no binary check exists to read; no relay quoting a new Devin CLI version in web search"
+2026-11-14,cursor,manual,,,skipped,Desk paused since 11-09; no relay found in web search
+2026-11-14,copilot,manual,,,skipped,Desk paused since 11-09; no relay found in web search
+2026-11-14,bench_livebench,manual,https://github.com/LiveBench/LiveBench,,nothing,"Shallow git clone 2026-11-14 ~11:44 UTC (gh api 403, repo not attached): newest commit dated 2026-10-17, no Claude name"
+2026-11-14,bench_artificial_analysis,manual,https://artificialanalysis.ai/models,,nothing,"Opened the changed page 2026-11-14 11:42 UTC: effort/thinking variant slugs left the page source; base ids remain, all released (newest claude-fable-5-2); no -eap string"
+2026-11-14,anthropic_system_cards,manual,https://www.anthropic.com/system-cards,,nothing,Opened the changed page 2026-11-14 11:42 UTC: only change is the string claude-2 gone; newest card Fable 5.2 / Mythos 5.2; no unreleased name
+2026-11-14,testingcatalog_anthropic,manual,https://www.testingcatalog.com/tag/anthropic/,,nothing,Tag page fetched 2026-11-14 ~11:44 UTC: newest article dated 11-09 (Fable 5.2 / Mythos 5.2 launch); no article about a next model
+2026-11-14,press,manual,,,nothing,"Web searches (Opus 5.6, Sonnet 5.6, Claude 6, next model, EAP): SEO pages and October coverage only; nothing dated 11-13 or 11-14"
+2026-11-14,the_information,manual,,,nothing,No report surfaced in web search for the last two days; site not opened (paywall)
+2026-11-14,x_tipsters,manual,,,nothing,No relay of a new dated call or codename in web search; X not read directly
+2026-11-14,voice_press,manual,,,nothing,"Web search (voice model, speech-to-speech, audio model, text-to-speech, realtime): July 2026 voice-mode coverage only; nothing new"
+2026-11-14,competitors,manual,,,nothing,"One web search; roundup pages only (GPT-6 Cyber week of 11-02 named by an aggregator), no primary page opened, so no row added; weekly depth on Sunday"

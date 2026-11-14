@@ -47,12 +47,17 @@ Status values: `ready` (can be run as written), `needs code` (a Config flag has 
 - **Metric.** Mean log score of the shipped name over those cases, leave-one-out, against the fixed 0.85 and against no named-version rule. This is a parameter of the release-parameters layer, not the date model, so `tools/experiment.py` does not apply; show the tabulation and the three scores in the log.
 - **Until then.** `named_versions.json` takes a name only from a first-party API identifier or two independent grade-A surfaces (`DAILY_RUNBOOK.md` §3, hygiene rule 7).
 
-### E4. Unfulfilled sightings age too fast: a heavier lead-time tail — `needs code`
+### E4. Unfulfilled sightings age too fast: a heavier lead-time tail — `rejected` (2026-11-14, no effect; see log)
 - **Hypothesis.** The log-normal lead-time density (median 5–12 days by class) discounts a sighting too quickly once it is 3–4 weeks old. Fable 5.2's A/B leads were 20–27 days.
 - **Mechanism.** Launch slips are common and one-sided; the lead-time sample is dominated by short, specific, late sightings.
 - **Pre-registration.** One variant: raise the floor on the pooled log-lead standard deviation in `engine/signals.py` from 0.6 to 1.0 (`g_sd` floor and the shrinkage target). Config flag `sig_sd_floor` (default 0.6).
 - **Test.** `python3 tools/experiment.py --name E4-heavy-tail --set sig_sd_floor=1.0 --layer signal`.
 - **Note.** E2 and E4 address the same miss. Run E2 first; if it is adopted, re-read E4 before running it.
+- **Pre-registration, completed 2026-11-14 before any run** (E2 was rejected on 11-13, so E4 runs as written; nothing above is changed):
+  - *The variant*: in `SignalModel.__init__` the pooled standard deviation of log(1 + lead days) over resolved true sightings is `g_sd = max(std, floor)`. The floor goes from 0.6 to 1.0. `g_sd` is also the target each class's variance is shrunk toward (weight k = 3), so the one number covers both places the entry names. Nothing else changes: class means, detection rates, false-alarm rates, cap and rho stay as they are.
+  - *Why 1.0*: a log-sd of 1.0 puts the 90th percentile of lead time at about 3.6 times the median (0.6 gives 2.2 times). With class medians of 5-12 days that covers the 20-27 day leads seen before Fable 5.2 without a second parameter. One value; no other floor is run.
+  - *Known limit, stated before looking*: the floor binds only at origins where the pooled std is below 1.0. If it is above 1.0 at most origins the variant changes little, and the entry is rejected as having no effect, not re-run with a larger number.
+  - *Metric and pass rule*: protocol rule 4 (holdout all-family 30-day Brier better by at least 0.004, more blocks better than worse), rules 2 and 5 as printed by the tool. One run.
 
 ### E5. Regime bias: more weight on the fast-adapting part — `rejected` (2026-11-12, see log)
 - **Hypothesis.** The model under-predicts in the current regime; raising the EWMA pool weight from 0.3 to 0.5 for Opus, Sonnet and Haiku reduces that without breaking 2024–25.
@@ -124,10 +129,25 @@ Added 2026-11-10 at Jacob's request. None of these can be backtested: the event 
 | 2026-11-10 | Market ladder regex reads the threshold version from the question and drops ladders about a model that has shipped (proposal 3). Verified: same parsed ladders on all four market files, identical 2026-11-10 forecast. | `engine/market.py`, `live.py` |
 | 2026-11-10 | `build_signals.py` warns when a row's target is in no table, so a new unreleased target cannot be dropped silently. Output file unchanged. | `tools/build_signals.py` |
 | 2026-11-10 | Weekly summary no longer crashes when a median lies beyond the 400-day horizon. | `weekly.py` |
+| 2026-11-14 | Market ladder: isotonic weights get a floor of 1e-6. Two adjacent zero-volume rungs divided by zero (NaN for the new Fable 5.3+ ladder's January and February rungs). Verified: every earlier market file parses to the same ladders; today's Fable ladder becomes 0.425 / 0.585 / 0.585. The 2026-11-14 snapshot was frozen before the fix and keeps its two NaN market values. | `engine/market.py` |
 
 Still open from the 2026-11-10 note: proposal 5 (the SWE-bench Pro table lives in `engine/params.py`; it is data and may belong in `data/`). Left for Jacob; it would move a file the page builder does not read, so nothing depends on it.
 
 ## Log (newest first; rejected ideas stay here so they are not retried)
+
+### 2026-11-14 — E4. Heavier lead-time tail: sd floor 0.6 → 1.0 (`sig_sd_floor`) — `rejected` (no effect)
+Pre-registered (backlog entry; completed 2026-11-14 before the run): floor on the pooled log-lead standard deviation, which is also the class shrinkage target, raised from 0.6 to 1.0; one value; metric: holdout all-family 30-day Brier (rule 4); pass rule: rules 2, 4 and 5 as printed. The entry said in advance that a floor that does not bind is a rejection, not a reason to try a larger number.
+Command: `python3 tools/experiment.py --name E4-heavy-tail --set sig_sd_floor=1.0 --layer signal`
+
+| Period | Group | Horizon | Blocks | Base | Variant | Diff | Blocks better / worse |
+|---|---|---|---|---|---|---|---|
+| tune | opus/sonnet/haiku | 7 / 30 / 90 d | 6 | 0.0334 / 0.1234 / 0.2634 | same | +0.0000 | 0 / 0 |
+| lock | opus/sonnet/haiku | 7 / 30 / 90 d | 16 / 15 / 13 | 0.0528 / 0.1816 / 0.1884 | same | +0.0000 | 0 / 0 |
+| lock | fable/mythos | 7 / 30 / 90 d | 9 / 8 / 6 | 0.0588 / 0.2107 / 0.2373 | same | +0.0000 | 0 / 0 |
+| lock | all five | 30 d | 15 | 0.1868 | 0.1868 | +0.0000 | 0 / 0 |
+| forward | primary questions | ≤ 92 d | 4 | 0.0271 | 0.0271 | +0.0000 | |
+
+Verdict: FAIL (selection: no improvement; every no-harm check passed trivially). The variant is identical to the base at every origin because the floor never binds. Checked on parameters only, at seven origins from 2024-06-03 to 2026-11-14: the pooled standard deviation of log(1 + lead) is 1.65, 1.67, 1.67, 1.61, 1.43, 1.28 and 1.23, always above 1.0, and the class values (0.96–1.75) are the same under both floors. Learned: the entry's premise was wrong. The lead-time density is already wide (a log-sd of 1.2 puts the 90th percentile at about 4.7 times the median); the floor of 0.6 is dead code at every origin since mid-2024. So the too-fast ageing of the October Fable sightings does not come from a thin tail set by this floor. Where it does come from was not established today; candidates to state in advance before any run are the class medians themselves (short, because most resolved rows are late client strings) and the way a sighting's likelihood ratio is discounted against the cadence reference. Do not retry with a larger floor: any value above about 1.3 would be a different experiment (forcing the tail wider than the data) and needs its own mechanism. The flag `sig_sd_floor` stays in `engine/forecast.py`, default 0.6, so the live model is unchanged.
 
 ### 2026-11-13 — E2. Existence term for a sighted model (`sig_exist`) — `rejected`
 Pre-registered (backlog entry; shape of the component and the hit count completed 2026-11-13 before the run): with a grade A/B `infra` or `client` sighting less than 75 days old, mix the family's pmf with itself cut to the rest of the 75-day window, weight q = 0.85 × (hits + 0.5)/(n + 1) from cases resolved at the origin; metric: holdout all-family 30-day Brier (rule 4); pass rule: rules 2, 4 and 5 as printed. One run.

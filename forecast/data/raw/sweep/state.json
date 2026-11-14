@@ -2,8 +2,8 @@
  "anthropic_news": {
   "final_url": "https://www.anthropic.com/news",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "c412ea6fbc8cf373",
   "tokens": [
@@ -30,13 +30,12 @@
  },
  "anthropic_system_cards": {
   "final_url": "https://www.anthropic.com/system-cards",
-  "last_changed": "2026-11-13",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_changed": "2026-11-14",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
-  "sha": "e5479747f17cae53",
+  "sha": "a37a17f44a29ba93",
   "tokens": [
-   "claude-2",
    "claude-fable-5-1-mythos-5-1",
    "claude-fable-5-2-mythos-5-2",
    "claude-fable-5-mythos-5-system-card",
@@ -81,8 +80,8 @@
  "azure_foundry": {
   "final_url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -91,8 +90,8 @@
  "bedrock": {
   "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -100,80 +99,40 @@
  },
  "bench_artificial_analysis": {
   "final_url": "https://artificialanalysis.ai/models",
-  "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_changed": "2026-11-14",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
-  "sha": "d80b996ba3566fb7",
+  "sha": "b156cb047e8e4d21",
   "tokens": [
    "claude-2",
    "claude-21",
    "claude-3-5-haiku",
    "claude-3-7-sonnet",
-   "claude-3-7-sonnet-thinking",
    "claude-3-haiku",
    "claude-3-opus",
    "claude-3-sonnet",
    "claude-35-sonnet",
    "claude-35-sonnet-june-24",
    "claude-4-1-opus",
-   "claude-4-1-opus-thinking",
    "claude-4-5-haiku",
-   "claude-4-5-haiku-reasoning",
    "claude-4-5-sonnet",
-   "claude-4-5-sonnet-thinking",
    "claude-4-opus",
-   "claude-4-opus-thinking",
    "claude-4-sonnet",
-   "claude-4-sonnet-thinking",
    "claude-fable-5",
    "claude-fable-5-1",
-   "claude-fable-5-1-high",
-   "claude-fable-5-1-low",
-   "claude-fable-5-1-medium",
-   "claude-fable-5-1-xhigh",
    "claude-fable-5-2",
-   "claude-fable-5-2-high",
-   "claude-fable-5-2-low",
-   "claude-fable-5-2-medium",
-   "claude-fable-5-2-xhigh",
    "claude-haiku-5-5",
-   "claude-haiku-5-5-high",
-   "claude-haiku-5-5-low",
-   "claude-haiku-5-5-medium",
-   "claude-haiku-5-5-xhigh",
    "claude-instant",
    "claude-opus-4-5",
-   "claude-opus-4-5-thinking",
    "claude-opus-4-6",
-   "claude-opus-4-6-adaptive",
    "claude-opus-4-7",
-   "claude-opus-4-7-non-reasoning",
    "claude-opus-4-8",
    "claude-opus-5",
    "claude-opus-5-5",
-   "claude-opus-5-5-high",
-   "claude-opus-5-5-low",
-   "claude-opus-5-5-medium",
-   "claude-opus-5-5-xhigh",
-   "claude-opus-5-high",
-   "claude-opus-5-low",
-   "claude-opus-5-medium",
-   "claude-opus-5-xhigh",
    "claude-sonnet-4-6",
-   "claude-sonnet-4-6-adaptive",
-   "claude-sonnet-4-6-non-reasoning-low",
    "claude-sonnet-5",
    "claude-sonnet-5-5",
-   "claude-sonnet-5-5-high",
-   "claude-sonnet-5-5-low",
-   "claude-sonnet-5-5-medium",
-   "claude-sonnet-5-5-xhigh",
-   "claude-sonnet-5-high",
-   "claude-sonnet-5-low",
-   "claude-sonnet-5-medium",
-   "claude-sonnet-5-non-reasoning",
-   "claude-sonnet-5-xhigh",
    "fable 5",
    "fable 5.1",
    "fable 5.2",
@@ -193,8 +152,8 @@
  "docs_deprecations": {
   "final_url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "901d139134e26705",
   "tokens": [
@@ -277,8 +236,8 @@
  "docs_models_overview": {
   "final_url": "https://platform.claude.com/docs/en/models/overview",
   "last_changed": "2026-11-12",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "a5b2894054bafeb8",
   "tokens": [
@@ -345,8 +304,8 @@
  "docs_pricing": {
   "final_url": "https://platform.claude.com/docs/en/about-claude/pricing",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "4958fb8beefc36b2",
   "tokens": [
@@ -410,8 +369,8 @@
  "docs_release_notes": {
   "final_url": "https://platform.claude.com/docs/en/release-notes/overview",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "cf2f6fa75cfad4d1",
   "tokens": [
@@ -483,8 +442,8 @@
  "litellm_prices": {
   "final_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
   "last_changed": "2026-11-12",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "cae54ee6d4a4d9ad",
   "tokens": [
@@ -561,8 +520,8 @@
  "npm_anthropic_sdk": {
   "final_url": "https://registry.npmjs.org/@anthropic-ai/sdk/latest",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -571,8 +530,8 @@
  "npm_claude_code": {
   "final_url": "https://registry.npmjs.org/@anthropic-ai/claude-code/latest",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -581,8 +540,8 @@
  "openrouter_models": {
   "final_url": "https://openrouter.ai/api/v1/models",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e74044734a9eae8c",
   "tokens": [
@@ -624,8 +583,8 @@
  "page_fable": {
   "final_url": "https://www.anthropic.com/claude/fable",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "f0ed27d678e3325b",
   "tokens": [
@@ -649,8 +608,8 @@
  "page_haiku": {
   "final_url": "https://www.anthropic.com/claude/haiku",
   "last_changed": "2026-11-13",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "9d03e05a00dd9472",
   "tokens": [
@@ -674,8 +633,8 @@
  "page_mythos": {
   "final_url": "https://www.anthropic.com/claude/mythos",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "9fac2c3460e4b1f4",
   "tokens": [
@@ -696,8 +655,8 @@
  "page_opus": {
   "final_url": "https://www.anthropic.com/claude/opus",
   "last_changed": "2026-11-13",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "736491f584ef7a3d",
   "tokens": [
@@ -723,8 +682,8 @@
  "page_sonnet": {
   "final_url": "https://www.anthropic.com/claude/sonnet",
   "last_changed": "2026-11-13",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "eddc63d0d1788139",
   "tokens": [
@@ -750,224 +709,224 @@
  },
  "probe_fable_5-3_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-5-3-system-card"
  },
  "probe_fable_5-3_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-fable-5-3"
  },
  "probe_fable_5-5_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-5-5-system-card"
  },
  "probe_fable_5-5_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-fable-5-5"
  },
  "probe_fable_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-6-system-card"
  },
  "probe_fable_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-fable-6"
  },
  "probe_fable_mythos_5-3_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-5-3-mythos-5-3-system-card"
  },
  "probe_fable_mythos_5-3_page": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-and-mythos-5-3"
  },
  "probe_fable_mythos_5-5_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-5-5-mythos-5-5-system-card"
  },
  "probe_fable_mythos_5-5_page": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-and-mythos-5-5"
  },
  "probe_fable_mythos_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-6-mythos-6-system-card"
  },
  "probe_fable_mythos_6_page": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-and-mythos-6"
  },
  "probe_haiku_5-6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-haiku-5-6-system-card"
  },
  "probe_haiku_5-6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-haiku-5-6"
  },
  "probe_haiku_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-haiku-6-system-card"
  },
  "probe_haiku_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-haiku-6"
  },
  "probe_mythos_5-3_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-mythos-5-3-system-card"
  },
  "probe_mythos_5-3_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-mythos-5-3"
  },
  "probe_mythos_5-5_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-mythos-5-5-system-card"
  },
  "probe_mythos_5-5_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-mythos-5-5"
  },
  "probe_mythos_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-mythos-6-system-card"
  },
  "probe_mythos_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-mythos-6"
  },
  "probe_opus_5-6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-opus-5-6-system-card"
  },
  "probe_opus_5-6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-opus-5-6"
  },
  "probe_opus_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-opus-6-system-card"
  },
  "probe_opus_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-opus-6"
  },
  "probe_sonnet_5-6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-sonnet-5-6-system-card"
  },
  "probe_sonnet_5-6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-sonnet-5-6"
  },
  "probe_sonnet_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-sonnet-6-system-card"
  },
  "probe_sonnet_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-sonnet-6"
  },
  "probe_voice_news": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-voice"
  },
  "probe_voice_page": {
   "last_changed": null,
-  "last_checked": "2026-11-13",
+  "last_checked": "2026-11-14",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude/voice"
@@ -975,8 +934,8 @@
  "support_release_notes": {
   "final_url": "https://support.claude.com/en/articles/12138966-release-notes",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e79f040563feb783",
   "tokens": [
@@ -1025,8 +984,8 @@
  "testingcatalog_anthropic": {
   "final_url": "https://www.testingcatalog.com/tag/anthropic/",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "94c5c34318db1e6e",
   "tokens": [
@@ -1053,8 +1012,8 @@
  "vertex": {
   "final_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "51abdfe313fe295f",
   "tokens": [
@@ -1083,8 +1042,8 @@
  "voice_anthropic_news": {
   "final_url": "https://www.anthropic.com/news",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1093,8 +1052,8 @@
  "voice_claude_code_dictation": {
   "final_url": "https://code.claude.com/docs/en/voice-dictation.md",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "ea589874050020cc",
   "tokens": [
@@ -1123,8 +1082,8 @@
  "voice_docs_index": {
   "final_url": "https://platform.claude.com/llms.txt",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1133,8 +1092,8 @@
  "voice_docs_models": {
   "final_url": "https://platform.claude.com/docs/en/models/overview",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1143,8 +1102,8 @@
  "voice_docs_pricing": {
   "final_url": "https://platform.claude.com/docs/en/about-claude/pricing",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1153,8 +1112,8 @@
  "voice_docs_release_notes": {
   "final_url": "https://platform.claude.com/docs/en/release-notes/overview",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1163,8 +1122,8 @@
  "voice_jobs": {
   "final_url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "ac16d593c54783c4",
   "tokens": [
@@ -1175,8 +1134,8 @@
  "voice_litellm": {
   "final_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1185,8 +1144,8 @@
  "voice_openrouter": {
   "final_url": "https://openrouter.ai/api/v1/models",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1195,8 +1154,8 @@
  "voice_support_recordings": {
   "final_url": "https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "b0020c3beabafec8",
   "tokens": [
@@ -1210,8 +1169,8 @@
  "voice_support_release_notes": {
   "final_url": "https://support.claude.com/en/articles/12138966-release-notes",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1220,8 +1179,8 @@
  "voice_support_voice_mode": {
   "final_url": "https://support.claude.com/en/articles/11101966-use-voice-mode",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "a04aa034bf96d259",
   "tokens": [
@@ -1243,8 +1202,8 @@
  "voice_testingcatalog": {
   "final_url": "https://www.testingcatalog.com/tag/anthropic/",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-13",
-  "last_ok": "2026-11-13",
+  "last_checked": "2026-11-14",
+  "last_ok": "2026-11-14",
   "last_status": 200,
   "sha": "f6db92a09a59166e",
   "tokens": [
