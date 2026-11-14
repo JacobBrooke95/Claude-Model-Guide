@@ -56,6 +56,19 @@ from engine.data import holiday_mask                          # noqa: E402
 from engine.market import pool                                # noqa: E402
 from engine.modifiers import election_mask, thanksgiving_mask  # noqa: E402
 
+
+def _no_nan(o):
+    """NaN and infinity are not valid JSON and break browser parsers: write null instead."""
+    if isinstance(o, float) and (o != o or o in (float("inf"), float("-inf"))):
+        return None
+    if isinstance(o, dict):
+        return {k: _no_nan(v) for k, v in o.items()}
+    if isinstance(o, list):
+        return [_no_nan(v) for v in o]
+    return o
+
+
+
 MODEL_VERSION = "voice-v1"
 RUNGS = ["A", "B", "C"]
 LOG = "voice_forecast_log.csv"
@@ -368,7 +381,7 @@ def run(as_of):
     bad = check(out)
     if bad:
         raise SystemExit("voice forecast failed its checks, nothing written: " + "; ".join(bad))
-    json.dump(out, open("output/voice_forecast.json", "w"), indent=1, default=float)
+    json.dump(_no_nan(json.loads(json.dumps(out, default=float))), open("output/voice_forecast.json", "w"), indent=1, allow_nan=False)
     shutil.copy("output/voice_forecast.json", snap)
     n = append_log(out)
     print(summary(out))

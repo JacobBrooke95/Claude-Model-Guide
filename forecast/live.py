@@ -71,6 +71,19 @@ for name, acc in res.items():
 
 # markets: ladder vs model vs blend
 import glob, os
+
+
+def _no_nan(o):
+    """NaN and infinity are not valid JSON and break browser parsers: write null instead."""
+    if isinstance(o, float) and (o != o or o in (float("inf"), float("-inf"))):
+        return None
+    if isinstance(o, dict):
+        return {k: _no_nan(v) for k, v in o.items()}
+    if isinstance(o, list):
+        return [_no_nan(v) for v in o]
+    return o
+
+
 _mfiles = sorted(f for f in glob.glob("data/raw/markets_*.csv") if os.path.basename(f)[8:18] <= str(asof.date()))
 MARKET_FILE = _mfiles[-1]
 mkts = pd.read_csv(MARKET_FILE)
@@ -130,7 +143,7 @@ out["market_file"] = MARKET_FILE
 _sig = [f for f in FAMILIES if out["signals"].get(f)]
 _pool = _sig or FAMILIES
 out["watch"] = max(_pool, key=lambda f: out["targets"][f]["with_signals"]["p30"])
-json.dump(out, open("output/forecast.json", "w"), indent=1, default=float)
+json.dump(_no_nan(json.loads(json.dumps(out, default=float))), open("output/forecast.json", "w"), indent=1, allow_nan=False)
 
 # forward log (long format): one row per target × checkpoint, with the market
 # price where a Polymarket ladder rung exists for that date. Never edited.
