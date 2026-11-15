@@ -6,7 +6,7 @@ places that use them:
 | Source | Generates |
 |---|---|
 | `models.json` | `modelData` and the pricing chart rows in `claude-models.html`; all of `forecast/data/anthropic_releases.csv` |
-| `benchmarks.json` | every benchmark chart's data in `claude-models.html` (Anthropic ECI, SWE-bench Pro, Terminal-Bench 2.1, OSWorld, Vending-Bench 2, Vending-Bench Arena, GDPval-AA, RLI, ARC-AGI-2, ARC-AGI-3, Humanity's Last Exam, Capability Profile) |
+| `benchmarks.json` | every benchmark chart's data in `claude-models.html` (Anthropic ECI, SWE-bench Pro, Terminal-Bench 2.1, OSWorld, Vending-Bench 2, Vending-Bench Arena, GDPval-AA, RLI, ARC-AGI-2, ARC-AGI-3, Humanity's Last Exam, ForecastBench, Capability Profile) |
 | `board-checks.json` | the Board Coverage section of `claude-models.html` |
 
 ```
@@ -89,6 +89,17 @@ column in the table; move it forward when the table gets too wide for a phone.
 - **ARC-AGI-3 (`arc_agi_3`)**: `series` is each model's best Standard-harness
   score, `adapter` its best Provider Adapter score (hollow, never joined), and
   `configurations` every Claude run on the board.
+- **ForecastBench (`forecastbench`) plots the baseline board, one best run per
+  model.** `series` is each model's best Overall Brier Index on the no-tools
+  baseline board, with the setup in `config`; setups differ by model, so every
+  configuration goes in `configurations`. `tournament` is the best
+  ForecastBench-run tournament row with tools and without the crowd forecast
+  (no dagger on the board), drawn hollow and never joined: that board has its
+  own scale, so `reference` carries both boards' human rows. Rows given the
+  crowd forecast, outside teams' rows and the dataset-only preliminary board
+  are recorded and not plotted. To re-pull: fetch the three
+  `assets/js/leaderboard_*_full.js` files and read the `const data` literal;
+  the rows carry no dates, so a new listing is `first_seen_by_site`.
 - **A first-party figure on a board-sourced chart** gets `"reported_by":
   "anthropic"` on its row (today: Fable 5.2 on `rli`). The chart draws it hollow
   on a dashed segment. When the board lists the model, switch `score` and

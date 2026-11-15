@@ -572,6 +572,63 @@
                 </div>
             </div>
 
+            <div class="benchmark-section" id="forecastbench">
+                <h2 class="section-title"><span class="info-tail">ForecastBench&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-forecastbench" aria-label="About ForecastBench"><span aria-hidden="true">i</span></button></span></h2>
+                <div class="info-panel" id="info-forecastbench" hidden="until-found"><p>ForecastBench, from the Forecasting Research Institute, asks for probabilities on questions about the future that have no answer yet, 500 of them every two weeks, and scores each forecaster as the questions resolve. The score is a Brier Index: 100 is perfect foresight, 50 is what answering 50% to everything earns, 0 is confidently wrong every time. Plotted: each Claude model's best run on the baseline board, where models answer with no tools and no added context. Read November 15, 2026.</p><p><strong>Key.</strong> Solid: baseline board, no tools. Hollow: tournament board, the model given web search; a different board with its own scale, never joined to the lines. Gold dashed lines: the median forecast of superforecasters and of the general public, as the baseline board scores them. Grey dotted line: the same superforecasters as the tournament board scores them.</p></div>
+                <div class="benchmark-chart-container">
+                    <div id="forecastbench-chart"></div>
+                    <p class="chart-caveat">Baseline board: no tools. Setups differ by model. Hollow points are a different board.</p>
+                    <div class="benchmark-legend">
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #c09a5b;"></div>
+                            <span>Fable</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #9d7bb0;"></div>
+                            <span>Opus</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #d4836a;"></div>
+                            <span>Sonnet</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #8fa882;"></div>
+                            <span>Haiku</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #8a7f78;"></div>
+                            <span>Claude 2.1</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: #fffdfa; border: 2px dashed #8a7f78;"></div>
+                            <span>Hollow: tournament board, with web search</span>
+                        </div>
+                    </div>
+                    <p class="benchmark-note">
+                        The Forecasting Research Institute describes ForecastBench as "a dynamic, continuously-updated benchmark designed to measure the accuracy of ML systems on a constantly changing set of forecasting questions". Half the questions are "automatically generated from real-world time series (ACLED, DBnomics, and FRED)", such as whether a series will be higher on a given date; half are "drawn from leading prediction platforms: Kalshi, Metaculus, and Polymarket". Nothing can be memorised, because the answers do not exist when the forecast is made. The Brier Index is (1 &minus; &radic;Brier score) &times; 100, and the Overall figure plotted here is "the equal-weighted average of their dataset and market difficulty-adjusted Brier scores, converted to Brier Indices". It is not a percent correct: a forecaster who says 51% to everything that happens and 49% to everything that does not is right every time and scores 51.<br>
+                        <strong>What the lines show.</strong> The baseline board is "run solely by the ForecastBench team. Models are evaluated out of the box, without extra tools, context, or scaffolding." Seventeen Claude models have a row on it. Claude 2.1 (52.8) and Claude 3 Haiku (52.0) are barely above the 50 that answering 50% every time earns, and Claude 3 Opus is at 57.0. Then it stops moving: the fourteen models from Claude 3.5 Sonnet (June 2024) to Sonnet 5 (June 2026) all score between 58.0 and 60.3. The highest is Claude 3.7 Sonnet's 60.3, from February 2025; the two newest, Opus 4.8 and Sonnet 5, are at 58.6 and 58.9. The board's own 95% intervals run about half a point to a point and a half either side, so most of the movement along these lines is noise. Every Claude row is below both human lines, the public median at 62.0 and the superforecaster median at 67.0, and the board's significance test finds no Claude row ahead of the public median. This is not a Claude result alone: the best baseline row from any lab is OpenAI's o3 at 61.1.<br>
+                        <strong>The setups differ.</strong> No single configuration covers all seventeen, because ForecastBench changed how it runs models over the three years. Each point is the model's best baseline row, and the setup is in its tooltip: a plain zero-shot prompt for Claude 2.1, 3 Opus, 3 Haiku, Sonnet 4, Opus 4.1 and Opus 4.5; a scratchpad prompt for both versions of 3.5 Sonnet, 3.7 Sonnet and Opus 4; zero-shot with a 1,024-token output cap for Sonnet 4.5, Haiku 4.5, Opus 4.6 and Opus 4.7; adaptive thinking for Sonnet 4.6, Opus 4.8 and Sonnet 5. The setup can matter more than the model: Claude 3.7 Sonnet scores 60.3 with the scratchpad prompt and 57.1 without it, a wider gap than any step between models since 3.5 Sonnet. All 26 Claude rows on the board are in <code>data/benchmarks.json</code>.<br>
+                        <strong>The hollow points, and what search adds.</strong> The tournament board is "open to external submissions. Teams may enhance models however they choose", and on it "Models submitted by the ForecastBench team receive the crowd forecast as context for market questions": they are told roughly what the market thinks. Rows that got the crowd forecast carry a &dagger;; the benchmark's code shows the unmarked twin is the same run without it. For the seventeen baseline models the tournament rows use no tools at all, only that hint, and it lifts the fourteen since 3.5 Sonnet to between 62.3 and 64.6. Those rows are not drawn: much of what they measure is the hint. What is drawn hollow is the four Claude models ForecastBench has run with web search and without the crowd forecast: Opus 4.8 65.6, Fable 5 66.0, Opus 5 66.5 and Fable 5.1 65.9 (Fable 5 and Opus 5 also had code execution). Opus 4.8 is the one model with every cell filled: 58.6 with no tools, 62.3 with the crowd forecast, 65.6 with web search, 66.0 with both. So search is worth far more than anything gained between Claude 3.5 Sonnet and Sonnet 5 without it: about seven points across the two boards, or 3.7 on the tournament board alone once the crowd forecast is already in hand.<br>
+                        <strong>Hollow points are measured against a different line.</strong> The two boards adjust for question difficulty differently, and the tournament board scores the same human forecasts higher: superforecasters 68.1, the public 62.9. That is the grey dotted line. Against it the four Claude runs sit 1.6 to 2.5 points under the superforecaster median and 2.7 to 3.6 above the public one. The board's test puts superforecasters "likely" ahead of Opus 5 (p&nbsp;=&nbsp;0.02) and Opus 5 ahead of the public (p&nbsp;&lt;&nbsp;0.001). The top row on that board, from an anonymous team, is 69.5. The two Fable runs are configured with a server-side fallback to an Opus model (Opus 4.8 for Fable 5, Opus 5 for Fable 5.1); how often it was used is not published.<br>
+                        <strong>The human lines are from 2024.</strong> They are the rows "Superforecaster median forecast" and "Public median forecast", each resting on 578 questions. In the board's words, the human groups "were last surveyed in July 2024 and therefore answered a different set of questions than models evaluated after that date", and are placed on the same scale by a statistical adjustment for question difficulty. Their intervals are wide: 63.8 to 70.5 for superforecasters and 59.4 to 64.6 for the public on the baseline board.<br>
+                        <strong>Who is missing, and why.</strong> "To ensure leaderboard stability, models are included on the leaderboard 50 days after forecast submission." Before that a model appears only on a preliminary board, which "ranks models on all resolved dataset questions" and warns that "Rankings are not finalized". That is where the 5.5 generation is on November 15, 2026, all run with web search: Opus 5.5 61.8, Haiku 5.5 61.0, Sonnet 5.5 60.9, beside Opus 5 at 62.0 and Fable 5.1 at 61.1 on the same dataset-only measure, where superforecasters score 63.4 and the public 59.0. Those are not plotted, because a dataset-only score is not the Overall score on this axis. Fable 5, Opus 5 and Fable 5.1 have no solid point because ForecastBench has only run them with tools, which the baseline board excludes; unless that changes, the solid lines end at Sonnet 5. Fable 5.2, released November 9, has no row on any of the three boards, and ForecastBench's public code defines no run for it yet. No Mythos model can be run by an outside board. Claude 3 Sonnet has no row, and Claude 3.5 Haiku has only an outside team's tournament entry (56.3). The data files carry no dates for when a row was added.
+                    </p>
+                    <div class="benchmark-paper-links">
+                        <div class="benchmark-paper-link-row">
+                            <a href="https://www.forecastbench.org/leaderboards/" target="_blank" rel="noopener">ForecastBench leaderboards</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://www.forecastbench.org/about/" target="_blank" rel="noopener">How it works</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://forecastingresearch.substack.com/p/introducing-the-brier-index" target="_blank" rel="noopener">The Brier Index</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://arxiv.org/abs/2409.19839" target="_blank" rel="noopener">Paper</a>
+                            <span class="benchmark-paper-sep">·</span>
+                            <a href="https://github.com/forecastingresearch/forecastbench" target="_blank" rel="noopener">Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="benchmark-section" id="gdpval-aa-v2-1">
                 <h2 class="section-title">GDPval-AA <span class="info-tail">v2.1&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-gdpval-aa-v2-1" aria-label="About GDPval-AA v2.1"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-gdpval-aa-v2-1" hidden="until-found"><p>Max-effort Elo on Artificial Analysis's v2.1 board, every point from one read on November 9, 2026. The Opus line starts at 4.7 because Opus 4.5/4.6 have no v2-series Elo &mdash; missing data, not a debut.</p></div>
@@ -1500,7 +1557,7 @@
 
             // A maintained date, not new Date(): a live stamp would silently re-date
             // July's benchmark pulls every day forever. The forecast alone is live.
-            lastUpdated.textContent = 'November 9, 2026 (Fable 5.2 and Mythos 5.2 added to the release data; Fable 5.2 added to pricing, SWE-bench Pro, OSWorld, GDPval, ARC-AGI-2 and the Capability Profile; GDPval, ARC-AGI-2 and the Capability Profile re-pulled whole from their boards, which also brought Sonnet 5.5 and Haiku 5.5 onto ARC-AGI-2 and Haiku 5.5 onto the Capability Profile; three charts added: ARC-AGI-3, which leaves the ARC-AGI-2 chart for its own with seven Claude models, Humanity\'s Last Exam from the system cards, and the Anthropic ECI from the Fable 5.2 card\'s November 6 fit, with a second panel showing every AECI value published across eight cards; Fable 5.2 plotted on the Remote Labor Index as a hollow point from the system card, since Scale\'s board has no row for it yet; Terminal-Bench 2.1, Vending-Bench 2, the Arena and RLI re-checked, with no Fable 5.2 run on any of those boards yet, all November 9; Vending-Bench 2 rows October 10; Terminal-Bench 2.1 rows September 28; Shipping Pace gained a pace line on the staircase, joining the count six months ago to the count today and continued three months as a dashed projection, with lighter segments showing the pace in each earlier year, computed on view from the release data, November 15; forecast computed on view)';
+            lastUpdated.textContent = 'November 9, 2026 (Fable 5.2 and Mythos 5.2 added to the release data; Fable 5.2 added to pricing, SWE-bench Pro, OSWorld, GDPval, ARC-AGI-2 and the Capability Profile; GDPval, ARC-AGI-2 and the Capability Profile re-pulled whole from their boards, which also brought Sonnet 5.5 and Haiku 5.5 onto ARC-AGI-2 and Haiku 5.5 onto the Capability Profile; three charts added: ARC-AGI-3, which leaves the ARC-AGI-2 chart for its own with seven Claude models, Humanity\'s Last Exam from the system cards, and the Anthropic ECI from the Fable 5.2 card\'s November 6 fit, with a second panel showing every AECI value published across eight cards; Fable 5.2 plotted on the Remote Labor Index as a hollow point from the system card, since Scale\'s board has no row for it yet; Terminal-Bench 2.1, Vending-Bench 2, the Arena and RLI re-checked, with no Fable 5.2 run on any of those boards yet, all November 9; Vending-Bench 2 rows October 10; Terminal-Bench 2.1 rows September 28; Shipping Pace gained a pace line on the staircase, joining the count six months ago to the count today and continued three months as a dashed projection, with lighter segments showing the pace in each earlier year, computed on view from the release data, November 15; ForecastBench chart added, the first decision-making benchmark here: seventeen Claude models on the no-tools baseline board, four more as hollow points from the tournament board\'s web-search runs, with the superforecaster and public medians as reference lines, read November 15; forecast computed on view)';
             // The stamp above is one hand-written line, "date (what changed; what changed; …)".
             // The date stays in view; the changes fold behind "What changed".
             const stamp = /^(.*?) \((.*)\)$/.exec(lastUpdated.textContent);
@@ -1779,7 +1836,9 @@
                         // A connector that cuts through another label reads as pointing at it
                         const l = leader(item, b, c);
                         const path = lineObstacles([[[l.x1, l.y1], [l.x2, l.y2]]]);
-                        const cut = placed.filter(p => path.some(q => hits(q, p, 0)));
+                        // (An obstacle flagged `passable` is a reference line: no label may
+                        // sit on it, but a connector crossing it points at nothing.)
+                        const cut = placed.filter(p => !p.passable && path.some(q => hits(q, p, 0)));
                         if (cut.length) {
                             cost += 60;
                             crosses = [...new Set(cut.map(p => p.owner))];
@@ -3590,6 +3649,226 @@
             setSvg('hle-chart', svg);
         }
 
+        // ForecastBench (Forecasting Research Institute). Solid points: each model's best
+        // run on the BASELINE board, no tools. Hollow points: the tournament board's
+        // web-search runs, a different board with its own scale, so they are never joined
+        // to the lines and carry that board's superforecaster mark. The preliminary board
+        // (dataset questions only) is in the note and in data/benchmarks.json,
+        // charts.forecastbench, not here.
+        function renderForecastBenchChart() {
+            // >>> generated:forecastbench from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
+            const fbData = {
+                legacy: [
+                    { model: '2.1', label: 'Claude 2.1', date: '2023-11-21', score: 52.8, config: 'zero-shot prompt', dataset: 52.7, market: 53.0, n: 1509, runs: 1 }
+                ],
+                opus: [
+                    { model: '3 Opus', date: '2024-03-04', score: 57.0, config: 'zero-shot prompt', dataset: 58.2, market: 55.8, n: 7552, runs: 2 },
+                    { model: 'Opus 4', date: '2025-05-22', score: 59.8, config: 'scratchpad prompt', dataset: 60.7, market: 58.9, n: 1518, runs: 1 },
+                    { model: 'Opus 4.1', date: '2025-08-05', score: 60.2, config: 'zero-shot prompt', dataset: 60.0, market: 60.3, n: 14857, runs: 2 },
+                    { model: 'Opus 4.5', date: '2025-11-24', score: 59.0, config: 'zero-shot prompt', dataset: 59.8, market: 58.3, n: 4218, runs: 1 },
+                    { model: 'Opus 4.6', date: '2026-02-05', score: 58.4, config: 'zero-shot, 1,024-token output cap', dataset: 59.7, market: 57.1, n: 6561, runs: 1 },
+                    { model: 'Opus 4.7', date: '2026-04-16', score: 58.9, config: 'zero-shot, 1,024-token output cap', dataset: 60.0, market: 57.9, n: 7157, runs: 1 },
+                    { model: 'Opus 4.8', date: '2026-05-28', score: 58.6, config: 'zero-shot, adaptive thinking at high effort, 24k-token cap', dataset: 58.2, market: 59.0, n: 4551, runs: 2 }
+                ],
+                sonnet: [
+                    { model: '3.5 Sonnet', date: '2024-06-20', score: 58.0, config: 'scratchpad prompt', dataset: 58.5, market: 57.5, n: 18271, runs: 2 },
+                    { model: 'Claude 3.5 Sonnet (Oct)', label: '3.5 Sonnet (Oct)', date: '2024-10-22', score: 59.3, config: 'scratchpad prompt', dataset: 58.5, market: 60.1, n: 10732, runs: 2 },
+                    { model: '3.7 Sonnet', date: '2025-02-24', score: 60.3, config: 'scratchpad prompt', dataset: 60.1, market: 60.5, n: 10732, runs: 2 },
+                    { model: 'Sonnet 4', date: '2025-05-22', score: 58.9, config: 'zero-shot prompt', dataset: 58.8, market: 59.1, n: 7245, runs: 2 },
+                    { model: 'Sonnet 4.5', date: '2025-09-29', score: 59.7, config: 'zero-shot, 1,024-token output cap', dataset: 59.8, market: 59.5, n: 22737, runs: 1 },
+                    { model: 'Sonnet 4.6', date: '2026-02-17', score: 60.0, config: 'zero-shot, adaptive thinking, 16k-token cap', dataset: 60.0, market: 60.0, n: 4551, runs: 2 },
+                    { model: 'Sonnet 5', date: '2026-06-30', score: 58.9, config: 'zero-shot, adaptive thinking, 16k-token cap', dataset: 59.8, market: 58.0, n: 4551, runs: 1 }
+                ],
+                haiku: [
+                    { model: '3 Haiku', date: '2024-03-13', score: 52.0, config: 'zero-shot prompt', dataset: 51.0, market: 53.1, n: 7552, runs: 2 },
+                    { model: 'Haiku 4.5', date: '2025-10-15', score: 58.9, config: 'zero-shot, 1,024-token output cap', dataset: 58.6, market: 59.2, n: 23766, runs: 1 }
+                ]
+            };
+            // <<< generated:forecastbench
+            // >>> generated:forecastbench-tournament from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
+            const fbTournament = [
+                { model: 'Opus 4.8', fam: 'opus', date: '2026-05-28', score: 65.6, config: 'adaptive thinking at max effort, web search', dataset: 61.6, market: 70.0, n: 1705, crowd: 66.0 },
+                { model: 'Fable 5', fam: 'fable', date: '2026-06-09', score: 66.0, config: 'max effort, web search and code execution', dataset: 61.5, market: 71.2, n: 1644, crowd: 65.7 },
+                { model: 'Opus 5', fam: 'opus', date: '2026-07-24', score: 66.5, config: 'adaptive thinking at max effort, web search and code execution', dataset: 62.2, market: 71.4, n: 1644, crowd: 66.5 },
+                { model: 'Fable 5.1', fam: 'fable', date: '2026-09-01', score: 65.9, config: 'medium effort, web search', dataset: 61.8, market: 70.5, n: 599, crowd: 65.9 }
+            ];
+            // <<< generated:forecastbench-tournament
+            // >>> generated:forecastbench-ref from data/benchmarks.json by scripts/build-site-data.py. Do not edit here.
+            const fbRef = { baseline: { superforecaster: { score: 67.0, ci: '[63.8, 70.5]', dataset: 63.6, market: 70.8, n: 578, n_dataset: 521, n_market: 57, rank: 1 }, public: { score: 62.0, ci: '[59.4, 64.6]', dataset: 59.2, market: 65.0, n: 578, n_dataset: 521, n_market: 57, rank: 2 } }, tournament: { superforecaster: { score: 68.1, ci: '[66.7, 69.7]', dataset: 63.4, market: 73.6, n: 578, n_dataset: 521, n_market: 57, rank: 8 }, public: { score: 62.9, ci: '[61.3, 64.5]', dataset: 59.0, market: 67.3, n: 578, n_dataset: 521, n_market: 57, rank: 307 } } };
+            // <<< generated:forecastbench-ref
+
+            const colors = { legacy: '#8a7f78', fable: '#c09a5b', opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882' };
+
+            const { W, H, pad } = frame(800, 470, { top: 40, right: 25, bottom: 55, left: 55 });
+            const cw = W - pad.left - pad.right;
+            const ch = H - pad.top - pad.bottom;
+
+            const allDates = Object.values(fbData).flat().concat(fbTournament).map(p => p.date);
+            const minDate = new Date('2023-09-01T00:00:00');
+            // Room on the right for the hollow points' labels, and for the next models
+            const maxDate = dateDomainEnd('2027-02-01', allDates);
+            const dateRange = maxDate - minDate;
+
+            // 50 to 70, not a tight zoom: on this scale 50 is what answering 50% to every
+            // question earns, and two years of Claude models sit inside two points of 59.
+            const minScore = 50, maxScore = 70, step = 5;
+
+            function x(dateStr) {
+                const d = new Date(dateStr + 'T00:00:00');
+                return pad.left + ((d - minDate) / dateRange) * cw;
+            }
+            function y(score) {
+                return pad.top + ch - ((score - minScore) / (maxScore - minScore)) * ch;
+            }
+
+            let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+
+            for (let s = minScore; s <= maxScore; s += step) {
+                const yPos = y(s);
+                svg += `<line x1="${pad.left}" y1="${yPos}" x2="${W - pad.right}" y2="${yPos}" stroke="#e8d5c8" stroke-width="1" />`;
+                svg += `<text x="${pad.left - 10}" y="${yPos + 4}" text-anchor="end" fill="#666" font-size="12">${s}</text>`;
+            }
+
+            const dateLabels = monthTicks('2024-01-01', maxDate, 6, minDate);
+            dateLabels.forEach(dl => {
+                const xPos = x(dl.date);
+                svg += `<line x1="${xPos}" y1="${pad.top}" x2="${xPos}" y2="${pad.top + ch}" stroke="#e8d5c8" stroke-width="1" stroke-dasharray="4,4" />`;
+                svg += `<text x="${xPos}" y="${H - pad.bottom + 20}" text-anchor="middle" fill="#666" font-size="12">${dl.label}</text>`;
+            });
+
+            const obstacles = [];
+            const refLines = [];
+
+            // The floor of the axis is the uninformed score, and says so
+            const floorText = '50 = answering 50% every time';
+            const floorTextY = y(50) - 7;
+            svg += `<text x="${W - pad.right - 4}" y="${floorTextY}" text-anchor="end" fill="#8a7565" font-size="10.5" font-style="italic">${floorText}</text>`;
+            obstacles.push(annotationBox(W - pad.right - 4, floorTextY, floorText, 10.5));
+
+            // Human reference rows as the BASELINE board prints them, drawn as the RLI chart
+            // draws its launch line
+            [['superforecaster', UI.compact ? 'Superforecasters' : 'Superforecaster median'],
+             ['public', UI.compact ? 'Public' : 'Public median']].forEach(([key, name]) => {
+                const v = fbRef.baseline[key].score, ry = y(v);
+                svg += `<line x1="${pad.left}" y1="${ry}" x2="${W - pad.right}" y2="${ry}" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="6,4" stroke-opacity="0.65" />`;
+                const text = `${name} ${v.toFixed(1)}`;
+                const right = pad.left + 6 + annotationBox(0, 0, text, 10.5).w;
+                svg += `<text x="${pad.left + 6}" y="${ry - 7}" text-anchor="start" fill="#b8860b" font-size="10.5" font-style="italic">${text}</text>`;
+                obstacles.push(annotationBox(right, ry - 7, text, 10.5));
+                refLines.push([[pad.left, ry], [W - pad.right, ry]]);
+            });
+
+            // The tournament board scores the same superforecasters higher, so the hollow
+            // points get that board's mark: a short line over their own stretch of the chart
+            const tDates = fbTournament.map(p => p.date).sort();
+            if (tDates.length) {
+                const tv = fbRef.tournament.superforecaster.score, ty = y(tv);
+                const start = new Date(tDates[0] + 'T00:00:00');
+                start.setDate(start.getDate() - 45);
+                const tx1 = pad.left + ((start - minDate) / dateRange) * cw;
+                svg += `<line x1="${tx1}" y1="${ty}" x2="${W - pad.right}" y2="${ty}" stroke="#8a7f78" stroke-width="1.4" stroke-dasharray="2,3" />`;
+                // Caption to the left of the line's start, level with it: the space above
+                // and below belongs to the hollow points' labels
+                // (Phones have no room there: the caption goes above the line's right end.)
+                const text = UI.compact ? `${tv.toFixed(1)} on tournament board` : `Superforecasters, tournament board ${tv.toFixed(1)}`;
+                const tRight = UI.compact ? W - pad.right - 2 : tx1 - 6, tBase = UI.compact ? ty - 6 : ty + 3.5;
+                svg += `<text x="${tRight}" y="${tBase}" text-anchor="end" fill="#8a7f78" font-size="10.5" font-style="italic">${text}</text>`;
+                obstacles.push(annotationBox(tRight, tBase, text, 10.5));
+                refLines.push([[tx1, ty], [W - pad.right, ty]]);
+            }
+
+            svg += `<line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+            svg += `<line x1="${pad.left}" y1="${pad.top + ch}" x2="${W - pad.right}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.5" />`;
+
+            const lineSegPoints = [];
+            const softSegPoints = [];
+            const base = {};
+            Object.entries(fbData).forEach(([series, points]) => {
+                const color = colors[series];
+                if (points.length > 1) {
+                    lineSegPoints.push(points.map(p => [x(p.date), y(p.score)]));
+                    const pathD = points.map((p, i) => (i === 0 ? 'M' : 'L') + `${x(p.date)},${y(p.score)}`).join(' ');
+                    svg += `<path d="${pathD}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`;
+                }
+                points.forEach(p => { base[p.model] = p; });
+            });
+
+            // A model with both a baseline and a tournament point gets a dotted stem between
+            // them, as ARC-AGI-3 joins its two harnesses
+            fbTournament.forEach(p => {
+                const b = base[p.model];
+                if (!b) return;
+                const px = x(p.date);
+                // A soft line (a label may sit on it, with a halo): as a hard obstacle the
+                // stem walled off the corner and labels piled up on either side of it
+                softSegPoints.push([[px, y(b.score)], [px, y(p.score)]]);
+                svg += `<line x1="${px}" y1="${y(b.score)}" x2="${px}" y2="${y(p.score)}" stroke="${colors[p.fam]}" stroke-width="1.6" stroke-dasharray="1.5,4" stroke-linecap="round" stroke-opacity="0.9" />`;
+            });
+
+            // Phones label each family's newest point plus the lowest and highest on the
+            // chart; the rest are a tap away. (placeLabels labels the latest of each `series`.)
+            const solidItems = [];
+            let hollowSvg = '';
+            const solid = Object.values(fbData).flat();
+            const lowest = solid.reduce((a, b) => b.score < a.score ? b : a);
+            const highest = solid.reduce((a, b) => b.score > a.score ? b : a);
+            Object.entries(fbData).forEach(([series, points]) => {
+                const color = colors[series];
+                points.forEach(p => {
+                    const px = x(p.date), py = y(p.score);
+                    const name = p.label || p.model;
+                    const tip = `${/^\d/.test(name) ? 'Claude ' : ''}${name} — ${p.score.toFixed(1)} on ForecastBench's baseline board, no tools: ${p.config}`
+                        + (p.runs > 1 ? `, the best of its ${p.runs} runs there` : '')
+                        + ` (dataset questions ${p.dataset.toFixed(1)}, market questions ${p.market.toFixed(1)})`;
+                    svg += `<circle cx="${px}" cy="${py}" r="5" fill="${color}" stroke="white" stroke-width="2"><title>${tip}</title></circle>`;
+                    solidItems.push({ px, py, color, name, value: p.score.toFixed(1), tip,
+                                      series: p === lowest ? 'lowest' : p === highest ? 'highest' : series,
+                                      prefer: !UI.compact ? undefined : p === highest ? 'above' : p === lowest ? 'below' : undefined });
+                });
+            });
+
+            // Hollow points are labelled first: they have the least room. Phones label only
+            // the highest of them; the others keep a tap target.
+            const hollowItems = [], hollowDots = [];
+            const topHollow = fbTournament.reduce((a, b) => b.score > a.score ? b : a, fbTournament[0]);
+            fbTournament.forEach(p => {
+                const px = x(p.date), py = y(p.score), color = colors[p.fam];
+                const tip = `${p.model} — ${p.score.toFixed(1)} on ForecastBench's tournament board with tools: ${p.config}, no crowd forecast`
+                    + (p.crowd != null ? ` (${p.crowd.toFixed(1)} when also given the crowd forecast)` : '')
+                    + `. On that board the superforecaster median is ${fbRef.tournament.superforecaster.score.toFixed(1)}`;
+                hollowSvg += `<circle cx="${px}" cy="${py}" r="4.5" fill="#fffdfa" stroke="${color}" stroke-width="2" stroke-dasharray="2.4,2"><title>${tip}</title></circle>`;
+                const paired = !!base[p.model];
+                if (UI.compact && p !== topHollow) {
+                    hollowDots.push({ x: px - 7, y: py - 7, w: 14, h: 14 });
+                    hollowSvg += `<circle cx="${px}" cy="${py}" r="11" fill="transparent"><title>${tip}</title></circle>`;
+                    return;
+                }
+                if (paired) {
+                    // Its model is named at the other end of the stem, so this point gets
+                    // the number alone, beside it: one more two-line label did not fit
+                    const text = p.score.toFixed(1);
+                    hollowSvg += `<text x="${px - 9}" y="${py + 4}" text-anchor="end" fill="${color}" font-size="10.5" opacity="0.85">${text}</text>`
+                               + `<circle cx="${px}" cy="${py}" r="11" fill="transparent"><title>${tip}</title></circle>`;
+                    hollowDots.push({ x: px - 7, y: py - 7, w: 14, h: 14 }, annotationBox(px - 9, py + 4, text + '0', 10.5));
+                    return;
+                }
+                // Neighbours a few weeks apart: alternate below and above, so their labels
+                // fan out and leave the band under them to the Sonnet labels
+                hollowItems.push({ px, py, color, tip, series: 'hollow-' + p.model, name: p.model,
+                                   value: UI.compact ? `${p.score.toFixed(1)} with search` : p.score.toFixed(1),
+                                   prefer: UI.compact || hollowItems.length % 2 === 0 ? 'below' : 'above' });
+            });
+
+            svg += hollowSvg;
+            svg += placeLabels(hollowItems.concat(solidItems), { x: pad.left - 2, y: 4, w: cw + 4, h: pad.top + ch },
+                obstacles.concat(hollowDots, lineObstacles(lineSegPoints),
+                    lineObstacles(refLines).map(b => ({ ...b, passable: true }))),
+                lineObstacles(softSegPoints));
+
+            svg += '</svg>';
+            setSvg('forecastbench-chart', svg);
+        }
+
         // Anthropic ECI: one fit (the newest system card's), never a splice of several. Table
         // rows carry lo/hi (global 95% CI) and localLo/localHi; figure_read rows were measured
         // off the card's figure and are hollow with no bars. Sourcing and the earlier fits
@@ -4575,6 +4854,7 @@
                 { id: 'scale-hle', name: 'Scale AI / CAIS Humanity\'s Last Exam', short: 'Scale HLE', url: 'https://labs.scale.com/leaderboard/humanitys_last_exam', feeds: 'Humanity\'s Last Exam chart (context only: the chart plots Anthropic\'s system-card figures)', lastChecked: '2026-11-09' },
                 { id: 'andon-vb2', name: 'Andon Labs Vending-Bench 2', short: 'Vending-Bench 2', url: 'https://andonlabs.com/evals/vending-bench-2', feeds: 'Vending-Bench Earnings chart', lastChecked: '2026-11-09' },
                 { id: 'andon-arena', name: 'Andon Labs Vending-Bench Arena', short: 'VB Arena', url: 'https://andonlabs.com/evals/vending-bench-arena', feeds: 'Vending-Bench Arena chart', lastChecked: '2026-11-09' },
+                { id: 'forecastbench', name: 'ForecastBench (Forecasting Research Institute)', short: 'ForecastBench', url: 'https://www.forecastbench.org/leaderboards/', feeds: 'ForecastBench chart', lastChecked: '2026-11-15' },
                 { id: 'osworld-verified', name: 'OSWorld-Verified', short: 'OSWorld-Verified', url: 'https://os-world.github.io/', feeds: 'OSWorld chart (context only: the chart plots Anthropic\'s own figures)', lastChecked: '2026-11-09' },
                 { id: 'swebench-com', name: 'swebench.com', short: 'swebench.com', url: 'https://www.swebench.com/', feeds: 'SWE-bench Pro chart (context only: the chart plots Anthropic\'s system-card figures)', lastChecked: '2026-11-09' },
                 { id: 'lmarena', name: 'LMArena', short: 'LMArena', url: 'https://lmarena.ai/leaderboard', feeds: 'no chart', lastChecked: null }
@@ -4629,6 +4909,7 @@
                 { model: 'fable51', board: 'scale-hle', status: 'listed', firstListed: '2026-09-03', basis: 'the board entry\'s createdAt, 2026-09-03', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 46.5, note: 'Listed as \'Fable 5.1 (xhigh)\'. Not the figure the chart plots (60.9, Anthropic\'s).' },
                 { model: 'fable51', board: 'andon-vb2', status: 'listed', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 5422, note: 'Added from the board on Sep 28.' },
                 { model: 'fable51', board: 'andon-arena', status: 'listed', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 5719, note: 'Round 12, which Andon pins to 2026-09-04.' },
+                { model: 'fable51', board: 'forecastbench', status: 'listed', firstSeen: '2026-11-15', lastChecked: '2026-11-15', value: 65.9, note: 'Tournament board, medium effort with web search, no crowd forecast: the hollow point on the chart. No baseline-board row; ForecastBench has only run it with tools. The data file gives no date for the row.' },
                 { model: 'mythos51', board: 'vals-tb21', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
                 { model: 'mythos51', board: 'aa-gdpval', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
                 { model: 'mythos51', board: 'arc-agi-2', status: 'not_applicable', lastChecked: null, note: 'Restricted access: third-party boards cannot run it.' },
@@ -4645,6 +4926,7 @@
                 { model: 'opus55', board: 'scale-hle', status: 'pending', lastChecked: '2026-11-09', note: 'No row on 2026-11-09.' },
                 { model: 'opus55', board: 'andon-vb2', status: 'listed', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 9235, note: 'Added from the board on Sep 28.' },
                 { model: 'opus55', board: 'andon-arena', status: 'listed', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 8094, note: 'Round 13, which Andon gives no date.' },
+                { model: 'opus55', board: 'forecastbench', status: 'pending', lastChecked: '2026-11-15', note: 'Preliminary board only on 2026-11-15: 61.8 on dataset questions (high effort, web search). Not on the tournament or baseline board; models are included 50 days after forecast submission.' },
                 { model: 'sonnet55', board: 'vals-tb21', status: 'listed', firstListed: '2026-09-27', basis: 'Vals\'s September 27 update, per the chart note', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 83.1, note: 'The update stamp is the day before the Sep 28 release.' },
                 { model: 'sonnet55', board: 'aa-gdpval', status: 'listed', firstListed: '2026-09-28', basis: 're-read Sep 28, 2026, release day, to add it; AA ran it on a pre-release deployment', firstSeen: '2026-09-28', lastChecked: '2026-11-09', value: 1838 },
                 { model: 'sonnet55', board: 'aa-suite', status: 'listed', firstListed: '2026-09-28', basis: 'AA values for it were read on Sep 28, 2026, release day (the Nov 9 pull log compares against them)', firstSeen: '2026-09-28', lastChecked: '2026-11-09' },
@@ -4654,6 +4936,7 @@
                 { model: 'sonnet55', board: 'scale-hle', status: 'listed', firstListed: '2026-10-12', basis: 'the board entry\'s createdAt, 2026-10-12', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 46.12, note: 'Listed as \'Sonnet 5.5 (xhigh)\'. Not the figure the chart plots (56.9, Anthropic\'s).' },
                 { model: 'sonnet55', board: 'andon-vb2', status: 'listed', firstSeen: '2026-10-10', notListedAsOf: '2026-09-28', lastChecked: '2026-11-09', value: 11165, note: 'No run on Sep 28, release day; on the board by Oct 10.' },
                 { model: 'sonnet55', board: 'andon-arena', status: 'pending', lastChecked: '2026-11-09', note: 'No round on 2026-10-10 or 2026-11-09.' },
+                { model: 'sonnet55', board: 'forecastbench', status: 'pending', lastChecked: '2026-11-15', note: 'Preliminary board only on 2026-11-15: 60.9 on dataset questions (high effort, web search). Not on the tournament or baseline board.' },
                 { model: 'haiku55', board: 'vals-tb21', status: 'pending', lastChecked: '2026-11-09', note: 'No run on 2026-10-10 or 2026-11-09 (Haiku 4.5 Thinking is still the board\'s newest Haiku).' },
                 { model: 'haiku55', board: 'aa-gdpval', status: 'listed', firstSeen: '2026-10-10', lastChecked: '2026-11-09', value: 1631, note: 'On AA\'s October 10 board at 1618; no read between release and then.' },
                 { model: 'haiku55', board: 'aa-suite', status: 'listed', firstSeen: '2026-11-09', notListedAsOf: '2026-10-10', lastChecked: '2026-11-09', note: 'On 2026-10-10 AA showed only an Intelligence Index for it.' },
@@ -4663,6 +4946,7 @@
                 { model: 'haiku55', board: 'scale-hle', status: 'listed', firstListed: '2026-10-08', basis: 'the board entry\'s createdAt, 2026-10-08', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 30.12, note: 'Not the figure the chart plots (45.9, Anthropic\'s).' },
                 { model: 'haiku55', board: 'andon-vb2', status: 'listed', firstSeen: '2026-10-10', lastChecked: '2026-11-09', value: 3602, note: 'On the board by Oct 10, flagged New.' },
                 { model: 'haiku55', board: 'andon-arena', status: 'pending', lastChecked: '2026-11-09', note: 'No round on 2026-10-10 or 2026-11-09.' },
+                { model: 'haiku55', board: 'forecastbench', status: 'pending', lastChecked: '2026-11-15', note: 'Preliminary board only on 2026-11-15: 61.0 on dataset questions (high effort, web search). Not on the tournament or baseline board.' },
                 { model: 'fable52', board: 'vals-tb21', status: 'pending', lastChecked: '2026-11-09', note: 'No row on the Vals 2.1 board or tbench.ai\'s 2.1 leaderboard; Vals\'s Fable 5.2 page lists Terminal-Bench 4.0 only (65.15%).' },
                 { model: 'fable52', board: 'aa-gdpval', status: 'listed', firstListed: '2026-11-09', basis: 'read from the board on release day: "Claude Fable 5.2 (Max, Default Fallback)" 1830.73', firstSeen: '2026-11-09', lastChecked: '2026-11-09', value: 1831 },
                 { model: 'fable52', board: 'aa-suite', status: 'listed', firstListed: '2026-11-09', basis: 'read from AA\'s model records on release day', firstSeen: '2026-11-09', lastChecked: '2026-11-09' },
@@ -4672,6 +4956,7 @@
                 { model: 'fable52', board: 'scale-hle', status: 'pending', lastChecked: '2026-11-09', note: 'No row on release day.' },
                 { model: 'fable52', board: 'andon-vb2', status: 'pending', lastChecked: '2026-11-09', note: 'No Fable 5.2 (or Mythos) entry on the board.' },
                 { model: 'fable52', board: 'andon-arena', status: 'pending', lastChecked: '2026-11-09', note: 'Round 14 has been added with no Claude entrant; no round includes Fable 5.2.' },
+                { model: 'fable52', board: 'forecastbench', status: 'pending', lastChecked: '2026-11-15', note: 'No row on any of the three boards on 2026-11-15, and no run defined for it in ForecastBench\'s public code. A model reaches the preliminary board about 10 days after its first submission and the tournament board after 50.' },
                 { model: 'fable52', board: 'osworld-verified', status: 'uncheckable', lastChecked: '2026-11-09', note: 'Inconclusive: the board\'s data loads dynamically and the automated read could not see it.' },
                 { model: 'fable52', board: 'swebench-com', status: 'pending', lastChecked: '2026-11-09', note: 'No entry.' },
                 { model: 'fable52', board: 'lmarena', status: 'uncheckable', lastChecked: '2026-11-09', note: '403 to the automated fetch.' },
@@ -4812,6 +5097,7 @@
             renderArcChart();
             renderArc3Chart();
             renderHleChart();
+            renderForecastBenchChart();
             renderAeciChart();
             renderAeciDriftChart();
         }
