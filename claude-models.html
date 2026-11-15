@@ -148,14 +148,19 @@
 
             <div class="benchmark-section" id="shipping-pace">
                 <h2 class="section-title">Shipping <span class="info-tail">Pace&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-shipping-pace" aria-label="About Shipping Pace"><span aria-hidden="true">i</span></button></span></h2>
-                <div class="info-panel" id="info-shipping-pace" hidden="until-found"><p>Cumulative Claude releases over time, stacked by family. Each step up is a ship — the steeper the slope, the faster the pace. Numbers under the staircase's quarter bands show releases shipped that quarter. Fable and Mythos launched together three times (5, 5.1 and 5.2), so each pair counts as one step, colored Fable.</p>
-                <p>The line under the staircase is the release rate: the steps in the trailing six months (182.5 days), doubled to read as releases per year. It counts what the staircase counts, so a Fable and Mythos pair is one release, and it starts six months after the first plotted release, once the window is full. A trailing window lags. After a burst it keeps climbing until the whole burst is inside the window, and it falls only when old releases age out, so it trails the staircase's slope by up to six months. <span id="pace-rate-now"></span></p></div>
+                <div class="info-panel" id="info-shipping-pace" hidden="until-found"><p>Cumulative Claude releases over time, stacked by family. Each step up is a ship — the steeper the slope, the faster the pace. Numbers under the quarter bands show releases shipped that quarter. Fable and Mythos launched together three times (5, 5.1 and 5.2), so each pair counts as one step, colored Fable.</p>
+                <p>The dark line joins the count six months ago (182.5 days) to the count today, so its slope is the release rate over that window. It counts what the staircase counts: a Fable and Mythos pair is one release. <span id="pace-rate-now"></span> The rate looks back, so it keeps rising for a while after a burst and falls only as old releases age out of the window.</p>
+                <p>The dashed part continues the same slope three months past today<span id="pace-proj-now"></span>. It is a straight-line extrapolation, not a prediction: releases come in bursts, not at a steady rate. The site's forecast is on the <a href="release-forecast.html">Release Forecast</a> page<span id="pace-forecast-now"></span>.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="gap-chart"></div>
                     <div class="benchmark-legend">
                         <div class="benchmark-legend-item">
-                            <div class="benchmark-legend-dot" style="background: #5b4636; width: 20px; height: 2px; border-radius: 0;"></div>
-                            <span>Line: releases per year, trailing 6 months</span>
+                            <div class="benchmark-legend-dot" style="background: #2b2019; width: 20px; height: 3px; border-radius: 0;"></div>
+                            <span>Solid line: pace over the last 6 months (<span id="pace-legend-rate"></span>)</span>
+                        </div>
+                        <div class="benchmark-legend-item">
+                            <div class="benchmark-legend-dot" style="background: transparent; border-bottom: 2px dashed #2b2019; width: 20px; height: 2px; border-radius: 0;"></div>
+                            <span>Dashed: that pace continued 3 months</span>
                         </div>
                     </div>
                 </div>
@@ -1491,7 +1496,7 @@
 
             // A maintained date, not new Date(): a live stamp would silently re-date
             // July's benchmark pulls every day forever. The forecast alone is live.
-            lastUpdated.textContent = 'November 9, 2026 (Fable 5.2 and Mythos 5.2 added to the release data; Fable 5.2 added to pricing, SWE-bench Pro, OSWorld, GDPval, ARC-AGI-2 and the Capability Profile; GDPval, ARC-AGI-2 and the Capability Profile re-pulled whole from their boards, which also brought Sonnet 5.5 and Haiku 5.5 onto ARC-AGI-2 and Haiku 5.5 onto the Capability Profile; three charts added: ARC-AGI-3, which leaves the ARC-AGI-2 chart for its own with seven Claude models, Humanity\'s Last Exam from the system cards, and the Anthropic ECI from the Fable 5.2 card\'s November 6 fit, with a second panel showing every AECI value published across eight cards; Fable 5.2 plotted on the Remote Labor Index as a hollow point from the system card, since Scale\'s board has no row for it yet; Terminal-Bench 2.1, Vending-Bench 2, the Arena and RLI re-checked, with no Fable 5.2 run on any of those boards yet, all November 9; Vending-Bench 2 rows October 10; Terminal-Bench 2.1 rows September 28; Shipping Pace gained a release-rate line under the staircase, releases per year over the trailing six months, computed on view from the release data, November 15; forecast computed on view)';
+            lastUpdated.textContent = 'November 9, 2026 (Fable 5.2 and Mythos 5.2 added to the release data; Fable 5.2 added to pricing, SWE-bench Pro, OSWorld, GDPval, ARC-AGI-2 and the Capability Profile; GDPval, ARC-AGI-2 and the Capability Profile re-pulled whole from their boards, which also brought Sonnet 5.5 and Haiku 5.5 onto ARC-AGI-2 and Haiku 5.5 onto the Capability Profile; three charts added: ARC-AGI-3, which leaves the ARC-AGI-2 chart for its own with seven Claude models, Humanity\'s Last Exam from the system cards, and the Anthropic ECI from the Fable 5.2 card\'s November 6 fit, with a second panel showing every AECI value published across eight cards; Fable 5.2 plotted on the Remote Labor Index as a hollow point from the system card, since Scale\'s board has no row for it yet; Terminal-Bench 2.1, Vending-Bench 2, the Arena and RLI re-checked, with no Fable 5.2 run on any of those boards yet, all November 9; Vending-Bench 2 rows October 10; Terminal-Bench 2.1 rows September 28; Shipping Pace gained a pace line on the staircase, joining the count six months ago to the count today and continued three months as a dashed projection, computed on view from the release data, November 15; forecast computed on view)';
             // The stamp above is one hand-written line, "date (what changed; what changed; …)".
             // The date stays in view; the changes fold behind "What changed".
             const stamp = /^(.*?) \((.*)\)$/.exec(lastUpdated.textContent);
@@ -2501,8 +2506,9 @@
             setSvg('timeline-chart', svg);
         }
 
-        // Shipping Pace - Cumulative Staircase with Quarter Bands, and under it a strip with
-        // the trailing six-month release rate on the same date axis
+        // Shipping Pace - Cumulative Staircase with Quarter Bands, with the recent pace laid
+        // over it as one straight line and continued three months as a dashed projection
+        let paceProjectionEnd = null;   // where the dashed line ends; the (i) note compares the forecast to it
         function renderGapChart() {
             const colors = { opus: '#9d7bb0', sonnet: '#d4836a', haiku: '#8fa882', fable: '#c09a5b', mythos: '#5b8a9a' };
             // Stack order, bottom-to-top. Mythos counts here: restricted access is still a
@@ -2539,21 +2545,16 @@
             // From the start of Q1 2024, so the first quarter's band is full width and its
             // count fits — starting at March left it a sliver too narrow to label.
             const MIN = parse('2024-01-01');
-            const MAX = today > parse('2026-04-01') ? today : parse('2026-06-30');
+            // NOW is where the data ends. The axis runs a quarter of a year further, to
+            // hold the dashed projection of the current pace.
+            const NOW = today > parse('2026-04-01') ? today : parse('2026-06-30');
+            const PROJECT = 91.25 * 86400000;
+            const MAX = new Date(NOW.getTime() + PROJECT);
             const RANGE = MAX - MIN;
 
-            // The staircase keeps the plot it had before the rate strip existed (frame's
-            // height less the old 54-unit bottom margin); the strip and the year labels
-            // are added below it, so the canvas grows instead of the staircase shrinking.
-            const base = frame(900, 360, { top: 32, right: 90, bottom: 54, left: 48 });
-            const { W, pad } = base;
+            const { W, H, pad } = frame(900, 360, { top: 32, right: 90, bottom: 54, left: 48 });
             const cw = W - pad.left - pad.right;
-            const ch = base.H - pad.top - pad.bottom;
-            const stripTop = pad.top + ch + 36 * UI.k;   // below the quarter counts
-            const stripH = UI.compact ? 70 : 84;         // about 30% of the staircase
-            const stripBottom = stripTop + stripH;
-            const yearY = stripBottom + 19 * UI.k;       // one date axis for both, at the bottom
-            const H = Math.round(yearY + 12);
+            const ch = H - pad.top - pad.bottom;
             const xRaw = d => pad.left + ((d - MIN) / RANGE) * cw;
             const x = d => xRaw(parse(d));
 
@@ -2564,15 +2565,30 @@
                 counts[r.family] += 1;
                 series.push({ date: parse(r.date), ...counts });
             });
-            series.push({ date: MAX, ...counts });
+            series.push({ date: NOW, ...counts });
             const total = allReleases.length;
-            const yMax = total + 1;
+
+            // Pace: the trailing six-month rate in releases per year, i.e. the steps dated in
+            // (t - 182.5 days, t], times two. Same folded list as the staircase.
+            const WINDOW = 182.5 * 86400000;
+            const relTimes = allReleases.map(r => parse(r.date).getTime());
+            const rateAt = t => 2 * relTimes.filter(d => d > t - WINDOW && d <= t).length;
+            const countAt = t => relTimes.filter(d => d <= t).length;
+            const nowT = NOW.getTime();
+            const rate = rateAt(nowT);
+            // The solid line joins the count six months ago to the count today, so both ends
+            // sit on the staircase and its slope is exactly `rate`. The dashed part carries
+            // that slope on for a quarter of a year.
+            const paceFrom = { t: nowT - WINDOW, n: countAt(nowT - WINDOW) };
+            const projected = total + rate * (PROJECT / (365 * 86400000));
+            paceProjectionEnd = MAX;
+
+            const yMax = Math.max(total, Math.ceil(projected)) + (UI.compact ? 2 : 1);
             const y = v => pad.top + ch - (v / yMax) * ch;
 
             let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
 
-            // Quarter bands (alternating) — drawn first so everything else sits on top. They
-            // run on down through the rate strip, so a quarter reads as one column.
+            // Quarter bands (alternating) — drawn first so everything else sits on top
             let cur = new Date(2024, 0, 1);
             let qIdx = 0;
             const quarterRanges = [];
@@ -2586,11 +2602,12 @@
                     const bandX = xRaw(startClamped);
                     const bandW = xRaw(endClamped) - bandX;
                     const fill = qIdx % 2 === 0 ? 'rgba(200,170,140,0.05)' : 'rgba(200,170,140,0.14)';
-                    svg += `<rect x="${bandX}" y="${pad.top}" width="${bandW}" height="${stripBottom - pad.top}" fill="${fill}" />`;
+                    svg += `<rect x="${bandX}" y="${pad.top}" width="${bandW}" height="${ch}" fill="${fill}" />`;
                     quarterRanges.push({ qStart, qEnd, bandX, bandW });
                     // Quarter label at top of band
                     const q = Math.floor(qStart.getMonth() / 3) + 1;
-                    if (bandW > 26 && !UI.compact) {
+                    // (not for a quarter still wholly ahead: the projection ends up there)
+                    if (bandW > 26 && !UI.compact && qStart <= NOW) {
                         svg += `<text x="${bandX + bandW / 2}" y="${pad.top + 13}" text-anchor="middle" fill="#8a7355" font-size="10" font-weight="600">Q${q}</text>`;
                     }
                     // Releases in this quarter
@@ -2617,19 +2634,29 @@
                 const yrStart = new Date(yr, 0, 1);
                 if (yrStart > MIN && yrStart < MAX) {
                     const xPos = xRaw(yrStart);
-                    svg += `<line x1="${xPos}" y1="${pad.top}" x2="${xPos}" y2="${stripBottom}" stroke="#8a6f5a" stroke-width="1.6" stroke-opacity="0.45" />`;
+                    svg += `<line x1="${xPos}" y1="${pad.top}" x2="${xPos}" y2="${pad.top + ch}" stroke="#8a6f5a" stroke-width="1.6" stroke-opacity="0.45" />`;
                 }
             });
 
-            // Year labels at the bottom, under the rate strip
-            [2024, 2025, 2026].forEach(yr => {
+            // The span past today is projection, not data: wash the bands out there and
+            svg += `<rect x="${xRaw(NOW)}" y="${pad.top}" width="${xRaw(MAX) - xRaw(NOW)}" height="${ch}" fill="#fdf8f4" fill-opacity="0.7" />`;
+            // mark the boundary. On desktop the divider starts under the row of quarter
+            // labels (today is usually mid-quarter, right where one sits) and is named at
+            // its foot; a phone has no quarter labels and no room there, so it is named on top.
+            svg += `<line x1="${xRaw(NOW)}" y1="${pad.top + (UI.compact ? -2 : 24)}" x2="${xRaw(NOW)}" y2="${pad.top + ch}" stroke="#8a6f5a" stroke-width="1" stroke-dasharray="2,3" />`;
+            svg += UI.compact
+                ? `<text x="${xRaw(NOW)}" y="${pad.top - 5}" text-anchor="middle" fill="#8a7355" font-size="10" font-weight="600">today</text>`
+                : `<text x="${xRaw(NOW) + 5}" y="${pad.top + ch - 7}" fill="#8a7355" font-size="10" font-weight="600">today</text>`;
+
+            // Year labels at bottom (a year too narrow for its label goes without)
+            [2024, 2025, 2026, 2027].forEach(yr => {
                 const yrStart = new Date(yr, 0, 1);
                 const yrEnd = new Date(yr + 1, 0, 1);
                 const startClamped = yrStart < MIN ? MIN : yrStart;
                 const endClamped = yrEnd > MAX ? MAX : yrEnd;
-                if (endClamped > startClamped) {
+                if (endClamped > startClamped && xRaw(endClamped) - xRaw(startClamped) > 28 * UI.k) {
                     const cx = xRaw(startClamped) + (xRaw(endClamped) - xRaw(startClamped)) / 2;
-                    svg += `<text x="${cx}" y="${yearY}" text-anchor="middle" fill="#3d2e22" font-size="13" font-weight="700">${yr}</text>`;
+                    svg += `<text x="${cx}" y="${H - pad.bottom + 38 * UI.k}" text-anchor="middle" fill="#3d2e22" font-size="13" font-weight="700">${yr}</text>`;
                 }
             });
 
@@ -2684,17 +2711,77 @@
             const topLine = stepPath(series.map(s => [s.date, s.opus + s.sonnet + s.haiku + s.fable + s.mythos]));
             svg += `<path d="${topLine}" fill="none" stroke="#5b4636" stroke-width="1.8" />`;
 
+            // Pace line. A darker ink than the staircase outline, heavier, and on a pale
+            // casing so it stays legible across the family bands and reads as laid over
+            // the stairs rather than part of them.
+            const PACE = '#2b2019';
+            const p0 = [xRaw(paceFrom.t), y(paceFrom.n)], p1 = [xRaw(NOW), y(total)], p2 = [xRaw(MAX), y(projected)];
+            svg += `<line x1="${p0[0]}" y1="${p0[1]}" x2="${p1[0]}" y2="${p1[1]}" stroke="#fdf8f4" stroke-opacity="0.85" stroke-width="5.5" stroke-linecap="round" />`;
+            svg += `<line x1="${p0[0]}" y1="${p0[1]}" x2="${p1[0]}" y2="${p1[1]}" stroke="${PACE}" stroke-width="2.6" stroke-linecap="round" />`;
+            svg += `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="${PACE}" stroke-width="2" stroke-dasharray="5,4" />`;
+            svg += `<circle cx="${p0[0]}" cy="${p0[1]}" r="2.6" fill="${PACE}" />`;
+
             // Small dots at each release
             allReleases.forEach((r, i) => {
                 svg += `<circle cx="${x(r.date)}" cy="${y(i + 1)}" r="3.5" fill="${colors[r.family]}" stroke="white" stroke-width="1.5">`
                      + `<title>${r.version} — ${formatDate(r.date)} (release ${i + 1})</title></circle>`;
             });
 
-            // Endpoint total label: in the right margin on desktop; phones have no margin to
-            // spare, so it sits above the end of the staircase instead
-            svg += UI.compact
-                ? `<text x="${xRaw(MAX)}" y="${y(total) - 10}" text-anchor="end" fill="#5b4636" font-size="13" font-weight="700">${total} total</text>`
-                : `<text x="${xRaw(MAX) + 8}" y="${y(total) + 4}" fill="#5b4636" font-size="13" font-weight="700">${total} total</text>`;
+            // Endpoint total label, at today's count: beside the end of the staircase and
+            // under the dashed line on desktop; on phones, where that span is a sliver,
+            // above the end of the staircase instead
+            const totalText = `${total} total`;
+            const totalAt = UI.compact ? [xRaw(NOW) - 2, y(total) - 10] : [xRaw(NOW) + 8, y(total) + 16];
+            svg += `<text x="${totalAt[0]}" y="${totalAt[1]}" text-anchor="${UI.compact ? 'end' : 'start'}" fill="#5b4636" font-size="13" font-weight="700">${totalText}</text>`;
+
+            // End of the projection: a hollow marker (nothing has shipped there) and what
+            // the pace implies. The rate is an even number, so a quarter of a year of it is
+            // a whole number of releases or a half; a half is given as the two it falls between.
+            const fmtDay = t => new Date(t).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+            const projCount = Number.isInteger(projected) ? `≈${projected}` : `${Math.floor(projected)}–${Math.ceil(projected)}`;
+            const projMonth = MAX.toLocaleDateString('en-US', { month: 'short' });
+            const projWhen = (MAX.getDate() <= 10 ? 'early ' : MAX.getDate() <= 20 ? 'mid-' : 'late ') + projMonth;
+            svg += `<circle cx="${p2[0]}" cy="${p2[1]}" r="3.6" fill="#fdf8f4" stroke="${PACE}" stroke-width="1.6">`
+                 + `<title>${projCount} releases by ${fmtDay(MAX)} if the last six months' pace (${rate} a year) held. A straight-line extrapolation, not a forecast.</title></circle>`;
+            let projBox;
+            if (UI.compact) {
+                const text = `${projCount} by ${projMonth}`;
+                svg += `<text x="${p2[0] - 8}" y="${p2[1] - 3}" text-anchor="end" fill="${PACE}" font-size="11" font-weight="700" stroke="#fbf2ec" stroke-width="4" stroke-linejoin="round" paint-order="stroke">${text}</text>`;
+                projBox = annotationBox(p2[0] - 8, p2[1] - 3, text, 11);
+            } else {
+                svg += `<text x="${p2[0] + 9}" y="${p2[1] + 1}" fill="${PACE}" font-size="13" font-weight="700">${projCount}</text>`
+                     + `<text x="${p2[0] + 9}" y="${p2[1] + 15}" fill="${PACE}" font-size="11">by ${projWhen}</text>`
+                     + `<text x="${p2[0] + 9}" y="${p2[1] + 28}" fill="#7a6957" font-size="10" font-style="italic">if pace holds</text>`;
+                projBox = { x: p2[0] + 9, y: p2[1] - 12, w: 70, h: 44 };
+            }
+
+            // The rate, labelled on the solid line near its middle. The placer keeps it off
+            // the release dots, the stairs' outline, the line itself and the two labels above.
+            const k = UI.k;
+            const totalBox = UI.compact
+                ? annotationBox(totalAt[0], totalAt[1], totalText, 13)
+                : { x: totalAt[0], y: totalAt[1] - 12, w: totalText.length * 7.5, h: 15 };
+            const outline = expandSteps(series.map(s => [s.date, s.opus + s.sonnet + s.haiku + s.fable + s.mythos]))
+                .map(pt => [xRaw(pt[0]), y(pt[1])]);
+            const mid = [(p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2];
+            svg += placeLabels(
+                [{ px: mid[0], py: mid[1], color: PACE, name: `${rate} / yr`, value: 'last 6 months',
+                   tip: `${rate} a year: ${rate / 2} releases in the six months to ${fmtDay(nowT)}` }],
+                { x: pad.left, y: pad.top + (UI.compact ? 0 : 16), w: cw, h: ch - (UI.compact ? 0 : 16) },
+                [totalBox, projBox,
+                 ...allReleases.map((r, i) => ({ x: x(r.date) - 6 * k, y: y(i + 1) - 6 * k, w: 12 * k, h: 12 * k })),
+                 ...lineObstacles([outline, [p0, p1, p2]])],
+                [{ x: pad.left, y: pad.top, w: cw, h: ch }]);
+
+            // The same figures in words: the legend's rate, and the (i) panel's sentences.
+            // Written here so they follow the data and the date instead of going stale.
+            const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+            setText('pace-legend-rate', `${rate} / yr`);
+            const yearAgo = nowT - 365 * 86400000;
+            setText('pace-rate-now', `As of ${fmtDay(nowT)} that is ${rate} a year (${rate / 2} release${rate === 2 ? '' : 's'} in six months)`
+                + (yearAgo - WINDOW >= relTimes[0] ? `; a year earlier it was ${rateAt(yearAgo)}.` : '.'));
+            setText('pace-proj-now', `, to ${projCount.replace('≈', 'about ')} releases by ${fmtDay(MAX)}`);
+            renderPaceForecastNote();
 
             // Axis line
             svg += `<line x1="${pad.left}" y1="${pad.top + ch}" x2="${W - pad.right}" y2="${pad.top + ch}" stroke="#d4c0b3" stroke-width="1.2" />`;
@@ -2702,102 +2789,29 @@
             // Caption
             svg += `<text x="${pad.left}" y="${pad.top - 10}" fill="#7a6957" font-size="11" font-style="italic">cumulative Claude releases</text>`;
 
-            // ---- Release-rate strip ----
-            // Trailing six-month rate in releases per year: the steps above dated in
-            // (t - 182.5 days, t], times two. Same folded list as the staircase, so the two
-            // count identically. It is a step function: it moves only when a release enters
-            // the window or, 182.5 days later, leaves it, so those are the only dates it is
-            // evaluated at. An all-families total, hence the staircase outline's ink rather
-            // than a family colour.
-            const WINDOW = 182.5 * 86400000;
-            const INK = '#5b4636';
-            const relTimes = allReleases.map(r => parse(r.date).getTime());
-            const rateAt = t => 2 * relTimes.filter(d => d > t - WINDOW && d <= t).length;
-            // Before this the window reaches back past the first plotted release and would
-            // read low, so nothing is drawn there
-            const rateStart = relTimes[0] + WINDOW;
-            const maxT = MAX.getTime();
-            if (rateStart < maxT) {
-                const changes = [...new Set(relTimes.flatMap(d => [d, d + WINDOW]))]
-                    .filter(t => t > rateStart && t <= maxT).sort((a, b) => a - b);
-                // Plateaus [from, to) with their rate
-                const flats = [];
-                [rateStart, ...changes].forEach(t => {
-                    const v = rateAt(t);
-                    const last = flats[flats.length - 1];
-                    if (last) last.to = t;
-                    if (!last || last.v !== v) flats.push({ from: t, to: maxT, v });
-                });
-                flats[flats.length - 1].to = maxT;
-                const latest = flats[flats.length - 1].v;
-                const peakV = Math.max(...flats.map(f => f.v));
-                const peakFlat = flats.find(f => f.v === peakV);   // when it was first reached
-
-                // Three gridlines chosen from the data: 0, half and a top that is a multiple of 4
-                const rTop = Math.max(4, 4 * Math.ceil(peakV / 4));
-                const yR = v => stripBottom - (v / rTop) * stripH;
-                [0, rTop / 2, rTop].forEach(v => {
-                    if (v > 0) svg += `<line x1="${pad.left}" y1="${yR(v)}" x2="${W - pad.right}" y2="${yR(v)}" stroke="#e6d6c6" stroke-width="1" />`;
-                    svg += `<text x="${pad.left - 6}" y="${yR(v) + 4}" text-anchor="end" fill="#8a6f52" font-size="11">${v}</text>`;
-                });
-                svg += `<line x1="${pad.left}" y1="${stripBottom}" x2="${W - pad.right}" y2="${stripBottom}" stroke="#d4c0b3" stroke-width="1.2" />`;
-
-                let line = '';
-                flats.forEach((f, i) => {
-                    line += (i === 0 ? 'M' : 'L') + ` ${xRaw(f.from)} ${yR(f.v)} L ${xRaw(f.to)} ${yR(f.v)} `;
-                });
-                svg += `<path d="${line}L ${xRaw(maxT)} ${stripBottom} L ${xRaw(rateStart)} ${stripBottom} Z" fill="${INK}" fill-opacity="0.07" />`;
-                svg += `<path d="${line}" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round" />`;
-
-                const fmtDay = t => new Date(t).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                const estW = (text, size) => text.length * size * 0.56 * UI.k;
-
-                // Latest value: in the right margin on desktop; on phones above the end of
-                // the line, clear of whatever the line did under the label's own width
-                const latestText = `${latest} / yr`;
-                const endX = xRaw(maxT);
-                let latestBox;
-                if (UI.compact) {
-                    const w = estW(latestText, 12);
-                    const under = Math.max(...flats.filter(f => xRaw(f.to) > endX - w).map(f => f.v));
-                    const ty = yR(under) - 6;
-                    svg += `<text x="${endX}" y="${ty}" text-anchor="end" fill="${INK}" font-size="12" font-weight="700">${latestText}</text>`;
-                    latestBox = { x0: endX - w, x1: endX };
-                } else {
-                    svg += `<text x="${endX + 8}" y="${yR(latest) + 4}" fill="${INK}" font-size="12" font-weight="700">${latestText}</text>`;
-                    latestBox = { x0: endX + 8, x1: endX + 8 + estW(latestText, 12) };
-                }
-                svg += `<circle cx="${endX}" cy="${yR(latest)}" r="3" fill="${INK}" stroke="white" stroke-width="1.5">`
-                     + `<title>${latest} a year: ${latest / 2} releases in the six months to ${fmtDay(maxT)}</title></circle>`;
-
-                // Peak, when the line has since come off it and the label fits
-                if (peakV !== latest) {
-                    const px = xRaw(peakFlat.from);
-                    svg += `<circle cx="${px}" cy="${yR(peakV)}" r="3" fill="white" stroke="${INK}" stroke-width="1.5">`
-                         + `<title>Peak: ${peakV} a year, first reached ${fmtDay(peakFlat.from)}</title></circle>`;
-                    const peakText = `peak ${peakV}`;
-                    const w = estW(peakText, 10);
-                    const tx = Math.min(Math.max(px, pad.left + w / 2), W - pad.right - w / 2);
-                    if (tx + w / 2 + 6 < latestBox.x0 || tx - w / 2 - 6 > latestBox.x1) {
-                        svg += `<text x="${tx}" y="${yR(peakV) - 7}" text-anchor="middle" fill="${INK}" font-size="10" font-weight="600">${peakText}</text>`;
-                    }
-                }
-
-                // The same figures in words, in the section's (i) panel. Written here so
-                // they follow the data and the date instead of going stale.
-                const now = document.getElementById('pace-rate-now');
-                if (now) {
-                    const yearAgo = maxT - 365 * 86400000;
-                    const vsPeak = peakV === latest
-                        ? `level with the peak first reached on ${fmtDay(peakFlat.from)}`
-                        : `down from a peak of ${peakV} first reached on ${fmtDay(peakFlat.from)}`;
-                    now.textContent = `As of ${fmtDay(maxT)} it reads ${latest} a year (${latest / 2} releases in six months), ${vsPeak}`
-                        + (yearAgo >= rateStart ? `; a year earlier it read ${rateAt(yearAgo)}.` : '.');
-                }
-            }
-
             svg += '</svg>';
             setSvg('gap-chart', svg);
+        }
+
+        // One clause in the Shipping Pace (i) panel setting the dashed line beside the
+        // statistical forecast, once forecast.json has loaded (the loader at the foot of
+        // the page calls this again): which families' median next-release dates fall
+        // before the projection's end.
+        function renderPaceForecastNote() {
+            const el = document.getElementById('pace-forecast-now');
+            const F = window.__statForecast;
+            if (!el || !paceProjectionEnd) return;
+            el.textContent = '';
+            if (!F || !F.targets) return;
+            const end = paceProjectionEnd.getTime();
+            const fams = ['opus', 'sonnet', 'haiku', 'fable', 'mythos'].filter(f => {
+                const t = F.targets[f] && F.targets[f].with_signals;
+                return t && /^\d{4}-\d\d-\d\d$/.test(t.median || '') && new Date(t.median + 'T00:00:00').getTime() <= end;
+            }).map(f => f[0].toUpperCase() + f.slice(1));
+            const list = fams.length > 1 ? fams.slice(0, -1).join(', ') + ' and ' + fams[fams.length - 1] : fams[0];
+            el.textContent = fams.length
+                ? `; its median dates put the next ${list} release${fams.length > 1 ? 's' : ''} before the dashed line ends`
+                : `; its median dates put no family's next release before the dashed line ends`;
         }
 
         // Vending-Bench Earnings Chart (same style as OSWorld)
@@ -4784,6 +4798,7 @@
             fetch('forecast/output/forecast.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(F => {
                 if (!F) { showEwma(); return; }
                 window.__statForecast = F;
+                if (typeof renderPaceForecastNote === 'function') renderPaceForecastNote();
                 if (typeof renderReleaseCalendar === 'function') {
                     try { renderReleaseCalendar(); } catch (e) { window.__statForecast = null; renderReleaseCalendar(); }
                 }
