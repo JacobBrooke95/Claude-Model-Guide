@@ -149,7 +149,7 @@
             <div class="benchmark-section" id="shipping-pace">
                 <h2 class="section-title">Shipping <span class="info-tail">Pace&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-shipping-pace" aria-label="About Shipping Pace"><span aria-hidden="true">i</span></button></span></h2>
                 <div class="info-panel" id="info-shipping-pace" hidden="until-found"><p>Cumulative Claude releases over time, stacked by family. Each step up is a ship — the steeper the slope, the faster the pace. Numbers under the quarter bands show releases shipped that quarter. Fable and Mythos launched together three times (5, 5.1 and 5.2), so each pair counts as one step, colored Fable.</p>
-                <p>The dark line joins the count six months ago (182.5 days) to the count today, so its slope is the release rate over that window. It counts what the staircase counts: a Fable and Mythos pair is one release. The lighter segments are the same calculation for each earlier half-year, counted back from today, so the windows shift every day and do not sit on calendar halves. A half-year that reaches back before the first plotted release is not drawn. <span id="pace-rate-now"></span> The rate looks back, so it keeps rising for a while after a burst and falls only as old releases age out of the window.</p>
+                <p>The dark line joins the count six months ago (182.5 days) to the count today, so its slope is the release rate over that window. It counts what the staircase counts: a Fable and Mythos pair is one release. The lighter segments do the same for each full year before that, counted back from where the dark line starts, so the windows shift every day and do not sit on calendar years. A year that reaches back before the first plotted release is not drawn, which leaves the opening months of 2024 without a segment. A rate from six months moves more than a rate from a year, so the latest period is flattered or punished more easily than the earlier ones. <span id="pace-rate-now"></span> The rate looks back, so it keeps rising for a while after a burst and falls only as old releases age out of the window.</p>
                 <p>The dashed part continues the same slope three months past today<span id="pace-proj-now"></span>. It is a straight-line extrapolation, not a prediction: releases come in bursts, not at a steady rate. The site's forecast is on the <a href="release-forecast.html">Release Forecast</a> page<span id="pace-forecast-now"></span>.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="gap-chart"></div>
@@ -160,7 +160,7 @@
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: #75604f; width: 20px; height: 2px; border-radius: 0;"></div>
-                            <span>Lighter segments: pace in each earlier 6 months</span>
+                            <span>Lighter segments: pace in each earlier year</span>
                         </div>
                         <div class="benchmark-legend-item">
                             <div class="benchmark-legend-dot" style="background: transparent; border-bottom: 2px dashed #2b2019; width: 20px; height: 2px; border-radius: 0;"></div>
@@ -1500,7 +1500,7 @@
 
             // A maintained date, not new Date(): a live stamp would silently re-date
             // July's benchmark pulls every day forever. The forecast alone is live.
-            lastUpdated.textContent = 'November 9, 2026 (Fable 5.2 and Mythos 5.2 added to the release data; Fable 5.2 added to pricing, SWE-bench Pro, OSWorld, GDPval, ARC-AGI-2 and the Capability Profile; GDPval, ARC-AGI-2 and the Capability Profile re-pulled whole from their boards, which also brought Sonnet 5.5 and Haiku 5.5 onto ARC-AGI-2 and Haiku 5.5 onto the Capability Profile; three charts added: ARC-AGI-3, which leaves the ARC-AGI-2 chart for its own with seven Claude models, Humanity\'s Last Exam from the system cards, and the Anthropic ECI from the Fable 5.2 card\'s November 6 fit, with a second panel showing every AECI value published across eight cards; Fable 5.2 plotted on the Remote Labor Index as a hollow point from the system card, since Scale\'s board has no row for it yet; Terminal-Bench 2.1, Vending-Bench 2, the Arena and RLI re-checked, with no Fable 5.2 run on any of those boards yet, all November 9; Vending-Bench 2 rows October 10; Terminal-Bench 2.1 rows September 28; Shipping Pace gained a pace line on the staircase, joining the count six months ago to the count today and continued three months as a dashed projection, with lighter segments showing the pace in each earlier half-year, computed on view from the release data, November 15; forecast computed on view)';
+            lastUpdated.textContent = 'November 9, 2026 (Fable 5.2 and Mythos 5.2 added to the release data; Fable 5.2 added to pricing, SWE-bench Pro, OSWorld, GDPval, ARC-AGI-2 and the Capability Profile; GDPval, ARC-AGI-2 and the Capability Profile re-pulled whole from their boards, which also brought Sonnet 5.5 and Haiku 5.5 onto ARC-AGI-2 and Haiku 5.5 onto the Capability Profile; three charts added: ARC-AGI-3, which leaves the ARC-AGI-2 chart for its own with seven Claude models, Humanity\'s Last Exam from the system cards, and the Anthropic ECI from the Fable 5.2 card\'s November 6 fit, with a second panel showing every AECI value published across eight cards; Fable 5.2 plotted on the Remote Labor Index as a hollow point from the system card, since Scale\'s board has no row for it yet; Terminal-Bench 2.1, Vending-Bench 2, the Arena and RLI re-checked, with no Fable 5.2 run on any of those boards yet, all November 9; Vending-Bench 2 rows October 10; Terminal-Bench 2.1 rows September 28; Shipping Pace gained a pace line on the staircase, joining the count six months ago to the count today and continued three months as a dashed projection, with lighter segments showing the pace in each earlier year, computed on view from the release data, November 15; forecast computed on view)';
             // The stamp above is one hand-written line, "date (what changed; what changed; …)".
             // The date stays in view; the changes fold behind "What changed".
             const stamp = /^(.*?) \((.*)\)$/.exec(lastUpdated.textContent);
@@ -2728,18 +2728,20 @@
             svg += `<line x1="${p0[0]}" y1="${p0[1]}" x2="${p1[0]}" y2="${p1[1]}" stroke="${PACE}" stroke-width="2.6" stroke-linecap="round" />`;
             svg += `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="${PACE}" stroke-width="2" stroke-dasharray="5,4" />`;
 
-            // The same chord for each earlier half-year, counted back from today in whole
-            // windows, so they join end to end along the stairs: how the pace has changed.
+            // The earlier history, as a chord per whole year (365 days), counted back from
+            // where the solid line starts, so they join end to end along the stairs: how the
+            // pace has changed. A year's releases are already a rate per year, so no doubling.
             // Clearly secondary: thinner and in a lighter ink, on the same pale casing, with
             // a dot at each joint. A window reaching back before the first plotted release
-            // is not a full half-year of shipping and is left out rather than given a rate.
+            // is not a full year of shipping and is left out rather than given a rate.
             const PACE_PAST = '#75604f';
+            const YEAR = 365 * 86400000;
             const pastWindows = [];
-            for (let end = nowT - WINDOW; end - WINDOW >= relTimes[0]; end -= WINDOW) {
-                pastWindows.unshift({ from: end - WINDOW, to: end, n0: countAt(end - WINDOW), n1: countAt(end) });
+            for (let end = nowT - WINDOW; end - YEAR >= relTimes[0]; end -= YEAR) {
+                pastWindows.unshift({ from: end - YEAR, to: end, n0: countAt(end - YEAR), n1: countAt(end) });
             }
             pastWindows.forEach(w => {
-                w.rate = 2 * (w.n1 - w.n0);
+                w.rate = w.n1 - w.n0;
                 w.a = [xRaw(w.from), y(w.n0)];
                 w.b = [xRaw(w.to), y(w.n1)];
                 svg += `<line x1="${w.a[0]}" y1="${w.a[1]}" x2="${w.b[0]}" y2="${w.b[1]}" stroke="#fdf8f4" stroke-opacity="0.8" stroke-width="4" stroke-linecap="round" />`;
@@ -2785,10 +2787,9 @@
             }
 
             // The rate, labelled on the solid line near its middle, and each earlier chord's
-            // rate at its own middle, smaller in effect (one line, lighter ink; on phones the
-            // number alone, the unit being in the legend, and wherever is nearest its own
-            // chord: sent above the stairs it drifts over a neighbouring window). The placer keeps them off the
-            // release dots, the stairs' outline, the chords and the two labels above.
+            // rate at its own middle, smaller in effect (one line, lighter ink), in the open
+            // space above the stairs. The placer keeps them off the release dots, the
+            // stairs' outline, the chords and the two labels above.
             const k = UI.k;
             const totalBox = UI.compact
                 ? annotationBox(totalAt[0], totalAt[1], totalText, 13)
@@ -2796,12 +2797,23 @@
             const outline = expandSteps(series.map(s => [s.date, s.opus + s.sonnet + s.haiku + s.fable + s.mythos]))
                 .map(pt => [xRaw(pt[0]), y(pt[1])]);
             const mid = [(p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2];
-            const paceTip = (r, to) => `${r} a year: ${r / 2} release${r === 2 ? '' : 's'} in the six months to ${fmtDay(to)}`;
+            // An earlier chord is labelled where it rides highest over the stairs, within
+            // its middle stretch: that is where the space above it is open. At the exact
+            // midpoint a year's chord can sit under a step and its dots.
+            pastWindows.forEach(w => {
+                let best = -Infinity;
+                for (let f = 0.3; f <= 0.701; f += 0.05) {
+                    const t = w.from + f * (w.to - w.from), n = w.n0 + f * (w.n1 - w.n0);
+                    const clear = n - countAt(t) - Math.abs(f - 0.5);   // ties go to the middle
+                    if (clear > best) { best = clear; w.at = [xRaw(t), y(n)]; }
+                }
+            });
+            const paceTip = (r, n, span, to) => `${r} a year: ${n} release${n === 1 ? '' : 's'} in the ${span} to ${fmtDay(to)}`;
             svg += placeLabels(
-                [{ px: mid[0], py: mid[1], color: PACE, series: 'now', name: `${rate} / yr`, value: 'last 6 months', tip: paceTip(rate, nowT) },
+                [{ px: mid[0], py: mid[1], color: PACE, series: 'now', name: `${rate} / yr`, value: 'last 6 months', tip: paceTip(rate, rate / 2, 'six months', nowT) },
                  ...pastWindows.map((w, i) => ({
-                     px: (w.a[0] + w.b[0]) / 2, py: (w.a[1] + w.b[1]) / 2, color: PACE_PAST, series: 'past' + i,
-                     name: UI.compact ? `${w.rate}` : `${w.rate} / yr`, value: '', prefer: UI.compact ? undefined : 'above', tip: paceTip(w.rate, w.to) }))],
+                     px: w.at[0], py: w.at[1], color: PACE_PAST, series: 'past' + i,
+                     name: `${w.rate} / yr`, value: '', prefer: 'above', tip: paceTip(w.rate, w.rate, 'year', w.to) }))],
                 { x: pad.left, y: pad.top + (UI.compact ? 0 : 16), w: cw, h: ch - (UI.compact ? 0 : 16) },
                 [totalBox, projBox,
                  ...allReleases.map((r, i) => ({ x: x(r.date) - 6 * k, y: y(i + 1) - 6 * k, w: 12 * k, h: 12 * k })),
@@ -2812,13 +2824,11 @@
             // Written here so they follow the data and the date instead of going stale.
             const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
             setText('pace-legend-rate', `${rate} / yr`);
-            // The half-year that ended a year ago is the chord two back (2 x 182.5 days), so
-            // "a year ago" is read out of the sequence rather than stated as a separate figure
-            const past = pastWindows.map(w => w.rate);
-            const seq = past.length > 1 ? past.slice(0, -1).join(', ') + ' and ' + past[past.length - 1] : `${past[0]}`;
+            // "…; in the year before that it was 9, and in the year before that 4."
+            const past = pastWindows.map(w => w.rate).reverse();
             setText('pace-rate-now', `As of ${fmtDay(nowT)} the pace is ${rate} a year (${rate / 2} release${rate === 2 ? '' : 's'} in six months)`
-                + (past.length ? `; counting back in half-years, it was ${seq} before that` : '')
-                + (past.length > 1 ? `, the ${past[past.length - 2]} being the half-year that ended a year ago.` : '.'));
+                + past.map((r, i) => i === 0 ? `; in the year before that it was ${r}` : `${past.length > 2 ? ',' : ''} ${i === past.length - 1 ? 'and ' : ''}in the year before that ${r}`).join('')
+                + '.');
             setText('pace-proj-now', `, to ${projCount.replace('≈', 'about ')} releases by ${fmtDay(MAX)}`);
             renderPaceForecastNote();
 
