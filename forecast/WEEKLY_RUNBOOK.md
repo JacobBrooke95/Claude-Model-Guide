@@ -127,7 +127,7 @@ When quoting the track record in the narrative, use `SCORECARD.md`: it counts re
 
 - Commit to `main` with a message like `Weekly forecast <date>` plus the summary's first line, and push.
 - Confirm the GitHub Pages deploy succeeded (`gh run list -R JacobBrooke95/Claude-Model-Guide -L 1`).
-- Then write the weekly summary to Jacob's vault at `2-Areas/Claude-Rumors/Tracker/forecast-weekly/<date>.md`, using the "Jacob's Vault" connector, with frontmatter `type: forecast-weekly`. If the connector isn't available, skip this step and say so.
+- Then write the weekly summary to Jacob's vault at `2-Areas/Claude-Rumors/Tracker/forecast-weekly/forecast-weekly-<date>.md` (the file name repeats the folder name, e.g. `forecast-weekly-2026-11-15.md`, matching the notes already there), using the "Jacob's Vault" connector, with frontmatter `type: forecast-weekly`. If the connector isn't available, skip this step and say so.
 
 ## 8. Report
 
