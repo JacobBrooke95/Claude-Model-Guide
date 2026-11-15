@@ -39,13 +39,14 @@ Status values: `ready` (can be run as written), `needs code` (a Config flag has 
   - *Metric and pass rule*: protocol rule 4 (holdout all-family 30-day Brier better by ≥ 0.004, more blocks better than worse), rules 2 and 5 as printed by the tool. One run, this value only.
 - **Risk.** Half of EAP codenames never map; the term must key on sightings mapped to a family, and the false rows (`sonnet-4-8`, Claude 3.5 Opus) have to count against q.
 
-### E3. Calibrate the named-version weight — `needs data`
+### E3. Calibrate the named-version weight — `ready` (data collected 2026-11-15, see log; not yet scored)
 - **Hypothesis.** The fixed 0.85 in `engine/params.py: apply_named_signals` is too high for names taken from catalogs, trailers and page headings.
 - **Mechanism.** Those surfaces carry working names. First-party API identifiers do not.
 - **Data to tabulate first** (from `data/raw/signals_research.csv`, rows with `specific = yes` and a version in the note): for each release since 2025, the name each pre-release artifact used, the surface, and whether that name shipped. Known cases to start: `claude-fable-5-5` Azure row and "Mythos 5.5" page heading (missed, shipped 5.2); `sonnet-4-8` in the Claude Code source (missed, line went 4.6 → 5); "Claude 3.5 Opus" first-party (never shipped); `claude-sonnet-5` Vertex/Fennec (hit); `claude-opus-5` Vertex (hit on name); `claude-fable-5` leak (hit); Opus 4.1 and Claude 4 web config (hits). Save as `data/name_artifacts.csv` with the source row id.
 - **Variant.** Weight = (hits + 1)/(n + 2) per surface type (first-party API id, cloud catalog, client string, page text), replacing 0.85. No tuning.
 - **Metric.** Mean log score of the shipped name over those cases, leave-one-out, against the fixed 0.85 and against no named-version rule. This is a parameter of the release-parameters layer, not the date model, so `tools/experiment.py` does not apply; show the tabulation and the three scores in the log.
 - **Until then.** `named_versions.json` takes a name only from a first-party API identifier or two independent grade-A surfaces (`DAILY_RUNBOOK.md` §3, hygiene rule 7).
+- **Data, 2026-11-15.** `data/name_artifacts.csv`: 21 artifacts, columns `source_rows` (line numbers in `signals_research.csv`), `surface`, `next_release_had_name`, `name_ever_shipped`. **Fixed before scoring** (the per-surface counts were printed while tabulating and have been seen; nothing else has): (1) a hit is `next_release_had_name` = 1, because that is the claim `apply_named_signals` makes (it gives the name to the family's *next* release); `name_ever_shipped` is recorded and not scored; (2) surfaces are the four in the file (`first_party_page`, `cloud_catalog`, `client_string`, `third_party_commit`); the entry's "first-party API id" surface has no cases and keeps the prior (0 + 1)/(0 + 2) = 0.5; (3) all 21 rows, grades A to C, one row one case; (4) the three scores are as written above. The result goes to Jacob as a proposal (it changes a number the page shows), not through `tools/experiment.py`.
 
 ### E4. Unfulfilled sightings age too fast: a heavier lead-time tail — `rejected` (2026-11-14, no effect; see log)
 - **Hypothesis.** The log-normal lead-time density (median 5–12 days by class) discounts a sighting too quickly once it is 3–4 weeks old. Fable 5.2's A/B leads were 20–27 days.
@@ -134,6 +135,19 @@ Added 2026-11-10 at Jacob's request. None of these can be backtested: the event 
 Still open from the 2026-11-10 note: proposal 5 (the SWE-bench Pro table lives in `engine/params.py`; it is data and may belong in `data/`). Left for Jacob; it would move a file the page builder does not read, so nothing depends on it.
 
 ## Log (newest first; rejected ideas stay here so they are not retried)
+
+### 2026-11-15 — E3. Named-version weight: data collected — `ready` (no experiment run)
+No backlog entry was `ready` (E5, E2, E4 rejected on 11-12, 11-13, 11-14; E1 forward-only; E6–E10 need data or code), so the day went to E3's tabulation, as protocol step 2 says. `data/name_artifacts.csv` lists every pre-release artifact in `data/raw/signals_research.csv` that carried a version name: 21 rows from 2024-03 to 2026-11, built from the `specific = yes` rows with codes `FIRST_PARTY_DOC`, `CLOUD_CATALOG`, `CLIENT_STRING`, `EAP_PARTNER` (where an API-style id was quoted) and `OTHER` (commit messages), plus the two `FALSE:` name rows. Left out, and why: press and tipster rows that name a model with no artifact (Opus 4.7, Opus 4.8, the Fable 5.1 routing reports), market rows, codenames with no version ("Claude Kayak", the `-eap` ids), the Mythos draft post (a tier name, no version), and the Haiku 3.5 availability row (after the announcement).
+
+| Surface | Next release took the name | Name ever shipped |
+|---|---|---|
+| client string | 6 of 7 | 6 of 7 |
+| cloud catalog row | 4 of 6 | 5 of 6 |
+| first-party page text | 4 of 6 | 4 of 6 |
+| third-party commit | 1 of 2 | 1 of 2 |
+| first-party API identifier | 0 cases | 0 cases |
+
+What the tabulation shows without any scoring: (1) the hygiene rule adopted after Fable 5.2 trusts "a first-party API identifier", and the record holds no such artifact before any release, which matches the note that public ids have never pre-staged; the rule is a prior with no cases behind it. (2) First-party page text is not safer than a client string on this record (Claude 3.5 Opus and the Mythos 5.5 heading are both misses). (3) The backlog entry counted the February Vertex `claude-sonnet-5` as a hit; the next Sonnet was 4.6, so it is a miss on the question the 85% rule answers and a hit only on "ever shipped". (4) The three "5.5" artifacts of October are three rows about one release, so the effective number of misses is nearer four releases (3.5 Opus, Sonnet 4.8, Sonnet 5 in February, Fable/Mythos 5.5) than six rows. Six of the 21 rows are grade C. Next: score it as fixed in the backlog entry (one day), then propose to Jacob.
 
 ### 2026-11-14 — E4. Heavier lead-time tail: sd floor 0.6 → 1.0 (`sig_sd_floor`) — `rejected` (no effect)
 Pre-registered (backlog entry; completed 2026-11-14 before the run): floor on the pooled log-lead standard deviation, which is also the class shrinkage target, raised from 0.6 to 1.0; one value; metric: holdout all-family 30-day Brier (rule 4); pass rule: rules 2, 4 and 5 as printed. The entry said in advance that a floor that does not bind is a rejection, not a reason to try a larger number.
