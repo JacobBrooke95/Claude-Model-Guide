@@ -3,8 +3,8 @@
   "as_of": "2026-11-16",
   "model_version": "cap-v1.0",
   "seed": 20261116,
-  "input_hash": "e176ec31265b95757941b577485692921578e0e72f197d3490ff012c0775f99a",
-  "runtime_seconds": 145.2,
+  "input_hash": "d8386f1c4c2ec32c78a503f4b7c2310ddee167d0206888a43a6e922f05957a04",
+  "runtime_seconds": 141.8,
   "generated_by": "python3 capability/run.py",
   "scales": {
    "eci_public": "Epoch Capabilities Index, public, Bayesian fit of November 2026 (Claude 3.5 Sonnet = 130, GPT-5 = 150). Primary modelling scale.",
@@ -25478,27 +25478,13 @@
      "lo95": 209.4,
      "hi95": 517.1
     },
-    "why": "Our median sits above Epoch's straight line because 25% of the weight is on accelerating scenarios; our 'reversion' scenario is close to Epoch's line."
-   },
-   {
-    "source": "METR-style horizon milestones (for AI Futures comparison)",
-    "quantity": "Implied 50% time horizon of Anthropic's frontier reaches 1 work-week (40 h)",
-    "theirs": "AI Futures: Automated Coder median mid-2028 (Kokotajlo) / mid-2030 (Lifland); Superhuman AI Researcher medians 2027 under a held 1.7-1.9x trend",
-    "ours": "median 2026-12-31 (10-90%: 2026-12-31 to 2026-12-31); P(by end-2030) 1.0",
-    "ours_values": {
-     "median": "2026-12-31",
-     "q10": "2026-12-31",
-     "q90": "2026-12-31",
-     "p_already": 0.0,
-     "p_by_end_2030": 1.0
-    },
-    "why": "Not the same quantity: ours is an extrapolated METR 50% horizon from the ECI link (4.75 ECI per doubling), far outside the measured range (max 17 h); theirs are capability milestones from a takeoff model. Read as an order-of-magnitude cross-check only."
+    "why": "Our median sits above Epoch's straight line because 60% of the weight is on 'hold' or faster for Anthropic and the rival frontier is assumed to keep pace; our 'reversion' scenario is close to Epoch's line."
    },
    {
     "source": "METR-style horizon milestones (for AI Futures comparison)",
     "quantity": "Implied 50% time horizon of Anthropic's frontier reaches 1 work-month (167 h)",
     "theirs": "AI Futures: Automated Coder median mid-2028 (Kokotajlo) / mid-2030 (Lifland); Superhuman AI Researcher medians 2027 under a held 1.7-1.9x trend",
-    "ours": "median 2027-03-31 (10-90%: 2027-03-31 to 2027-09-30); P(by end-2030) 1.0",
+    "ours": "quarter ending 2027-03-31 at the median (10-90%: 2027-03-31 to 2027-09-30); P(by end-2030) 1.0",
     "ours_values": {
      "median": "2027-03-31",
      "q10": "2027-03-31",
@@ -25512,7 +25498,7 @@
     "source": "METR-style horizon milestones (for AI Futures comparison)",
     "quantity": "Implied 50% time horizon of Anthropic's frontier reaches 1 work-year (2,000 h)",
     "theirs": "AI Futures: Automated Coder median mid-2028 (Kokotajlo) / mid-2030 (Lifland); Superhuman AI Researcher medians 2027 under a held 1.7-1.9x trend",
-    "ours": "median 2027-12-31 (10-90%: 2027-09-30 to 2028-09-30); P(by end-2030) 0.995",
+    "ours": "quarter ending 2027-12-31 at the median (10-90%: 2027-09-30 to 2028-09-30); P(by end-2030) 0.995",
     "ours_values": {
      "median": "2027-12-31",
      "q10": "2027-09-30",
@@ -25600,7 +25586,7 @@
  },
  "backtest": {
   "frontier": {
-   "design": "Monthly origins; target = running-max public ECI held at origin + h. Candidates are refitted on models released before each origin (bootstrap B=20). 'stacked' uses weights learned only from folds whose target date precedes the origin (equal weights until 10 such folds exist).",
+   "design": "Monthly origins; target = running-max public ECI held at origin + h. Candidates are refitted on models released before each origin (bootstrap B=30). 'stacked' uses weights learned only from folds whose target date precedes the origin (equal weights until 10 such folds exist).",
    "table": [
     {
      "series": "all",

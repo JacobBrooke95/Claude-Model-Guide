@@ -104,7 +104,7 @@ def run(full=False, verbose=True):
                 fcal[f"{which}|{lab}"] = bt.rolling_calibration(g.rename(columns={"T": "t"}))
     R["frontier_backtest"] = dict(
         design="Monthly origins; target = running-max public ECI held at origin + h. Candidates are refitted on "
-               "models released before each origin (bootstrap B=20). 'stacked' uses weights learned only from "
+               "models released before each origin (bootstrap B=30). 'stacked' uses weights learned only from "
                "folds whose target date precedes the origin (equal weights until 10 such folds exist).",
         table=ftab, calibration=fcal, n_folds=len(ffolds),
         final_weights={"all_lab": {k: round(v, 3) for k, v in w_all.items()},
@@ -726,10 +726,11 @@ def run(full=False, verbose=True):
              theirs="16.6 ECI/yr (14.6-18.7); straight-line value at end-2030: %.0f" % (om.all.F0 + 16.6 * (2031.0 - T_NOW)),
              ours="median %.1f at 2030-12-31" % wsummary(xl[:, qi["2030-12-31"]], wl, 1)["median"],
              ours_values=wsummary(xl[:, qi["2030-12-31"]], wl, 1),
-             why="Our median sits above Epoch's straight line because 25% of the weight is on accelerating scenarios; our "
-                 "'reversion' scenario is close to Epoch's line."),
+             why="Our median sits above Epoch's straight line because %.0f%% of the weight is on 'hold' or faster for "
+                 "Anthropic and the rival frontier is assumed to keep pace; our 'reversion' scenario is close to Epoch's line."
+                 % (100 * (wc["hold"] + wc["compounding"] + wc["explosive"]))),
     ]
-    for lab, thr in (("1 work-week (40 h)", 40 * 60), ("1 work-month (167 h)", 167 * 60), ("1 work-year (2,000 h)", 2000 * 60)):
+    for lab, thr in (("1 work-month (167 h)", 167 * 60), ("1 work-year (2,000 h)", 2000 * 60)):
         fc = first_cross_h(thr)
         wts = np.concatenate([np.full(N_SCN, wc[s] / N_SCN) for s in pj.SCENARIOS])
         ds = pj.date_summary(np.where(np.isinf(fc), np.inf, fc), wts)
@@ -737,7 +738,7 @@ def run(full=False, verbose=True):
                         quantity=f"Implied 50% time horizon of Anthropic's frontier reaches {lab}",
                         theirs="AI Futures: Automated Coder median mid-2028 (Kokotajlo) / mid-2030 (Lifland); Superhuman AI "
                                "Researcher medians 2027 under a held 1.7-1.9x trend",
-                        ours=f"median {ds['median']} (10-90%: {ds['q10']} to {ds['q90']}); P(by end-2030) {ds['p_by_end_2030']}",
+                        ours=f"quarter ending {ds['median']} at the median (10-90%: {ds['q10']} to {ds['q90']}); P(by end-2030) {ds['p_by_end_2030']}",
                         ours_values=ds,
                         why="Not the same quantity: ours is an extrapolated METR 50% horizon from the ECI link (4.75 ECI per "
                             "doubling), far outside the measured range (max 17 h); theirs are capability milestones from a "

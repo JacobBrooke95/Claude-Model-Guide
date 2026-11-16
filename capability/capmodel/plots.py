@@ -113,6 +113,8 @@ class Chart:
 
     def points(self, x, y, color, r=4, hollow=False, label=None, square=False):
         for xi, yi in zip(np.atleast_1d(self.px(x)), np.atleast_1d(self.py(y))):
+            if xi < self.l - 1 or xi > self.r + 1:
+                continue
             box = [xi - r * SS, yi - r * SS, xi + r * SS, yi + r * SS]
             f = self.d.rectangle if square else self.d.ellipse
             f(box, fill=SURF if hollow else color, outline=color if hollow else SURF, width=(2 if hollow else 1) * SS)
@@ -259,7 +261,8 @@ def make_all(R):
               xticks=[(2025.5, "mid-2025"), (2026, "2026"), (2026.5, "mid-2026"), (2027, "2027"), (2027.5, "mid-2027"), (2028, "2028")], right=250)
     w = R["release_backtest"]["live_trend_weights"]
     for i, (k, v) in enumerate(cv.items()):
-        c.line(v["t"], v["median"], PAL[i], 2, label=f"{k} ({w[k]:.0%})")
+        keep = [j for j, t in enumerate(v["t"]) if k != "pool_all" or t >= T_NOW]   # the pooled candidate is defined forward only
+        c.line([v["t"][j] for j in keep], [v["median"][j] for j in keep], PAL[i], 2, label=f"{k} ({w[k]:.0%})")
     rec = R["trend"]["records_anthropic"]
     c.points([r["t"] for r in rec], [r["eci"] for r in rec], INK, 4, label="Anthropic record-setters")
     c.vline(T_NOW, "as of " + AS_OF)

@@ -228,7 +228,8 @@ def write_methods(J):
         A(f"**{lab}**\n\n" + _tab(rows, ["method", "n", "bias", "mae", "rmse", "crps", "cov50", "cov80", "cov95"],
                                    ["Method", "n", "Bias (actual - predicted)", "MAE", "RMSE", "CRPS", "Cov 50%", "Cov 80%", "Cov 95%"]) + "\n")
     A("Errors are in public-ECI points. The model beats every baseline at every lead on RMSE and CRPS. It under-predicts on "
-      "average (positive bias, growing with lead). " + rb["bias_correction_test"]["note"] + " Not knowing the release date "
+      "average (positive bias, growing with lead). Subtracting the rolling mean of earlier errors did not reduce "
+      "out-of-sample error, so no correction is applied; read the medians as slightly conservative. Not knowing the release date "
       "roughly doubles the error at 6 months.\n\n"
       "Combination rules and single candidates, same folds:\n\n" +
       _tab([r for r in rb["combination_rules"] if r["lead_years"] in (0.0, 0.25)], ["lead_years", "variant", "n", "rmse", "crps", "cov80"],
