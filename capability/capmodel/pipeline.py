@@ -149,9 +149,9 @@ def run(full=False):
             applies_to=[SCENARIOS[i] for i in TREND_SCENARIOS],
             not_applied_to=["slowdown", "reversion", "non-Anthropic frontier"],
             size_at_end_2027=round(BETA * g_end27, 2), permanent_size_after_1_5_years=round(BETA * 0.75, 2),
-            thin_test="A rolling (out-of-sample) correction exists for only %d Anthropic folds with %d distinct outcomes, all at %s yr. "
+            thin_test="A rolling (out-of-sample) correction exists for only %d Anthropic folds with %d distinct outcomes, at horizons %s yr (mostly six months). "
                       "On those it lowered MAE from %s to %s; on the all-lab series the same correction changed MAE from %s to %s over %d folds. "
-                      "Nothing at one year or beyond has been scored with a correction."
+                      "Nothing at 1.5 years has been scored with a correction, and at one year only three overlapping folds have."
                       % (mach["anthropic"]["correction_test"]["n_folds_with_a_rolling_correction"], mach["anthropic"]["correction_test"]["n_distinct_outcomes"],
                          mach["anthropic"]["correction_test"]["horizons"], mach["anthropic"]["correction_test"]["mae_raw"],
                          mach["anthropic"]["correction_test"]["mae_published_config"], mach["all"]["correction_test"]["mae_raw"],
@@ -763,8 +763,8 @@ def run(full=False):
     f_hv = [f for f in mf["anthropic"] if f["h"] == hv]
     bt_caveat = ("'Backtested through %s' means only this: the UNCORRECTED code was run at a %.1f-year horizon from %d overlapping monthly "
                  "origins (%d distinct outcomes) in one regime, and under-predicted in %d of them (mean error %+.1f ECI; 50%% coverage %.2f). "
-                 "The corrected configuration that is published has been scored out of sample only at six months, on %d folds with %d "
-                 "distinct outcomes." % (vt, hv, len(f_hv), len({f["y"] for f in f_hv}), sum(1 for f in f_hv if f["err_raw"] > 0),
+                 "The corrected configuration that is published has been scored out of sample on only %d overlapping folds with %d distinct "
+                 "outcomes, nine of them at six months and none beyond one year." % (vt, hv, len(f_hv), len({f["y"] for f in f_hv}), sum(1 for f in f_hv if f["err_raw"] > 0),
                                          float(np.mean([f["err_raw"] for f in f_hv])), cal_h["anthropic"][hv]["raw_cov50"],
                                          mach["anthropic"]["correction_test"]["n_folds_with_a_rolling_correction"],
                                          mach["anthropic"]["correction_test"]["n_distinct_outcomes"]))

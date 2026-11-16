@@ -3,8 +3,8 @@
   "as_of": "2026-11-16",
   "model_version": "cap-v2.1",
   "seed": 20261116,
-  "input_hash": "2440fcffe6908f90a17830cc77247a3c6e75fb0fe64a70320174f68ffce9b366",
-  "runtime_seconds": 44.4,
+  "input_hash": "4d98f80120b01eed1397b44dd21eb50f2d729401da2e4072dd4379a52fd85d87",
+  "runtime_seconds": 47.8,
   "generated_by": "python3 capability/run.py",
   "supersedes": {
    "version": "cap-v2.0",
@@ -525,7 +525,7 @@
   ],
   "backtested_through": "2027-09-30",
   "validated_through": "2027-09-30",
-  "backtested_through_caveat": "'Backtested through 2027-09-30' means only this: the UNCORRECTED code was run at a 1.0-year horizon from 10 overlapping monthly origins (7 distinct outcomes) in one regime, and under-predicted in 10 of them (mean error +6.3 ECI; 50% coverage 0.40). The corrected configuration that is published has been scored out of sample only at six months, on 12 folds with 6 distinct outcomes.",
+  "backtested_through_caveat": "'Backtested through 2027-09-30' means only this: the UNCORRECTED code was run at a 1.0-year horizon from 10 overlapping monthly origins (7 distinct outcomes) in one regime, and under-predicted in 10 of them (mean error +6.3 ECI; 50% coverage 0.40). The corrected configuration that is published has been scored out of sample on only 12 overlapping folds with 6 distinct outcomes, nine of them at six months and none beyond one year.",
   "beyond_measured_scale_above": 195.6,
   "beyond_measured_scale_range": [
    182.8,
@@ -548,7 +548,7 @@
    "The next-model point forecasts are, in effect, predecessor + recent Anthropic record slope x elapsed time; in backtest (RMSE 2.5 at release, n=21) they are no better than that two-line rule (RMSE 2.5).",
    "Frontier figures include an under-prediction correction on the 'hold' and faster scenarios only: a pooled 4.7 ECI/yr (sd 4.2; Anthropic-only estimate 6.2, all-lab 4.2), tapered in from zero and out by 1.5 years. It adds 3.2 ECI to those paths at end-2027 (1.8 to the mixture's record-line median). Its out-of-sample check is 12 overlapping six-month folds with 6 distinct outcomes.",
    "Scenario paces in 2027, correction included (ECI points gained by the record line): slowdown 12.1, reversion 15.5, hold 24.0, compounding 34.7, explosive 59.0; mixture 21.3; pre-break pace 15.0, recent pace 20.6.",
-   "'Backtested through 2027-09-30' means only this: the UNCORRECTED code was run at a 1.0-year horizon from 10 overlapping monthly origins (7 distinct outcomes) in one regime, and under-predicted in 10 of them (mean error +6.3 ECI; 50% coverage 0.40). The corrected configuration that is published has been scored out of sample only at six months, on 12 folds with 6 distinct outcomes.",
+   "'Backtested through 2027-09-30' means only this: the UNCORRECTED code was run at a 1.0-year horizon from 10 overlapping monthly origins (7 distinct outcomes) in one regime, and under-predicted in 10 of them (mean error +6.3 ECI; 50% coverage 0.40). The corrected configuration that is published has been scored out of sample on only 12 overlapping folds with 6 distinct outcomes, nine of them at six months and none beyond one year.",
    "The all-lab frontier is the larger of Anthropic's and the other labs'; Anthropic leads in 73% of paths at end-2027 and 62% at end-2030. The other labs' line is fitted on their own records and carries no correction.",
    "Benchmark forecasts are thinly tested (2 to 31 backtest folds per benchmark). Only those marked graded are scored; arena, index and other 'indicative' rows are shown for orientation and are not graded.",
    "The Haiku forecast (median lead about 8 months) lies beyond any tested lead (the longest is six months, 4 folds).",
@@ -23565,7 +23565,7 @@
   "backtested_through": "2027-09-30",
   "validated_through": "2027-09-30",
   "validated_through_deprecated": "alias of backtested_through, kept for one version",
-  "backtested_through_caveat": "'Backtested through 2027-09-30' means only this: the UNCORRECTED code was run at a 1.0-year horizon from 10 overlapping monthly origins (7 distinct outcomes) in one regime, and under-predicted in 10 of them (mean error +6.3 ECI; 50% coverage 0.40). The corrected configuration that is published has been scored out of sample only at six months, on 12 folds with 6 distinct outcomes.",
+  "backtested_through_caveat": "'Backtested through 2027-09-30' means only this: the UNCORRECTED code was run at a 1.0-year horizon from 10 overlapping monthly origins (7 distinct outcomes) in one regime, and under-predicted in 10 of them (mean error +6.3 ECI; 50% coverage 0.40). The corrected configuration that is published has been scored out of sample on only 12 overlapping folds with 6 distinct outcomes, nine of them at six months and none beyond one year.",
   "layer_agreement": {
    "rows": [
     {
@@ -23697,7 +23697,7 @@
    "pre_break_slope_median": 15.0,
    "recent_slope_median": 20.6
   },
-  "validation_statement": "'Backtested through 2027-09-30' means only this: the UNCORRECTED code was run at a 1.0-year horizon from 10 overlapping monthly origins (7 distinct outcomes) in one regime, and under-predicted in 10 of them (mean error +6.3 ECI; 50% coverage 0.40). The corrected configuration that is published has been scored out of sample only at six months, on 12 folds with 6 distinct outcomes. Beyond 2027-09-30 the bands are a scenario projection driven by the stated priors: read each scenario path separately and treat the mixture as a summary of the prior.",
+  "validation_statement": "'Backtested through 2027-09-30' means only this: the UNCORRECTED code was run at a 1.0-year horizon from 10 overlapping monthly origins (7 distinct outcomes) in one regime, and under-predicted in 10 of them (mean error +6.3 ECI; 50% coverage 0.40). The corrected configuration that is published has been scored out of sample on only 12 overlapping folds with 6 distinct outcomes, nine of them at six months and none beyond one year. Beyond 2027-09-30 the bands are a scenario projection driven by the stated priors: read each scenario path separately and treat the mixture as a summary of the prior.",
   "calibration_applied": {
    "anthropic": {
     "0.5": {
@@ -23814,7 +23814,7 @@
    ],
    "size_at_end_2027": 3.2,
    "permanent_size_after_1_5_years": 3.53,
-   "thin_test": "A rolling (out-of-sample) correction exists for only 12 Anthropic folds with 6 distinct outcomes, all at [0.5, 1.0] yr. On those it lowered MAE from 5.55 to 4.3; on the all-lab series the same correction changed MAE from 1.77 to 2.21 over 12 folds. Nothing at one year or beyond has been scored with a correction.",
+   "thin_test": "A rolling (out-of-sample) correction exists for only 12 Anthropic folds with 6 distinct outcomes, at horizons [0.5, 1.0] yr (mostly six months). On those it lowered MAE from 5.55 to 4.3; on the all-lab series the same correction changed MAE from 1.77 to 2.21 over 12 folds. Nothing at 1.5 years has been scored with a correction, and at one year only three overlapping folds have.",
    "why_pooled": "Trend fits ran low on both frontiers over 2024-26, but block slopes range from -1.0 to 9.2 and the series disagree; a random-effects mean across all blocks is used instead of the Anthropic-only estimate, with the between-block spread carried as its uncertainty.",
    "anthropic": {
     "mean": 4.71,
@@ -25176,7 +25176,7 @@
     ],
     "size_at_end_2027": 3.2,
     "permanent_size_after_1_5_years": 3.53,
-    "thin_test": "A rolling (out-of-sample) correction exists for only 12 Anthropic folds with 6 distinct outcomes, all at [0.5, 1.0] yr. On those it lowered MAE from 5.55 to 4.3; on the all-lab series the same correction changed MAE from 1.77 to 2.21 over 12 folds. Nothing at one year or beyond has been scored with a correction.",
+    "thin_test": "A rolling (out-of-sample) correction exists for only 12 Anthropic folds with 6 distinct outcomes, at horizons [0.5, 1.0] yr (mostly six months). On those it lowered MAE from 5.55 to 4.3; on the all-lab series the same correction changed MAE from 1.77 to 2.21 over 12 folds. Nothing at 1.5 years has been scored with a correction, and at one year only three overlapping folds have.",
     "why_pooled": "Trend fits ran low on both frontiers over 2024-26, but block slopes range from -1.0 to 9.2 and the series disagree; a random-effects mean across all blocks is used instead of the Anthropic-only estimate, with the between-block spread carried as its uncertainty."
    }
   },
