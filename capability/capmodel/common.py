@@ -63,18 +63,21 @@ def summarize(x, nd=2) -> dict:
             "lo80": r(p[3]), "hi80": r(p[4]), "lo95": r(p[5]), "hi95": r(p[6])}
 
 
-def widen(x, factor_by_level: dict, center=None):
+def widen(x, factor_by_level: dict, center=None, nd=2):
     """Summarize a sample, then stretch each interval about the median by a calibration
     factor (one per nominal level). Used for conformal-style widening."""
     s = summarize(x, 4)
     if s["median"] is None:
         return s
     m = s["median"] if center is None else center
-    out = {"median": round(m, 2), "mean": round(s["mean"], 2)}
+    out = {"median": round(m, nd), "mean": round(s["mean"], nd)}
+    lo_w = hi_w = 0.0
     for lv, tag in ((0.5, "50"), (0.8, "80"), (0.95, "95")):
         f = float(factor_by_level.get(lv, 1.0))
-        out["lo" + tag] = round(m - f * (m - s["lo" + tag]), 2)
-        out["hi" + tag] = round(m + f * (s["hi" + tag] - m), 2)
+        lo_w = max(lo_w, f * (m - s["lo" + tag]))     # a wider level is never narrower than the one inside it
+        hi_w = max(hi_w, f * (s["hi" + tag] - m))
+        out["lo" + tag] = round(m - lo_w, nd)
+        out["hi" + tag] = round(m + hi_w, nd)
     return out
 
 
@@ -114,3 +117,24 @@ def dump_json(obj, path: Path):
 
 def load_json(path: Path):
     return json.loads(Path(path).read_text())
+
+
+def wquantile(x, w, probs):
+    """Weighted quantiles of x (1-d) with weights w."""
+    x = np.asarray(x, float)
+    w = np.asarray(w, float)
+    ok = np.isfinite(x) & (w > 0)
+    x, w = x[ok], w[ok]
+    if x.size == 0:
+        return [float("nan")] * len(probs)
+    o = np.argsort(x)
+    x, w = x[o], w[o]
+    c = (np.cumsum(w) - 0.5 * w) / w.sum()
+    return [float(v) for v in np.interp(probs, c, x)]
+
+
+def wsummary(x, w, nd=2):
+    p = wquantile(x, w, [0.5, 0.25, 0.75, 0.10, 0.90, 0.025, 0.975])
+    r = lambda v: None if not np.isfinite(v) else round(float(v), nd)
+    return {"median": r(p[0]), "lo50": r(p[1]), "hi50": r(p[2]), "lo80": r(p[3]), "hi80": r(p[4]),
+            "lo95": r(p[5]), "hi95": r(p[6])}
