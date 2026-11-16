@@ -344,3 +344,11 @@ Only `program` and `prep` rows (and the two dated stages) change the number; the
 6. **Do not** add a voice family to `../data/models.json`, the family forecast or the page's family cards. Whether a shipped voice model becomes a tracked family (with its own cadence, colours and markets) is Jacob's decision: put it under "Open questions for Jacob".
 
 **If `voice.py` fails**, the family forecast is unaffected and the page keeps the last voice forecast on disk. Say so in the note; fix a malformed row if that is the cause; otherwise leave it for the owner.
+
+## 13. Capability forecast (`../capability/`)
+
+A separate model, built 2026-11-16, forecasts how capable each family's next model will be (public ECI, AECI as printed in its own system card, Humanity's Last Exam) and projects the Anthropic frontier to 2030. It has its own page, `../capability-forecast.html`, which reads `../capability/output/capability_forecast.json`. Read `../capability/README.md` before touching it. The daily run does only this:
+
+- **On a release day, after the release is registered** (§ release-day procedure): run `python3 ../capability/grade.py` from `forecast/`. It grades any open capability prediction that a first-party or named source now resolves, stores the first published value it sees, and appends to `../capability/scorecard.csv`. Commit that file with the day's commit. A public ECI or printed AECI for a new model often arrives days after launch; run `grade.py` again on later days until its predictions are resolved or expired. Do not type values in by hand: if the source is not readable, leave it open and say so in the note.
+- **Do not re-run the model** (`../capability/run.py`) in a daily run and do not edit its data, method or page. Refreshing it means re-downloading Epoch's index data and re-reading system cards, and it changes published predictions; leave a line in the note for the owner ("capability forecast should be refreshed: <release> shipped") instead. Grade first, refresh later: the scorecard must be filled from predictions issued before the release.
+- If `grade.py` fails, say so in the note and carry on; it never blocks the release forecast.

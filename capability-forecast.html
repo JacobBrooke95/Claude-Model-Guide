@@ -927,7 +927,7 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
     $('info-chart-scales').innerHTML = esc(A.primary_scale || '') + ' The page opens on public ECI because the bands, the backtested range, the measured-scale line and all ' + ((D.history || {}).claude || []).filter(m => ok(m.eci)).length + ' scored models are on that scale. On the AECI view the history and band are on Anthropic’s latest fit and the diamonds are own-card values; no measured-scale line is published for AECI. A fuller AECI history is on the <a href="claude-models.html#aeci">Claude Guide</a>.';
     $('ctl-others').hidden = !(((P.series || {}).non_anthropic_frontier_eci || []).length || ((D.history || {}).other_labs || []).length);
     const bn = [H.backtested_through_caveat, P.backtested_through_caveat].find(x => typeof x === 'string' && x);
-    if (bn) { $('bt-boundary').hidden = false; $('bt-boundary').textContent = bn; }
+    if (bn) { $('bt-boundary').hidden = false; $('bt-boundary').textContent = 'The backtested range rests on a small number of overlapping test cases, and the model ran low in them. The full statement is under the (i).'; }
     const tr = H.beyond_measured_scale_range || (D.scale || {}).range_eci;
     if (Array.isArray(tr) && ok(tr[0]) && ok(tr[1])) $('info-chart-scale').textContent += ' The estimate is a range, ' + num(tr[0], 0) + ' to ' + num(tr[1], 0) + '; the chart shades from ' + num(threshold(), 0) + '.';
     // weighting selector + sensitivity tables
