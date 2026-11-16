@@ -1,0 +1,528 @@
+model,creator,release_date,deprecated_on_aa,n_configs,source,status,source_url,as_of
+GPT-3.5 Turbo,OpenAI,2022-11-30,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 65B,Meta,2023-02-24,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Instant,Anthropic,2023-03-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4,OpenAI,2023-03-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+PALM-2,Google,2023-05-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-3.5 Turbo (0613),OpenAI,2023-06-13,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 2.0,Anthropic,2023-07-11,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 2 Chat 70B,Meta,2023-07-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 2 Chat 13B,Meta,2023-07-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 2 Chat 7B,Meta,2023-07-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen Chat 14B,Alibaba,2023-09-25,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral 7B Instruct,Mistral,2023-09-27,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4 Turbo,OpenAI,2023-11-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 2.1,Anthropic,2023-11-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek LLM 67B Chat (V1),DeepSeek,2023-11-29,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen Chat 72B,Alibaba,2023-11-30,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 1.0 Ultra,Google,2023-12-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 1.0 Pro,Google,2023-12-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Medium,Mistral,2023-12-11,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mixtral 8x7B Instruct,Mistral,2023-12-11,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+OpenChat 3.5 (1210),OpenChat,2023-12-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Solar Mini,Upstage,2024-01-25,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Small (Feb '24),Mistral,2024-02-26,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Large (Feb '24),Mistral,2024-02-26,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 3 Haiku,Anthropic,2024-03-04,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 3 Opus,Anthropic,2024-03-04,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 3 Sonnet,Anthropic,2024-03-04,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Command-R (Mar '24),Cohere,2024-03-12,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok-1,SpaceXAI,2024-03-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DBRX Instruct,Databricks,2024-03-27,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Command-R+ (Apr '24),Cohere,2024-04-04,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mixtral 8x22B Instruct,Mistral,2024-04-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3 Instruct 8B,Meta,2024-04-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3 Instruct 70B,Meta,2024-04-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Phi-3 Mini Instruct 3.8B,Microsoft,2024-04-23,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Arctic Instruct,Snowflake,2024-04-24,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen1.5 Chat 110B,Alibaba,2024-04-25,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek-V2-Chat,DeepSeek,2024-05-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4o (May '24),OpenAI,2024-05-13,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 1.5 Flash (May '24),Google,2024-05-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 1.5 Pro (May '24),Google,2024-05-15,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen2 Instruct 72B,Alibaba,2024-06-07,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek-Coder-V2,DeepSeek,2024-06-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek Coder V2 Lite Instruct,DeepSeek,2024-06-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 3.5 Sonnet (June '24),Anthropic,2024-06-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4o mini,OpenAI,2024-07-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.1 Instruct 405B,Meta,2024-07-23,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.1 Instruct 70B,Meta,2024-07-23,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.1 Instruct 8B,Meta,2024-07-23,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Large 2 (Jul '24),Mistral,2024-07-24,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4o (Aug '24),OpenAI,2024-08-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok Beta,SpaceXAI,2024-08-13,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Hermes 3 - Llama-3.1 70B,Nous Research,2024-08-15,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Jamba 1.5 Mini,AI21 Labs,2024-08-22,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Jamba 1.5 Large,AI21 Labs,2024-08-22,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek-V2.5,DeepSeek,2024-09-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+o1-preview,OpenAI,2024-09-12,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+o1-mini,OpenAI,2024-09-12,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Small (Sep '24),Mistral,2024-09-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen2.5 Instruct 32B,Alibaba,2024-09-19,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen2.5 Instruct 72B,Alibaba,2024-09-19,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen2.5 Coder Instruct 7B,Alibaba,2024-09-19,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 1.5 Pro (Sep '24),Google,2024-09-24,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 1.5 Flash (Sep '24),Google,2024-09-24,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.2 Instruct 11B (Vision),Meta,2024-09-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.2 Instruct 3B,Meta,2024-09-25,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.2 Instruct 1B,Meta,2024-09-25,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.2 Instruct 90B (Vision),Meta,2024-09-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Molmo 7B-D,Allen Institute for AI,2024-09-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM 40B,Liquid AI,2024-09-30,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 1.5 Flash-8B,Google,2024-10-03,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Reka Flash (Sep '24),Reka AI,2024-10-04,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.1 Nemotron Instruct 70B,NVIDIA,2024-10-15,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 3.5 Haiku,Anthropic,2024-10-22,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 3.5 Sonnet (Oct '24),Anthropic,2024-10-22,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen2.5 Coder Instruct 32B,Alibaba,2024-11-11,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen2.5 Turbo,Alibaba,2024-11-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Large 2 (Nov '24),Mistral,2024-11-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Pixtral Large,Mistral,2024-11-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4o (Nov '24),OpenAI,2024-11-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+OLMo 2 7B,Allen Institute for AI,2024-11-26,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+QwQ 32B-Preview,Alibaba,2024-11-27,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nova Micro,Amazon,2024-12-03,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nova Pro,Amazon,2024-12-03,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nova Lite,Amazon,2024-12-03,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+o1,OpenAI,2024-12-05,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.3 Instruct 70B,Meta,2024-12-06,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek-V2.5 (Dec '24),DeepSeek,2024-12-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.0 Flash (experimental),Google,2024-12-11,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 2 (Dec '24),SpaceXAI,2024-12-12,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Phi-4,Microsoft,2024-12-12,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4o mini Realtime (Dec '24),OpenAI,2024-12-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4o Realtime (Dec '24),OpenAI,2024-12-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.0 Flash Thinking Experimental (Dec '24),Google,2024-12-19,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V3 (Dec '24),DeepSeek,2024-12-26,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek R1 (Jan '25),DeepSeek,2025-01-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek R1 Distill Llama 8B,DeepSeek,2025-01-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek R1 Distill Qwen 1.5B,DeepSeek,2025-01-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek R1 Distill Llama 70B,DeepSeek,2025-01-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek R1 Distill Qwen 14B,DeepSeek,2025-01-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek R1 Distill Qwen 32B,DeepSeek,2025-01-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.0 Flash Thinking Experimental (Jan '25),Google,2025-01-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Sonar Pro,Perplexity,2025-01-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Sonar,Perplexity,2025-01-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen2.5 Max,Alibaba,2025-01-28,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Sonar Reasoning,Perplexity,2025-01-28,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Sonar Reasoning Pro,Perplexity,2025-01-28,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Small 3,Mistral,2025-01-30,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.1 Tulu3 405B,Allen Institute for AI,2025-01-30,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+o3-mini,OpenAI,2025-01-31,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.0 Flash-Lite (Preview),Google,2025-02-05,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.0 Flash (Feb '25),Google,2025-02-05,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.0 Pro Experimental (Feb '25),Google,2025-02-05,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepHermes 3 - Llama-3.1 8B Preview,Nous Research,2025-02-13,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4o (ChatGPT),OpenAI,2025-02-15,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Saba,Mistral,2025-02-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+R1 1776,Perplexity,2025-02-18,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 3,SpaceXAI,2025-02-19,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 3 Reasoning Beta,SpaceXAI,2025-02-19,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 3 mini Reasoning,SpaceXAI,2025-02-19,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 3.7 Sonnet,Anthropic,2025-02-24,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.0 Flash-Lite (Feb '25),Google,2025-02-25,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Phi-4 Multimodal Instruct,Microsoft,2025-02-26,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Phi-4 Mini Instruct,Microsoft,2025-02-26,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4.5 (Preview),OpenAI,2025-02-27,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+QwQ 32B,Alibaba,2025-03-05,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Jamba 1.6 Large,AI21 Labs,2025-03-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Jamba 1.6 Mini,AI21 Labs,2025-03-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Reka Flash 3,Reka AI,2025-03-10,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 3 4B Instruct,Google,2025-03-12,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 3 27B Instruct,Google,2025-03-12,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 3 12B Instruct,Google,2025-03-12,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 3 1B Instruct,Google,2025-03-13,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Command A,Cohere,2025-03-13,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepHermes 3 - Mistral 24B Preview,Nous Research,2025-03-13,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+OLMo 2 32B,Allen Institute for AI,2025-03-13,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Small 3.1,Mistral,2025-03-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.3 Nemotron Super 49B v1,NVIDIA,2025-03-18,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+o1-pro,OpenAI,2025-03-19,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.5 Pro Preview (Mar' 25),Google,2025-03-25,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V3 0324,DeepSeek,2025-03-25,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+"GPT-4o (March 2025, chatgpt-4o-latest)",OpenAI,2025-03-27,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 4 Maverick,Meta,2025-04-05,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 4 Scout,Meta,2025-04-05,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.1 Nemotron Ultra 253B v1,NVIDIA,2025-04-07,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4.1,OpenAI,2025-04-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4.1 nano,OpenAI,2025-04-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-4.1 mini,OpenAI,2025-04-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+o3,OpenAI,2025-04-16,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+o4-mini,OpenAI,2025-04-16,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 3.3 8B,IBM,2025-04-16,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.5 Flash Preview,Google,2025-04-17,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 0.6B,Alibaba,2025-04-28,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 4B,Alibaba,2025-04-28,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 1.7B,Alibaba,2025-04-28,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 30B A3B,Alibaba,2025-04-28,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 235B A22B,Alibaba,2025-04-28,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 14B,Alibaba,2025-04-28,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 8B,Alibaba,2025-04-28,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 32B,Alibaba,2025-04-28,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nova Premier,Amazon,2025-04-30,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.5 Pro Preview (May' 25),Google,2025-05-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Medium 3,Mistral,2025-05-07,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.5 Flash,Google,2025-05-20,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 3n E4B Instruct Preview (May '25),Google,2025-05-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Solar Pro 2 (Preview),Upstage,2025-05-20,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama 3.1 Nemotron Nano 4B v1.1,NVIDIA,2025-05-20,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Devstral Small (May '25),Mistral,2025-05-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 4 Opus,Anthropic,2025-05-22,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 4 Sonnet,Anthropic,2025-05-22,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Sarvam M,Sarvam,2025-05-23,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek R1 0528 (May '25),DeepSeek,2025-05-28,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek R1 0528 Qwen3 8B,DeepSeek,2025-05-29,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.5 Pro,Google,2025-06-05,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+o3-pro,OpenAI,2025-06-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Magistral Small 1,Mistral,2025-06-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Magistral Medium 1,Mistral,2025-06-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.5 Flash-Lite,Google,2025-06-17,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniMax M1 40k,MiniMax,2025-06-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniMax M1 80k,MiniMax,2025-06-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Small 3.2,Mistral,2025-06-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 3n E4B Instruct,Google,2025-06-26,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 3n E2B Instruct,Google,2025-06-26,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+ERNIE 4.5 300B A47B,Baidu,2025-06-30,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Jamba 1.7 Large,AI21 Labs,2025-07-07,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Jamba 1.7 Mini,AI21 Labs,2025-07-07,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Solar Pro 2,Upstage,2025-07-09,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 4,SpaceXAI,2025-07-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Devstral Small (Jul '25),Mistral,2025-07-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Devstral Medium,Mistral,2025-07-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM2 1.2B,Liquid AI,2025-07-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Kimi K2,Kimi,2025-07-11,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+EXAONE 4.0 32B,LG AI Research,2025-07-15,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Exaone 4.0 1.2B,LG AI Research,2025-07-15,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 235B A22B 2507 Instruct,Alibaba,2025-07-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Coder 480B A35B Instruct,Alibaba,2025-07-22,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 235B A22B 2507 (Reasoning),Alibaba,2025-07-25,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Llama Nemotron Super 49B v1.5,NVIDIA,2025-07-25,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-4.5,Z AI,2025-07-28,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-4.5-Air,Z AI,2025-07-28,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 30B A3B 2507 Instruct,Alibaba,2025-07-29,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 30B A3B 2507 (Reasoning),Alibaba,2025-07-30,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Coder 30B A3B Instruct,Alibaba,2025-07-31,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 4.1 Opus,Anthropic,2025-08-05,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+gpt-oss-120b,OpenAI,2025-08-05,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+gpt-oss-20b,OpenAI,2025-08-05,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 4B 2507 (Reasoning),Alibaba,2025-08-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 4B 2507 Instruct,Alibaba,2025-08-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5 nano,OpenAI,2025-08-07,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5 mini,OpenAI,2025-08-07,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5,OpenAI,2025-08-07,True,4,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5 (ChatGPT),OpenAI,2025-08-07,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-4.5V,Z AI,2025-08-11,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Medium 3.1,Mistral,2025-08-12,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 3 270M,Google,2025-08-14,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+NVIDIA Nemotron Nano 9B V2,NVIDIA,2025-08-18,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Seed-OSS-36B-Instruct,ByteDance Seed,2025-08-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V3.1,DeepSeek,2025-08-21,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Hermes 4 - Llama-3.1 70B,Nous Research,2025-08-27,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Hermes 4 - Llama-3.1 405B,Nous Research,2025-08-27,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok Code Fast 1,SpaceXAI,2025-08-28,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Apertus 70B Instruct,Swiss AI Initiative,2025-09-02,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Apertus 8B Instruct,Swiss AI Initiative,2025-09-02,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Kimi K2 0905,Kimi,2025-09-05,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Max (Preview),Alibaba,2025-09-05,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling-mini-2.0,InclusionAI,2025-09-09,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Next 80B A3B Instruct,Alibaba,2025-09-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Next 80B A3B (Reasoning),Alibaba,2025-09-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling-flash-2.0,InclusionAI,2025-09-17,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Magistral Small 1.2,Mistral,2025-09-17,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Magistral Medium 1.2,Mistral,2025-09-18,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 4 Fast,SpaceXAI,2025-09-19,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ring-flash-2.0,InclusionAI,2025-09-19,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Omni 30B A3B Instruct,Alibaba,2025-09-22,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Omni 30B A3B (Reasoning),Alibaba,2025-09-22,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V3.1 Terminus,DeepSeek,2025-09-22,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.0 Micro,IBM,2025-09-22,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.0 H Small,IBM,2025-09-22,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5 Codex,OpenAI,2025-09-23,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Max,Alibaba,2025-09-23,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 235B A22B (Reasoning),Alibaba,2025-09-23,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 235B A22B Instruct,Alibaba,2025-09-23,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM2 2.6B,Liquid AI,2025-09-23,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.5 Flash-Lite Preview (Sep '25),Google,2025-09-25,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 2.5 Flash Preview (Sep '25),Google,2025-09-25,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 4.5 Sonnet,Anthropic,2025-09-29,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V3.2 Exp,DeepSeek,2025-09-29,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-4.6,Z AI,2025-09-30,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Apriel-v1.5-15B-Thinker,ServiceNow,2025-09-30,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 30B A3B Instruct,Alibaba,2025-10-03,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 30B A3B (Reasoning),Alibaba,2025-10-03,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM2 8B A1B,Liquid AI,2025-10-07,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling-1T,InclusionAI,2025-10-08,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Jamba Reasoning 3B,AI21 Labs,2025-10-08,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ring-1T,InclusionAI,2025-10-13,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 8B Instruct,Alibaba,2025-10-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 8B (Reasoning),Alibaba,2025-10-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 4B Instruct,Alibaba,2025-10-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 4B (Reasoning),Alibaba,2025-10-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude 4.5 Haiku,Anthropic,2025-10-15,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 32B Instruct,Alibaba,2025-10-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 VL 32B (Reasoning),Alibaba,2025-10-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniMax-M2,MiniMax,2025-10-26,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+NVIDIA Nemotron Nano 12B v2 VL,NVIDIA,2025-10-28,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.0 350M,IBM,2025-10-28,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.0 1B,IBM,2025-10-28,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.0 H 350M,IBM,2025-10-28,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.0 H 1B,IBM,2025-10-28,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nova 2.0 Lite,Amazon,2025-10-29,False,4,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Kimi Linear 48B A3B Instruct,Kimi,2025-10-30,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Max Thinking (Preview),Alibaba,2025-11-03,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Kimi K2 Thinking,Kimi,2025-11-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Doubao Seed Code,ByteDance Seed,2025-11-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+KAT-Coder-Pro V1,KwaiKAT,2025-11-11,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.1 Codex,OpenAI,2025-11-13,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.1,OpenAI,2025-11-13,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.1 Codex mini,OpenAI,2025-11-13,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+ERNIE 5.0 Thinking Preview,Baidu,2025-11-13,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3 Pro Preview,Google,2025-11-18,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Cogito v2.1,Deep Cogito,2025-11-18,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 4.1 Fast,SpaceXAI,2025-11-19,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Olmo 3 7B Think,Allen Institute for AI,2025-11-20,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Olmo 3 7B Instruct,Allen Institute for AI,2025-11-20,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Olmo 3 32B Think,Allen Institute for AI,2025-11-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Opus 4.5,Anthropic,2025-11-24,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Apriel-v1.6-15B-Thinker,ServiceNow,2025-11-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nova 2.0 Omni,Amazon,2025-11-26,False,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nova 2.0 Pro Preview,Amazon,2025-11-27,False,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+INTELLECT-3,Prime Intellect,2025-11-27,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V3.2 Speciale,DeepSeek,2025-12-01,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V3.2,DeepSeek,2025-12-01,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Large 3,Mistral,2025-12-02,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ministral 3 3B,Mistral,2025-12-02,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ministral 3 14B,Mistral,2025-12-02,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ministral 3 8B,Mistral,2025-12-02,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Motif-2-12.7B-Reasoning,Motif Technologies,2025-12-04,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+K2-V2,Institute of Foundation Models,2025-12-05,False,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-4.6V,Z AI,2025-12-08,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Devstral 2,Mistral,2025-12-09,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Devstral Small 2,Mistral,2025-12-09,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.2 Codex,OpenAI,2025-12-11,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.2,OpenAI,2025-12-11,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Molmo2-8B,Allen Institute for AI,2025-12-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mi:dm K 2.5 Pro,Korea Telecom,2025-12-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mi:dm K 2.5 Pro Preview,Korea Telecom,2025-12-11,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Olmo 3.1 32B Think,Allen Institute for AI,2025-12-12,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+K2 Think V2,Institute of Foundation Models,2025-12-15,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+NVIDIA Nemotron 3 Nano 30B A3B,NVIDIA,2025-12-15,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiMo-V2-Flash (Feb 2026),Xiaomi,2025-12-16,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiMo-V2-Flash,Xiaomi,2025-12-16,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3 Flash Preview,Google,2025-12-17,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Solar Open 100B,Upstage,2025-12-17,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-4.7,Z AI,2025-12-22,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniMax-M2.1,MiniMax,2025-12-23,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+HyperCLOVA X SEED Think (32B),Naver,2025-12-26,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+K-EXAONE,LG AI Research,2025-12-31,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Falcon-H1R-7B,TII UAE,2026-01-04,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM2.5-VL-1.6B,Liquid AI,2026-01-05,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM2.5-1.2B-Instruct,Liquid AI,2026-01-05,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Olmo 3.1 32B Instruct,Allen Institute for AI,2026-01-13,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-4.7-Flash,Z AI,2026-01-19,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Step3 VL 10B,StepFun,2026-01-20,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM2.5-1.2B-Thinking,Liquid AI,2026-01-20,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Max Thinking,Alibaba,2026-01-26,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Kimi K2.5,Kimi,2026-01-27,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LongCat Flash Lite,LongCat,2026-01-28,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Step 3.5 Flash,StepFun,2026-02-02,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3 Coder Next,Alibaba,2026-02-03,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Opus 4.6,Anthropic,2026-02-05,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3 Deep Think,Google,2026-02-05,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.3 Codex,OpenAI,2026-02-05,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Tri-21B-Think,Trillion Labs,2026-02-10,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Tri-21B-think Preview,Trillion Labs,2026-02-10,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-5,Z AI,2026-02-11,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nanbeige4.1-3B,Nanbeige,2026-02-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniMax-M2.5,MiniMax,2026-02-12,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 397B A17B,Alibaba,2026-02-16,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Sonnet 4.6,Anthropic,2026-02-17,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Tiny Aya Global,Cohere,2026-02-17,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3.1 Pro Preview,Google,2026-02-19,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mercury 2,Inception,2026-02-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 122B A10B,Alibaba,2026-02-24,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 27B,Alibaba,2026-02-24,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 35B A3B,Alibaba,2026-02-24,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM2 24B A2B,Liquid AI,2026-02-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 2B,Alibaba,2026-03-02,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 9B,Alibaba,2026-03-02,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 4B,Alibaba,2026-03-02,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 0.8B,Alibaba,2026-03-02,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3.1 Flash-Lite,Google,2026-03-03,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.4,OpenAI,2026-03-05,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.4 Pro,OpenAI,2026-03-05,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Sarvam 105B,Sarvam,2026-03-06,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Sarvam 30B,Sarvam,2026-03-06,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 4.20 0309,SpaceXAI,2026-03-10,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nemotron 3 Super 120B A12B,NVIDIA,2026-03-11,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-5-Turbo,Z AI,2026-03-15,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Small 4,Mistral,2026-03-16,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+NVIDIA Nemotron 3 Nano 4B,NVIDIA,2026-03-16,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.4 mini,OpenAI,2026-03-17,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.4 nano,OpenAI,2026-03-17,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiMo-V2-Pro,Xiaomi,2026-03-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniMax-M2.7,MiniMax,2026-03-18,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiMo-V2-Omni,Xiaomi,2026-03-19,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nemotron Cascade 2 30B A3B,NVIDIA,2026-03-19,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiMo-V2-Omni-0327,Xiaomi,2026-03-27,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+KAT Coder Pro V2,KwaiKAT,2026-03-27,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 Omni Plus,Alibaba,2026-03-30,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.5 Omni Flash,Alibaba,2026-03-30,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM 5V Turbo,Z AI,2026-04-01,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Trinity Large Thinking,Arcee AI,2026-04-01,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 4 31B,Google,2026-04-02,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 4 26B A4B,Google,2026-04-02,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 4 E2B,Google,2026-04-02,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.6 Plus,Alibaba,2026-04-02,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Step 3.5 Flash 2603,StepFun,2026-04-02,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 4 E4B,Google,2026-04-03,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Solar Pro 3,Upstage,2026-04-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 4.20 0309 v2,SpaceXAI,2026-04-07,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-5.1,Z AI,2026-04-07,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Muse Spark,Meta,2026-04-08,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+EXAONE 4.5 33B,LG AI Research,2026-04-09,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+JT-MINI,China Mobile,2026-04-15,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Opus 4.7,Anthropic,2026-04-16,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.6 35B A3B,Alibaba,2026-04-16,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Kimi K2.6,Kimi,2026-04-20,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.6 Max Preview,Alibaba,2026-04-20,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling 2.6 Flash,InclusionAI,2026-04-21,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.6 27B,Alibaba,2026-04-22,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiMo-V2.5-Pro,Xiaomi,2026-04-22,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiMo-V2.5,Xiaomi,2026-04-22,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.5,OpenAI,2026-04-23,True,5,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.5 Pro,OpenAI,2026-04-23,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Hy3-preview,Tencent,2026-04-23,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling-2.6-1T,InclusionAI,2026-04-23,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V4 Pro 0424,DeepSeek,2026-04-24,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V4 Flash 0420,DeepSeek,2026-04-24,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Medium 3.5,Mistral,2026-04-29,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nemotron 3 Nano Omni 30B A3B Reasoning,NVIDIA,2026-04-29,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.1 8B,IBM,2026-04-29,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.1 3B,IBM,2026-04-29,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.1 30B,IBM,2026-04-29,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 4.3,SpaceXAI,2026-04-30,True,4,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.5 Instant (May 2026),OpenAI,2026-05-05,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ring-2.6-1T,InclusionAI,2026-05-08,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniCPM-V 4.6 1.3B,OpenBMB,2026-05-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+JT-35B-Flash,China Mobile,2026-05-14,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3.5 Flash,Google,2026-05-19,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.7 Max,Alibaba,2026-05-19,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Command A+,Cohere,2026-05-20,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniCPM5-1B,OpenBMB,2026-05-25,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+HyperNova 60B 2605,Multiverse Computing,2026-05-26,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Opus 4.8,Anthropic,2026-05-28,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM2.5-8B-A1B,Liquid AI,2026-05-28,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Step 3.7 Flash,StepFun,2026-05-29,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.7 Plus,Alibaba,2026-06-01,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniMax-M3,MiniMax,2026-06-01,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nex-N2-Pro,Nex AGI,2026-06-02,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemma 4 12B,Google,2026-06-03,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nemotron 3 Ultra 550B A55B,NVIDIA,2026-06-04,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Fable 5,Anthropic,2026-06-09,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+North Mini Code,Cohere,2026-06-09,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DiffusionGemma 26B A4B,Google,2026-06-10,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Kimi K2.7 Code,Kimi,2026-06-12,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok Build 0.1 0616,SpaceXAI,2026-06-16,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-5.2,Z AI,2026-06-16,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.5 Instant (June 2026),OpenAI,2026-06-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LongCat 2.0,LongCat,2026-06-29,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Sonnet 5,Anthropic,2026-06-30,True,6,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Hy3,Tencent,2026-07-06,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 4.5,SpaceXAI,2026-07-08,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.6 Terra,OpenAI,2026-07-09,True,6,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.6 Luna,OpenAI,2026-07-09,True,6,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-5.6 Sol,OpenAI,2026-07-09,True,6,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Muse Spark 1.1,Meta,2026-07-09,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+JT-4.1 Flash 236B A21B 0709,China Mobile,2026-07-09,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Motif 3 (Beta),Motif Technologies,2026-07-14,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Inkling,Thinking Machines,2026-07-15,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Kimi K3,Kimi,2026-07-16,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3.5 Flash-Lite,Google,2026-07-21,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3.6 Flash,Google,2026-07-21,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+G9v3-3B,AI9Stars,2026-07-23,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Opus 5,Anthropic,2026-07-24,True,5,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Celeris-1,Celeris,2026-07-24,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Inkling Small,Thinking Machines,2026-07-30,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V4 Flash 0731,DeepSeek,2026-07-31,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.8 Max,Alibaba,2026-08-03,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling 3.0 Flash,InclusionAI,2026-08-04,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+LFM2.5-2.6B,Liquid AI,2026-08-04,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Muse Spark 1.2,Meta,2026-08-05,True,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling 3.0 Tiny,InclusionAI,2026-08-06,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Solar Pro 4,Upstage,2026-08-06,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Muse Glimmer,Meta,2026-08-10,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Quasar 438B,Multiverse Computing,2026-08-10,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nemotron 3.5 Lightning,NVIDIA,2026-08-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.8 2.4T A95B,Alibaba,2026-08-12,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 4.6,SpaceXAI,2026-08-12,True,4,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Solar Open2 250B,Upstage,2026-08-12,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+K-EXAONE 2.0,LG AI Research,2026-08-12,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Motif 3,Motif Technologies,2026-08-12,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+A.X-K2,SK Telecom,2026-08-12,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3.7 Flash,Google,2026-08-13,True,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V4 Pro 0813,DeepSeek,2026-08-13,False,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.8 27B,Alibaba,2026-08-14,False,4,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-5.3,Z AI,2026-08-18,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+G9v3-39A5B,AI9Stars,2026-08-20,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V4 Flash Vision,DeepSeek,2026-08-21,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.2 8B,IBM,2026-08-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.2 3B,IBM,2026-08-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Granite 4.2 30B,IBM,2026-08-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.8-Flash-Next,Alibaba,2026-08-26,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GLM-5.3-Flash,Z AI,2026-08-26,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Agnes 2.5 Pro Beta,Sapiens AI,2026-08-26,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Apodex 1.1,Apodex,2026-08-30,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Fable 5.1,Anthropic,2026-09-01,True,5,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 3.8 Flash,Google,2026-09-02,False,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Muse Spark 1.3,Meta,2026-09-02,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen3.8 Max (0902),Alibaba,2026-09-02,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-6 Astra,OpenAI,2026-09-03,False,5,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+K2 Horizon 375B A23B,Institute of Foundation Models,2026-09-03,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+K2 Horizon 7B,Institute of Foundation Models,2026-09-03,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+K2 Horizon 3.7B,Institute of Foundation Models,2026-09-03,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+K2 Horizon MoVA 36B A4B,Institute of Foundation Models,2026-09-03,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+K2 Horizon 0.9B,Institute of Foundation Models,2026-09-03,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniCPM5-2B,OpenBMB,2026-09-07,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mercury 2.5,Inception,2026-09-08,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V4.1 Flash,DeepSeek,2026-09-10,True,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling-3.0-flash-VL,InclusionAI,2026-09-10,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling-3.0-flash-Fin,InclusionAI,2026-09-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Step 5 Preview,StepFun,2026-09-18,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Grok 4.7,SpaceXAI,2026-09-21,False,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiMo-V2.6-Pro,Xiaomi,2026-09-21,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiMo-V2.6-Flash,Xiaomi,2026-09-21,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Opus 5.5,Anthropic,2026-09-22,False,5,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-6 Sol,OpenAI,2026-09-22,True,6,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-6 Luna,OpenAI,2026-09-22,False,6,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-6 Sol,OpenAI,2026-09-22,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Solar Mini 4,Upstage,2026-09-22,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Sonnet 5.5,Anthropic,2026-09-28,False,5,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-6.1 Sol,OpenAI,2026-09-29,False,5,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 4 Argon,Google,2026-09-30,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling 3.1 Flash,InclusionAI,2026-10-01,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Large 4 Preview,Mistral,2026-10-06,True,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Haiku 5.5,Anthropic,2026-10-07,False,5,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Muse Wonder Full,Meta,2026-10-12,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Muse Wonder,Meta,2026-10-12,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Muse Spark Open,Meta,2026-10-15,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nemotron 3.5 Super VL,NVIDIA,2026-10-15,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nemotron 3.5 Bolt 74B-A9B,NVIDIA,2026-10-15,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Beam 1.0,Reflection,2026-10-16,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+DeepSeek V4.1 Flash 1017,DeepSeek,2026-10-17,False,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+MiniMax-M3.1-Flash,MiniMax,2026-10-19,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Ling 3.1 Flash 1019,InclusionAI,2026-10-22,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Kimi K3.1 Pro,Kimi,2026-10-23,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nemotron 3.5 Bolt E4B 4GB,NVIDIA,2026-10-23,False,1,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Nanbeige4.3-33B,Nanbeige,2026-10-25,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+GPT-6.1 Terra,OpenAI,2026-10-26,False,6,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 4 Carbon,Google,2026-10-28,False,3,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Mistral Large 4,Mistral,2026-10-29,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Tencent Hy4,Tencent,2026-11-03,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Inkling 2 Small,Thinking Machines,2026-11-05,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Agnes 2.5 Pro Theta,Sapiens AI,2026-11-07,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Claude Fable 5.2,Anthropic,2026-11-09,False,5,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Muse Ember,Meta,2026-11-09,False,2,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+JT-4.1 Flash 236B A21B,China Mobile,2026-11-11,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Gemini 4 Hydrogen,Google,2026-11-12,False,4,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16
+Qwen4 Max,Alibaba,2026-11-16,False,0,Artificial Analysis releases list,VERIFIED,https://artificialanalysis.ai/leaderboards/models,2026-11-16

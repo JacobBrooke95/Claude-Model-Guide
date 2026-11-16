@@ -1,0 +1,19 @@
+benchmark,title,kind,lo,hi,unit,group,source,configuration,n,n_with_eci,n_claude
+swe_bench_pro,SWE-bench Pro,bounded,0.0,100.0,% pass,site,site,"Anthropic system cards, mean of five trials (first-party)",14,13,14
+terminal_bench_2_1,Terminal-Bench 2.1,bounded,0.0,100.0,% completion,site,site,Vals AI harness snapshot,10,10,10
+osworld,OSWorld,bounded,0.0,100.0,% of tasks,site,site,"Anthropic-reported; three eval versions on one series (original, Verified, 2.1 partial credit)",17,16,17
+gdpval_aa,GDPval-AA v2.1,elo,,,Elo,site,site+aa,"Artificial Analysis v2.1, strongest (max-effort) config per release",46,46,14
+rli,Remote Labor Index,bounded,0.0,100.0,% of 240 projects,site,site+hub,Scale AI / CAIS leaderboard; Fable 5.2 Anthropic-reported,17,17,8
+arc_agi_2,ARC-AGI-2,bounded,0.0,100.0,%,site,site+hub,"ARC Prize leaderboard, strongest listed config per model",90,90,17
+arc_agi_3,ARC-AGI-3,bounded,0.0,100.0,%,site,site,"ARC Prize verified, Standard harness, mixed efforts",7,7,7
+hle,Humanity's Last Exam (no tools),bounded,0.0,100.0,"% of 2,500",site,site,"Anthropic system cards, no-tools, max effort / adaptive thinking (first-party)",17,15,17
+forecastbench,ForecastBench (baseline),linear,0.0,100.0,Brier Index,site,site,"ForecastBench baseline board, best config per model; prompt set-ups differ by model",17,16,17
+vending_bench_2,Vending-Bench 2,linear,,,USD,site,site+hub,"Andon Labs leaderboard, mean final balance",61,61,14
+metr_h50,METR 50% time horizon (TH1.1),loghorizon,,,minutes,other,metr,METR-Horizon-v1.1 YAML; coverage ends with Mythos Preview (May 2026),21,20,9
+gpqa_diamond,GPQA Diamond,bounded,25.0,97.0,%,other,hub,"Epoch hub, best score across configs; chance 25%, ceiling 97% per Epoch",177,176,26
+frontiermath_t13,FrontierMath Tiers 1-3,bounded,0.0,95.0,%,other,hub,"Epoch hub (v2 private set), best config; ceiling 95% per Epoch",90,90,14
+terminal_bench_2,Terminal-Bench 2.0,bounded,0.0,100.0,%,other,hub,"Epoch hub 'Terminal Bench', best accuracy per model; coverage ends April 2026",32,32,7
+webdev_arena,WebDev Arena,elo,,,Arena score,other,hub,"Epoch hub copy of LMArena WebDev scores, best per model",80,80,14
+lmarena_text,LMArena text,elo,,,Arena score,other,lmarena,"LMArena text 'overall', latest snapshot per model (style-controlled era)",114,114,23
+aa_index,AA Intelligence Index v5,bounded,0.0,100.0,index,other,aa,"Artificial Analysis v5.0.1, strongest config per release",31,31,7
+vals_index,Vals Index v2.2,bounded,0.0,100.0,% accuracy,other,vals,"Vals Index v2.2 overall, best config per model",23,23,4

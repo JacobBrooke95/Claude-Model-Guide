@@ -1,0 +1,27 @@
+step,item,action,reason
+models,Claude 1 / Instant,added_from_repo,Claude release with no public ECI row
+models,Claude 2.1,added_from_repo,Claude release with no public ECI row
+models,Claude 3 Opus,date_conflict,Epoch 2024-02-29 vs repo 2024-03-04; repo date used (first public availability)
+models,Claude 3 Sonnet,date_conflict,Epoch 2024-02-29 vs repo 2024-03-04; repo date used (first public availability)
+models,Claude 3 Haiku,date_conflict,Epoch 2024-03-07 vs repo 2024-03-13; repo date used (first public availability)
+models,Claude 3.5 Sonnet (new),renamed,-> Epoch name 'Claude 3.5 Sonnet (October 2024)'
+models,Claude 3.5 Haiku,date_conflict,Epoch 2024-10-22 vs repo 2024-11-04; repo date used (first public availability)
+models,Claude Mythos Preview,added_from_repo,Claude release with no public ECI row
+models,Claude Mythos 5,added_from_repo,Claude release with no public ECI row
+models,Claude Mythos 5.1,added_from_repo,Claude release with no public ECI row
+models,Claude Mythos 5.2,added_from_repo,Claude release with no public ECI row
+models,Claude Instant,family_legacy,"in Epoch ECI, not in repo models.json"
+models,Internal Model (unreleased),internal_date_unmatched,no model row (unreleased internal model)
+bench:rli,hub,merged,9 models added; 0 distinct names unmatched to any model row (not in public ECI): e.g. []
+bench:arc_agi_2,hub,merged,"76 models added; 7 distinct names unmatched to any model row (not in public ECI): e.g. ['Gemini 3 Deep Think', 'Inkling 2 Small', 'Magistral Medium 1.1', 'Magistral Small 1.0', 'MiniMax-M2.5', 'codex-mini-2025-05-16']"
+bench:vending_bench_2,hub,merged,"47 models added; 5 distinct names unmatched to any model row (not in public ECI): e.g. ['GPT-5.3 Codex', 'Grok 4.1 Fast', 'MiniMax-M2', 'MiniMax-M2.5', 'Qwen3.5-27B']"
+bench:gpqa_diamond,hub,merged,"177 models added; 52 distinct names unmatched to any model row (not in public ECI): e.g. ['DBRX', 'DeepSeek LLM 67B', 'DeepSeek-R1-Distill-Llama-70B', 'DeepSeek-R1-Distill-Qwen-1.5B', 'DeepSeek-R1-Distill-Qwen-14B', 'DeepSeek-R1-Distill-Qwen-32B']"
+bench:frontiermath_t13,hub,merged,"90 models added; 2 distinct names unmatched to any model row (not in public ECI): e.g. ['GPT-5.5 Instant', 'Qwen3.7 Flash']"
+bench:terminal_bench_2,hub,merged,"32 models added; 13 distinct names unmatched to any model row (not in public ECI): e.g. ['GLM-4.6', 'GPT-5-Codex', 'GPT-5.1-Codex', 'GPT-5.1-Codex-Max', 'GPT-5.1-Codex-mini', 'GPT-5.2 Codex']"
+bench:webdev_arena,hub,merged,"80 models added; 25 distinct names unmatched to any model row (not in public ECI): e.g. ['GLM-4.6', 'GPT-5.1-Codex', 'GPT-5.1-Codex-mini', 'GPT-5.2 Codex', 'GPT-5.3 Codex', 'Grok 4.1']"
+bench:gdpval_aa,aa,merged,"32 models added; 82 distinct names unmatched to any model row (not in public ECI): e.g. ['A.X-K2', 'Agnes 2.5 Pro Beta', 'Agnes 2.5 Pro Theta', 'Apodex 1.1', 'Celeris-1', 'Command A+']"
+bench:aa_index,aa,merged,"31 models added; 30 distinct names unmatched to any model row (not in public ECI): e.g. ['Agnes 2.5 Pro Theta', 'Apodex 1.1', 'Command A+', 'Gemini 4 Hydrogen', 'Gemma 4 31B', 'Granite 4.2 3B']"
+bench:vals_index,vals,merged,"23 models added; 15 distinct names unmatched to any model row (not in public ECI): e.g. ['alibaba/qwen3.8-max-internal', 'alibaba/qwen4-max', 'baseten/nemotron-3.5-super-vl-120b-a12b', 'google/gemini-4-hydrogen', 'inception/mercury-3', 'meta/muse-ember']"
+bench:lmarena_text,lmarena,merged,"114 models added; 639 distinct names unmatched to any model row (not in public ECI): e.g. ['Alpaca 13B', 'Amazon Nova 2 Lite', 'Amazon Nova Lite 1.0', 'Amazon Nova Micro 1.0', 'Amazon Nova Pro 1.0', 'Athene 70B (0725)']"
+bench:metr_h50,gpt_5_1_codex_max,dropped,no model match
+bench:metr_h50,gpt_5_3_codex,dropped,no model match

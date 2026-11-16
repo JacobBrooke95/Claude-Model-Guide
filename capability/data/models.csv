@@ -1,0 +1,263 @@
+model_id,lab,family,version,generation,version_type,access,release_date,release_date_epoch,release_date_repo,internal_date,in_public_eci,eci,eci_lo90,eci_hi90,n_benchmarks_eci,is_anchor,twin,status
+LLaMA-13B,Meta AI,,,,,Open weights (non-commercial),2023-02-24,2023-02-24,,,1,85.42,73.81,95.79,10.0,0,,VERIFIED
+LLaMA-33B,Meta AI,,,,,Open weights (non-commercial),2023-02-24,2023-02-24,,,1,96.64,86.97,104.97,10.0,0,,VERIFIED
+LLaMA-65B,Meta AI,,,,,Open weights (non-commercial),2023-02-24,2023-02-24,,,1,101.68,93.01,109.06,10.0,0,,VERIFIED
+LLaMA-7B,Meta AI,,,,,Open weights (non-commercial),2023-02-24,2023-02-24,,,1,77.53,63.71,89.48,10.0,0,,VERIFIED
+Claude 1 / Instant,Anthropic,legacy,1.0,1.0,,ga,2023-03-14,,2023-03-14,,0,,,,,0,,REPO
+GPT-4 (Mar 2023),OpenAI,,,,,API access,2023-03-14,2023-03-14,,,1,121.77,117.74,125.26,7.0,0,,VERIFIED
+Cerebras-GPT-13B,Cerebras Systems,,,,,Open weights (unrestricted),2023-03-20,2023-03-20,,,1,49.33,26.86,68.67,6.0,0,,VERIFIED
+Dolly 2.0-12b,Databricks,,,,,Open weights (unrestricted),2023-04-11,2023-04-11,,,1,55.82,35.14,73.78,6.0,0,,VERIFIED
+vicuna-13b-v1.1,,,,,,Unknown,2023-04-12,2023-04-12,,,1,76.4,61.46,89.3,7.0,0,,VERIFIED
+Falcon-7B,Technology Innovation Institute,,,,,Open weights (unrestricted),2023-04-24,2023-04-24,,,1,73.37,58.12,86.51,10.0,0,,VERIFIED
+RedPajama-INCITE-7B-Base,,,,,,Unknown,2023-05-04,2023-05-04,,,1,58.01,37.71,75.17,6.0,0,,VERIFIED
+MPT-7B,MosaicML,,,,,Open weights (unrestricted),2023-05-05,2023-05-05,,,1,73.72,59.23,86.28,10.0,0,,VERIFIED
+PaLM 2-L,,,,,,Unknown,2023-05-17,2023-05-17,,,1,114.1,98.86,129.85,4.0,0,,VERIFIED
+PaLM 2-M,,,,,,Unknown,2023-05-17,2023-05-17,,,1,98.32,85.29,110.23,5.0,0,,VERIFIED
+PaLM 2-S,,,,,,Unknown,2023-05-17,2023-05-17,,,1,94.12,80.52,106.08,5.0,0,,VERIFIED
+Falcon-40B,Technology Innovation Institute,,,,,Open weights (unrestricted),2023-05-25,2023-05-25,,,1,90.88,79.76,100.11,10.0,0,,VERIFIED
+open_llama_7b,,,,,,Unknown,2023-06-07,2023-06-07,,,1,64.42,45.98,80.05,6.0,0,,VERIFIED
+GPT-3.5 Turbo (Jun 2023),OpenAI,,,,,API access,2023-06-13,2023-06-13,,,1,105.99,97.61,113.34,4.0,0,,VERIFIED
+GPT-4 (Jun 2023),OpenAI,,,,,API access,2023-06-13,2023-06-13,,,1,120.13,116.39,123.57,11.0,0,,VERIFIED
+MPT-30B,MosaicML,,,,,Open weights (unrestricted),2023-06-22,2023-06-22,,,1,85.49,73.34,95.39,8.0,0,,VERIFIED
+chatglm2-6b,,,,,,Unknown,2023-06-24,2023-06-24,,,1,73.99,58.22,87.26,7.0,0,,VERIFIED
+XGen-7B,Salesforce,,,,,Open weights (unrestricted),2023-06-27,2023-06-27,,,1,70.59,53.99,84.6,6.0,0,,VERIFIED
+internlm-7b,,,,,,Unknown,2023-07-05,2023-07-05,,,1,84.84,72.09,95.6,7.0,0,,VERIFIED
+Claude 2,Anthropic,legacy,2.0,2.0,,ga,2023-07-11,2023-07-11,2023-07-11,,1,117.06,112.46,121.24,6.0,0,,VERIFIED
+Llama 2-13B,Meta AI,,,,,Open weights (restricted use),2023-07-18,2023-07-18,,,1,96.66,87.58,104.62,11.0,0,,VERIFIED
+Llama 2-34B,Meta AI,,,,,Unreleased,2023-07-18,2023-07-18,,,1,94.09,83.74,102.91,8.0,0,,VERIFIED
+Llama 2-70B,Meta AI,,,,,Open weights (restricted use),2023-07-18,2023-07-18,,,1,105.85,99.77,111.11,14.0,0,,VERIFIED
+Llama 2-7B,Meta AI,,,,,Open weights (restricted use),2023-07-18,2023-07-18,,,1,83.38,70.61,94.13,10.0,0,,VERIFIED
+Stable Beluga 2,Stability AI,,,,,Open weights (non-commercial),2023-07-20,2023-07-20,,,1,109.53,102.02,116.1,7.0,0,,VERIFIED
+Claude Instant,Anthropic,legacy,,,,API access,2023-08-09,2023-08-09,,,1,114.16,107.53,120.13,5.0,0,,VERIFIED
+Baichuan2-13B,Baichuan,,,,,Open weights (restricted use),2023-09-06,2023-09-06,,,1,91.97,80.92,101.21,7.0,0,,VERIFIED
+Falcon-180B,Technology Innovation Institute,,,,,Open weights (restricted use),2023-09-06,2023-09-06,,,1,107.11,98.08,115.0,8.0,0,,VERIFIED
+Phi-1.5,Microsoft,,,,,Open weights (unrestricted),2023-09-11,2023-09-11,,,1,68.7,50.94,83.51,5.0,0,,VERIFIED
+internlm-20b,,,,,,Unknown,2023-09-18,2023-09-18,,,1,99.09,89.46,107.32,6.0,0,,VERIFIED
+Baichuan 2-7B,Baichuan,,,,,Open weights (restricted use),2023-09-20,2023-09-20,,,1,83.75,70.67,94.83,6.0,0,,VERIFIED
+Qwen-14B,Alibaba,,,,,Open weights (restricted use),2023-09-24,2023-09-24,,,1,101.86,93.21,109.3,6.0,0,,VERIFIED
+Mistral 7B v0.1,Mistral AI,,,,,Open weights (unrestricted),2023-09-27,2023-09-27,,,1,102.84,94.95,109.55,10.0,0,,VERIFIED
+Qwen-7B,Alibaba,,,,,Open weights (restricted use),2023-09-28,2023-09-28,,,1,89.22,77.66,99.04,6.0,0,,VERIFIED
+DeepSeek Coder 33B,"DeepSeek,Peking University",,,,,Open weights (restricted use),2023-11-02,2023-11-02,,,1,76.59,61.11,90.0,4.0,0,,VERIFIED
+DeepSeek Coder 6.7B,"DeepSeek,Peking University",,,,,Open weights (restricted use),2023-11-02,2023-11-02,,,1,67.77,49.0,82.69,4.0,0,,VERIFIED
+GPT-3.5 Turbo (Nov 2023),OpenAI,,,,,API access,2023-11-06,2023-11-06,,,1,112.91,107.37,117.57,8.0,0,,VERIFIED
+Claude 2.1,Anthropic,legacy,2.1,2.0,,ga,2023-11-21,,2023-11-21,,0,,,,,0,,REPO
+Yi 6B,01.AI,,,,,Open weights (restricted use),2023-11-22,2023-11-22,,,1,94.43,83.72,103.34,6.0,0,,VERIFIED
+Qwen-1_8B,,,,,,Unknown,2023-11-30,2023-11-30,,,1,59.93,40.86,76.12,6.0,0,,VERIFIED
+Mixtral 8x7B,Mistral AI,,,,,Open weights (unrestricted),2023-12-11,2023-12-11,,,1,113.22,108.14,117.66,12.0,0,,VERIFIED
+Phi-2,Microsoft,,,,,Open weights (unrestricted),2023-12-12,2023-12-12,,,1,96.38,86.27,104.55,8.0,0,,VERIFIED
+GPT-3.5 Turbo (Jan 2024),OpenAI,,,,,API access,2024-01-25,2024-01-25,,,1,113.06,107.89,117.64,9.0,0,,VERIFIED
+GPT-4 Turbo (Nov 2023),OpenAI,,,,,API access,2024-01-25,2024-01-25,,,1,124.77,121.4,127.69,6.0,0,,VERIFIED
+StarCoder 2 15B,"Hugging Face,ServiceNow,Nvidia,BigCode",,,,,Open weights (restricted use),2024-02-20,2024-02-20,,,1,96.31,84.69,106.29,4.0,0,,VERIFIED
+StarCoder 2 7B,"Hugging Face,ServiceNow,Nvidia,BigCode",,,,,Open weights (restricted use),2024-02-20,2024-02-20,,,1,72.65,55.19,87.06,4.0,0,,VERIFIED
+Gemma 2B,Google DeepMind,,,,,Open weights (restricted use),2024-02-21,2024-02-21,,,1,76.01,61.36,88.4,8.0,0,,VERIFIED
+Gemma 7B,Google DeepMind,,,,,Open weights (restricted use),2024-02-21,2024-02-21,,,1,103.27,95.38,109.95,10.0,0,,VERIFIED
+StarCoder 2 3B,"Hugging Face,ServiceNow,Nvidia,BigCode",,,,,Open weights (restricted use),2024-02-22,2024-02-22,,,1,66.94,47.63,82.54,4.0,0,,VERIFIED
+Mistral Large,Mistral AI,,,,,API access,2024-02-26,2024-02-26,,,1,119.81,115.53,123.5,5.0,0,,VERIFIED
+Nemotron-4 15B,Nvidia,,,,,Unreleased,2024-02-26,2024-02-26,,,1,99.24,90.07,107.26,7.0,0,,VERIFIED
+Yi-9B,,,,,,Unknown,2024-03-01,2024-03-01,,,1,102.31,90.75,112.18,4.0,0,,VERIFIED
+Claude 3 Opus,Anthropic,opus,3.0,3.0,gen,ga,2024-03-04,2024-02-29,2024-03-04,2024-02-29,1,125.52,122.44,128.23,13.0,0,,VERIFIED
+Claude 3 Sonnet,Anthropic,sonnet,3.0,3.0,gen,ga,2024-03-04,2024-02-29,2024-03-04,,1,119.45,115.15,123.26,7.0,0,,VERIFIED
+Claude 3 Haiku,Anthropic,haiku,3.0,3.0,gen,ga,2024-03-13,2024-03-07,2024-03-13,,1,117.7,113.36,121.45,9.0,0,,VERIFIED
+GPT-4 Turbo (Apr 2024),OpenAI,,,,,API access,2024-04-09,2024-04-09,,,1,125.82,122.58,128.75,8.0,0,,VERIFIED
+CodeQwen1.5-7B,,,,,,Unknown,2024-04-15,2024-04-15,,,1,75.18,58.1,88.84,4.0,0,,VERIFIED
+Mixtral 8x22B,Mistral AI,,,,,Open weights (unrestricted),2024-04-17,2024-04-17,,,1,118.69,114.33,122.62,6.0,0,,VERIFIED
+Llama 3-70B,Meta AI,,,,,Open weights (restricted use),2024-04-18,2024-04-18,,,1,121.22,117.3,124.73,7.0,0,,VERIFIED
+Llama 3-8B,Meta AI,,,,,Open weights (restricted use),2024-04-18,2024-04-18,,,1,109.42,103.76,114.34,10.0,0,,VERIFIED
+phi-3-medium 14B,Microsoft,,,,,Open weights (unrestricted),2024-04-23,2024-04-23,,,1,114.35,109.5,118.71,10.0,0,,VERIFIED
+phi-3-mini 3.8B,Microsoft,,,,,Open weights (unrestricted),2024-04-23,2024-04-23,,,1,110.63,104.05,116.49,8.0,0,,VERIFIED
+phi-3-small 7.4B,Microsoft,,,,,Open weights (unrestricted),2024-04-23,2024-04-23,,,1,116.45,110.61,122.12,8.0,0,,VERIFIED
+"DeepSeek-V2 (MoE-236B, May 2024)",DeepSeek,,,,,Open weights (restricted use),2024-05-07,2024-05-07,,,1,120.88,114.09,127.71,7.0,0,,VERIFIED
+Falcon 2 11B,Technology Innovation Institute,,,,,Open weights (restricted use),2024-05-09,2024-05-09,,,1,99.33,88.61,108.87,4.0,0,,VERIFIED
+GPT-4o (May 2024),OpenAI,,,,,API access,2024-05-13,2024-05-13,,,1,128.16,125.28,130.81,8.0,0,,VERIFIED
+Gemini 1.5 Pro (May 2024),Google DeepMind,,,,,API access,2024-05-14,2024-05-14,,,1,125.31,121.93,128.4,6.0,0,,VERIFIED
+Gemini 1.5 Flash (May 2024),Google DeepMind,,,,,API access,2024-05-23,2024-05-23,,,1,120.42,116.33,124.06,6.0,0,,VERIFIED
+Qwen2-72B,Alibaba,,,,,Open weights (unrestricted),2024-06-07,2024-06-07,,,1,122.3,118.69,125.53,6.0,0,,VERIFIED
+DeepSeek-Coder-V2-Lite-Base,,,,,,Unknown,2024-06-13,2024-06-13,,,1,99.67,88.7,108.69,4.0,0,,VERIFIED
+Claude 3.5 Sonnet,Anthropic,sonnet,3.5,3.0,half,ga,2024-06-20,2024-06-20,2024-06-20,2024-06-17,1,130.0,,,12.0,1,,VERIFIED
+Gemma 2 27B,Google DeepMind,,,,,Open weights (restricted use),2024-06-24,2024-06-24,,,1,118.59,114.18,122.46,6.0,0,,VERIFIED
+Gemma 2 9B,Google DeepMind,,,,,Open weights (restricted use),2024-06-24,2024-06-24,,,1,112.7,106.91,117.71,6.0,0,,VERIFIED
+GPT-4o mini,OpenAI,,,,,API access,2024-07-18,2024-07-18,,,1,123.86,120.46,126.91,19.0,0,,VERIFIED
+Mistral NeMo,Mistral AI,,,,,Open weights (unrestricted),2024-07-18,2024-07-18,,,1,113.88,108.48,118.46,6.0,0,,VERIFIED
+Llama 3.1-405B,Meta AI,,,,,Open weights (restricted use),2024-07-23,2024-07-23,,,1,127.8,124.76,130.52,15.0,0,,VERIFIED
+Llama 3.1-70B,Meta AI,,,,,Open weights (restricted use),2024-07-23,2024-07-23,,,1,124.7,121.4,127.55,9.0,0,,VERIFIED
+Llama 3.1-8B,Meta AI,,,,,Open weights (restricted use),2024-07-23,2024-07-23,,,1,111.14,105.46,116.2,10.0,0,,VERIFIED
+Mistral Large 2 (Jul 2024),Mistral AI,,,,,Open weights (non-commercial),2024-07-24,2024-07-24,,,1,126.34,122.93,129.43,6.0,0,,VERIFIED
+GPT-4o (Aug 2024),OpenAI,,,,,API access,2024-08-06,2024-08-06,,,1,127.05,123.95,129.82,10.0,0,,VERIFIED
+o1-mini,OpenAI,,,,,API access,2024-09-12,2024-09-12,,,1,135.3,133.04,137.43,10.0,0,,VERIFIED
+o1-preview,OpenAI,,,,,API access,2024-09-12,2024-09-12,,,1,133.84,131.2,136.29,8.0,0,,VERIFIED
+Qwen2.5-Coder (1.5B),Alibaba,,,,,Open weights (unrestricted),2024-09-18,2024-09-18,,,1,89.31,76.27,99.99,5.0,0,,VERIFIED
+Qwen2.5-Coder (7B),Alibaba,,,,,Open weights (unrestricted),2024-09-18,2024-09-18,,,1,107.7,97.99,116.17,5.0,0,,VERIFIED
+Qwen2.5-Coder-0.5B,,,,,,Unknown,2024-09-18,2024-09-18,,,1,68.36,48.96,83.62,5.0,0,,VERIFIED
+Qwen2.5-Coder-14B,,,,,,Unknown,2024-09-18,2024-09-18,,,1,113.92,104.8,122.54,5.0,0,,VERIFIED
+Qwen2.5-Coder-32B,Alibaba,,,,,Open weights (unrestricted),2024-09-18,2024-09-18,,,1,118.94,110.07,127.78,5.0,0,,VERIFIED
+Qwen2.5-Coder-3B,,,,,,Unknown,2024-09-18,2024-09-18,,,1,97.17,82.74,109.28,4.0,0,,VERIFIED
+Qwen2.5-72B,Alibaba,,,,,Open weights (unrestricted),2024-09-19,2024-09-19,,,1,127.18,124.21,129.8,18.0,0,,VERIFIED
+Gemini 1.5 Flash (Sep 2024),Google DeepMind,,,,,API access,2024-09-24,2024-09-24,,,1,126.96,123.67,129.9,10.0,0,,VERIFIED
+Gemini 1.5 Pro (Sept 2024),Google DeepMind,,,,,API access,2024-09-24,2024-09-24,,,1,130.37,127.6,132.84,11.0,0,,VERIFIED
+Llama 3.2 90B,Meta AI,,,,,Open weights (restricted use),2024-09-24,2024-09-24,,,1,122.85,119.04,126.2,6.0,0,,VERIFIED
+Claude 3.5 Sonnet (October 2024),Anthropic,sonnet,3.6,3.0,minor,ga,2024-10-22,2024-10-22,2024-10-22,2024-10-10,1,133.43,131.1,135.62,17.0,0,,VERIFIED
+Claude 3.5 Haiku,Anthropic,haiku,3.5,3.0,half,ga,2024-11-04,2024-10-22,2024-11-04,,1,124.93,121.67,127.91,11.0,0,,VERIFIED
+GPT-4o (Nov 2024),OpenAI,,,,,API access,2024-11-20,2024-11-20,,,1,128.84,125.95,131.35,15.0,0,,VERIFIED
+INTELLECT-1,"Prime Intellect,Hugging Face,Arcee AI",,,,,Unknown,2024-11-29,2024-11-29,,,1,83.54,70.8,94.72,6.0,0,,VERIFIED
+Llama 3.3 70B,Meta AI,,,,,Open weights (restricted use),2024-12-06,2024-12-06,,,1,126.13,123.12,128.96,10.0,0,,VERIFIED
+Grok-2 (Dec 2024),xAI,,,,,API access,2024-12-12,2024-12-12,,,1,129.73,126.78,132.31,7.0,0,,VERIFIED
+Phi-4,Microsoft Research,,,,,Open weights (unrestricted),2024-12-12,2024-12-12,,,1,129.04,125.79,131.94,5.0,0,,VERIFIED
+o1,OpenAI,,,,,API access,2024-12-17,2024-12-17,,,1,141.16,139.47,142.84,17.0,0,,VERIFIED
+DeepSeek-V3,DeepSeek,,,,,Open weights (restricted use),2024-12-26,2024-12-26,,,1,131.7,128.94,134.15,14.0,0,,VERIFIED
+DeepSeek-R1,DeepSeek,,,,,Open weights (unrestricted),2025-01-20,2025-01-20,,,1,138.59,136.69,140.38,11.0,0,,VERIFIED
+Gemini 2.0 Flash Thinking (Jan 2025),"Google DeepMind,Google",,,,,API access,2025-01-21,2025-01-21,,,1,133.77,130.68,136.55,6.0,0,,VERIFIED
+Qwen2.5-Max,Alibaba,,,,,API access,2025-01-25,2025-01-25,,,1,131.15,128.17,133.73,6.0,0,,VERIFIED
+o3-mini,OpenAI,,,,,API access,2025-01-31,2025-01-31,,,1,140.61,138.83,142.31,19.0,0,,VERIFIED
+Gemini 2.0 Flash (Feb 2025),"Google DeepMind,Google",,,,,API access,2025-02-05,2025-02-05,,,1,133.94,131.41,136.2,11.0,0,,VERIFIED
+Gemini 2.0 Pro,Google DeepMind,,,,,Hosted access (no API),2025-02-05,2025-02-05,,,1,135.34,132.48,138.01,5.0,0,,VERIFIED
+Claude 3.7 Sonnet,Anthropic,sonnet,3.7,3.0,minor,ga,2025-02-24,2025-02-24,2025-02-24,2025-02-20,1,141.0,139.33,142.58,18.0,0,,VERIFIED
+GPT-4.5,OpenAI,,,,,API access,2025-02-27,2025-02-27,,,1,136.45,134.31,138.45,11.0,0,,VERIFIED
+QwQ-32B,Alibaba,,,,,Open weights (unrestricted),2025-03-05,2025-03-05,,,1,136.48,133.57,139.2,4.0,0,,VERIFIED
+Gemma 3 27B,Google DeepMind,,,,,Open weights (restricted use),2025-03-12,2025-03-12,,,1,127.51,124.29,130.42,8.0,0,,VERIFIED
+DeepSeek-V3 (Mar 2025),DeepSeek,,,,,Open weights (restricted use),2025-03-24,2025-03-24,,,1,135.18,132.9,137.35,10.0,0,,VERIFIED
+Gemini 2.5 Pro (Mar 2025),Google DeepMind,,,,,API access,2025-03-31,2025-03-31,,,1,143.95,142.0,145.95,10.0,0,,VERIFIED
+Llama 4 Scout,Meta AI,,,,,Open weights (restricted use),2025-04-05,2025-04-05,,,1,127.68,124.73,130.29,9.0,0,,VERIFIED
+Llama 4 Maverick,Meta AI,,,,,Open weights (restricted use),2025-04-06,2025-04-06,,,1,132.08,129.58,134.27,13.0,0,,VERIFIED
+Grok 3,xAI,,,,,API access,2025-04-09,2025-04-09,,,1,137.49,135.5,139.3,12.0,0,,VERIFIED
+GPT-4.1,OpenAI,,,,,API access,2025-04-14,2025-04-14,,,1,136.15,134.1,138.03,17.0,0,,VERIFIED
+GPT-4.1 mini,OpenAI,,,,,API access,2025-04-14,2025-04-14,,,1,134.2,131.88,136.34,15.0,0,,VERIFIED
+GPT-4.1 nano,OpenAI,,,,,API access,2025-04-14,2025-04-14,,,1,126.77,123.76,129.43,13.0,0,,VERIFIED
+o3,OpenAI,,,,,API access,2025-04-16,2025-04-16,,,1,147.05,145.54,148.62,25.0,0,,VERIFIED
+o4-mini,OpenAI,,,,,API access,2025-04-16,2025-04-16,,,1,145.25,143.67,146.8,22.0,0,,VERIFIED
+Gemini 2.5 Flash (Apr 2025),Google DeepMind,,,,,API access,2025-04-17,2025-04-17,,,1,140.75,138.33,143.05,7.0,0,,VERIFIED
+Qwen3-235B-A22B,Alibaba,,,,,Open weights (unrestricted),2025-04-28,2025-04-28,,,1,138.42,136.01,140.74,8.0,0,,VERIFIED
+Qwen3-8B,Alibaba,,,,,Open weights (unrestricted),2025-04-28,2025-04-28,,,1,132.09,128.87,135.01,5.0,0,,VERIFIED
+Qwen3-14B,Alibaba,,,,,Open weights (unrestricted),2025-04-29,2025-04-29,,,1,136.14,133.42,138.69,5.0,0,,VERIFIED
+Qwen3-30B-A3B,Alibaba,,,,,Open weights (unrestricted),2025-04-29,2025-04-29,,,1,134.14,131.3,136.77,6.0,0,,VERIFIED
+Qwen3-32B,Alibaba,,,,,Open weights (unrestricted),2025-04-29,2025-04-29,,,1,136.89,134.37,139.28,6.0,0,,VERIFIED
+Gemini 2.5 Pro (May 2025),Google DeepMind,,,,,API access,2025-05-06,2025-05-06,,,1,140.87,138.47,143.31,7.0,0,,VERIFIED
+Mistral Medium 3,Mistral AI,,,,,API access,2025-05-07,2025-05-07,,,1,132.81,130.09,135.26,5.0,0,,VERIFIED
+Gemini 2.5 Flash (May 2025),Google DeepMind,,,,,API access,2025-05-20,2025-05-20,,,1,141.58,139.42,143.67,7.0,0,,VERIFIED
+Claude Opus 4,Anthropic,opus,4.0,4.0,gen,ga,2025-05-22,2025-05-22,2025-05-22,2025-05-19,1,142.9,141.3,144.47,19.0,0,,VERIFIED
+Claude Sonnet 4,Anthropic,sonnet,4.0,4.0,gen,ga,2025-05-22,2025-05-22,2025-05-22,,1,141.86,140.27,143.36,21.0,0,,VERIFIED
+DeepSeek-R1 (May 2025),DeepSeek,,,,,Open weights (unrestricted),2025-05-28,2025-05-28,,,1,140.73,138.8,142.54,11.0,0,,VERIFIED
+Gemini 2.5 Pro (Jun 2025),Google DeepMind,,,,,API access,2025-06-05,2025-06-05,,,1,144.87,143.39,146.33,20.0,0,,VERIFIED
+o3-pro,OpenAI,,,,,API access,2025-06-10,2025-06-10,,,1,147.46,145.61,149.34,7.0,0,,VERIFIED
+Gemini 2.5 Flash (Jun 2025),Google DeepMind,,,,,API access,2025-06-17,2025-06-17,,,1,140.81,138.43,143.04,7.0,0,,VERIFIED
+Gemini 2.5 Flash-Lite (Jun 2025),Google DeepMind,,,,,API access,2025-06-17,2025-06-17,,,1,133.05,129.12,136.84,4.0,0,,VERIFIED
+Grok-3 mini,xAI,,,,,API access,2025-06-24,2025-06-24,,,1,139.88,138.05,141.67,9.0,0,,VERIFIED
+Grok 4,xAI,,,,,API access,2025-07-09,2025-07-09,,,1,146.9,145.4,148.42,17.0,0,,VERIFIED
+Kimi K2 (Jul 2025),Moonshot,,,,,Open weights (restricted use),2025-07-12,2025-07-12,,,1,141.24,138.27,143.93,6.0,0,,VERIFIED
+Qwen3-235B-A22B-Instruct (Jul 2025),Alibaba,,,,,Open weights (unrestricted),2025-07-25,2025-07-25,,,1,138.05,135.76,140.27,7.0,0,,VERIFIED
+Qwen3-235B-A22B-Thinking (Jul 2025),Alibaba,,,,,Open weights (unrestricted),2025-07-25,2025-07-25,,,1,143.21,141.32,145.09,10.0,0,,VERIFIED
+Qwen3-30B-A3B-Instruct (Jul 2025),Alibaba,,,,,Open weights (unrestricted),2025-07-29,2025-07-29,,,1,135.15,132.2,137.97,4.0,0,,VERIFIED
+Qwen3-30B-A3B-Thinking (Jul 2025),Alibaba,,,,,Open weights (unrestricted),2025-07-30,2025-07-30,,,1,138.35,135.6,140.96,4.0,0,,VERIFIED
+Claude Opus 4.1,Anthropic,opus,4.1,4.0,minor,ga,2025-08-05,2025-08-05,2025-08-05,,1,144.84,142.99,146.6,16.0,0,,VERIFIED
+gpt-oss-120b,OpenAI,,,,,Open weights (unrestricted),2025-08-05,2025-08-05,,,1,140.16,138.18,142.05,13.0,0,,VERIFIED
+gpt-oss-20b,OpenAI,,,,,Open weights (unrestricted),2025-08-05,2025-08-05,,,1,134.97,132.27,137.46,6.0,0,,VERIFIED
+GPT-5,OpenAI,,,,,API access,2025-08-07,2025-08-07,,,1,150.0,,,28.0,1,,VERIFIED
+GPT-5 mini,OpenAI,,,,,API access,2025-08-07,2025-08-07,,,1,146.09,144.57,147.62,17.0,0,,VERIFIED
+GPT-5 nano,OpenAI,,,,,API access,2025-08-07,2025-08-07,,,1,139.1,137.04,141.05,17.0,0,,VERIFIED
+DeepSeek-V3.1,DeepSeek,,,,,Open weights (unrestricted),2025-08-21,2025-08-21,,,1,140.85,137.55,143.95,5.0,0,,VERIFIED
+Grok 4 Fast,xAI,,,,,API access,2025-09-19,2025-09-19,,,1,144.31,142.2,146.41,6.0,0,,VERIFIED
+Qwen3-Max,Alibaba,,,,,API access,2025-09-24,2025-09-24,,,1,142.57,140.55,144.58,10.0,0,,VERIFIED
+Gemini 2.5 Flash (Sep 2025),Google DeepMind,,,,,API access,2025-09-25,2025-09-25,,,1,141.93,139.12,144.59,4.0,0,,VERIFIED
+Claude Sonnet 4.5,Anthropic,sonnet,4.5,4.0,half,ga,2025-09-29,2025-09-29,2025-09-29,2025-09-22,1,147.63,146.17,149.15,26.0,0,,VERIFIED
+DeepSeek-V3.2-Exp,DeepSeek,,,,,Open weights (unrestricted),2025-09-29,2025-09-29,,,1,144.38,142.14,146.76,8.0,0,,VERIFIED
+GPT-5 Pro,OpenAI,,,,,API access,2025-10-07,2025-10-07,,,1,151.23,149.31,153.29,7.0,0,,VERIFIED
+Claude Haiku 4.5,Anthropic,haiku,4.5,4.0,gen,ga,2025-10-15,2025-10-15,2025-10-15,,1,142.83,141.13,144.48,16.0,0,,VERIFIED
+Kimi K2 Thinking,Moonshot,,,,,Open weights (restricted use),2025-11-06,2025-11-06,,,1,145.43,143.58,147.25,9.0,0,,VERIFIED
+GPT-5.1,OpenAI,,,,,API access,2025-11-13,2025-11-13,,,1,150.94,149.36,152.58,19.0,0,,VERIFIED
+Gemini 3 Pro,Google DeepMind,,,,,API access,2025-11-18,2025-11-18,,,1,152.98,151.37,154.69,19.0,0,,VERIFIED
+Claude Opus 4.5,Anthropic,opus,4.5,4.0,half,ga,2025-11-24,2025-11-24,2025-11-24,2025-11-19,1,151.92,150.32,153.58,29.0,0,,VERIFIED
+DeepSeek-V3.2,DeepSeek,,,,,Open weights (unrestricted),2025-12-01,2025-12-01,,,1,146.25,144.72,147.79,14.0,0,,VERIFIED
+GPT-5.2,OpenAI,,,,,API access,2025-12-11,2025-12-11,,,1,154.46,152.83,156.22,26.0,0,,VERIFIED
+GPT-5.2 Pro,OpenAI,,,,,API access,2025-12-11,2025-12-11,,,1,157.27,154.92,159.87,6.0,0,,VERIFIED
+Gemini 3 Flash,Google DeepMind,,,,,API access,2025-12-17,2025-12-17,,,1,152.32,150.75,154.03,20.0,0,,VERIFIED
+GLM-4.7,Z.ai (Zhipu AI),,,,,Open weights (unrestricted),2025-12-22,2025-12-22,,,1,143.28,141.29,145.28,11.0,0,,VERIFIED
+Kimi K2.5,Moonshot,,,,,Open weights (unrestricted),2026-01-27,2026-01-27,,,1,148.76,147.22,150.35,14.0,0,,VERIFIED
+Claude Opus 4.6,Anthropic,opus,4.6,4.0,minor,ga,2026-02-05,2026-02-05,2026-02-05,2026-01-24,1,156.34,154.55,158.31,27.0,0,,VERIFIED
+GLM-5,Z.ai (Zhipu AI),,,,,Open weights (unrestricted),2026-02-11,2026-02-11,,,1,146.48,144.84,148.16,10.0,0,,VERIFIED
+Qwen3.5 397B-A17B,Alibaba,,,,,Open weights (unrestricted),2026-02-13,2026-02-13,,,1,147.9,145.75,150.12,7.0,0,,VERIFIED
+Qwen 3.5 Plus (hosted 397B-A17B),Alibaba,,,,,Unknown,2026-02-16,2026-02-16,,,1,147.29,145.42,149.21,11.0,0,,VERIFIED
+Claude Sonnet 4.6,Anthropic,sonnet,4.6,4.0,minor,ga,2026-02-17,2026-02-17,2026-02-17,,1,152.86,151.17,154.65,21.0,0,,VERIFIED
+Grok 4.20,xAI,,,,,API access,2026-02-17,2026-02-17,,,1,152.28,150.58,154.08,15.0,0,,VERIFIED
+Gemini 3.1 Pro,Google DeepMind,,,,,API access,2026-02-19,2026-02-19,,,1,156.18,154.39,158.14,28.0,0,,VERIFIED
+Qwen3.5-35B-A3B,Alibaba,,,,,Open weights (unrestricted),2026-02-24,2026-02-24,,,1,143.98,141.41,146.63,4.0,0,,VERIFIED
+Qwen3.5-9B,Alibaba,,,,,Open weights (restricted use),2026-02-24,2026-02-24,,,1,139.32,136.95,141.58,5.0,0,,VERIFIED
+Qwen 3.5 Flash (hosted 35B-A3B),Alibaba,,,,,Unknown,2026-02-25,2026-02-25,,,1,143.81,141.84,145.74,9.0,0,,VERIFIED
+Gemini 3.1 Flash-Lite,Google,,,,,API access,2026-03-03,2026-03-03,,,1,145.01,142.75,147.21,8.0,0,,VERIFIED
+GPT-5.4,OpenAI,,,,,API access,2026-03-05,2026-03-05,,,1,157.85,155.93,159.9,24.0,0,,VERIFIED
+GPT-5.4 Pro,OpenAI,,,,,API access,2026-03-05,2026-03-05,,,1,160.24,157.75,163.04,9.0,0,,VERIFIED
+GPT-5.4 Mini,OpenAI,,,,,API access,2026-03-17,2026-03-17,,,1,149.34,147.68,151.06,15.0,0,,VERIFIED
+GPT-5.4 Nano,OpenAI,,,,,API access,2026-03-17,2026-03-17,,,1,146.4,144.72,148.1,13.0,0,,VERIFIED
+Qwen 3.6 Plus,Alibaba,,,,,API access,2026-03-31,2026-03-31,,,1,148.88,146.81,151.03,10.0,0,,VERIFIED
+Gemma 4 26B A4B,Google DeepMind,,,,,Open weights (unrestricted),2026-04-02,2026-04-02,,,1,141.64,139.09,144.14,5.0,0,,VERIFIED
+Gemma 4 31B IT,Google DeepMind,,,,,Open weights (restricted use),2026-04-02,2026-04-02,,,1,144.27,141.71,146.83,7.0,0,,VERIFIED
+Claude Mythos Preview,Anthropic,mythos,4.9,5.0,gen,restricted,2026-04-07,,2026-04-07,2026-04-01,0,,,,,0,,REPO
+GLM-5.1,Z.ai (Zhipu AI),,,,,Open weights (unrestricted),2026-04-07,2026-04-07,,,1,150.73,148.59,152.88,11.0,0,,VERIFIED
+Muse Spark,Meta AI,,,,,API access,2026-04-08,2026-04-08,,,1,153.14,151.01,155.43,5.0,0,,VERIFIED
+Qwen 3.6 35B-A3B,Alibaba,,,,,Open weights (unrestricted),2026-04-14,2026-04-14,,,1,144.02,142.08,145.9,9.0,0,,VERIFIED
+Claude Opus 4.7,Anthropic,opus,4.7,4.0,minor,ga,2026-04-16,2026-04-16,2026-04-16,,1,157.44,155.52,159.56,24.0,0,,VERIFIED
+Grok 4.3 Beta,xAI,,,,,Hosted access (no API),2026-04-17,2026-04-17,,,1,149.89,147.95,151.87,11.0,0,,VERIFIED
+Kimi K2.6,Moonshot,,,,,Open weights (unrestricted),2026-04-20,2026-04-20,,,1,151.56,149.79,153.46,15.0,0,,VERIFIED
+Qwen 3.6 Max (Preview),Alibaba,,,,,Unknown,2026-04-20,2026-04-20,,,1,149.83,147.87,151.99,9.0,0,,VERIFIED
+Qwen3.6 27B,Alibaba,,,,,Open weights (unrestricted),2026-04-22,2026-04-22,,,1,146.73,144.48,149.04,6.0,0,,VERIFIED
+GPT-5.5,OpenAI,,,,,API access,2026-04-23,2026-04-23,,,1,160.1,158.12,162.36,28.0,0,,VERIFIED
+GPT-5.5 Pro,OpenAI,,,,,API access,2026-04-23,2026-04-23,,,1,162.7,159.98,165.86,10.0,0,,VERIFIED
+DeepSeek-V4-Flash,DeepSeek,,,,,Open weights (unrestricted),2026-04-24,2026-04-24,,,1,146.85,143.58,150.14,4.0,0,,VERIFIED
+DeepSeek-V4-Pro,DeepSeek,,,,,Open weights (unrestricted),2026-04-24,2026-04-24,,,1,150.17,148.4,152.01,14.0,0,,VERIFIED
+Qwen 3.6 Flash,Alibaba,,,,,Unknown,2026-04-27,2026-04-27,,,1,143.65,141.63,145.66,10.0,0,,VERIFIED
+Mistral Medium 3.5,Mistral AI,,,,,Open weights (restricted use),2026-04-28,2026-04-28,,,1,141.59,138.38,144.64,6.0,0,,VERIFIED
+Gemini 3.5 Flash,Google DeepMind,,,,,API access,2026-05-19,2026-05-19,,,1,155.28,153.47,157.27,18.0,0,,VERIFIED
+Qwen3.7-Max,Alibaba,,,,,API access,2026-05-19,2026-05-19,,,1,154.54,152.52,156.67,12.0,0,,VERIFIED
+Claude Opus 4.8,Anthropic,opus,4.8,4.0,minor,ga,2026-05-28,2026-05-28,2026-05-28,,1,159.94,157.86,162.2,26.0,0,,VERIFIED
+MiniMax-M3,MiniMax,,,,,Open weights (restricted use),2026-06-01,2026-06-01,,,1,147.74,145.56,149.98,12.0,0,,VERIFIED
+Qwen3.7-Plus,Alibaba,,,,,API access,2026-06-02,2026-06-02,,,1,147.87,145.8,149.96,8.0,0,,VERIFIED
+Nemotron 3 Ultra,Nvidia,,,,,Open weights (unrestricted),2026-06-04,2026-06-04,,,1,146.95,144.75,149.19,10.0,0,,VERIFIED
+Claude Fable 5,Anthropic,fable,5.0,5.0,gen,ga,2026-06-09,2026-06-09,2026-06-09,,1,164.13,161.68,166.83,26.0,0,Claude Mythos 5,VERIFIED
+Claude Mythos 5,Anthropic,mythos,5.0,5.0,minor,restricted,2026-06-09,,2026-06-09,2026-06-01,0,,,,,0,Claude Fable 5,REPO
+Kimi K2.7 Code,Moonshot,,,,,Open weights (unrestricted),2026-06-12,2026-06-12,,,1,151.15,149.08,153.28,11.0,0,,VERIFIED
+GLM-5.2,Z.ai (Zhipu AI),,,,,Open weights (unrestricted),2026-06-16,2026-06-16,,,1,153.03,151.34,154.83,20.0,0,,VERIFIED
+Claude Sonnet 5,Anthropic,sonnet,5.0,5.0,gen,ga,2026-06-30,2026-06-30,2026-06-30,,1,156.94,154.84,159.2,18.0,0,,VERIFIED
+Grok 4.5,xAI,,,,,API access,2026-07-08,2026-07-08,,,1,154.98,153.22,156.88,19.0,0,,VERIFIED
+GPT-5.6 Luna,OpenAI,,,,,API access,2026-07-09,2026-07-09,,,1,156.67,154.83,158.69,21.0,0,,VERIFIED
+GPT-5.6 Sol,OpenAI,,,,,API access,2026-07-09,2026-07-09,,,1,162.99,160.68,165.49,27.0,0,,VERIFIED
+GPT-5.6 Terra,OpenAI,,,,,API access,2026-07-09,2026-07-09,,,1,160.73,158.47,163.25,20.0,0,,VERIFIED
+Muse Spark 1.1,Meta AI,,,,,API access,2026-07-09,2026-07-09,,,1,154.87,152.25,157.62,7.0,0,,VERIFIED
+Inkling,Thinking Machines,,,,,Open weights (unrestricted),2026-07-15,2026-07-15,,,1,148.39,146.77,150.01,17.0,0,,VERIFIED
+Inkling-Small,Thinking Machines,,,,,Open weights (unrestricted),2026-07-15,2026-07-15,,,1,150.75,149.0,152.61,9.0,0,,VERIFIED
+Kimi K3,Moonshot,,,,,Open weights (non-commercial),2026-07-16,2026-07-16,,,1,158.58,156.6,160.8,22.0,0,,VERIFIED
+Gemini 3.5 Flash-Lite,Google DeepMind,,,,,API access,2026-07-21,2026-07-21,,,1,145.63,143.98,147.33,13.0,0,,VERIFIED
+Gemini 3.6 Flash,Google DeepMind,,,,,API access,2026-07-21,2026-07-21,,,1,155.21,153.39,157.2,17.0,0,,VERIFIED
+Claude Opus 5,Anthropic,opus,5.0,5.0,gen,ga,2026-07-24,2026-07-24,2026-07-24,2026-07-17,1,164.68,162.14,167.49,24.0,0,,VERIFIED
+DeepSeek V4 Flash 0731,DeepSeek,,,,,Open weights (unrestricted),2026-07-31,2026-07-31,,,1,154.41,152.56,156.38,15.0,0,,VERIFIED
+Qwen 3.8 Max,Alibaba,,,,,API access,2026-08-02,2026-08-02,,,1,157.59,155.42,159.96,13.0,0,,VERIFIED
+Muse Spark 1.2,Meta AI,,,,,API access,2026-08-05,2026-08-05,,,1,155.04,152.77,157.54,9.0,0,,VERIFIED
+Grok 4.6,xAI,,,,,API access,2026-08-12,2026-08-12,,,1,157.79,155.77,159.95,20.0,0,,VERIFIED
+DeepSeek V4 Pro 0813,DeepSeek,,,,,Open weights (unrestricted),2026-08-13,2026-08-13,,,1,155.94,154.06,158.01,16.0,0,,VERIFIED
+Gemini 3.7 Flash,Google DeepMind,,,,,API access,2026-08-13,2026-08-13,,,1,158.36,156.35,160.59,18.0,0,,VERIFIED
+GLM-5.3,Z.ai (Zhipu AI),,,,,Open weights (restricted use),2026-08-14,2026-08-14,,,1,157.1,154.94,159.53,16.0,0,,VERIFIED
+Qwen 3.8 27B,Alibaba,,,,,Open weights (unrestricted),2026-08-14,2026-08-14,,,1,152.64,150.64,154.76,9.0,0,,VERIFIED
+GLM-5.3-Flash,Z.ai (Zhipu AI),,,,,Open weights (unrestricted),2026-08-20,2026-08-20,,,1,153.82,152.0,155.78,14.0,0,,VERIFIED
+Claude Fable 5.1,Anthropic,fable,5.1,5.0,minor,ga,2026-09-01,2026-09-01,2026-09-01,,1,166.99,164.23,170.11,25.0,0,Claude Mythos 5.1,VERIFIED
+Claude Mythos 5.1,Anthropic,mythos,5.1,5.0,minor,restricted,2026-09-01,,2026-09-01,2026-08-07,0,,,,,0,Claude Fable 5.1,REPO
+Qwen3.8 Max (0902),Alibaba,,,,,API access,2026-09-01,2026-09-01,,,1,155.97,153.85,158.27,9.0,0,,VERIFIED
+Gemini 3.8 Flash,Google DeepMind,,,,,API access,2026-09-02,2026-09-02,,,1,158.79,156.77,160.94,23.0,0,,VERIFIED
+Muse Spark 1.3,Meta AI,,,,,API access,2026-09-02,2026-09-02,,,1,158.24,156.03,160.58,14.0,0,,VERIFIED
+GPT-6 Astra,OpenAI,,,,,API access,2026-09-03,2026-09-03,,,1,169.0,166.08,172.26,26.0,0,,VERIFIED
+DeepSeek V4.1 Flash,DeepSeek,,,,,Open weights (unrestricted),2026-09-09,2026-09-09,,,1,156.7,154.79,158.78,19.0,0,,VERIFIED
+Grok 4.7,xAI,,,,,API access,2026-09-21,2026-09-21,,,1,156.18,154.23,158.27,19.0,0,,VERIFIED
+Claude Opus 5.5,Anthropic,opus,5.5,5.0,half,ga,2026-09-22,2026-09-22,2026-09-22,2026-09-09,1,168.54,165.63,171.83,23.0,0,,VERIFIED
+GPT-6 Luna,OpenAI,,,,,API access,2026-09-22,2026-09-22,,,1,156.41,154.45,158.5,18.0,0,,VERIFIED
+GPT-6 Sol,OpenAI,,,,,API access,2026-09-22,2026-09-22,,,1,163.75,161.33,166.42,20.0,0,,VERIFIED
+Claude Sonnet 5.5,Anthropic,sonnet,5.5,5.0,half,ga,2026-09-28,2026-09-28,2026-09-28,,1,166.56,163.76,169.58,20.0,0,,VERIFIED
+GPT-6.1 Sol,OpenAI,,,,,API access,2026-09-29,2026-09-29,,,1,168.48,165.49,171.8,21.0,0,,VERIFIED
+Gemini 4 Argon,Google DeepMind,,,,,Limited access,2026-09-30,2026-09-30,,,1,166.48,163.77,169.46,22.0,0,,VERIFIED
+Beam 1.0,Reflection,,,,,Open weights (unrestricted),2026-10-05,2026-10-05,,,1,150.91,148.73,153.16,4.0,0,,VERIFIED
+Mistral Large 4 Preview,Mistral AI,,,,,Open weights (restricted use),2026-10-06,2026-10-06,,,1,152.69,150.85,154.7,16.0,0,,VERIFIED
+Claude Haiku 5.5,Anthropic,haiku,5.5,5.0,gen,ga,2026-10-07,2026-10-07,2026-10-07,,1,160.43,158.27,162.87,19.0,0,,VERIFIED
+Muse Wonder,Meta AI,,,,,API access,2026-10-12,2026-10-12,,,1,161.68,159.36,164.34,13.0,0,,VERIFIED
+Muse Spark Open,Meta AI,,,,,Open weights (restricted use),2026-10-15,2026-10-15,,,1,155.42,153.36,157.7,8.0,0,,VERIFIED
+DeepSeek V4.1 Flash 1017,DeepSeek,,,,,Open weights (unrestricted),2026-10-17,2026-10-17,,,1,159.41,157.01,162.0,11.0,0,,VERIFIED
+Kimi K3.1 Pro,Moonshot,,,,,Open weights (restricted use),2026-10-23,2026-10-23,,,1,161.37,158.99,164.0,13.0,0,,VERIFIED
+GPT-6.1 Terra,OpenAI,,,,,API access,2026-10-26,2026-10-26,,,1,167.67,164.73,170.98,13.0,0,,VERIFIED
+Gemini 4 Carbon,Google DeepMind,,,,,Unreleased,2026-10-28,2026-10-28,,,1,169.76,166.48,173.5,14.0,0,,VERIFIED
+Mistral Large 4,Mistral AI,,,,,Open weights (restricted use),2026-10-29,2026-10-29,,,1,154.62,151.79,157.54,7.0,0,,VERIFIED
+Claude Fable 5.2,Anthropic,fable,5.2,5.0,minor,ga,2026-11-09,2026-11-09,2026-11-09,,1,173.44,169.93,177.49,19.0,0,Claude Mythos 5.2,VERIFIED
+Claude Mythos 5.2,Anthropic,mythos,5.2,5.0,minor,restricted,2026-11-09,,2026-11-09,2026-09-23,0,,,,,0,Claude Fable 5.2,REPO

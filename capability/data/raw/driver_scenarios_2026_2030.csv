@@ -1,0 +1,14 @@
+driver,scenario,2027,2028,2029,2030,cumulative_2026_to_2030,unit,basis,verified,as_of
+frontier training compute growth,low,2.5,2.0,1.5,1.5,11x (1.05 OOM),x/year,chip-sales stock growth 2.5x/yr (Epoch) then lead-time/capital slowdown (Edelman & Ho); binding export/power constraints,ANALYST SCENARIO,2026-11-16
+frontier training compute growth,central,5,4,3,2.5,150x (2.2 OOM),x/year,"Epoch 5x/yr continues 1-2 more years via reallocation to training, then converges toward stock growth ~2.5x/yr",ANALYST SCENARIO,2026-11-16
+frontier training compute growth,high,5,5,5,5,625x (2.8 OOM),x/year,Epoch trend 4-6x/yr holds to 2030; within Epoch 2e29 FLOP feasibility (~1e4x GPT-4),ANALYST SCENARIO,2026-11-16
+algorithmic efficiency,low,2,2,2,2,16x (1.2 OOM),x/year,lower end of Ho 2024 95% CI (1.8x),ANALYST SCENARIO,2026-11-16
+algorithmic efficiency,central,3,3,3,3,81x (1.9 OOM),x/year,Ho 2024 ~2.8x; Gundlach 3x; Whitfill 3.5x,ANALYST SCENARIO,2026-11-16
+algorithmic efficiency,high,6,6,6,6,1296x (3.1 OOM),x/year,Rosetta central 6x (range 1-50x); AI R&D automation not separately added,ANALYST SCENARIO,2026-11-16
+effective compute (training x algorithms),low,5,4,3,3,180x (2.3 OOM),x/year,product of low rows,ANALYST SCENARIO,2026-11-16
+effective compute (training x algorithms),central,15,12,9,7.5,12150x (4.1 OOM),x/year,product of central rows,ANALYST SCENARIO,2026-11-16
+effective compute (training x algorithms),high,30,30,30,30,810000x (5.9 OOM),x/year,product of high rows,ANALYST SCENARIO,2026-11-16
+frontier public ECI slope,low,10,8,7,7,+32 ECI over 4 years,ECI points/year,reversion toward pre-reasoning 8.0/yr (Epoch Bayesian) as compute growth halves; Whitfill proportionality,ANALYST SCENARIO,2026-11-16
+frontier public ECI slope,central,17,17,16,15,+65 ECI over 4 years,ECI points/year,Epoch reasoning-era 16.6 (14.6-18.7); trailing-12-month backtest near-unbiased,ANALYST SCENARIO,2026-11-16
+frontier public ECI slope,high,22,27,35,45,+129 ECI over 4 years,ECI points/year,"Anthropic AECI slope change 1.88x persists and compounds; FutureSearch 2029 p50 27.3, p75 42.7, p90 74",ANALYST SCENARIO,2026-11-16
+Anthropic fixed purchase commitments due (floor on compute spend),contracted,28.4,43.5,46.9,44.2,$451.6B committed before end-2030 incl. leases and non-table items,USD billion/year,"S-1/A contractual obligations table as of 2026-09-30; flat after 2028 because later capacity is not yet contracted, not because growth stops",VERIFIED (S-1/A),2026-11-16

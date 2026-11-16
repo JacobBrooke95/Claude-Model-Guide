@@ -1,0 +1,865 @@
+benchmark,model_id,value,source,config,status,lab,family,release_date,eci
+aa_index,gpt-oss-120b,3.8198,aa,max over configs,VERIFIED,OpenAI,,2025-08-05,140.16
+aa_index,Claude Haiku 4.5,7.4303,aa,max over configs,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+aa_index,Mistral Medium 3.5,4.6451,aa,max over configs,VERIFIED,Mistral AI,,2026-04-28,141.59
+aa_index,MiniMax-M3,18.8789,aa,max over configs,VERIFIED,MiniMax,,2026-06-01,147.74
+aa_index,Inkling,12.4782,aa,max over configs,VERIFIED,Thinking Machines,,2026-07-15,148.39
+aa_index,Inkling-Small,12.9102,aa,max over configs,VERIFIED,Thinking Machines,,2026-07-15,150.75
+aa_index,Gemini 3.5 Flash-Lite,11.6563,aa,max over configs,VERIFIED,Google DeepMind,,2026-07-21,145.63
+aa_index,Claude Opus 5,44.1646,aa,max over configs,VERIFIED,Anthropic,opus,2026-07-24,164.68
+aa_index,DeepSeek V4 Pro 0813,23.0633,aa,max over configs,VERIFIED,DeepSeek,,2026-08-13,155.94
+aa_index,GLM-5.3,31.6534,aa,max over configs,VERIFIED,Z.ai (Zhipu AI),,2026-08-14,157.1
+aa_index,Qwen 3.8 27B,20.1069,aa,max over configs,VERIFIED,Alibaba,,2026-08-14,152.64
+aa_index,GLM-5.3-Flash,27.8039,aa,max over configs,VERIFIED,Z.ai (Zhipu AI),,2026-08-20,153.82
+aa_index,Claude Fable 5.1,50.0216,aa,max over configs,VERIFIED,Anthropic,fable,2026-09-01,166.99
+aa_index,Gemini 3.8 Flash,30.8468,aa,max over configs,VERIFIED,Google DeepMind,,2026-09-02,158.79
+aa_index,GPT-6 Astra,56.8539,aa,max over configs,VERIFIED,OpenAI,,2026-09-03,169.0
+aa_index,Grok 4.7,35.485,aa,max over configs,VERIFIED,xAI,,2026-09-21,156.18
+aa_index,Claude Opus 5.5,59.106,aa,max over configs,VERIFIED,Anthropic,opus,2026-09-22,168.54
+aa_index,GPT-6 Luna,27.8552,aa,max over configs,VERIFIED,OpenAI,,2026-09-22,156.41
+aa_index,Claude Sonnet 5.5,54.5413,aa,max over configs,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+aa_index,GPT-6.1 Sol,54.6087,aa,max over configs,VERIFIED,OpenAI,,2026-09-29,168.48
+aa_index,Gemini 4 Argon,50.4122,aa,max over configs,VERIFIED,Google DeepMind,,2026-09-30,166.48
+aa_index,Beam 1.0,17.7307,aa,max over configs,VERIFIED,Reflection,,2026-10-05,150.91
+aa_index,Claude Haiku 5.5,36.4845,aa,max over configs,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+aa_index,Muse Wonder,43.5748,aa,max over configs,VERIFIED,Meta AI,,2026-10-12,161.68
+aa_index,Muse Spark Open,24.8816,aa,max over configs,VERIFIED,Meta AI,,2026-10-15,155.42
+aa_index,DeepSeek V4.1 Flash 1017,32.5896,aa,max over configs,VERIFIED,DeepSeek,,2026-10-17,159.41
+aa_index,Kimi K3.1 Pro,46.4526,aa,max over configs,VERIFIED,Moonshot,,2026-10-23,161.37
+aa_index,GPT-6.1 Terra,51.3265,aa,max over configs,VERIFIED,OpenAI,,2026-10-26,167.67
+aa_index,Gemini 4 Carbon,60.0257,aa,max over configs,VERIFIED,Google DeepMind,,2026-10-28,169.76
+aa_index,Mistral Large 4,26.125,aa,max over configs,VERIFIED,Mistral AI,,2026-10-29,154.62
+aa_index,Claude Fable 5.2,64.5636,aa,max over configs,VERIFIED,Anthropic,fable,2026-11-09,173.44
+arc_agi_2,GPT-4o mini,0.0,hub,best config per model,VERIFIED,OpenAI,,2024-07-18,123.86
+arc_agi_2,o1-mini,0.83,hub,best config per model,VERIFIED,OpenAI,,2024-09-12,135.3
+arc_agi_2,Gemini 1.5 Pro (Sept 2024),0.8,hub,best config per model,VERIFIED,Google DeepMind,,2024-09-24,130.37
+arc_agi_2,GPT-4o (Nov 2024),0.0,hub,best config per model,VERIFIED,OpenAI,,2024-11-20,128.84
+arc_agi_2,DeepSeek-R1,1.3,hub,best config per model,VERIFIED,DeepSeek,,2025-01-20,138.59
+arc_agi_2,o3-mini,2.9899999999999998,hub,best config per model,VERIFIED,OpenAI,,2025-01-31,140.61
+arc_agi_2,Gemini 2.0 Flash (Feb 2025),1.3,hub,best config per model,VERIFIED,"Google DeepMind,Google",,2025-02-05,133.94
+arc_agi_2,Claude 3.7 Sonnet,0.8999999999999999,hub,best config per model,VERIFIED,Anthropic,sonnet,2025-02-24,141.0
+arc_agi_2,GPT-4.5,0.8,hub,best config per model,VERIFIED,OpenAI,,2025-02-27,136.45
+arc_agi_2,Llama 4 Scout,0.0,hub,best config per model,VERIFIED,Meta AI,,2025-04-05,127.68
+arc_agi_2,Llama 4 Maverick,0.0,hub,best config per model,VERIFIED,Meta AI,,2025-04-06,132.08
+arc_agi_2,Grok 3,0.0,hub,best config per model,VERIFIED,xAI,,2025-04-09,137.49
+arc_agi_2,GPT-4.1,0.42,hub,best config per model,VERIFIED,OpenAI,,2025-04-14,136.15
+arc_agi_2,GPT-4.1 mini,0.0,hub,best config per model,VERIFIED,OpenAI,,2025-04-14,134.2
+arc_agi_2,GPT-4.1 nano,0.0,hub,best config per model,VERIFIED,OpenAI,,2025-04-14,126.77
+arc_agi_2,o3,6.529999999999999,hub,best config per model,VERIFIED,OpenAI,,2025-04-16,147.05
+arc_agi_2,o4-mini,6.11,hub,best config per model,VERIFIED,OpenAI,,2025-04-16,145.25
+arc_agi_2,Gemini 2.5 Flash (May 2025),2.54,hub,best config per model,VERIFIED,Google DeepMind,,2025-05-20,141.58
+arc_agi_2,Claude Opus 4,8.61,hub,best config per model,VERIFIED,Anthropic,opus,2025-05-22,142.9
+arc_agi_2,Claude Sonnet 4,5.93,hub,best config per model,VERIFIED,Anthropic,sonnet,2025-05-22,141.86
+arc_agi_2,DeepSeek-R1 (May 2025),1.1199999999999999,hub,best config per model,VERIFIED,DeepSeek,,2025-05-28,140.73
+arc_agi_2,Gemini 2.5 Pro (Jun 2025),4.859999999999999,hub,best config per model,VERIFIED,Google DeepMind,,2025-06-05,144.87
+arc_agi_2,o3-pro,4.859999999999999,hub,best config per model,VERIFIED,OpenAI,,2025-06-10,147.46
+arc_agi_2,Grok-3 mini,0.42,hub,best config per model,VERIFIED,xAI,,2025-06-24,139.88
+arc_agi_2,Grok 4,15.975,hub,best config per model,VERIFIED,xAI,,2025-07-09,146.9
+arc_agi_2,Qwen3-235B-A22B-Instruct (Jul 2025),1.25,hub,best config per model,VERIFIED,Alibaba,,2025-07-25,138.05
+arc_agi_2,GPT-5,9.86,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,150.0
+arc_agi_2,GPT-5 mini,4.44,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,146.09
+arc_agi_2,GPT-5 nano,2.6100000000000003,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,139.1
+arc_agi_2,Grok 4 Fast,5.28,hub,best config per model,VERIFIED,xAI,,2025-09-19,144.31
+arc_agi_2,Claude Sonnet 4.5,13.6,site,,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+arc_agi_2,GPT-5 Pro,18.33,hub,best config per model,VERIFIED,OpenAI,,2025-10-07,151.23
+arc_agi_2,Claude Haiku 4.5,4.0,site,,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+arc_agi_2,GPT-5.1,17.64,hub,best config per model,VERIFIED,OpenAI,,2025-11-13,150.94
+arc_agi_2,Gemini 3 Pro,31.11,hub,best config per model,VERIFIED,Google DeepMind,,2025-11-18,152.98
+arc_agi_2,Claude Opus 4.5,37.6,site,,VERIFIED,Anthropic,opus,2025-11-24,151.92
+arc_agi_2,DeepSeek-V3.2,4.03,hub,best config per model,VERIFIED,DeepSeek,,2025-12-01,146.25
+arc_agi_2,GPT-5.2,52.910000000000004,hub,best config per model,VERIFIED,OpenAI,,2025-12-11,154.46
+arc_agi_2,GPT-5.2 Pro,54.16,hub,best config per model,VERIFIED,OpenAI,,2025-12-11,157.27
+arc_agi_2,Gemini 3 Flash,33.61,hub,best config per model,VERIFIED,Google DeepMind,,2025-12-17,152.32
+arc_agi_2,Kimi K2.5,11.81,hub,best config per model,VERIFIED,Moonshot,,2026-01-27,148.76
+arc_agi_2,Claude Opus 4.6,69.2,site,,VERIFIED,Anthropic,opus,2026-02-05,156.34
+arc_agi_2,GLM-5,4.859999999999999,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-02-11,146.48
+arc_agi_2,Claude Sonnet 4.6,60.4,site,,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+arc_agi_2,Grok 4.20,65.14,hub,best config per model,VERIFIED,xAI,,2026-02-17,152.28
+arc_agi_2,Gemini 3.1 Pro,77.10000000000001,hub,best config per model,VERIFIED,Google DeepMind,,2026-02-19,156.18
+arc_agi_2,GPT-5.4,73.95,hub,best config per model,VERIFIED,OpenAI,,2026-03-05,157.85
+arc_agi_2,GPT-5.4 Pro,83.33,hub,best config per model,VERIFIED,OpenAI,,2026-03-05,160.24
+arc_agi_2,GPT-5.4 Mini,18.9,hub,best config per model,VERIFIED,OpenAI,,2026-03-17,149.34
+arc_agi_2,GPT-5.4 Nano,5.6899999999999995,hub,best config per model,VERIFIED,OpenAI,,2026-03-17,146.4
+arc_agi_2,Claude Opus 4.7,75.8,site,,VERIFIED,Anthropic,opus,2026-04-16,157.44
+arc_agi_2,GPT-5.5,85.0,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,160.1
+arc_agi_2,GPT-5.5 Pro,84.58,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,162.7
+arc_agi_2,Gemini 3.5 Flash,72.08,hub,best config per model,VERIFIED,Google DeepMind,,2026-05-19,155.28
+arc_agi_2,Claude Opus 4.8,72.1,site,,VERIFIED,Anthropic,opus,2026-05-28,159.94
+arc_agi_2,Claude Fable 5,89.2,site,,VERIFIED,Anthropic,fable,2026-06-09,164.13
+arc_agi_2,GLM-5.2,22.775000000000002,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-06-16,153.03
+arc_agi_2,Grok 4.5,52.64,hub,best config per model,VERIFIED,xAI,,2026-07-08,154.98
+arc_agi_2,GPT-5.6 Luna,59.540000000000006,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,156.67
+arc_agi_2,GPT-5.6 Sol,92.5,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,162.99
+arc_agi_2,GPT-5.6 Terra,83.89999999999999,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,160.73
+arc_agi_2,Inkling,36.52777777777778,hub,best config per model,VERIFIED,Thinking Machines,,2026-07-15,148.39
+arc_agi_2,Inkling-Small,40.13888888888888,hub,best config per model,VERIFIED,Thinking Machines,,2026-07-15,150.75
+arc_agi_2,Kimi K3,60.416666666666664,hub,best config per model,VERIFIED,Moonshot,,2026-07-16,158.58
+arc_agi_2,Gemini 3.5 Flash-Lite,10.27777777777777,hub,best config per model,VERIFIED,Google DeepMind,,2026-07-21,145.63
+arc_agi_2,Gemini 3.6 Flash,60.416666666666664,hub,best config per model,VERIFIED,Google DeepMind,,2026-07-21,155.21
+arc_agi_2,Claude Opus 5,90.4,site,,VERIFIED,Anthropic,opus,2026-07-24,164.68
+arc_agi_2,DeepSeek V4 Flash 0731,61.38888888888888,hub,best config per model,VERIFIED,DeepSeek,,2026-07-31,154.41
+arc_agi_2,Grok 4.6,67.08333333333333,hub,best config per model,VERIFIED,xAI,,2026-08-12,157.79
+arc_agi_2,DeepSeek V4 Pro 0813,61.25000000000001,hub,best config per model,VERIFIED,DeepSeek,,2026-08-13,155.94
+arc_agi_2,Gemini 3.7 Flash,84.58333333333333,hub,best config per model,VERIFIED,Google DeepMind,,2026-08-13,158.36
+arc_agi_2,Qwen 3.8 27B,42.36111111111111,hub,best config per model,VERIFIED,Alibaba,,2026-08-14,152.64
+arc_agi_2,GLM-5.3-Flash,65.83333333333333,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-08-20,153.82
+arc_agi_2,Claude Fable 5.1,90.0,site,,VERIFIED,Anthropic,fable,2026-09-01,166.99
+arc_agi_2,Gemini 3.8 Flash,89.16666666666667,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-02,158.79
+arc_agi_2,GPT-6 Astra,95.0,hub,best config per model,VERIFIED,OpenAI,,2026-09-03,169.0
+arc_agi_2,DeepSeek V4.1 Flash,72.91666666666666,hub,best config per model,VERIFIED,DeepSeek,,2026-09-09,156.7
+arc_agi_2,Grok 4.7,61.38888888888888,hub,best config per model,VERIFIED,xAI,,2026-09-21,156.18
+arc_agi_2,Claude Opus 5.5,93.3,site,,VERIFIED,Anthropic,opus,2026-09-22,168.54
+arc_agi_2,GPT-6 Luna,59.30555555555556,hub,best config per model,VERIFIED,OpenAI,,2026-09-22,156.41
+arc_agi_2,GPT-6 Sol,89.58333333333334,hub,best config per model,VERIFIED,OpenAI,,2026-09-22,163.75
+arc_agi_2,Claude Sonnet 5.5,83.9,site,,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+arc_agi_2,GPT-6.1 Sol,94.16666666666667,hub,best config per model,VERIFIED,OpenAI,,2026-09-29,168.48
+arc_agi_2,Gemini 4 Argon,91.25,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-30,166.48
+arc_agi_2,Beam 1.0,23.472222222222218,hub,best config per model,VERIFIED,Reflection,,2026-10-05,150.91
+arc_agi_2,Claude Haiku 5.5,61.3,site,,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+arc_agi_2,Muse Spark Open,57.49999999999999,hub,best config per model,VERIFIED,Meta AI,,2026-10-15,155.42
+arc_agi_2,DeepSeek V4.1 Flash 1017,78.05555555555556,hub,best config per model,VERIFIED,DeepSeek,,2026-10-17,159.41
+arc_agi_2,Gemini 4 Carbon,94.16666666666667,hub,best config per model,VERIFIED,Google DeepMind,,2026-10-28,169.76
+arc_agi_2,Claude Fable 5.2,93.8,site,,VERIFIED,Anthropic,fable,2026-11-09,173.44
+arc_agi_3,Claude Opus 4.6,0.51,site,Max,VERIFIED,Anthropic,opus,2026-02-05,156.34
+arc_agi_3,Claude Opus 4.7,0.18,site,High,VERIFIED,Anthropic,opus,2026-04-16,157.44
+arc_agi_3,Claude Opus 4.8,1.52,site,High,VERIFIED,Anthropic,opus,2026-05-28,159.94
+arc_agi_3,Claude Opus 5,30.16,site,High,VERIFIED,Anthropic,opus,2026-07-24,164.68
+arc_agi_3,Claude Sonnet 5.5,24.31,site,XHigh,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+arc_agi_3,Claude Haiku 5.5,0.45,site,Max,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+arc_agi_3,Claude Fable 5.2,81.17,site,XHigh,VERIFIED,Anthropic,fable,2026-11-09,173.44
+forecastbench,Claude 2.1,52.8,site,zero-shot prompt,VERIFIED,Anthropic,legacy,2023-11-21,
+forecastbench,Claude 3 Opus,57.0,site,zero-shot prompt,VERIFIED,Anthropic,opus,2024-03-04,125.52
+forecastbench,Claude 3 Haiku,52.0,site,zero-shot prompt,VERIFIED,Anthropic,haiku,2024-03-13,117.7
+forecastbench,Claude 3.5 Sonnet,58.0,site,scratchpad prompt,VERIFIED,Anthropic,sonnet,2024-06-20,130.0
+forecastbench,Claude 3.5 Sonnet (October 2024),59.3,site,scratchpad prompt,VERIFIED,Anthropic,sonnet,2024-10-22,133.43
+forecastbench,Claude 3.7 Sonnet,60.3,site,scratchpad prompt,VERIFIED,Anthropic,sonnet,2025-02-24,141.0
+forecastbench,Claude Opus 4,59.8,site,scratchpad prompt,VERIFIED,Anthropic,opus,2025-05-22,142.9
+forecastbench,Claude Sonnet 4,58.9,site,zero-shot prompt,VERIFIED,Anthropic,sonnet,2025-05-22,141.86
+forecastbench,Claude Opus 4.1,60.2,site,zero-shot prompt,VERIFIED,Anthropic,opus,2025-08-05,144.84
+forecastbench,Claude Sonnet 4.5,59.7,site,"zero-shot, 1,024-token output cap",VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+forecastbench,Claude Haiku 4.5,58.9,site,"zero-shot, 1,024-token output cap",VERIFIED,Anthropic,haiku,2025-10-15,142.83
+forecastbench,Claude Opus 4.5,59.0,site,zero-shot prompt,VERIFIED,Anthropic,opus,2025-11-24,151.92
+forecastbench,Claude Opus 4.6,58.4,site,"zero-shot, 1,024-token output cap",VERIFIED,Anthropic,opus,2026-02-05,156.34
+forecastbench,Claude Sonnet 4.6,60.0,site,"zero-shot, adaptive thinking, 16k-token cap",VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+forecastbench,Claude Opus 4.7,58.9,site,"zero-shot, 1,024-token output cap",VERIFIED,Anthropic,opus,2026-04-16,157.44
+forecastbench,Claude Opus 4.8,58.6,site,"zero-shot, adaptive thinking at high effort, 24k-token cap",VERIFIED,Anthropic,opus,2026-05-28,159.94
+forecastbench,Claude Sonnet 5,58.9,site,"zero-shot, adaptive thinking, 16k-token cap",VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+frontiermath_t13,GPT-3.5 Turbo (Jan 2024),0.0,hub,best config per model,VERIFIED,OpenAI,,2024-01-25,113.06
+frontiermath_t13,GPT-4 Turbo (Apr 2024),0.70175438596491,hub,best config per model,VERIFIED,OpenAI,,2024-04-09,125.82
+frontiermath_t13,GPT-4o mini,0.70175438596491,hub,best config per model,VERIFIED,OpenAI,,2024-07-18,123.86
+frontiermath_t13,GPT-4o (Aug 2024),0.35087719298245,hub,best config per model,VERIFIED,OpenAI,,2024-08-06,127.05
+frontiermath_t13,o1,14.73684210526315,hub,best config per model,VERIFIED,OpenAI,,2024-12-17,141.16
+frontiermath_t13,o3-mini,18.59649122807017,hub,best config per model,VERIFIED,OpenAI,,2025-01-31,140.61
+frontiermath_t13,GPT-4.1,5.96491228070175,hub,best config per model,VERIFIED,OpenAI,,2025-04-14,136.15
+frontiermath_t13,GPT-4.1 mini,6.66666666666666,hub,best config per model,VERIFIED,OpenAI,,2025-04-14,134.2
+frontiermath_t13,o3,33.33333333333333,hub,best config per model,VERIFIED,OpenAI,,2025-04-16,147.05
+frontiermath_t13,o4-mini,36.14035087719298,hub,best config per model,VERIFIED,OpenAI,,2025-04-16,145.25
+frontiermath_t13,Gemini 2.5 Pro (Jun 2025),24.56140350877192,hub,best config per model,VERIFIED,Google DeepMind,,2025-06-05,144.87
+frontiermath_t13,Claude Opus 4.1,12.63157894736842,hub,best config per model,VERIFIED,Anthropic,opus,2025-08-05,144.84
+frontiermath_t13,GPT-5,55.43859649122807,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,150.0
+frontiermath_t13,GPT-5 mini,46.666666666666664,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,146.09
+frontiermath_t13,GPT-5 nano,20.0,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,139.1
+frontiermath_t13,Qwen3-Max,18.94736842105263,hub,best config per model,VERIFIED,Alibaba,,2025-09-24,142.57
+frontiermath_t13,Claude Sonnet 4.5,23.85964912280701,hub,best config per model,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+frontiermath_t13,GPT-5 Pro,55.78947368421052,hub,best config per model,VERIFIED,OpenAI,,2025-10-07,151.23
+frontiermath_t13,Claude Opus 4.5,34.3859649122807,hub,best config per model,VERIFIED,Anthropic,opus,2025-11-24,151.92
+frontiermath_t13,GPT-5.2,67.4,hub,best config per model,VERIFIED,OpenAI,,2025-12-11,154.46
+frontiermath_t13,GPT-5.2 Pro,74.0,hub,best config per model,VERIFIED,OpenAI,,2025-12-11,157.27
+frontiermath_t13,Gemini 3 Flash,51.2280701754386,hub,best config per model,VERIFIED,Google DeepMind,,2025-12-17,152.32
+frontiermath_t13,Claude Opus 4.6,65.96491228070175,hub,best config per model,VERIFIED,Anthropic,opus,2026-02-05,156.34
+frontiermath_t13,Qwen3.5 397B-A17B,31.2280701754386,hub,best config per model,VERIFIED,Alibaba,,2026-02-13,147.9
+frontiermath_t13,Grok 4.20,44.91228070175438,hub,best config per model,VERIFIED,xAI,,2026-02-17,152.28
+frontiermath_t13,Gemini 3.1 Pro,59.64912280701754,hub,best config per model,VERIFIED,Google DeepMind,,2026-02-19,156.18
+frontiermath_t13,Qwen 3.5 Flash (hosted 35B-A3B),18.24561403508772,hub,best config per model,VERIFIED,Alibaba,,2026-02-25,143.81
+frontiermath_t13,Gemini 3.1 Flash-Lite,27.719298245614034,hub,best config per model,VERIFIED,Google,,2026-03-03,145.01
+frontiermath_t13,GPT-5.4,78.59649122807018,hub,best config per model,VERIFIED,OpenAI,,2026-03-05,157.85
+frontiermath_t13,GPT-5.4 Pro,82.45614035087719,hub,best config per model,VERIFIED,OpenAI,,2026-03-05,160.24
+frontiermath_t13,GPT-5.4 Mini,51.2280701754386,hub,best config per model,VERIFIED,OpenAI,,2026-03-17,149.34
+frontiermath_t13,GPT-5.4 Nano,44.91228070175438,hub,best config per model,VERIFIED,OpenAI,,2026-03-17,146.4
+frontiermath_t13,Qwen 3.6 Plus,38.24561403508772,hub,best config per model,VERIFIED,Alibaba,,2026-03-31,148.88
+frontiermath_t13,GLM-5.1,36.84210526315789,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-04-07,150.73
+frontiermath_t13,Qwen 3.6 35B-A3B,20.35087719298245,hub,best config per model,VERIFIED,Alibaba,,2026-04-14,144.02
+frontiermath_t13,Claude Opus 4.7,70.17543859649122,hub,best config per model,VERIFIED,Anthropic,opus,2026-04-16,157.44
+frontiermath_t13,Grok 4.3 Beta,42.80701754385965,hub,best config per model,VERIFIED,xAI,,2026-04-17,149.89
+frontiermath_t13,Kimi K2.6,57.19298245614035,hub,best config per model,VERIFIED,Moonshot,,2026-04-20,151.56
+frontiermath_t13,Qwen3.6 27B,35.08771929824561,hub,best config per model,VERIFIED,Alibaba,,2026-04-22,146.73
+frontiermath_t13,GPT-5.5,85.26315789473684,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,160.1
+frontiermath_t13,GPT-5.5 Pro,87.71929824561403,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,162.7
+frontiermath_t13,DeepSeek-V4-Pro,45.263157894736835,hub,best config per model,VERIFIED,DeepSeek,,2026-04-24,150.17
+frontiermath_t13,Qwen 3.6 Flash,22.45614035087719,hub,best config per model,VERIFIED,Alibaba,,2026-04-27,143.65
+frontiermath_t13,Gemini 3.5 Flash,62.807017543859644,hub,best config per model,VERIFIED,Google DeepMind,,2026-05-19,155.28
+frontiermath_t13,Qwen3.7-Max,64.56140350877193,hub,best config per model,VERIFIED,Alibaba,,2026-05-19,154.54
+frontiermath_t13,Claude Opus 4.8,80.0,hub,best config per model,VERIFIED,Anthropic,opus,2026-05-28,159.94
+frontiermath_t13,Qwen3.7-Plus,34.3859649122807,hub,best config per model,VERIFIED,Alibaba,,2026-06-02,147.87
+frontiermath_t13,Claude Fable 5,87.01754385964912,hub,best config per model,VERIFIED,Anthropic,fable,2026-06-09,164.13
+frontiermath_t13,Kimi K2.7 Code,54.03508771929825,hub,best config per model,VERIFIED,Moonshot,,2026-06-12,151.15
+frontiermath_t13,GLM-5.2,59.205776173285194,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-06-16,153.03
+frontiermath_t13,Claude Sonnet 5,65.6140350877193,hub,best config per model,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+frontiermath_t13,Grok 4.5,57.19298245614035,hub,best config per model,VERIFIED,xAI,,2026-07-08,154.98
+frontiermath_t13,GPT-5.6 Luna,82.10526315789474,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,156.67
+frontiermath_t13,GPT-5.6 Sol,89.12280701754386,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,162.99
+frontiermath_t13,GPT-5.6 Terra,85.96491228070175,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,160.73
+frontiermath_t13,Inkling,33.33333333333333,hub,best config per model,VERIFIED,Thinking Machines,,2026-07-15,148.39
+frontiermath_t13,Inkling-Small,46.31578947368421,hub,best config per model,VERIFIED,Thinking Machines,,2026-07-15,150.75
+frontiermath_t13,Kimi K3,72.1830985915493,hub,best config per model,VERIFIED,Moonshot,,2026-07-16,158.58
+frontiermath_t13,Gemini 3.5 Flash-Lite,25.964912280701753,hub,best config per model,VERIFIED,Google DeepMind,,2026-07-21,145.63
+frontiermath_t13,Gemini 3.6 Flash,58.94736842105262,hub,best config per model,VERIFIED,Google DeepMind,,2026-07-21,155.21
+frontiermath_t13,Claude Opus 5,85.6140350877193,hub,best config per model,VERIFIED,Anthropic,opus,2026-07-24,164.68
+frontiermath_t13,DeepSeek V4 Flash 0731,57.54385964912281,hub,best config per model,VERIFIED,DeepSeek,,2026-07-31,154.41
+frontiermath_t13,Qwen 3.8 Max,74.73684210526315,hub,best config per model,VERIFIED,Alibaba,,2026-08-02,157.59
+frontiermath_t13,Grok 4.6,65.96491228070175,hub,best config per model,VERIFIED,xAI,,2026-08-12,157.79
+frontiermath_t13,DeepSeek V4 Pro 0813,64.56140350877193,hub,best config per model,VERIFIED,DeepSeek,,2026-08-13,155.94
+frontiermath_t13,Gemini 3.7 Flash,71.57894736842105,hub,best config per model,VERIFIED,Google DeepMind,,2026-08-13,158.36
+frontiermath_t13,GLM-5.3,68.77192982456141,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-08-14,157.1
+frontiermath_t13,GLM-5.3-Flash,55.78947368421052,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-08-20,153.82
+frontiermath_t13,Claude Fable 5.1,90.17543859649125,hub,best config per model,VERIFIED,Anthropic,fable,2026-09-01,166.99
+frontiermath_t13,Qwen3.8 Max (0902),65.6140350877193,hub,best config per model,VERIFIED,Alibaba,,2026-09-01,155.97
+frontiermath_t13,Gemini 3.8 Flash,68.42105263157895,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-02,158.79
+frontiermath_t13,Muse Spark 1.3,74.3859649122807,hub,best config per model,VERIFIED,Meta AI,,2026-09-02,158.24
+frontiermath_t13,GPT-6 Astra,93.68421052631581,hub,best config per model,VERIFIED,OpenAI,,2026-09-03,169.0
+frontiermath_t13,DeepSeek V4.1 Flash,67.36842105263158,hub,best config per model,VERIFIED,DeepSeek,,2026-09-09,156.7
+frontiermath_t13,Grok 4.7,52.98245614035088,hub,best config per model,VERIFIED,xAI,,2026-09-21,156.18
+frontiermath_t13,Claude Opus 5.5,91.2280701754386,hub,best config per model,VERIFIED,Anthropic,opus,2026-09-22,168.54
+frontiermath_t13,GPT-6 Luna,78.94736842105263,hub,best config per model,VERIFIED,OpenAI,,2026-09-22,156.41
+frontiermath_t13,GPT-6 Sol,89.82456140350877,hub,best config per model,VERIFIED,OpenAI,,2026-09-22,163.75
+frontiermath_t13,Claude Sonnet 5.5,88.7719298245614,hub,best config per model,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+frontiermath_t13,GPT-6.1 Sol,93.68421052631581,hub,best config per model,VERIFIED,OpenAI,,2026-09-29,168.48
+frontiermath_t13,Gemini 4 Argon,85.96491228070175,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-30,166.48
+frontiermath_t13,Mistral Large 4 Preview,58.59649122807018,hub,best config per model,VERIFIED,Mistral AI,,2026-10-06,152.69
+frontiermath_t13,Claude Haiku 5.5,75.08771929824562,hub,best config per model,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+frontiermath_t13,Muse Wonder,82.10526315789474,hub,best config per model,VERIFIED,Meta AI,,2026-10-12,161.68
+frontiermath_t13,Muse Spark Open,69.82456140350877,hub,best config per model,VERIFIED,Meta AI,,2026-10-15,155.42
+frontiermath_t13,DeepSeek V4.1 Flash 1017,71.2280701754386,hub,best config per model,VERIFIED,DeepSeek,,2026-10-17,159.41
+frontiermath_t13,Kimi K3.1 Pro,78.24561403508771,hub,best config per model,VERIFIED,Moonshot,,2026-10-23,161.37
+frontiermath_t13,GPT-6.1 Terra,90.87719298245615,hub,best config per model,VERIFIED,OpenAI,,2026-10-26,167.67
+frontiermath_t13,Gemini 4 Carbon,90.52631578947367,hub,best config per model,VERIFIED,Google DeepMind,,2026-10-28,169.76
+frontiermath_t13,Claude Fable 5.2,95.0877192982456,hub,best config per model,VERIFIED,Anthropic,fable,2026-11-09,173.44
+gdpval_aa,Llama 4 Scout,-156.1,aa,max over configs,VERIFIED,Meta AI,,2025-04-05,127.68
+gdpval_aa,Llama 4 Maverick,-268.12,aa,max over configs,VERIFIED,Meta AI,,2025-04-06,132.08
+gdpval_aa,Claude Sonnet 4,698.0,site,,VERIFIED,Anthropic,sonnet,2025-05-22,141.86
+gdpval_aa,gpt-oss-120b,615.28,aa,max over configs,VERIFIED,OpenAI,,2025-08-05,140.16
+gdpval_aa,gpt-oss-20b,346.87,aa,max over configs,VERIFIED,OpenAI,,2025-08-05,134.97
+gdpval_aa,Claude Sonnet 4.5,915.0,site,,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+gdpval_aa,Claude Haiku 4.5,740.0,site,,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+gdpval_aa,Qwen3.5 397B-A17B,800.35,aa,max over configs,VERIFIED,Alibaba,,2026-02-13,147.9
+gdpval_aa,Claude Sonnet 4.6,1241.0,site,,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+gdpval_aa,Qwen3.5-9B,426.25,aa,max over configs,VERIFIED,Alibaba,,2026-02-24,139.32
+gdpval_aa,Gemma 4 26B A4B,572.54,aa,max over configs,VERIFIED,Google DeepMind,,2026-04-02,141.64
+gdpval_aa,Qwen 3.6 35B-A3B,898.86,aa,max over configs,VERIFIED,Alibaba,,2026-04-14,144.02
+gdpval_aa,Claude Opus 4.7,1362.0,site,,VERIFIED,Anthropic,opus,2026-04-16,157.44
+gdpval_aa,Mistral Medium 3.5,768.53,aa,max over configs,VERIFIED,Mistral AI,,2026-04-28,141.59
+gdpval_aa,Claude Opus 4.8,1462.0,site,,VERIFIED,Anthropic,opus,2026-05-28,159.94
+gdpval_aa,MiniMax-M3,1249.67,aa,max over configs,VERIFIED,MiniMax,,2026-06-01,147.74
+gdpval_aa,Qwen3.7-Plus,774.43,aa,max over configs,VERIFIED,Alibaba,,2026-06-02,147.87
+gdpval_aa,Claude Fable 5,1618.0,site,,VERIFIED,Anthropic,fable,2026-06-09,164.13
+gdpval_aa,Kimi K2.7 Code,1045.88,aa,max over configs,VERIFIED,Moonshot,,2026-06-12,151.15
+gdpval_aa,Claude Sonnet 5,1470.0,site,,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+gdpval_aa,Inkling,1080.29,aa,max over configs,VERIFIED,Thinking Machines,,2026-07-15,148.39
+gdpval_aa,Inkling-Small,1132.8,aa,max over configs,VERIFIED,Thinking Machines,,2026-07-15,150.75
+gdpval_aa,Gemini 3.5 Flash-Lite,994.42,aa,max over configs,VERIFIED,Google DeepMind,,2026-07-21,145.63
+gdpval_aa,Claude Opus 5,1730.0,site,,VERIFIED,Anthropic,opus,2026-07-24,164.68
+gdpval_aa,DeepSeek V4 Pro 0813,1455.59,aa,max over configs,VERIFIED,DeepSeek,,2026-08-13,155.94
+gdpval_aa,GLM-5.3,1654.78,aa,max over configs,VERIFIED,Z.ai (Zhipu AI),,2026-08-14,157.1
+gdpval_aa,Qwen 3.8 27B,1426.15,aa,max over configs,VERIFIED,Alibaba,,2026-08-14,152.64
+gdpval_aa,GLM-5.3-Flash,1648.28,aa,max over configs,VERIFIED,Z.ai (Zhipu AI),,2026-08-20,153.82
+gdpval_aa,Claude Fable 5.1,1763.0,site,,VERIFIED,Anthropic,fable,2026-09-01,166.99
+gdpval_aa,Gemini 3.8 Flash,1442.03,aa,max over configs,VERIFIED,Google DeepMind,,2026-09-02,158.79
+gdpval_aa,GPT-6 Astra,1587.0,aa,max over configs,VERIFIED,OpenAI,,2026-09-03,169.0
+gdpval_aa,Grok 4.7,1718.16,aa,max over configs,VERIFIED,xAI,,2026-09-21,156.18
+gdpval_aa,Claude Opus 5.5,1866.0,site,,VERIFIED,Anthropic,opus,2026-09-22,168.54
+gdpval_aa,GPT-6 Luna,1443.29,aa,max over configs,VERIFIED,OpenAI,,2026-09-22,156.41
+gdpval_aa,Claude Sonnet 5.5,1838.0,site,,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+gdpval_aa,GPT-6.1 Sol,1607.47,aa,max over configs,VERIFIED,OpenAI,,2026-09-29,168.48
+gdpval_aa,Gemini 4 Argon,1633.51,aa,max over configs,VERIFIED,Google DeepMind,,2026-09-30,166.48
+gdpval_aa,Beam 1.0,1177.08,aa,max over configs,VERIFIED,Reflection,,2026-10-05,150.91
+gdpval_aa,Claude Haiku 5.5,1631.0,site,,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+gdpval_aa,Muse Wonder,1770.34,aa,max over configs,VERIFIED,Meta AI,,2026-10-12,161.68
+gdpval_aa,Muse Spark Open,1401.12,aa,max over configs,VERIFIED,Meta AI,,2026-10-15,155.42
+gdpval_aa,DeepSeek V4.1 Flash 1017,1745.77,aa,max over configs,VERIFIED,DeepSeek,,2026-10-17,159.41
+gdpval_aa,Kimi K3.1 Pro,1860.57,aa,max over configs,VERIFIED,Moonshot,,2026-10-23,161.37
+gdpval_aa,GPT-6.1 Terra,1475.84,aa,max over configs,VERIFIED,OpenAI,,2026-10-26,167.67
+gdpval_aa,Gemini 4 Carbon,1732.68,aa,max over configs,VERIFIED,Google DeepMind,,2026-10-28,169.76
+gdpval_aa,Claude Fable 5.2,1831.0,site,,VERIFIED,Anthropic,fable,2026-11-09,173.44
+gpqa_diamond,GPT-4 (Mar 2023),35.73232323232323,hub,best config per model,VERIFIED,OpenAI,,2023-03-14,121.77
+gpqa_diamond,GPT-4 (Jun 2023),30.65025252525252,hub,best config per model,VERIFIED,OpenAI,,2023-06-13,120.13
+gpqa_diamond,Claude 2,34.659090909090914,hub,best config per model,VERIFIED,Anthropic,legacy,2023-07-11,117.06
+gpqa_diamond,Llama 2-70B,26.32575757575757,hub,best config per model,VERIFIED,Meta AI,,2023-07-18,105.85
+gpqa_diamond,GPT-3.5 Turbo (Nov 2023),28.030303030303028,hub,best config per model,VERIFIED,OpenAI,,2023-11-06,112.91
+gpqa_diamond,Claude 2.1,32.954545454545446,hub,best config per model,VERIFIED,Anthropic,legacy,2023-11-21,
+gpqa_diamond,Mixtral 8x7B,30.58712121212121,hub,best config per model,VERIFIED,Mistral AI,,2023-12-11,113.22
+gpqa_diamond,GPT-3.5 Turbo (Jan 2024),27.178030303030297,hub,best config per model,VERIFIED,OpenAI,,2024-01-25,113.06
+gpqa_diamond,GPT-4 Turbo (Nov 2023),42.36111111111111,hub,best config per model,VERIFIED,OpenAI,,2024-01-25,124.77
+gpqa_diamond,Mistral Large,38.76262626262626,hub,best config per model,VERIFIED,Mistral AI,,2024-02-26,119.81
+gpqa_diamond,Claude 3 Opus,47.159090909090914,hub,best config per model,VERIFIED,Anthropic,opus,2024-03-04,125.52
+gpqa_diamond,Claude 3 Sonnet,40.59343434343434,hub,best config per model,VERIFIED,Anthropic,sonnet,2024-03-04,119.45
+gpqa_diamond,Claude 3 Haiku,36.30050505050505,hub,best config per model,VERIFIED,Anthropic,haiku,2024-03-13,117.7
+gpqa_diamond,GPT-4 Turbo (Apr 2024),46.590909090909086,hub,best config per model,VERIFIED,OpenAI,,2024-04-09,125.82
+gpqa_diamond,Mixtral 8x22B,34.05934343434343,hub,best config per model,VERIFIED,Mistral AI,,2024-04-17,118.69
+gpqa_diamond,Llama 3-70B,40.56186868686868,hub,best config per model,VERIFIED,Meta AI,,2024-04-18,121.22
+gpqa_diamond,Llama 3-8B,26.07323232323232,hub,best config per model,VERIFIED,Meta AI,,2024-04-18,109.42
+gpqa_diamond,phi-3-medium 14B,27.58838383838384,hub,best config per model,VERIFIED,Microsoft,,2024-04-23,114.35
+gpqa_diamond,GPT-4o (May 2024),48.89520202020202,hub,best config per model,VERIFIED,OpenAI,,2024-05-13,128.16
+gpqa_diamond,Gemini 1.5 Pro (May 2024),45.86489898989899,hub,best config per model,VERIFIED,Google DeepMind,,2024-05-14,125.31
+gpqa_diamond,Gemini 1.5 Flash (May 2024),40.37247474747474,hub,best config per model,VERIFIED,Google DeepMind,,2024-05-23,120.42
+gpqa_diamond,Qwen2-72B,40.782828282828284,hub,best config per model,VERIFIED,Alibaba,,2024-06-07,122.3
+gpqa_diamond,Claude 3.5 Sonnet,54.04040404040404,hub,best config per model,VERIFIED,Anthropic,sonnet,2024-06-20,130.0
+gpqa_diamond,Gemma 2 27B,36.48989898989899,hub,best config per model,VERIFIED,Google DeepMind,,2024-06-24,118.59
+gpqa_diamond,Gemma 2 9B,27.46212121212121,hub,best config per model,VERIFIED,Google DeepMind,,2024-06-24,112.7
+gpqa_diamond,GPT-4o mini,37.72095959595959,hub,best config per model,VERIFIED,OpenAI,,2024-07-18,123.86
+gpqa_diamond,Mistral NeMo,29.892676767676768,hub,best config per model,VERIFIED,Mistral AI,,2024-07-18,113.88
+gpqa_diamond,Llama 3.1-405B,50.91540404040404,hub,best config per model,VERIFIED,Meta AI,,2024-07-23,127.8
+gpqa_diamond,Llama 3.1-70B,44.19191919191919,hub,best config per model,VERIFIED,Meta AI,,2024-07-23,124.7
+gpqa_diamond,Llama 3.1-8B,26.957070707070702,hub,best config per model,VERIFIED,Meta AI,,2024-07-23,111.14
+gpqa_diamond,Mistral Large 2 (Jul 2024),49.02146464646464,hub,best config per model,VERIFIED,Mistral AI,,2024-07-24,126.34
+gpqa_diamond,GPT-4o (Aug 2024),49.21085858585858,hub,best config per model,VERIFIED,OpenAI,,2024-08-06,127.05
+gpqa_diamond,o1-mini,62.37373737373737,hub,best config per model,VERIFIED,OpenAI,,2024-09-12,135.3
+gpqa_diamond,o1-preview,50.31565656565656,hub,best config per model,VERIFIED,OpenAI,,2024-09-12,133.84
+gpqa_diamond,Qwen2.5-72B,49.14772727272727,hub,best config per model,VERIFIED,Alibaba,,2024-09-19,127.18
+gpqa_diamond,Gemini 1.5 Flash (Sep 2024),47.31691919191919,hub,best config per model,VERIFIED,Google DeepMind,,2024-09-24,126.96
+gpqa_diamond,Gemini 1.5 Pro (Sept 2024),57.22853535353535,hub,best config per model,VERIFIED,Google DeepMind,,2024-09-24,130.37
+gpqa_diamond,Llama 3.2 90B,41.03535353535353,hub,best config per model,VERIFIED,Meta AI,,2024-09-24,122.85
+gpqa_diamond,Claude 3.5 Sonnet (October 2024),55.3030303030303,hub,best config per model,VERIFIED,Anthropic,sonnet,2024-10-22,133.43
+gpqa_diamond,Claude 3.5 Haiku,38.131313131313135,hub,best config per model,VERIFIED,Anthropic,haiku,2024-11-04,124.93
+gpqa_diamond,GPT-4o (Nov 2024),47.88510101010101,hub,best config per model,VERIFIED,OpenAI,,2024-11-20,128.84
+gpqa_diamond,Llama 3.3 70B,47.44318181818182,hub,best config per model,VERIFIED,Meta AI,,2024-12-06,126.13
+gpqa_diamond,Grok-2 (Dec 2024),53.78787878787878,hub,best config per model,VERIFIED,xAI,,2024-12-12,129.73
+gpqa_diamond,Phi-4,56.060606060606055,hub,best config per model,VERIFIED,Microsoft Research,,2024-12-12,129.04
+gpqa_diamond,o1,76.76767676767676,hub,best config per model,VERIFIED,OpenAI,,2024-12-17,141.16
+gpqa_diamond,DeepSeek-V3,56.53409090909091,hub,best config per model,VERIFIED,DeepSeek,,2024-12-26,131.7
+gpqa_diamond,DeepSeek-R1,71.71717171717171,hub,best config per model,VERIFIED,DeepSeek,,2025-01-20,138.59
+gpqa_diamond,Gemini 2.0 Flash Thinking (Jan 2025),57.07070707070707,hub,best config per model,VERIFIED,"Google DeepMind,Google",,2025-01-21,133.77
+gpqa_diamond,Qwen2.5-Max,56.12373737373737,hub,best config per model,VERIFIED,Alibaba,,2025-01-25,131.15
+gpqa_diamond,o3-mini,77.02020202020202,hub,best config per model,VERIFIED,OpenAI,,2025-01-31,140.61
+gpqa_diamond,Gemini 2.0 Flash (Feb 2025),64.14141414141415,hub,best config per model,VERIFIED,"Google DeepMind,Google",,2025-02-05,133.94
+gpqa_diamond,Gemini 2.0 Pro,65.65656565656566,hub,best config per model,VERIFIED,Google DeepMind,,2025-02-05,135.34
+gpqa_diamond,Claude 3.7 Sonnet,79.73484848484848,hub,best config per model,VERIFIED,Anthropic,sonnet,2025-02-24,141.0
+gpqa_diamond,GPT-4.5,68.68686868686868,hub,best config per model,VERIFIED,OpenAI,,2025-02-27,136.45
+gpqa_diamond,QwQ-32B,65.3409090909091,hub,best config per model,VERIFIED,Alibaba,,2025-03-05,136.48
+gpqa_diamond,Gemma 3 27B,47.72727272727273,hub,best config per model,VERIFIED,Google DeepMind,,2025-03-12,127.51
+gpqa_diamond,DeepSeek-V3 (Mar 2025),67.61363636363636,hub,best config per model,VERIFIED,DeepSeek,,2025-03-24,135.18
+gpqa_diamond,Gemini 2.5 Pro (Mar 2025),83.83838383838383,hub,best config per model,VERIFIED,Google DeepMind,,2025-03-31,143.95
+gpqa_diamond,Llama 4 Scout,51.830808080808076,hub,best config per model,VERIFIED,Meta AI,,2025-04-05,127.68
+gpqa_diamond,Llama 4 Maverick,66.98232323232324,hub,best config per model,VERIFIED,Meta AI,,2025-04-06,132.08
+gpqa_diamond,Grok 3,75.75757575757575,hub,best config per model,VERIFIED,xAI,,2025-04-09,137.49
+gpqa_diamond,GPT-4.1,66.91919191919192,hub,best config per model,VERIFIED,OpenAI,,2025-04-14,136.15
+gpqa_diamond,GPT-4.1 mini,65.84595959595958,hub,best config per model,VERIFIED,OpenAI,,2025-04-14,134.2
+gpqa_diamond,GPT-4.1 nano,48.92676767676767,hub,best config per model,VERIFIED,OpenAI,,2025-04-14,126.77
+gpqa_diamond,o3,81.81818181818183,hub,best config per model,VERIFIED,OpenAI,,2025-04-16,147.05
+gpqa_diamond,o4-mini,79.60858585858585,hub,best config per model,VERIFIED,OpenAI,,2025-04-16,145.25
+gpqa_diamond,Qwen3-235B-A22B,70.70707070707071,hub,best config per model,VERIFIED,Alibaba,,2025-04-28,138.42
+gpqa_diamond,Qwen3-8B,56.755050505050505,hub,best config per model,VERIFIED,Alibaba,,2025-04-28,132.09
+gpqa_diamond,Qwen3-14B,63.76262626262626,hub,best config per model,VERIFIED,Alibaba,,2025-04-29,136.14
+gpqa_diamond,Qwen3-30B-A3B,61.67929292929293,hub,best config per model,VERIFIED,Alibaba,,2025-04-29,134.14
+gpqa_diamond,Qwen3-32B,65.71969696969697,hub,best config per model,VERIFIED,Alibaba,,2025-04-29,136.89
+gpqa_diamond,Gemini 2.5 Pro (May 2025),66.66666666666666,hub,best config per model,VERIFIED,Google DeepMind,,2025-05-06,140.87
+gpqa_diamond,Mistral Medium 3,59.53282828282829,hub,best config per model,VERIFIED,Mistral AI,,2025-05-07,132.81
+gpqa_diamond,Claude Opus 4,76.26262626262627,hub,best config per model,VERIFIED,Anthropic,opus,2025-05-22,142.9
+gpqa_diamond,Claude Sonnet 4,79.18781725888326,hub,best config per model,VERIFIED,Anthropic,sonnet,2025-05-22,141.86
+gpqa_diamond,DeepSeek-R1 (May 2025),76.32575757575758,hub,best config per model,VERIFIED,DeepSeek,,2025-05-28,140.73
+gpqa_diamond,Gemini 2.5 Pro (Jun 2025),85.29040404040404,hub,best config per model,VERIFIED,Google DeepMind,,2025-06-05,144.87
+gpqa_diamond,Grok-3 mini,76.26262626262627,hub,best config per model,VERIFIED,xAI,,2025-06-24,139.88
+gpqa_diamond,Grok 4,87.0,hub,best config per model,VERIFIED,xAI,,2025-07-09,146.9
+gpqa_diamond,Qwen3-235B-A22B-Thinking (Jul 2025),80.05050505050505,hub,best config per model,VERIFIED,Alibaba,,2025-07-25,143.21
+gpqa_diamond,Qwen3-30B-A3B-Instruct (Jul 2025),55.61868686868687,hub,best config per model,VERIFIED,Alibaba,,2025-07-29,135.15
+gpqa_diamond,Qwen3-30B-A3B-Thinking (Jul 2025),70.07575757575758,hub,best config per model,VERIFIED,Alibaba,,2025-07-30,138.35
+gpqa_diamond,Claude Opus 4.1,77.27272727272727,hub,best config per model,VERIFIED,Anthropic,opus,2025-08-05,144.84
+gpqa_diamond,gpt-oss-120b,75.75757575757575,hub,best config per model,VERIFIED,OpenAI,,2025-08-05,140.16
+gpqa_diamond,gpt-oss-20b,60.79545454545454,hub,best config per model,VERIFIED,OpenAI,,2025-08-05,134.97
+gpqa_diamond,GPT-5,86.17424242424242,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,150.0
+gpqa_diamond,GPT-5 mini,75.0,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,146.09
+gpqa_diamond,GPT-5 nano,69.44444444444444,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,139.1
+gpqa_diamond,Qwen3-Max,72.6010101010101,hub,best config per model,VERIFIED,Alibaba,,2025-09-24,142.57
+gpqa_diamond,Claude Sonnet 4.5,82.32323232323232,hub,best config per model,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+gpqa_diamond,Claude Haiku 4.5,71.21212121212122,hub,best config per model,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+gpqa_diamond,Kimi K2 Thinking,84.21717171717171,hub,best config per model,VERIFIED,Moonshot,,2025-11-06,145.43
+gpqa_diamond,GPT-5.1,87.62626262626263,hub,best config per model,VERIFIED,OpenAI,,2025-11-13,150.94
+gpqa_diamond,Gemini 3 Pro,92.61363636363636,hub,best config per model,VERIFIED,Google DeepMind,,2025-11-18,152.98
+gpqa_diamond,Claude Opus 4.5,86.0479797979798,hub,best config per model,VERIFIED,Anthropic,opus,2025-11-24,151.92
+gpqa_diamond,DeepSeek-V3.2,83.42352092352094,hub,best config per model,VERIFIED,DeepSeek,,2025-12-01,146.25
+gpqa_diamond,GPT-5.2,91.4,hub,best config per model,VERIFIED,OpenAI,,2025-12-11,154.46
+gpqa_diamond,Gemini 3 Flash,89.39393939393939,hub,best config per model,VERIFIED,Google DeepMind,,2025-12-17,152.32
+gpqa_diamond,GLM-4.7,83.33333333333334,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2025-12-22,143.28
+gpqa_diamond,Kimi K2.5,87.6,hub,best config per model,VERIFIED,Moonshot,,2026-01-27,148.76
+gpqa_diamond,Claude Opus 4.6,90.53030303030305,hub,best config per model,VERIFIED,Anthropic,opus,2026-02-05,156.34
+gpqa_diamond,GLM-5,87.81725888324873,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-02-11,146.48
+gpqa_diamond,Qwen3.5 397B-A17B,86.36363636363636,hub,best config per model,VERIFIED,Alibaba,,2026-02-13,147.9
+gpqa_diamond,Qwen 3.5 Plus (hosted 397B-A17B),84.84848484848484,hub,best config per model,VERIFIED,Alibaba,,2026-02-16,147.29
+gpqa_diamond,Claude Sonnet 4.6,87.37373737373737,hub,best config per model,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+gpqa_diamond,Grok 4.20,89.33080808080808,hub,best config per model,VERIFIED,xAI,,2026-02-17,152.28
+gpqa_diamond,Gemini 3.1 Pro,94.44444444444444,hub,best config per model,VERIFIED,Google DeepMind,,2026-02-19,156.18
+gpqa_diamond,Qwen3.5-35B-A3B,83.45959595959596,hub,best config per model,VERIFIED,Alibaba,,2026-02-24,143.98
+gpqa_diamond,Qwen3.5-9B,78.97727272727273,hub,best config per model,VERIFIED,Alibaba,,2026-02-24,139.32
+gpqa_diamond,Qwen 3.5 Flash (hosted 35B-A3B),82.32323232323232,hub,best config per model,VERIFIED,Alibaba,,2026-02-25,143.81
+gpqa_diamond,Gemini 3.1 Flash-Lite,81.81818181818183,hub,best config per model,VERIFIED,Google,,2026-03-03,145.01
+gpqa_diamond,GPT-5.4,93.30000000000001,hub,best config per model,VERIFIED,OpenAI,,2026-03-05,157.85
+gpqa_diamond,GPT-5.4 Pro,94.6,hub,best config per model,VERIFIED,OpenAI,,2026-03-05,160.24
+gpqa_diamond,GPT-5.4 Mini,86.86868686868688,hub,best config per model,VERIFIED,OpenAI,,2026-03-17,149.34
+gpqa_diamond,GPT-5.4 Nano,78.47,hub,best config per model,VERIFIED,OpenAI,,2026-03-17,146.4
+gpqa_diamond,Qwen 3.6 Plus,88.38383838383838,hub,best config per model,VERIFIED,Alibaba,,2026-03-31,148.88
+gpqa_diamond,Gemma 4 26B A4B,73.23232323232324,hub,best config per model,VERIFIED,Google DeepMind,,2026-04-02,141.64
+gpqa_diamond,Gemma 4 31B IT,75.75757575757575,hub,best config per model,VERIFIED,Google DeepMind,,2026-04-02,144.27
+gpqa_diamond,GLM-5.1,89.8989898989899,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-04-07,150.73
+gpqa_diamond,Muse Spark,89.8,hub,best config per model,VERIFIED,Meta AI,,2026-04-08,153.14
+gpqa_diamond,Qwen 3.6 35B-A3B,84.84848484848484,hub,best config per model,VERIFIED,Alibaba,,2026-04-14,144.02
+gpqa_diamond,Claude Opus 4.7,90.15151515151516,hub,best config per model,VERIFIED,Anthropic,opus,2026-04-16,157.44
+gpqa_diamond,Grok 4.3 Beta,88.82575757575758,hub,best config per model,VERIFIED,xAI,,2026-04-17,149.89
+gpqa_diamond,Kimi K2.6,90.78282828282828,hub,best config per model,VERIFIED,Moonshot,,2026-04-20,151.56
+gpqa_diamond,Qwen 3.6 Max (Preview),87.37373737373737,hub,best config per model,VERIFIED,Alibaba,,2026-04-20,149.83
+gpqa_diamond,Qwen3.6 27B,85.85858585858585,hub,best config per model,VERIFIED,Alibaba,,2026-04-22,146.73
+gpqa_diamond,GPT-5.5,94.00252525252523,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,160.1
+gpqa_diamond,GPT-5.5 Pro,93.92135642135644,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,162.7
+gpqa_diamond,DeepSeek-V4-Pro,90.90909090909092,hub,best config per model,VERIFIED,DeepSeek,,2026-04-24,150.17
+gpqa_diamond,Qwen 3.6 Flash,83.33333333333334,hub,best config per model,VERIFIED,Alibaba,,2026-04-27,143.65
+gpqa_diamond,Gemini 3.5 Flash,92.8030303030303,hub,best config per model,VERIFIED,Google DeepMind,,2026-05-19,155.28
+gpqa_diamond,Qwen3.7-Max,90.90909090909092,hub,best config per model,VERIFIED,Alibaba,,2026-05-19,154.54
+gpqa_diamond,Claude Opus 4.8,91.03535353535354,hub,best config per model,VERIFIED,Anthropic,opus,2026-05-28,159.94
+gpqa_diamond,MiniMax-M3,90.90909090909092,hub,best config per model,VERIFIED,MiniMax,,2026-06-01,147.74
+gpqa_diamond,Qwen3.7-Plus,87.87878787878788,hub,best config per model,VERIFIED,Alibaba,,2026-06-02,147.87
+gpqa_diamond,Nemotron 3 Ultra,85.35353535353535,hub,best config per model,VERIFIED,Nvidia,,2026-06-04,146.95
+gpqa_diamond,Claude Fable 5,93.87626262626264,hub,best config per model,VERIFIED,Anthropic,fable,2026-06-09,164.13
+gpqa_diamond,Kimi K2.7 Code,87.87878787878788,hub,best config per model,VERIFIED,Moonshot,,2026-06-12,151.15
+gpqa_diamond,GLM-5.2,91.8560606060606,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-06-16,153.03
+gpqa_diamond,Claude Sonnet 5,90.53030303030305,hub,best config per model,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+gpqa_diamond,Grok 4.5,93.43434343434343,hub,best config per model,VERIFIED,xAI,,2026-07-08,154.98
+gpqa_diamond,GPT-5.6 Luna,91.60353535353536,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,156.67
+gpqa_diamond,GPT-5.6 Sol,93.49747474747477,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,162.99
+gpqa_diamond,GPT-5.6 Terra,93.3080808080808,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,160.73
+gpqa_diamond,Inkling,88.25757575757575,hub,best config per model,VERIFIED,Thinking Machines,,2026-07-15,148.39
+gpqa_diamond,Inkling-Small,88.51010101010101,hub,best config per model,VERIFIED,Thinking Machines,,2026-07-15,150.75
+gpqa_diamond,Kimi K3,93.11868686868688,hub,best config per model,VERIFIED,Moonshot,,2026-07-16,158.58
+gpqa_diamond,Gemini 3.5 Flash-Lite,83.33333333333334,hub,best config per model,VERIFIED,Google DeepMind,,2026-07-21,145.63
+gpqa_diamond,Gemini 3.6 Flash,94.12878787878788,hub,best config per model,VERIFIED,Google DeepMind,,2026-07-21,155.21
+gpqa_diamond,Claude Opus 5,93.87626262626264,hub,best config per model,VERIFIED,Anthropic,opus,2026-07-24,164.68
+gpqa_diamond,DeepSeek V4 Flash 0731,91.03535353535354,hub,best config per model,VERIFIED,DeepSeek,,2026-07-31,154.41
+gpqa_diamond,Qwen 3.8 Max,92.67676767676768,hub,best config per model,VERIFIED,Alibaba,,2026-08-02,157.59
+gpqa_diamond,Grok 4.6,94.00252525252523,hub,best config per model,VERIFIED,xAI,,2026-08-12,157.79
+gpqa_diamond,DeepSeek V4 Pro 0813,91.66666666666666,hub,best config per model,VERIFIED,DeepSeek,,2026-08-13,155.94
+gpqa_diamond,Gemini 3.7 Flash,94.82323232323232,hub,best config per model,VERIFIED,Google DeepMind,,2026-08-13,158.36
+gpqa_diamond,GLM-5.3,90.90909090909092,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-08-14,157.1
+gpqa_diamond,GLM-5.3-Flash,90.15151515151516,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-08-20,153.82
+gpqa_diamond,Qwen3.8 Max (0902),92.2979797979798,hub,best config per model,VERIFIED,Alibaba,,2026-09-01,155.97
+gpqa_diamond,Gemini 3.8 Flash,95.39141414141415,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-02,158.79
+gpqa_diamond,GPT-6 Astra,95.77020202020202,hub,best config per model,VERIFIED,OpenAI,,2026-09-03,169.0
+gpqa_diamond,DeepSeek V4.1 Flash,89.83585858585859,hub,best config per model,VERIFIED,DeepSeek,,2026-09-09,156.7
+gpqa_diamond,Grok 4.7,92.73989898989899,hub,best config per model,VERIFIED,xAI,,2026-09-21,156.18
+gpqa_diamond,Claude Opus 5.5,94.06565656565657,hub,best config per model,VERIFIED,Anthropic,opus,2026-09-22,168.54
+gpqa_diamond,GPT-6 Luna,90.46717171717172,hub,best config per model,VERIFIED,OpenAI,,2026-09-22,156.41
+gpqa_diamond,GPT-6 Sol,94.31818181818183,hub,best config per model,VERIFIED,OpenAI,,2026-09-22,163.75
+gpqa_diamond,Claude Sonnet 5.5,95.58080808080808,hub,best config per model,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+gpqa_diamond,GPT-6.1 Sol,95.39141414141415,hub,best config per model,VERIFIED,OpenAI,,2026-09-29,168.48
+gpqa_diamond,Gemini 4 Argon,96.40151515151516,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-30,166.48
+gpqa_diamond,Mistral Large 4 Preview,88.06818181818183,hub,best config per model,VERIFIED,Mistral AI,,2026-10-06,152.69
+gpqa_diamond,Claude Haiku 5.5,89.64646464646465,hub,best config per model,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+gpqa_diamond,Muse Spark Open,88.57323232323232,hub,best config per model,VERIFIED,Meta AI,,2026-10-15,155.42
+gpqa_diamond,DeepSeek V4.1 Flash 1017,93.18181818181817,hub,best config per model,VERIFIED,DeepSeek,,2026-10-17,159.41
+gpqa_diamond,Kimi K3.1 Pro,94.1919191919192,hub,best config per model,VERIFIED,Moonshot,,2026-10-23,161.37
+gpqa_diamond,GPT-6.1 Terra,94.31818181818183,hub,best config per model,VERIFIED,OpenAI,,2026-10-26,167.67
+gpqa_diamond,Gemini 4 Carbon,96.52777777777779,hub,best config per model,VERIFIED,Google DeepMind,,2026-10-28,169.76
+gpqa_diamond,Mistral Large 4,90.15151515151516,hub,best config per model,VERIFIED,Mistral AI,,2026-10-29,154.62
+gpqa_diamond,Claude Fable 5.2,96.02272727272728,hub,best config per model,VERIFIED,Anthropic,fable,2026-11-09,173.44
+hle,Claude Sonnet 4.5,17.7,site,,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+hle,Claude Haiku 4.5,10.2,site,,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+hle,Claude Opus 4.5,30.8,site,,VERIFIED,Anthropic,opus,2025-11-24,151.92
+hle,Claude Opus 4.6,40.0,site,,VERIFIED,Anthropic,opus,2026-02-05,156.34
+hle,Claude Sonnet 4.6,34.6,site,,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+hle,Claude Mythos Preview,56.8,site,,VERIFIED,Anthropic,mythos,2026-04-07,
+hle,Claude Opus 4.7,46.9,site,,VERIFIED,Anthropic,opus,2026-04-16,157.44
+hle,Claude Opus 4.8,49.8,site,,VERIFIED,Anthropic,opus,2026-05-28,159.94
+hle,Claude Fable 5,56.5,site,,VERIFIED,Anthropic,fable,2026-06-09,164.13
+hle,Claude Mythos 5,59.0,site,,VERIFIED,Anthropic,mythos,2026-06-09,
+hle,Claude Sonnet 5,43.1,site,,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+hle,Claude Opus 5,56.6,site,,VERIFIED,Anthropic,opus,2026-07-24,164.68
+hle,Claude Fable 5.1,60.9,site,,VERIFIED,Anthropic,fable,2026-09-01,166.99
+hle,Claude Opus 5.5,64.4,site,,VERIFIED,Anthropic,opus,2026-09-22,168.54
+hle,Claude Sonnet 5.5,56.9,site,,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+hle,Claude Haiku 5.5,45.9,site,,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+hle,Claude Fable 5.2,73.2,site,,VERIFIED,Anthropic,fable,2026-11-09,173.44
+lmarena_text,LLaMA-13B,833.55,lmarena,last snapshot the model appears in,VERIFIED,Meta AI,,2023-02-24,85.42
+lmarena_text,Dolly 2.0-12b,851.17,lmarena,last snapshot the model appears in,VERIFIED,Databricks,,2023-04-11,55.82
+lmarena_text,chatglm2-6b,938.67,lmarena,last snapshot the model appears in,VERIFIED,,,2023-06-24,73.99
+lmarena_text,Mistral Large,1265.36,lmarena,last snapshot the model appears in,VERIFIED,Mistral AI,,2024-02-26,119.81
+lmarena_text,Claude 3 Opus,1262.05,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2024-03-04,125.52
+lmarena_text,Claude 3 Sonnet,1218.08,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2024-03-04,119.45
+lmarena_text,Claude 3 Haiku,1194.72,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,haiku,2024-03-13,117.7
+lmarena_text,Claude 3.5 Sonnet,1297.87,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2024-06-20,130.0
+lmarena_text,GPT-4o mini,1286.42,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2024-07-18,123.86
+lmarena_text,o1-mini,1317.12,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2024-09-12,135.3
+lmarena_text,o1-preview,1352.82,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2024-09-12,133.84
+lmarena_text,Claude 3.5 Haiku,1255.4,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,haiku,2024-11-04,124.93
+lmarena_text,Phi-4,1216.73,lmarena,last snapshot the model appears in,VERIFIED,Microsoft Research,,2024-12-12,129.04
+lmarena_text,o1,1365.87,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2024-12-17,141.16
+lmarena_text,DeepSeek-V3,1374.66,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2024-12-26,131.7
+lmarena_text,DeepSeek-R1,1427.85,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2025-01-20,138.59
+lmarena_text,Qwen2.5-Max,1366.74,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-01-25,131.15
+lmarena_text,o3-mini,1336.63,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-01-31,140.61
+lmarena_text,Claude 3.7 Sonnet,1299.39,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2025-02-24,141.0
+lmarena_text,QwQ-32B,1329.08,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-03-05,136.48
+lmarena_text,GPT-4.1,1382.94,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-14,136.15
+lmarena_text,GPT-4.1 mini,1340.61,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-14,134.2
+lmarena_text,GPT-4.1 nano,1284.83,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-14,126.77
+lmarena_text,o3,1409.82,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-16,147.05
+lmarena_text,o4-mini,1353.29,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-16,145.25
+lmarena_text,Qwen3-235B-A22B,1393.61,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-04-28,138.42
+lmarena_text,Qwen3-30B-A3B,1317.01,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-04-29,134.14
+lmarena_text,Qwen3-32B,1340.13,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-04-29,136.89
+lmarena_text,Mistral Medium 3,1370.23,lmarena,last snapshot the model appears in,VERIFIED,Mistral AI,,2025-05-07,132.81
+lmarena_text,Claude Opus 4,1366.07,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2025-05-22,142.9
+lmarena_text,Claude Sonnet 4,1339.25,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2025-05-22,141.86
+lmarena_text,Grok-3 mini,1369.67,lmarena,last snapshot the model appears in,VERIFIED,xAI,,2025-06-24,139.88
+lmarena_text,Grok 4,1411.53,lmarena,last snapshot the model appears in,VERIFIED,xAI,,2025-07-09,146.9
+lmarena_text,Claude Opus 4.1,1418.65,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2025-08-05,144.84
+lmarena_text,gpt-oss-120b,1365.52,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-08-05,140.16
+lmarena_text,gpt-oss-20b,1287.56,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-08-05,134.97
+lmarena_text,GPT-5,1406.43,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-08-07,150.0
+lmarena_text,GPT-5 mini,1373.36,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-08-07,146.09
+lmarena_text,GPT-5 nano,1319.93,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-08-07,139.1
+lmarena_text,DeepSeek-V3.1,1419.93,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2025-08-21,140.85
+lmarena_text,Grok 4 Fast,1406.95,lmarena,last snapshot the model appears in,VERIFIED,xAI,,2025-09-19,144.31
+lmarena_text,Qwen3-Max,1412.93,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-09-24,142.57
+lmarena_text,Claude Sonnet 4.5,1438.61,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+lmarena_text,DeepSeek-V3.2-Exp,1424.91,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2025-09-29,144.38
+lmarena_text,Claude Haiku 4.5,1396.64,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+lmarena_text,GPT-5.1,1442.51,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-11-13,150.94
+lmarena_text,Gemini 3 Pro,1479.51,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2025-11-18,152.98
+lmarena_text,Claude Opus 4.5,1451.02,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2025-11-24,151.92
+lmarena_text,DeepSeek-V3.2,1424.53,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2025-12-01,146.25
+lmarena_text,GPT-5.2,1416.21,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-12-11,154.46
+lmarena_text,Gemini 3 Flash,1465.98,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2025-12-17,152.32
+lmarena_text,GLM-4.7,1435.43,lmarena,last snapshot the model appears in,VERIFIED,Z.ai (Zhipu AI),,2025-12-22,143.28
+lmarena_text,Kimi K2.5,1444.67,lmarena,last snapshot the model appears in,VERIFIED,Moonshot,,2026-01-27,148.76
+lmarena_text,Claude Opus 4.6,1501.48,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2026-02-05,156.34
+lmarena_text,GLM-5,1446.04,lmarena,last snapshot the model appears in,VERIFIED,Z.ai (Zhipu AI),,2026-02-11,146.48
+lmarena_text,Qwen3.5 397B-A17B,1437.72,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2026-02-13,147.9
+lmarena_text,Claude Sonnet 4.6,1457.93,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+lmarena_text,Qwen3.5-35B-A3B,1394.73,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2026-02-24,143.98
+lmarena_text,GPT-5.4,1469.01,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-03-05,157.85
+lmarena_text,GPT-5.4 Mini,1411.73,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-03-17,149.34
+lmarena_text,GPT-5.4 Nano,1371.75,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-03-17,146.4
+lmarena_text,Qwen 3.6 Plus,1436.36,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2026-03-31,148.88
+lmarena_text,Gemma 4 26B A4B,1434.12,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2026-04-02,141.64
+lmarena_text,GLM-5.1,1462.45,lmarena,last snapshot the model appears in,VERIFIED,Z.ai (Zhipu AI),,2026-04-07,150.73
+lmarena_text,Muse Spark,1474.22,lmarena,last snapshot the model appears in,VERIFIED,Meta AI,,2026-04-08,153.14
+lmarena_text,Claude Opus 4.7,1489.77,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2026-04-16,157.44
+lmarena_text,Kimi K2.6,1455.42,lmarena,last snapshot the model appears in,VERIFIED,Moonshot,,2026-04-20,151.56
+lmarena_text,Qwen 3.6 Max (Preview),1447.14,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2026-04-20,149.83
+lmarena_text,GPT-5.5,1471.15,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-04-23,160.1
+lmarena_text,DeepSeek-V4-Flash,1432.02,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2026-04-24,146.85
+lmarena_text,DeepSeek-V4-Pro,1451.26,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2026-04-24,150.17
+lmarena_text,Mistral Medium 3.5,1420.97,lmarena,last snapshot the model appears in,VERIFIED,Mistral AI,,2026-04-28,141.59
+lmarena_text,Gemini 3.5 Flash,1482.92,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2026-05-19,155.28
+lmarena_text,Claude Opus 4.8,1461.52,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2026-05-28,159.94
+lmarena_text,MiniMax-M3,1433.33,lmarena,last snapshot the model appears in,VERIFIED,MiniMax,,2026-06-01,147.74
+lmarena_text,Qwen3.7-Plus,1454.58,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2026-06-02,147.87
+lmarena_text,Claude Fable 5,1492.63,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,fable,2026-06-09,164.13
+lmarena_text,GLM-5.2,1469.38,lmarena,last snapshot the model appears in,VERIFIED,Z.ai (Zhipu AI),,2026-06-16,153.03
+lmarena_text,Claude Sonnet 5,1441.87,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+lmarena_text,Grok 4.5,1448.02,lmarena,last snapshot the model appears in,VERIFIED,xAI,,2026-07-08,154.98
+lmarena_text,GPT-5.6 Luna,1431.05,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-07-09,156.67
+lmarena_text,GPT-5.6 Sol,1457.33,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-07-09,162.99
+lmarena_text,GPT-5.6 Terra,1448.83,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-07-09,160.73
+lmarena_text,Muse Spark 1.1,1478.86,lmarena,last snapshot the model appears in,VERIFIED,Meta AI,,2026-07-09,154.87
+lmarena_text,Inkling,1443.04,lmarena,last snapshot the model appears in,VERIFIED,Thinking Machines,,2026-07-15,148.39
+lmarena_text,Inkling-Small,1414.21,lmarena,last snapshot the model appears in,VERIFIED,Thinking Machines,,2026-07-15,150.75
+lmarena_text,Kimi K3,1474.59,lmarena,last snapshot the model appears in,VERIFIED,Moonshot,,2026-07-16,158.58
+lmarena_text,Gemini 3.5 Flash-Lite,1434.67,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2026-07-21,145.63
+lmarena_text,Gemini 3.6 Flash,1479.41,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2026-07-21,155.21
+lmarena_text,Claude Opus 5,1506.5,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2026-07-24,164.68
+lmarena_text,Qwen 3.8 Max,1485.28,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2026-08-02,157.59
+lmarena_text,Muse Spark 1.2,1484.91,lmarena,last snapshot the model appears in,VERIFIED,Meta AI,,2026-08-05,155.04
+lmarena_text,Grok 4.6,1430.02,lmarena,last snapshot the model appears in,VERIFIED,xAI,,2026-08-12,157.79
+lmarena_text,Gemini 3.7 Flash,1488.71,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2026-08-13,158.36
+lmarena_text,GLM-5.3,1474.93,lmarena,last snapshot the model appears in,VERIFIED,Z.ai (Zhipu AI),,2026-08-14,157.1
+lmarena_text,Qwen 3.8 27B,1440.55,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2026-08-14,152.64
+lmarena_text,GLM-5.3-Flash,1471.72,lmarena,last snapshot the model appears in,VERIFIED,Z.ai (Zhipu AI),,2026-08-20,153.82
+lmarena_text,Claude Fable 5.1,1512.04,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,fable,2026-09-01,166.99
+lmarena_text,Gemini 3.8 Flash,1499.58,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2026-09-02,158.79
+lmarena_text,Muse Spark 1.3,1491.64,lmarena,last snapshot the model appears in,VERIFIED,Meta AI,,2026-09-02,158.24
+lmarena_text,GPT-6 Astra,1439.61,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-09-03,169.0
+lmarena_text,DeepSeek V4.1 Flash,1463.56,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2026-09-09,156.7
+lmarena_text,Grok 4.7,1399.94,lmarena,last snapshot the model appears in,VERIFIED,xAI,,2026-09-21,156.18
+lmarena_text,Claude Opus 5.5,1513.66,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2026-09-22,168.54
+lmarena_text,GPT-6 Luna,1388.49,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-09-22,156.41
+lmarena_text,GPT-6 Sol,1396.77,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-09-22,163.75
+lmarena_text,Claude Sonnet 5.5,1469.13,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+lmarena_text,GPT-6.1 Sol,1444.75,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2026-09-29,168.48
+lmarena_text,Gemini 4 Argon,1529.46,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2026-09-30,166.48
+lmarena_text,Claude Haiku 5.5,1397.65,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+lmarena_text,Muse Wonder,1502.97,lmarena,last snapshot the model appears in,VERIFIED,Meta AI,,2026-10-12,161.68
+lmarena_text,Kimi K3.1 Pro,1459.14,lmarena,last snapshot the model appears in,VERIFIED,Moonshot,,2026-10-23,161.37
+lmarena_text,Gemini 4 Carbon,1538.38,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2026-10-28,169.76
+lmarena_text,Mistral Large 4,1429.99,lmarena,last snapshot the model appears in,VERIFIED,Mistral AI,,2026-10-29,154.62
+metr_h50,GPT-4 (Mar 2023),3.987,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2023-03-14,121.77
+metr_h50,GPT-4 Turbo (Nov 2023),4.045,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2024-01-25,124.77
+metr_h50,Claude 3 Opus,3.952,metr,TH1.1 50% horizon,VERIFIED,Anthropic,opus,2024-03-04,125.52
+metr_h50,GPT-4 Turbo (Apr 2024),3.733,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2024-04-09,125.82
+metr_h50,GPT-4o (May 2024),6.991,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2024-05-13,128.16
+metr_h50,Claude 3.5 Sonnet,11.395,metr,TH1.1 50% horizon,VERIFIED,Anthropic,sonnet,2024-06-20,130.0
+metr_h50,o1-preview,20.327,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2024-09-12,133.84
+metr_h50,Claude 3.5 Sonnet (October 2024),20.523,metr,TH1.1 50% horizon,VERIFIED,Anthropic,sonnet,2024-10-22,133.43
+metr_h50,o1,38.832,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2024-12-17,141.16
+metr_h50,Claude 3.7 Sonnet,60.389,metr,TH1.1 50% horizon,VERIFIED,Anthropic,sonnet,2025-02-24,141.0
+metr_h50,o3,119.733,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2025-04-16,147.05
+metr_h50,Claude Opus 4,100.366,metr,TH1.1 50% horizon,VERIFIED,Anthropic,opus,2025-05-22,142.9
+metr_h50,Claude Opus 4.1,100.472,metr,TH1.1 50% horizon,VERIFIED,Anthropic,opus,2025-08-05,144.84
+metr_h50,GPT-5,203.013,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2025-08-07,150.0
+metr_h50,Gemini 3 Pro,224.326,metr,TH1.1 50% horizon,VERIFIED,Google DeepMind,,2025-11-18,152.98
+metr_h50,Claude Opus 4.5,292.995,metr,TH1.1 50% horizon,VERIFIED,Anthropic,opus,2025-11-24,151.92
+metr_h50,GPT-5.2,352.249,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2025-12-11,154.46
+metr_h50,Claude Opus 4.6,718.807,metr,TH1.1 50% horizon,VERIFIED,Anthropic,opus,2026-02-05,156.34
+metr_h50,Gemini 3.1 Pro,384.147,metr,TH1.1 50% horizon,VERIFIED,Google DeepMind,,2026-02-19,156.18
+metr_h50,GPT-5.4,341.735,metr,TH1.1 50% horizon,VERIFIED,OpenAI,,2026-03-05,157.85
+metr_h50,Claude Mythos Preview,1044.78,metr,TH1.1 50% horizon,VERIFIED,Anthropic,mythos,2026-04-07,
+osworld,Claude 3.5 Sonnet (October 2024),14.9,site,,VERIFIED,Anthropic,sonnet,2024-10-22,133.43
+osworld,Claude 3.7 Sonnet,28.0,site,,VERIFIED,Anthropic,sonnet,2025-02-24,141.0
+osworld,Claude Sonnet 4,42.2,site,,VERIFIED,Anthropic,sonnet,2025-05-22,141.86
+osworld,Claude Sonnet 4.5,61.4,site,,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+osworld,Claude Haiku 4.5,50.7,site,,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+osworld,Claude Opus 4.5,66.3,site,,VERIFIED,Anthropic,opus,2025-11-24,151.92
+osworld,Claude Opus 4.6,72.7,site,,VERIFIED,Anthropic,opus,2026-02-05,156.34
+osworld,Claude Sonnet 4.6,72.5,site,,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+osworld,Claude Mythos Preview,79.6,site,,VERIFIED,Anthropic,mythos,2026-04-07,
+osworld,Claude Opus 4.7,82.3,site,,VERIFIED,Anthropic,opus,2026-04-16,157.44
+osworld,Claude Opus 4.8,83.4,site,,VERIFIED,Anthropic,opus,2026-05-28,159.94
+osworld,Claude Fable 5,85.0,site,,VERIFIED,Anthropic,fable,2026-06-09,164.13
+osworld,Claude Sonnet 5,81.2,site,,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+osworld,Claude Opus 5.5,87.2,site,OSWorld 2.1 partial credit,VERIFIED,Anthropic,opus,2026-09-22,168.54
+osworld,Claude Sonnet 5.5,83.9,site,OSWorld 2.1 partial credit,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+osworld,Claude Haiku 5.5,72.4,site,OSWorld 2.1 partial credit,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+osworld,Claude Fable 5.2,89.3,site,OSWorld 2.1 partial credit,VERIFIED,Anthropic,fable,2026-11-09,173.44
+rli,Gemini 2.5 Pro (Jun 2025),0.83,hub,best config per model,VERIFIED,Google DeepMind,,2025-06-05,144.87
+rli,GPT-5,1.67,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,150.0
+rli,Claude Sonnet 4.5,2.08,site,,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+rli,Gemini 3 Pro,1.25,hub,best config per model,VERIFIED,Google DeepMind,,2025-11-18,152.98
+rli,Claude Opus 4.5,3.75,site,,VERIFIED,Anthropic,opus,2025-11-24,151.92
+rli,GPT-5.2,2.50199999999999,hub,best config per model,VERIFIED,OpenAI,,2025-12-11,154.46
+rli,Claude Opus 4.6,4.17,site,,VERIFIED,Anthropic,opus,2026-02-05,156.34
+rli,GPT-5.5,6.25,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,160.1
+rli,Claude Opus 4.8,8.33,site,,VERIFIED,Anthropic,opus,2026-05-28,159.94
+rli,Claude Fable 5,15.83,site,,VERIFIED,Anthropic,fable,2026-06-09,164.13
+rli,Gemini 3.7 Flash,5.0,hub,best config per model,VERIFIED,Google DeepMind,,2026-08-13,158.36
+rli,Claude Fable 5.1,17.92,site,,VERIFIED,Anthropic,fable,2026-09-01,166.99
+rli,Gemini 3.8 Flash,5.83,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-02,158.79
+rli,GPT-6 Astra,20.82999999999999,hub,best config per model,VERIFIED,OpenAI,,2026-09-03,169.0
+rli,Claude Opus 5.5,21.25,site,,VERIFIED,Anthropic,opus,2026-09-22,168.54
+rli,Gemini 4 Argon,17.07999999999999,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-30,166.48
+rli,Claude Fable 5.2,41.3,site,reported_by=anthropic,VERIFIED,Anthropic,fable,2026-11-09,173.44
+swe_bench_pro,Claude Opus 4.5,52.0,site,,VERIFIED,Anthropic,opus,2025-11-24,151.92
+swe_bench_pro,Claude Opus 4.6,53.4,site,,VERIFIED,Anthropic,opus,2026-02-05,156.34
+swe_bench_pro,Claude Sonnet 4.6,58.1,site,,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+swe_bench_pro,Claude Mythos Preview,77.8,site,,VERIFIED,Anthropic,mythos,2026-04-07,
+swe_bench_pro,Claude Opus 4.7,64.3,site,,VERIFIED,Anthropic,opus,2026-04-16,157.44
+swe_bench_pro,Claude Opus 4.8,69.2,site,,VERIFIED,Anthropic,opus,2026-05-28,159.94
+swe_bench_pro,Claude Fable 5,80.0,site,,VERIFIED,Anthropic,fable,2026-06-09,164.13
+swe_bench_pro,Claude Sonnet 5,63.2,site,,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+swe_bench_pro,Claude Opus 5,79.2,site,,VERIFIED,Anthropic,opus,2026-07-24,164.68
+swe_bench_pro,Claude Fable 5.1,81.2,site,,VERIFIED,Anthropic,fable,2026-09-01,166.99
+swe_bench_pro,Claude Opus 5.5,89.9,site,,VERIFIED,Anthropic,opus,2026-09-22,168.54
+swe_bench_pro,Claude Sonnet 5.5,81.3,site,,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+swe_bench_pro,Claude Haiku 5.5,64.8,site,,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+swe_bench_pro,Claude Fable 5.2,93.0,site,,VERIFIED,Anthropic,fable,2026-11-09,173.44
+terminal_bench_2,Gemini 2.5 Pro (Jun 2025),32.6404494382,hub,best config per model,VERIFIED,Google DeepMind,,2025-06-05,144.87
+terminal_bench_2,Gemini 2.5 Flash (Jun 2025),17.0786516854,hub,best config per model,VERIFIED,Google DeepMind,,2025-06-17,140.81
+terminal_bench_2,Grok 4,27.200000000000003,hub,best config per model,VERIFIED,xAI,,2025-07-09,146.9
+terminal_bench_2,Kimi K2 (Jul 2025),27.800000000000004,hub,best config per model,VERIFIED,Moonshot,,2025-07-12,141.24
+terminal_bench_2,Claude Opus 4.1,38.0,hub,best config per model,VERIFIED,Anthropic,opus,2025-08-05,144.84
+terminal_bench_2,gpt-oss-120b,18.7,hub,best config per model,VERIFIED,OpenAI,,2025-08-05,140.16
+terminal_bench_2,gpt-oss-20b,3.4000000000000004,hub,best config per model,VERIFIED,OpenAI,,2025-08-05,134.97
+terminal_bench_2,GPT-5,49.606741573,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,150.0
+terminal_bench_2,GPT-5 mini,34.8314606742,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,146.09
+terminal_bench_2,GPT-5 nano,21.79775280899999,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,139.1
+terminal_bench_2,Gemini 2.5 Flash (Sep 2025),17.1,hub,best config per model,VERIFIED,Google DeepMind,,2025-09-25,141.93
+terminal_bench_2,Claude Sonnet 4.5,46.5168539326,hub,best config per model,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+terminal_bench_2,Claude Haiku 4.5,35.505617977499995,hub,best config per model,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+terminal_bench_2,Kimi K2 Thinking,35.730337078699996,hub,best config per model,VERIFIED,Moonshot,,2025-11-06,145.43
+terminal_bench_2,GPT-5.1,47.599999999999994,hub,best config per model,VERIFIED,OpenAI,,2025-11-13,150.94
+terminal_bench_2,Gemini 3 Pro,69.4257178527,hub,best config per model,VERIFIED,Google DeepMind,,2025-11-18,152.98
+terminal_bench_2,Claude Opus 4.5,63.1460674157,hub,best config per model,VERIFIED,Anthropic,opus,2025-11-24,151.92
+terminal_bench_2,DeepSeek-V3.2,39.5505617978,hub,best config per model,VERIFIED,DeepSeek,,2025-12-01,146.25
+terminal_bench_2,GPT-5.2,64.9438202247,hub,best config per model,VERIFIED,OpenAI,,2025-12-11,154.46
+terminal_bench_2,Gemini 3 Flash,64.2696629213,hub,best config per model,VERIFIED,Google DeepMind,,2025-12-17,152.32
+terminal_bench_2,GLM-4.7,33.3895131086,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2025-12-22,143.28
+terminal_bench_2,Kimi K2.5,43.202247191,hub,best config per model,VERIFIED,Moonshot,,2026-01-27,148.76
+terminal_bench_2,Claude Opus 4.6,79.80000000000001,hub,best config per model,VERIFIED,Anthropic,opus,2026-02-05,156.34
+terminal_bench_2,GLM-5,52.415730337099994,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-02-11,146.48
+terminal_bench_2,Claude Sonnet 4.6,53.4269662921,hub,best config per model,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+terminal_bench_2,Grok 4.20,57.3033707865,hub,best config per model,VERIFIED,xAI,,2026-02-17,152.28
+terminal_bench_2,Gemini 3.1 Pro,80.2247191011,hub,best config per model,VERIFIED,Google DeepMind,,2026-02-19,156.18
+terminal_bench_2,Qwen3.5-9B,9.2134831461,hub,best config per model,VERIFIED,Alibaba,,2026-02-24,139.32
+terminal_bench_2,GPT-5.4,81.8,hub,best config per model,VERIFIED,OpenAI,,2026-03-05,157.85
+terminal_bench_2,Qwen 3.6 35B-A3B,24.625468164799997,hub,best config per model,VERIFIED,Alibaba,,2026-04-14,144.02
+terminal_bench_2,Claude Opus 4.7,80.2247191011,hub,best config per model,VERIFIED,Anthropic,opus,2026-04-16,157.44
+terminal_bench_2,GPT-5.5,84.7191011236,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,160.1
+terminal_bench_2_1,Claude Haiku 4.5,43.8,site,,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+terminal_bench_2_1,Claude Sonnet 4.6,57.3,site,,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+terminal_bench_2_1,Claude Opus 4.7,68.5,site,,VERIFIED,Anthropic,opus,2026-04-16,157.44
+terminal_bench_2_1,Claude Opus 4.8,71.9,site,,VERIFIED,Anthropic,opus,2026-05-28,159.94
+terminal_bench_2_1,Claude Fable 5,80.5,site,,VERIFIED,Anthropic,fable,2026-06-09,164.13
+terminal_bench_2_1,Claude Sonnet 5,74.5,site,,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+terminal_bench_2_1,Claude Opus 5,84.6,site,,VERIFIED,Anthropic,opus,2026-07-24,164.68
+terminal_bench_2_1,Claude Fable 5.1,85.0,site,,VERIFIED,Anthropic,fable,2026-09-01,166.99
+terminal_bench_2_1,Claude Opus 5.5,87.6,site,,VERIFIED,Anthropic,opus,2026-09-22,168.54
+terminal_bench_2_1,Claude Sonnet 5.5,83.1,site,,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+vals_index,Inkling,28.961,vals,best config,VERIFIED,Thinking Machines,,2026-07-15,148.39
+vals_index,Inkling-Small,27.588,vals,best config,VERIFIED,Thinking Machines,,2026-07-15,150.75
+vals_index,Kimi K3,52.955,vals,best config,VERIFIED,Moonshot,,2026-07-16,158.58
+vals_index,DeepSeek V4 Pro 0813,52.974,vals,best config,VERIFIED,DeepSeek,,2026-08-13,155.94
+vals_index,GLM-5.3,59.847,vals,best config,VERIFIED,Z.ai (Zhipu AI),,2026-08-14,157.1
+vals_index,GLM-5.3-Flash,50.861,vals,best config,VERIFIED,Z.ai (Zhipu AI),,2026-08-20,153.82
+vals_index,Gemini 3.8 Flash,55.951,vals,best config,VERIFIED,Google DeepMind,,2026-09-02,158.79
+vals_index,GPT-6 Astra,65.023,vals,best config,VERIFIED,OpenAI,,2026-09-03,169.0
+vals_index,Grok 4.7,58.615,vals,best config,VERIFIED,xAI,,2026-09-21,156.18
+vals_index,Claude Opus 5.5,70.143,vals,best config,VERIFIED,Anthropic,opus,2026-09-22,168.54
+vals_index,GPT-6 Luna,52.322,vals,best config,VERIFIED,OpenAI,,2026-09-22,156.41
+vals_index,Claude Sonnet 5.5,70.854,vals,best config,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+vals_index,GPT-6.1 Sol,63.944,vals,best config,VERIFIED,OpenAI,,2026-09-29,168.48
+vals_index,Gemini 4 Argon,69.389,vals,best config,VERIFIED,Google DeepMind,,2026-09-30,166.48
+vals_index,Beam 1.0,43.424,vals,best config,VERIFIED,Reflection,,2026-10-05,150.91
+vals_index,Claude Haiku 5.5,58.727,vals,best config,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+vals_index,Muse Wonder,64.877,vals,best config,VERIFIED,Meta AI,,2026-10-12,161.68
+vals_index,Muse Spark Open,48.567,vals,best config,VERIFIED,Meta AI,,2026-10-15,155.42
+vals_index,DeepSeek V4.1 Flash 1017,61.257,vals,best config,VERIFIED,DeepSeek,,2026-10-17,159.41
+vals_index,Kimi K3.1 Pro,62.52,vals,best config,VERIFIED,Moonshot,,2026-10-23,161.37
+vals_index,GPT-6.1 Terra,60.536,vals,best config,VERIFIED,OpenAI,,2026-10-26,167.67
+vals_index,Gemini 4 Carbon,70.45,vals,best config,VERIFIED,Google DeepMind,,2026-10-28,169.76
+vals_index,Claude Fable 5.2,71.309,vals,best config,VERIFIED,Anthropic,fable,2026-11-09,173.44
+vending_bench_2,Gemini 2.5 Pro (Jun 2025),573.6420000000003,hub,best config per model,VERIFIED,Google DeepMind,,2025-06-05,144.87
+vending_bench_2,Gemini 2.5 Flash (Jun 2025),548.836,hub,best config per model,VERIFIED,Google DeepMind,,2025-06-17,140.81
+vending_bench_2,Qwen3-235B-A22B-Thinking (Jul 2025),-11.340000000000078,hub,best config per model,VERIFIED,Alibaba,,2025-07-25,143.21
+vending_bench_2,gpt-oss-120b,-21.532000000000053,hub,best config per model,VERIFIED,OpenAI,,2025-08-05,140.16
+vending_bench_2,GPT-5 mini,-31.18399999999995,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,146.09
+vending_bench_2,Qwen3-Max,71.56500000000018,hub,best config per model,VERIFIED,Alibaba,,2025-09-24,142.57
+vending_bench_2,Claude Sonnet 4.5,3839.0,site,,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+vending_bench_2,DeepSeek-V3.2-Exp,1034.004,hub,best config per model,VERIFIED,DeepSeek,,2025-09-29,144.38
+vending_bench_2,Claude Haiku 4.5,459.0,site,,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+vending_bench_2,GPT-5.1,1473.432,hub,best config per model,VERIFIED,OpenAI,,2025-11-13,150.94
+vending_bench_2,Gemini 3 Pro,5478.158000000001,hub,best config per model,VERIFIED,Google DeepMind,,2025-11-18,152.98
+vending_bench_2,Claude Opus 4.5,4967.0,site,,VERIFIED,Anthropic,opus,2025-11-24,151.92
+vending_bench_2,GPT-5.2,3591.326,hub,best config per model,VERIFIED,OpenAI,,2025-12-11,154.46
+vending_bench_2,Gemini 3 Flash,3634.715999999999,hub,best config per model,VERIFIED,Google DeepMind,,2025-12-17,152.32
+vending_bench_2,GLM-4.7,2376.816,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2025-12-22,143.28
+vending_bench_2,Kimi K2.5,1198.458,hub,best config per model,VERIFIED,Moonshot,,2026-01-27,148.76
+vending_bench_2,Claude Opus 4.6,8018.0,site,,VERIFIED,Anthropic,opus,2026-02-05,156.34
+vending_bench_2,GLM-5,4432.122000000001,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-02-11,146.48
+vending_bench_2,Qwen 3.5 Plus (hosted 397B-A17B),0.5440000000000417,hub,best config per model,VERIFIED,Alibaba,,2026-02-16,147.29
+vending_bench_2,Claude Sonnet 4.6,7204.0,site,,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+vending_bench_2,Grok 4.20,4662.846666666667,hub,best config per model,VERIFIED,xAI,,2026-02-17,152.28
+vending_bench_2,Gemini 3.1 Pro,3774.254,hub,best config per model,VERIFIED,Google DeepMind,,2026-02-19,156.18
+vending_bench_2,Qwen 3.5 Flash (hosted 35B-A3B),462.6850000000002,hub,best config per model,VERIFIED,Alibaba,,2026-02-25,143.81
+vending_bench_2,GPT-5.4,6144.176,hub,best config per model,VERIFIED,OpenAI,,2026-03-05,157.85
+vending_bench_2,Qwen 3.6 Plus,5114.872000000001,hub,best config per model,VERIFIED,Alibaba,,2026-03-31,148.88
+vending_bench_2,GLM-5.1,5634.406,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-04-07,150.73
+vending_bench_2,Claude Opus 4.7,10937.0,site,,VERIFIED,Anthropic,opus,2026-04-16,157.44
+vending_bench_2,Grok 4.3 Beta,35.26166666666665,hub,best config per model,VERIFIED,xAI,,2026-04-17,149.89
+vending_bench_2,Kimi K2.6,6204.570000000001,hub,best config per model,VERIFIED,Moonshot,,2026-04-20,151.56
+vending_bench_2,Qwen 3.6 Max (Preview),4254.1866666666665,hub,best config per model,VERIFIED,Alibaba,,2026-04-20,149.83
+vending_bench_2,GPT-5.5,7523.843999999999,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,160.1
+vending_bench_2,DeepSeek-V4-Pro,3284.519999999999,hub,best config per model,VERIFIED,DeepSeek,,2026-04-24,150.17
+vending_bench_2,Gemini 3.5 Flash,5396.418333333334,hub,best config per model,VERIFIED,Google DeepMind,,2026-05-19,155.28
+vending_bench_2,Claude Opus 4.8,5787.0,site,,VERIFIED,Anthropic,opus,2026-05-28,159.94
+vending_bench_2,MiniMax-M3,2157.7716666666665,hub,best config per model,VERIFIED,MiniMax,,2026-06-01,147.74
+vending_bench_2,Claude Fable 5,5680.0,site,,VERIFIED,Anthropic,fable,2026-06-09,164.13
+vending_bench_2,Kimi K2.7 Code,5082.936,hub,best config per model,VERIFIED,Moonshot,,2026-06-12,151.15
+vending_bench_2,GLM-5.2,8313.778333333335,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-06-16,153.03
+vending_bench_2,Claude Sonnet 5,6378.0,site,,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+vending_bench_2,Grok 4.5,3887.425999999999,hub,best config per model,VERIFIED,xAI,,2026-07-08,154.98
+vending_bench_2,GPT-5.6 Luna,4094.712,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,156.67
+vending_bench_2,GPT-5.6 Sol,9619.368,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,162.99
+vending_bench_2,GPT-5.6 Terra,7343.206,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,160.73
+vending_bench_2,Muse Spark 1.1,6520.474999999999,hub,best config per model,VERIFIED,Meta AI,,2026-07-09,154.87
+vending_bench_2,Kimi K3,5165.035000000001,hub,best config per model,VERIFIED,Moonshot,,2026-07-16,158.58
+vending_bench_2,Claude Opus 5,11182.0,site,,VERIFIED,Anthropic,opus,2026-07-24,164.68
+vending_bench_2,Grok 4.6,9047.0325,hub,best config per model,VERIFIED,xAI,,2026-08-12,157.79
+vending_bench_2,GLM-5.3,8163.609999999998,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-08-14,157.1
+vending_bench_2,Claude Fable 5.1,5422.0,site,,VERIFIED,Anthropic,fable,2026-09-01,166.99
+vending_bench_2,Gemini 3.8 Flash,5093.793333333332,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-02,158.79
+vending_bench_2,GPT-6 Astra,15514.701666666668,hub,best config per model,VERIFIED,OpenAI,,2026-09-03,169.0
+vending_bench_2,Grok 4.7,10536.831666666669,hub,best config per model,VERIFIED,xAI,,2026-09-21,156.18
+vending_bench_2,Claude Opus 5.5,9235.0,site,,VERIFIED,Anthropic,opus,2026-09-22,168.54
+vending_bench_2,GPT-6 Sol,14427.848333333332,hub,best config per model,VERIFIED,OpenAI,,2026-09-22,163.75
+vending_bench_2,Claude Sonnet 5.5,11165.0,site,,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+vending_bench_2,GPT-6.1 Sol,12860.61166666667,hub,best config per model,VERIFIED,OpenAI,,2026-09-29,168.48
+vending_bench_2,Gemini 4 Argon,13718.158333333333,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-30,166.48
+vending_bench_2,Claude Haiku 5.5,3602.0,site,,VERIFIED,Anthropic,haiku,2026-10-07,160.43
+vending_bench_2,Muse Wonder,9432.18,hub,best config per model,VERIFIED,Meta AI,,2026-10-12,161.68
+vending_bench_2,GPT-6.1 Terra,9107.458333333334,hub,best config per model,VERIFIED,OpenAI,,2026-10-26,167.67
+vending_bench_2,Gemini 4 Carbon,16484.20666666667,hub,best config per model,VERIFIED,Google DeepMind,,2026-10-28,169.76
+webdev_arena,Gemini 2.5 Pro (Jun 2025),1225.73,hub,best config per model,VERIFIED,Google DeepMind,,2025-06-05,144.87
+webdev_arena,Claude Opus 4.1,1388.97,hub,best config per model,VERIFIED,Anthropic,opus,2025-08-05,144.84
+webdev_arena,GPT-5,1419.52,hub,best config per model,VERIFIED,OpenAI,,2025-08-07,150.0
+webdev_arena,Grok 4 Fast,1149.0,hub,best config per model,VERIFIED,xAI,,2025-09-19,144.31
+webdev_arena,Claude Sonnet 4.5,1391.0,hub,best config per model,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+webdev_arena,DeepSeek-V3.2-Exp,1367.0,hub,best config per model,VERIFIED,DeepSeek,,2025-09-29,144.38
+webdev_arena,Claude Haiku 4.5,1329.31,hub,best config per model,VERIFIED,Anthropic,haiku,2025-10-15,142.83
+webdev_arena,Kimi K2 Thinking,1337.0,hub,best config per model,VERIFIED,Moonshot,,2025-11-06,145.43
+webdev_arena,GPT-5.1,1392.03,hub,best config per model,VERIFIED,OpenAI,,2025-11-13,150.94
+webdev_arena,Gemini 3 Pro,1438.77,hub,best config per model,VERIFIED,Google DeepMind,,2025-11-18,152.98
+webdev_arena,Claude Opus 4.5,1494.89,hub,best config per model,VERIFIED,Anthropic,opus,2025-11-24,151.92
+webdev_arena,DeepSeek-V3.2,1324.67,hub,best config per model,VERIFIED,DeepSeek,,2025-12-01,146.25
+webdev_arena,GPT-5.2,1480.0,hub,best config per model,VERIFIED,OpenAI,,2025-12-11,154.46
+webdev_arena,Gemini 3 Flash,1383.12,hub,best config per model,VERIFIED,Google DeepMind,,2025-12-17,152.32
+webdev_arena,GLM-4.7,1434.7,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2025-12-22,143.28
+webdev_arena,Kimi K2.5,1436.37,hub,best config per model,VERIFIED,Moonshot,,2026-01-27,148.76
+webdev_arena,Claude Opus 4.6,1556.29,hub,best config per model,VERIFIED,Anthropic,opus,2026-02-05,156.34
+webdev_arena,GLM-5,1435.91,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-02-11,146.48
+webdev_arena,Qwen 3.5 Plus (hosted 397B-A17B),1398.92,hub,best config per model,VERIFIED,Alibaba,,2026-02-16,147.29
+webdev_arena,Claude Sonnet 4.6,1520.99,hub,best config per model,VERIFIED,Anthropic,sonnet,2026-02-17,152.86
+webdev_arena,Grok 4.20,1373.76,hub,best config per model,VERIFIED,xAI,,2026-02-17,152.28
+webdev_arena,Gemini 3.1 Pro,1446.64,hub,best config per model,VERIFIED,Google DeepMind,,2026-02-19,156.18
+webdev_arena,Qwen 3.5 Flash (hosted 35B-A3B),1238.17,hub,best config per model,VERIFIED,Alibaba,,2026-02-25,143.81
+webdev_arena,Gemini 3.1 Flash-Lite,1254.27,hub,best config per model,VERIFIED,Google,,2026-03-03,145.01
+webdev_arena,GPT-5.4,1462.99,hub,best config per model,VERIFIED,OpenAI,,2026-03-05,157.85
+webdev_arena,GPT-5.4 Mini,1397.18,hub,best config per model,VERIFIED,OpenAI,,2026-03-17,149.34
+webdev_arena,Qwen 3.6 Plus,1460.53,hub,best config per model,VERIFIED,Alibaba,,2026-03-31,148.88
+webdev_arena,Gemma 4 26B A4B,1361.4,hub,best config per model,VERIFIED,Google DeepMind,,2026-04-02,141.64
+webdev_arena,Gemma 4 31B IT,1364.13,hub,best config per model,VERIFIED,Google DeepMind,,2026-04-02,144.27
+webdev_arena,GLM-5.1,1508.29,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-04-07,150.73
+webdev_arena,Muse Spark,1512.53,hub,best config per model,VERIFIED,Meta AI,,2026-04-08,153.14
+webdev_arena,Qwen 3.6 35B-A3B,1250.15,hub,best config per model,VERIFIED,Alibaba,,2026-04-14,144.02
+webdev_arena,Claude Opus 4.7,1566.85,hub,best config per model,VERIFIED,Anthropic,opus,2026-04-16,157.44
+webdev_arena,Grok 4.3 Beta,1357.17,hub,best config per model,VERIFIED,xAI,,2026-04-17,149.89
+webdev_arena,Kimi K2.6,1508.77,hub,best config per model,VERIFIED,Moonshot,,2026-04-20,151.56
+webdev_arena,Qwen 3.6 Max (Preview),1479.06,hub,best config per model,VERIFIED,Alibaba,,2026-04-20,149.83
+webdev_arena,GPT-5.5,1510.15,hub,best config per model,VERIFIED,OpenAI,,2026-04-23,160.1
+webdev_arena,DeepSeek-V4-Flash,1430.93,hub,best config per model,VERIFIED,DeepSeek,,2026-04-24,146.85
+webdev_arena,DeepSeek-V4-Pro,1463.63,hub,best config per model,VERIFIED,DeepSeek,,2026-04-24,150.17
+webdev_arena,Mistral Medium 3.5,1264.92,hub,best config per model,VERIFIED,Mistral AI,,2026-04-28,141.59
+webdev_arena,Gemini 3.5 Flash,1506.38,hub,best config per model,VERIFIED,Google DeepMind,,2026-05-19,155.28
+webdev_arena,Qwen3.7-Max,1517.12,hub,best config per model,VERIFIED,Alibaba,,2026-05-19,154.54
+webdev_arena,Claude Opus 4.8,1558.83,hub,best config per model,VERIFIED,Anthropic,opus,2026-05-28,159.94
+webdev_arena,MiniMax-M3,1486.7,hub,best config per model,VERIFIED,MiniMax,,2026-06-01,147.74
+webdev_arena,Claude Fable 5,1627.98,hub,best config per model,VERIFIED,Anthropic,fable,2026-06-09,164.13
+webdev_arena,Kimi K2.7 Code,1472.72,hub,best config per model,VERIFIED,Moonshot,,2026-06-12,151.15
+webdev_arena,GLM-5.2,1593.25,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-06-16,153.03
+webdev_arena,Claude Sonnet 5,1536.72,hub,best config per model,VERIFIED,Anthropic,sonnet,2026-06-30,156.94
+webdev_arena,Grok 4.5,1555.1,hub,best config per model,VERIFIED,xAI,,2026-07-08,154.98
+webdev_arena,GPT-5.6 Luna,1518.87,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,156.67
+webdev_arena,GPT-5.6 Sol,1617.32,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,162.99
+webdev_arena,GPT-5.6 Terra,1521.25,hub,best config per model,VERIFIED,OpenAI,,2026-07-09,160.73
+webdev_arena,Muse Spark 1.1,1541.55,hub,best config per model,VERIFIED,Meta AI,,2026-07-09,154.87
+webdev_arena,Inkling,1409.99,hub,best config per model,VERIFIED,Thinking Machines,,2026-07-15,148.39
+webdev_arena,Inkling-Small,1406.58,hub,best config per model,VERIFIED,Thinking Machines,,2026-07-15,150.75
+webdev_arena,Kimi K3,1674.26,hub,best config per model,VERIFIED,Moonshot,,2026-07-16,158.58
+webdev_arena,Gemini 3.5 Flash-Lite,1446.62,hub,best config per model,VERIFIED,Google DeepMind,,2026-07-21,145.63
+webdev_arena,Gemini 3.6 Flash,1536.95,hub,best config per model,VERIFIED,Google DeepMind,,2026-07-21,155.21
+webdev_arena,Claude Opus 5,1686.99,hub,best config per model,VERIFIED,Anthropic,opus,2026-07-24,164.68
+webdev_arena,DeepSeek V4 Flash 0731,1580.2,hub,best config per model,VERIFIED,DeepSeek,,2026-07-31,154.41
+webdev_arena,Qwen 3.8 Max,1670.58,hub,best config per model,VERIFIED,Alibaba,,2026-08-02,157.59
+webdev_arena,Muse Spark 1.2,1534.38,hub,best config per model,VERIFIED,Meta AI,,2026-08-05,155.04
+webdev_arena,Grok 4.6,1617.64,hub,best config per model,VERIFIED,xAI,,2026-08-12,157.79
+webdev_arena,DeepSeek V4 Pro 0813,1580.53,hub,best config per model,VERIFIED,DeepSeek,,2026-08-13,155.94
+webdev_arena,Gemini 3.7 Flash,1587.26,hub,best config per model,VERIFIED,Google DeepMind,,2026-08-13,158.36
+webdev_arena,GLM-5.3,1614.45,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-08-14,157.1
+webdev_arena,Qwen 3.8 27B,1593.29,hub,best config per model,VERIFIED,Alibaba,,2026-08-14,152.64
+webdev_arena,GLM-5.3-Flash,1607.09,hub,best config per model,VERIFIED,Z.ai (Zhipu AI),,2026-08-20,153.82
+webdev_arena,Claude Fable 5.1,1758.05,hub,best config per model,VERIFIED,Anthropic,fable,2026-09-01,166.99
+webdev_arena,Gemini 3.8 Flash,1567.88,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-02,158.79
+webdev_arena,Muse Spark 1.3,1651.94,hub,best config per model,VERIFIED,Meta AI,,2026-09-02,158.24
+webdev_arena,GPT-6 Astra,1800.28,hub,best config per model,VERIFIED,OpenAI,,2026-09-03,169.0
+webdev_arena,DeepSeek V4.1 Flash,1613.95,hub,best config per model,VERIFIED,DeepSeek,,2026-09-09,156.7
+webdev_arena,Grok 4.7,1637.52,hub,best config per model,VERIFIED,xAI,,2026-09-21,156.18
+webdev_arena,Claude Opus 5.5,1820.31,hub,best config per model,VERIFIED,Anthropic,opus,2026-09-22,168.54
+webdev_arena,GPT-6 Luna,1581.95,hub,best config per model,VERIFIED,OpenAI,,2026-09-22,156.41
+webdev_arena,GPT-6 Sol,1689.33,hub,best config per model,VERIFIED,OpenAI,,2026-09-22,163.75
+webdev_arena,Claude Sonnet 5.5,1786.26,hub,best config per model,VERIFIED,Anthropic,sonnet,2026-09-28,166.56
+webdev_arena,GPT-6.1 Sol,1758.72,hub,best config per model,VERIFIED,OpenAI,,2026-09-29,168.48
+webdev_arena,Gemini 4 Argon,1679.5,hub,best config per model,VERIFIED,Google DeepMind,,2026-09-30,166.48

@@ -1,0 +1,15 @@
+index,version,from,to,changes_summary,status,source_url,as_of
+AA Intelligence Index,5.0.1,2026-11,current,"CritPt v2 regrade; 9 evals: AA-Briefcase v1.1, AutomationBench-AA, GDP.pdf, FrontierCode-AA 2.0, Terminal-Bench 4.0, AA-Omniscience v1.1, HLE-Diamond, CritPt v2 Hard, Terminal-Bench-Science 0.1.0",VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,5.0,2026-10,2026-11,"added HLE-Diamond, TB-Science, FrontierCode-AA 2.0; removed GDPval-AA, SciCode, AA-LCR, HLE; categories 25% each",VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,4.3.2,2026-09,2026-10,GDPval-AA v2.1 re-anchored; AA-Briefcase v1.1,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,4.3.1,2026-09,2026-09,refreshed pairwise judge panels,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,4.3,2026-09,2026-09,AutomationBench-AA replaces tau3-Banking; Terminal-Bench 4.0 replaces 2.1,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,4.2,2026-09,2026-09,added AA-Briefcase (15%),VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,4.1.1,2026-08,2026-09,tau3-Banking moved to upstream tau2-bench,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,4.1,2026-06,2026-08,GDPval-AA v2,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,4.0,2026-01,2026-06,added GDPval-AA etc.,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,3.0,2025-09-02,2025-12,added Terminal-Bench Hard etc.,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,2.2,2025-08-06,2025-09-01,added AA-LCR,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,2.1,2025-08-05,2025-08-06,added IFBench,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,2.0,2025-02-11,2025-08-04,,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
+AA Intelligence Index,1.0-1.3,2024-01,2025-02-10,,VERIFIED,https://artificialanalysis.ai/methodology/intelligence-benchmarking,2026-11-16
