@@ -89,7 +89,7 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
   font: 600 .8rem/1 Arial, sans-serif; padding: 7px 26px 7px 12px; min-height: 30px; cursor: pointer;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%238a7565'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
 @media (pointer: coarse), (max-width: 768px) { .cf-seg button, .cf-ctl select { min-height: 38px; } }
-@media (max-width: 560px) { .cf-controls { gap: 8px 12px; } .cf-seg button { padding: 7px 10px; } }
+@media (max-width: 560px) { .cf-controls { gap: 8px 12px; } .cf-seg button { padding: 7px 10px; } .cf-ctl.m4 { flex-wrap: wrap; gap: 4px 7px; } }
 
 /* charts */
 .cf-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
@@ -149,6 +149,18 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
 .fold { border-top: 1px solid var(--rule-soft); padding: 5px 0; }
 .fold .more-panel { margin: 4px 0 12px; }
 .fam-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--c); margin-right: 6px; vertical-align: baseline; }
+.whatif-badge { display: inline-block; margin: 0 0 10px; padding: 4px 12px; border: 1.5px dashed var(--warn); border-radius: 999px; color: var(--warn); background: color-mix(in srgb, var(--warn) 9%, transparent);
+  font: 700 .72rem/1.4 Arial, sans-serif; letter-spacing: .5px; text-transform: uppercase; }
+.cf-card.whatif { outline: 2px dashed var(--warn); outline-offset: -2px; }
+.nm .nm-whatif { font-size: .68em; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--warn); line-height: 1.3; }
+.nm.whatif { border-style: dashed; border-color: var(--warn); border-top-style: solid; border-top-color: var(--c); }
+.nm .nm-delta { font-size: .78em; color: var(--ink-soft); }
+.nm .nm-delta b { font-family: var(--f-data); color: var(--warn); font-weight: 600; }
+.cf-ctl.m4 .cf-seg button[data-v="on"][aria-pressed="true"] { background: var(--warn); }
+#m4-block { border: 1.5px dashed var(--warn); border-radius: 10px; padding: 14px 16px; margin-top: 14px; background: color-mix(in srgb, var(--warn) 5%, transparent); }
+#m4-block h3:first-child { margin-top: 0; }
+.cf td.shift { color: var(--warn); font-weight: 600; }
+.cf-legend i.tri { width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid var(--ink-soft); }
 .cf .footer { background: none; color: var(--ink-muted); padding: 6px 20px 30px; }
 .cf .footer a { color: var(--coral-dark); }
 </style>
@@ -192,8 +204,10 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       <p><strong>The shaded top.</strong> <span id="info-chart-scale"></span></p>
       <p><strong>Next models.</strong> Each diamond is the next model of one family at its median release date. The vertical bar is the 80% interval for its score; the horizontal bar is the 10&ndash;90% window for its release date, taken from the <a href="release-forecast.html">release forecast</a>. Fable and Mythos are one underlying model and are forecast as one.</p>
       <p><strong>Scales.</strong> <span id="info-chart-scales"></span></p>
+      <p id="info-m4" hidden></p>
       <p><strong>Scenario paths and weightings.</strong> "Scenario paths" draws the median of each scenario by itself, labelled with its weight. The band always uses the central weighting. Choosing another weighting relabels the paths and adds square markers with 80% bars at the three dates for which the alternative mix is published.</p>
     </div>
+    <p class="whatif-badge" data-whatif hidden>What-if: includes Anthropic's unreleased internal model &mdash; not graded</p>
     <div class="cf-controls" id="controls">
       <div class="cf-ctl"><span id="lab-scale">Scale</span><div class="cf-seg" role="group" aria-labelledby="lab-scale" data-ctl="scale">
         <button type="button" data-v="eci" aria-pressed="true">Public ECI</button><button type="button" data-v="aeci" aria-pressed="false">AECI</button></div></div>
@@ -202,12 +216,24 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       <div class="cf-ctl"><span id="lab-range">Range</span><div class="cf-seg" role="group" aria-labelledby="lab-range" data-ctl="range">
         <button type="button" data-v="full" aria-pressed="true">2024&ndash;2030</button><button type="button" data-v="near" aria-pressed="false">Next models</button></div></div>
       <div class="cf-ctl"><label for="sel-weight">Weighting</label><select id="sel-weight"></select></div>
+      <div class="cf-ctl m4" id="ctl-m4" hidden><span id="lab-m4">Model 4</span><div class="cf-seg" role="group" aria-labelledby="lab-m4" data-ctl="m4">
+        <button type="button" data-v="off" aria-pressed="true">Excluded (published)</button><button type="button" data-v="on" aria-pressed="false">Included (what-if)</button></div></div>
       <div class="cf-ctl" id="ctl-others" hidden><div class="cf-seg" data-ctl="others"><button type="button" data-toggle aria-pressed="false">Other labs’ frontier</button></div></div>
     </div>
     <div class="cf-chart" id="main-chart" role="img" aria-label="Chart of Claude model capability index scores since 2024 with a forecast band to 2030"></div>
     <p class="chart-caveat" id="chart-caveat"></p>
     <div class="cf-legend" id="chart-legend"></div>
     <p class="note" id="bt-boundary" hidden></p>
+    <div id="m4-block" hidden>
+      <h3>What Model 4 changes</h3>
+      <p class="note" id="m4-reading"></p>
+      <div class="tbl"><table id="m4-delta"></table></div>
+      <p class="tiny" id="m4-delta-note"></p>
+      <h3>Where the shift comes from</h3>
+      <div class="tbl"><table id="m4-comp"></table></div>
+      <ul class="tight note" id="m4-comp-what"></ul>
+      <p class="note" id="m4-psens"></p>
+    </div>
     <div class="folds"><div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="more-sens" id="btn-sens">Frontier under other weightings</button>
       <div class="more-panel" id="more-sens" hidden="until-found"><div class="tbl"><table id="sens-table"></table></div>
       <p class="note" id="sens-note"></p></div></div>
@@ -224,6 +250,7 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       <p><strong>Benchmarks.</strong> <span id="info-next-bench"></span></p>
       <p><strong>Fable and Mythos.</strong> <span id="info-next-twin"></span></p>
     </div>
+    <p class="whatif-badge" data-whatif hidden>What-if: includes Anthropic's unreleased internal model &mdash; not graded</p>
     <div class="nm-grid" id="nm-grid"></div>
     <div class="folds"><div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="more-bench" id="btn-bench">All benchmark predictions</button>
       <div class="more-panel" id="more-bench" hidden="until-found">
@@ -250,6 +277,7 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       <p><strong>What the sample supports.</strong> <span id="info-bt-n"></span></p>
       <p><strong>Key.</strong> Each row is one past Claude release. The bar is the 80% interval the model would have given, the thin line its 95% interval, the tick its median, and the dot the public ECI the model actually got. A ringed dot fell outside the 80% interval.</p>
     </div>
+    <p class="note" data-whatif-fixed hidden><strong>Unchanged by the what-if.</strong> This backtest is of the published forecast, which leaves Model 4 out.</p>
     <div class="callout"><p id="bt-verdict"></p></div>
     <div class="cf-controls"><div class="cf-ctl"><span id="lab-lead">Forecast made</span><div class="cf-seg" role="group" aria-labelledby="lab-lead" data-ctl="lead" id="lead-seg"></div></div></div>
     <div class="cf-chart" id="bt-chart" role="img" aria-label="Predicted interval against the actual public ECI for each past Claude release"></div>
@@ -307,6 +335,7 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       <p>Every number here was written down on the issue date and will be graded against the first value published for the model, not a later refit. A prediction that cannot be resolved by its expiry date lapses unscored. Predictions marked conditional resolve only if the model's system card prints an AECI.</p>
       <p>The list and the grader are in the repository: <a href="https://github.com/JacobBrooke95/Claude-Model-Guide/tree/main/capability/history">capability/history</a>, <a href="https://github.com/JacobBrooke95/Claude-Model-Guide/blob/main/capability/grade.py">grade.py</a> and <a href="https://github.com/JacobBrooke95/Claude-Model-Guide/blob/main/capability/scorecard.csv">scorecard.csv</a>.</p>
     </div>
+    <p class="note" data-whatif-fixed hidden><strong>Unchanged by the what-if.</strong> These are the published predictions, without Model 4; no predictions are issued from the what-if.</p>
     <p class="note" id="open-lede"></p>
     <div class="tbl"><table class="wide" id="open-table"></table></div>
     <div class="folds"><div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="more-openb" id="btn-openb">Benchmark predictions</button>
@@ -483,8 +512,8 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
   };
 
   const COMPACT = window.matchMedia('(max-width: 600px)');
-  const state = { scale: 'eci', view: 'mix', range: 'full', weighting: 'central', lead: null, others: false };
-  let D = null;
+  const state = { scale: 'eci', view: 'mix', range: 'full', weighting: 'central', lead: null, others: false, m4: 'off' };
+  let D = null, renderCards = () => {}, applyM4 = () => {};
 
   // End of the backtested range. `validated_through` is the deprecated name of the same field.
   function boundary() {
@@ -502,6 +531,11 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
     const pick = v => ok(v) && typeof v === 'number' ? v : (v && typeof v === 'object' ? [v.value, v.shade_from, v.shade_above, v.central, v.median, v.point].find(ok) : null);
     return [H.beyond_measured_scale_above, H.beyond_measured_scale_shade_above, Sc.beyond_measured_scale_above_eci, Sc.beyond_measured_scale_above].map(pick).find(ok);
   }
+
+  // The 'with Model 4' what-if. The published forecast is the top level of the JSON and never changes.
+  const variant = () => ((D.variants || {}).with_model_4) || null;
+  const m4on = () => state.m4 === 'on' && !!variant();
+  const signed = (v, d = 1) => ok(v) ? (v > 0 ? '+' : v < 0 ? '−' : '±') + Math.abs(v).toFixed(d) : '—';
 
   // ---------- data for the active scale ----------
   function scaleData() {
@@ -534,9 +568,15 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
     }
     points.sort((a, b) => T(a.date) - T(b.date));
     const key = aeci ? 'anthropic_frontier_aeci_nov6_scale' : 'anthropic_frontier_eci';
-    const series = ((P.series || {})[key] || []).filter(q => isIso(q.date) && ok(q.median));
-    const scen = (P.scenarios || []).map((s, i) => ({ key: s.scenario, i, weights: s.weights || {}, rows: (((P.scenario_series || {})[s.scenario] || {})[key] || []).filter(q => isIso(q.date) && ok(q.median)) })).filter(s => s.rows.length);
-    const next = (H.families || []).map(f => {
+    const V = m4on() ? variant() : null, VP = (V && V.projection) || {};
+    const good = rows => (rows || []).filter(q => isIso(q.date) && ok(q.median));
+    const pubSeries = good((P.series || {})[key]);
+    const series = V ? good((VP.series || {})[key]) : pubSeries;
+    const vw = ((VP.weights || {}).central) || {}, vsm = ((VP.scenario_medians || {})[key]) || {};
+    const scen = (P.scenarios || []).map((s, i) => V
+      ? { key: s.scenario, i, weights: { central: vw[s.scenario] }, rows: good(vsm[s.scenario]) }
+      : { key: s.scenario, i, weights: s.weights || {}, rows: good(((P.scenario_series || {})[s.scenario] || {})[key]) }).filter(s => s.rows.length);
+    const nextOf = Hx => ((Hx || {}).families || []).map(f => {
       const e = ((D.next_models || {}).entities || {})[f.entity] || {};
       const v = aeci ? f.aeci_own_card : f.eci;
       const w = f.release_window || {};
@@ -544,6 +584,21 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       return { entity: f.entity, name: short(f.name), v, w, cond: aeci && !!f.aeci_own_card_conditional, tested: f.lead_tested !== false,
         fam: f.entity === 'fable_mythos' ? (aeci ? 'mythos' : 'fable') : f.entity, e };
     }).filter(Boolean);
+    const pubNext = nextOf(H), next = V ? nextOf(V.headline) : pubNext;
+    // Model 4 itself: at its public-ECI equivalent (or printed AECI), a public-date-equivalent of today plus the mean remaining lag
+    let model4 = null;
+    if (V && V.model_4) {
+      const m = V.model_4, eq = m.eci_equivalent || {}, lag = ((V.assumptions || {}).lag) || {};
+      const mean = /mean\s+(\d+(?:\.\d+)?)\s*day/.exec(String(lag.remaining_lag || ''));
+      const g = m.aeci_global_ci95 || [];
+      model4 = aeci ? { v: m.aeci_nov6, lo: g[0], hi: g[1], band: '95%' } : { v: eq.median, lo: eq.lo80, hi: eq.hi80, band: '80%' };
+      model4.lagDays = mean ? +mean[1] : 0;
+      model4.tip = 'Model 4: Anthropic’s unreleased internal model\nAECI ' + num(m.aeci_nov6, 2) + ' on ' + (m.n_benchmarks || '—') + ' internal benchmarks' + (g.length ? ' (95% ' + rng(g[0], g[1]) + ')' : '') +
+        (ok(eq.median) ? '\nPublic-ECI equivalent about ' + num(eq.median) + ' (80% ' + rng(eq.lo80, eq.hi80) + ')' : '') +
+        '\nInternal date about ' + fmtD(m.internal_date_figure_read) + '; no public release' +
+        '\nDrawn at today + ' + model4.lagDays + ' days (assumed mean remaining lag)\nNot a released model, and not graded';
+      if (!ok(model4.v)) model4 = null;
+    }
     // every other lab: the running best of their released models, then the projected non-Anthropic frontier
     const others = { rec: [], series: [] };
     if (!aeci) {
@@ -553,11 +608,12 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       others.series = ((P.series || {}).non_anthropic_frontier_eci || []).filter(q => isIso(q.date) && ok(q.median));
     }
     return {
-      aeci, points, series, scen, next, others,
+      aeci, points, series, scen, next, others, V, model4,
+      ghostSeries: V ? pubSeries : [], ghostNext: V ? pubNext : [],
       label: aeci ? 'AECI' : 'Public ECI',
       threshold: aeci ? null : threshold(),
       cap: aeci ? null : (ok(H.display_cap_eci) ? H.display_cap_eci : (D.scale || {}).display_cap_eci),
-      sens: aeci ? [] : (P.sensitivity || []).filter(r => r.series === 'anthropic_frontier_eci' && r.weighting === state.weighting && isIso(r.date))
+      sens: aeci || V ? [] : (P.sensitivity || []).filter(r => r.series === 'anthropic_frontier_eci' && r.weighting === state.weighting && isIso(r.date))
     };
   }
 
@@ -590,7 +646,10 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
     } else {
       yStep = 20;
       yMin = Math.floor((Math.min.apply(null, vis.map(p => p.v).concat([hasCur ? cur : 1e9])) - 3) / 10) * 10;
-      const maxMed = Math.max.apply(null, serVis.map(q => q.median).concat([hasCur ? cur : 0]));
+      const vr = variant(), altKey = S.aeci ? 'anthropic_frontier_aeci_nov6_scale' : 'anthropic_frontier_eci';
+      // the what-if's medians count too, so the axis does not jump when Model 4 is switched in or out
+      const altMed = (((vr && vr.projection && vr.projection.series) || {})[altKey] || []).filter(q => isIso(q.date) && ok(q.median) && T(q.date) <= x1).map(q => q.median);
+      const maxMed = Math.max.apply(null, serVis.map(q => q.median).concat(altMed, S.ghostSeries.map(q => q.median), [hasCur ? cur : 0]));
       yMax = Math.max(ok(S.cap) ? S.cap : 0, Math.ceil((maxMed + 10) / 10) * 10);
     }
     if (!isFinite(yMin) || !isFinite(yMax) || yMax <= yMin) { yMin = 100; yMax = 260; }
@@ -693,6 +752,9 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
     S.points.forEach(p => { if (p.kind !== 'diamond' && p.v > best && T(p.date) <= T(asOf)) { best = p.v; rec.push([Xd(p.date), Y(p.v)]); } });
     if (rec.length && hasCur) rec.push([xT, Y(cur)]);
     if (rec.length > 1) s += '<path d="' + dOf(rec) + '" fill="none" style="stroke:var(--frontier)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" clip-path="url(#' + uid + '-plot)"/>';
+    // what-if: the published median stays on as a thin ghost, so the shift can be seen
+    const ghostPts = S.V ? pathOf(S.ghostSeries.filter(q => T(q.date) <= x1), q => q.median) : [];
+    if (ghostPts.length > 1) s += '<path d="' + dOf(ghostPts) + '" fill="none" style="stroke:var(--ink-strong)" stroke-width="1.3" stroke-dasharray="1.5,3.5" stroke-linecap="round" opacity="0.8" clip-path="url(#' + uid + '-plot)"/>';
     // median path
     if (medPts.length > 1) {
       if (showBands && valid) {
@@ -749,8 +811,27 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       obstacles.push({ x: px - dotR, y: py - dotR, w: 2 * dotR, h: 2 * dotR });
       hits += '<circle cx="' + px + '" cy="' + py + '" r="' + (compact ? 12 : 9) + '" fill="transparent" data-tip="' + esc(p.tip) + '"/>';
     });
+    // what-if: faint ghosts of the published next-model medians
+    S.ghostNext.forEach(n => {
+      const px = Xd(n.w.median), py = Y(n.v.median); if (px > pad.l + pw + 1) return;
+      s += '<rect x="' + (px - 4.4) + '" y="' + (py - 4.4) + '" width="8.8" height="8.8" transform="rotate(45 ' + px + ' ' + py + ')" fill="none" style="stroke:var(--ink-strong)" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.65"/>';
+    });
+    // Model 4 itself
+    let m4Item = null;
+    if (S.model4) {
+      const m = S.model4, px = X(T(asOf) + m.lagDays * DAY), py = Y(m.v);
+      if (px <= pad.l + pw && py >= pad.t && py <= yb) {
+        const yl = ok(m.lo) ? Math.min(yb, Y(m.lo)) : py, yh = ok(m.hi) ? Math.max(pad.t, Y(m.hi)) : py;
+        s += '<line x1="' + px + '" y1="' + yl + '" x2="' + px + '" y2="' + yh + '" style="stroke:var(--ink-strong)" stroke-width="1.6" stroke-dasharray="2,2.5"/>';
+        s += '<path d="M' + px + ',' + (py - 7) + 'L' + (px + 6.5) + ',' + (py + 5) + 'L' + (px - 6.5) + ',' + (py + 5) + 'Z" style="fill:var(--card);stroke:var(--ink-strong)" stroke-width="2" stroke-linejoin="round"/>';
+        obstacles.push({ x: px - 8, y: py - 8, w: 16, h: 16 }, { x: px - 3, y: yh, w: 6, h: yl - yh, soft: true });
+        hits += '<rect x="' + (px - 11) + '" y="' + (yh - 2) + '" width="22" height="' + (yl - yh + 4) + '" fill="transparent" data-tip="' + esc(m.tip) + '"/>';
+        m4Item = { px, py, color: 'var(--ink-strong)', text: (compact ? 'Model 4 · ~' : 'Model 4 (internal, unreleased) · ~') + num(m.v, 0), bold: true, prefer: 'above' };
+      }
+    }
     // next models: hollow diamond at the median date, 80% score bar, 10-90% date bar
     const nextItems = [];
+    const shiftOf = n => { const g = S.ghostNext.find(z => z.entity === n.entity); return g && ok(g.v.median) ? ' (' + signed(n.v.median - g.v.median) + ')' : ''; };
     S.next.forEach(n => {
       const px = Xd(n.w.median), py = Y(n.v.median), col = famVar(n.fam);
       if (px > pad.l + pw + 1) return;
@@ -767,15 +848,16 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
         (n.cond ? '\nConditional: only if its card prints an AECI' : '') + (!n.tested ? '\nLead is beyond anything backtested' : '') + (ok(pr) && !S.aeci ? '\nP(below predecessor) ' + pct(pr, 1) : '');
       hits += '<rect x="' + (px - 11) + '" y="' + (yh - 2) + '" width="22" height="' + (yl - yh + 4) + '" fill="transparent" data-tip="' + esc(tipText) + '"/>' +
         '<rect x="' + xl + '" y="' + (py - 9) + '" width="' + (xr - xl) + '" height="18" fill="transparent" data-tip="' + esc(tipText) + '"/>';
-      nextItems.push({ px, py, color: col, text: (compact ? n.name.replace(' / ', '/') : n.name) + ' · ' + num(n.v.median, 0), bold: true, prefer: 'below' });
+      nextItems.push({ px, py, color: col, text: compact && S.V ? n.name.replace(' / ', '/') + shiftOf(n).replace(/[()]/g, '') : (compact ? n.name.replace(' / ', '/') : n.name) + ' · ' + num(n.v.median, 0) + shiftOf(n), bold: true, prefer: 'below' });
     });
     // labels: next models first (they are the point of the chart), then the latest model of each family
     nextItems.forEach(it => labelItems.push(it));
+    if (m4Item) labelItems.push(m4Item);
     const latest = {};
     vis.forEach(p => { if (p.kind !== 'diamond') latest[p.fam] = p; });
     const recPts = []; let rb = -Infinity; vis.forEach(p => { if (p.kind !== 'diamond' && p.v > rb) { rb = p.v; recPts.push(p); } });
     const histLabels = near ? vis : (compact || !recPts.length ? [] : (recPts.length > 1 ? [recPts[0], recPts[recPts.length - 1]] : recPts));
-    if (!(compact && !near)) histLabels.slice().reverse().forEach(p => labelItems.push({ px: Xd(p.date), py: Y(p.v), color: famVar(p.fam), text: p.name + ' · ' + num(p.v, 0), bold: false, prefer: 'left' }));
+    if (!(compact && (!near || S.V))) histLabels.slice().reverse().forEach(p => labelItems.push({ px: Xd(p.date), py: Y(p.v), color: famVar(p.fam), text: p.name + ' · ' + num(p.v, 0), bold: false, prefer: 'left' }));
 
     // quarter strips: hover or tap anywhere in a quarter for its numbers
     let strips = '';
@@ -784,7 +866,8 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       const a = i ? (qx[i - 1] + qx[i]) / 2 : xT, b = i < qx.length - 1 ? (qx[i] + qx[i + 1]) / 2 : pad.l + pw;
       if (b <= a) return;
       const tested = !valid || T(q.date) <= T(valid);
-      let t = quarter(q.date) + ' · Anthropic frontier, ' + S.label + '\nMedian ' + num(q.median) + '\n50% ' + rng(q.lo50, q.hi50) + '\n80% ' + rng(q.lo80, q.hi80) + '\n95% ' + rng(q.lo95, q.hi95) +
+      const gq = S.ghostSeries.find(z => z.date === q.date);
+      let t = quarter(q.date) + ' · Anthropic frontier, ' + S.label + (S.V ? '\nWHAT-IF with Model 4 (not graded)' : '') + '\nMedian ' + num(q.median) + (gq ? ' (published ' + num(gq.median) + ', shift ' + signed(q.median - gq.median) + ')' : '') + '\n50% ' + rng(q.lo50, q.hi50) + '\n80% ' + rng(q.lo80, q.hi80) + '\n95% ' + rng(q.lo95, q.hi95) +
         '\n' + (tested ? 'Inside the backtested range' : 'Scenario projection (priors, not tested)');
       if (ok(q.share_of_paths_beyond_measured_scale) && q.share_of_paths_beyond_measured_scale > 0) t += '\n' + pct(q.share_of_paths_beyond_measured_scale) + ' of paths above the measured scale';
       if (showPaths) S.scen.forEach(sc => { const r = sc.rows.find(z => z.date === q.date); if (r) t += '\n' + scName(sc.key) + ': ' + num(r.median); });
@@ -817,7 +900,17 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       const q = serVis[serVis.length - 1];
       s += '<text x="' + rx + '" y="' + (Y(q.median) + 4) + '" font-size="' + fs(compact ? 11 : 13) + '" font-weight="700" style="fill:var(--coral-title)">' + num(q.median, 0) + '</text>';
       s += '<text x="' + rx + '" y="' + (Y(q.median) + 4 + 12 * k) + '" font-size="' + fs(compact ? 8.6 : 10) + '" style="fill:var(--ink-soft)">median</text>';
+      const gl = S.ghostSeries.find(z => z.date === q.date);
+      if (gl) {
+        s += '<text x="' + rx + '" y="' + (Y(q.median) + 4 + (compact ? 24 : 36) * k) + '" font-size="' + fs(compact ? 8.6 : 10) + '" font-weight="700" style="fill:var(--warn)">' + signed(q.median - gl.median) + (compact ? '' : ' vs') + '</text>';
+        if (!compact) s += '<text x="' + rx + '" y="' + (Y(q.median) + 4 + 48 * k) + '" font-size="' + fs(10) + '" style="fill:var(--ink-soft)">published ' + num(gl.median, 0) + '</text>';
+      }
       if (!compact) s += '<text x="' + rx + '" y="' + (Y(q.median) + 4 + 24 * k) + '" font-size="' + fs(10) + '" style="fill:var(--ink-soft)">end ' + esc(q.date.slice(0, 4)) + '</text>';
+    }
+    if (S.V) {
+      const wf = fs(compact ? 9 : 11.5), wy = yb - (compact ? 22 : 24) * k, ww = 34 * wf * 0.66;
+      s += '<text class="halo" x="' + (pad.l + pw - 8) + '" y="' + wy + '" text-anchor="end" font-size="' + wf + '" font-weight="700" letter-spacing="0.5" style="fill:var(--warn)">WHAT-IF: WITH MODEL 4 · NOT GRADED</text>';
+      obstacles.push({ x: pad.l + pw - 8 - ww, y: wy - wf, w: ww, h: wf + 4 });
     }
     s += strips + hits;
     s += '<g pointer-events="none">' + placeLabels(labelItems, { x: pad.l + 2, y: pad.t + 2, w: pw - 4, h: ph - 8 }, obstacles, fs(compact ? 9.4 : 11)) + '</g>';
@@ -829,6 +922,8 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       ? 'AECI is re-estimated by Anthropic at every release. History and the band are on its latest fit; each next-model diamond is the value as printed in that model’s own card.'
       : 'Public ECI is Epoch’s index, re-fitted on every update. The band is backtested to ' + (valid ? fmtM(valid) : 'the marked line') + '; beyond it, it is a scenario projection from stated priors.';
     if (state.weighting !== 'central') cav += S.sens.length ? ' Squares: the ' + wName(state.weighting).toLowerCase() + ' weighting (median, 80%); the band stays on the central one.' : ' The alternative weightings are published for public ECI only.';
+    if (S.V) cav = 'What-if, not the published forecast: Model 4 counted as evidence. Dotted line and dashed diamonds are the published medians; the signed numbers beside the labels are the shift.' +
+      (S.aeci && showPaths ? ' Scenario paths for the what-if are published for public ECI only.' : '') + ' ' + cav;
     setText('chart-caveat', cav);
     const fams = []; vis.forEach(p => { if (fams.indexOf(p.fam) < 0) fams.push(p.fam); });
     S.next.forEach(n => { if (fams.indexOf(n.fam) < 0) fams.push(n.fam); });
@@ -838,6 +933,7 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
     lg += '<span><i class="dia"></i>Predicted next model</span><span><i class="line" style="--c:var(--ink-muted)"></i>its 80% score range and 10–90% date window</span>';
     lg += '<span><i class="line" style="--c:var(--frontier)"></i>Record line</span>';
     lg += '<span><i class="line" style="--c:var(--coral)"></i>Frontier median</span>';
+    if (S.V) lg += '<span><i class="tri"></i>Model 4 (internal, unreleased)</span><span><i class="dash" style="--c:var(--ink-strong);border-top-width:1.4px;border-top-style:dotted"></i>Published median, without Model 4</span>';
     if (showBands) lg += '<span><i class="band" style="--o:.5"></i><i class="band" style="--o:.3"></i><i class="band" style="--o:.14"></i>50 / 80 / 95%</span><span><i class="hatch"></i>Scenario projection</span>';
     if (ok(thr)) lg += '<span><i class="zone"></i>Above the measured scale</span>';
     if (showPaths) lg += '<span><i class="line" style="--c:var(--sc1)"></i><i class="line" style="--c:var(--sc3)"></i><i class="line" style="--c:var(--sc5)"></i>Scenario medians, slow to fast</span>';
@@ -960,11 +1056,16 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
     const isGraded = b => b && b.available !== false && ok(b.median) && b.graded !== false && !b.indicative && !b.withdrawn;
     const gradedOf = (f, e) => {
       const out = (f.benchmarks || []).filter(isGraded).slice(), seen = out.map(b => b.benchmark);
-      Object.keys(e.benchmarks || {}).forEach(k => { const b = e.benchmarks[k]; if (isGraded(b) && seen.indexOf(k) < 0) out.push(Object.assign({ benchmark: k }, b)); });
+      if (!m4on()) Object.keys(e.benchmarks || {}).forEach(k => { const b = e.benchmarks[k]; if (isGraded(b) && seen.indexOf(k) < 0) out.push(Object.assign({ benchmark: k }, b)); });
       return out;
     };
     const titleOfLink = b => { const x = (L.table || []).find(z => z.benchmark === b); return (x && x.title) || pretty(b); };
-    $('nm-grid').innerHTML = (H.families || []).map(f => {
+    renderCards = () => {
+    const Vc = m4on() ? variant() : null, pubFam = {};
+    (H.families || []).forEach(f => { pubFam[f.entity] = f; });
+    $('nm-grid').innerHTML = (((Vc && Vc.headline) || H).families || []).map(f => {
+      const pf = Vc ? pubFam[f.entity] : null;
+      const delta = (now, was, what) => pf && now && was && ok(now.median) && ok(was.median) ? '<div class="nm-delta">published ' + num(was.median) + ' · shift <b>' + signed(now.median - was.median, 2) + '</b></div>' : '';
       const e = N[f.entity] || {}, twin = f.entity === 'fable_mythos', w = f.release_window || {}, v = f.eci || {}, a = f.aeci_own_card || {};
       const leadMo = ok(e.median_lead_years) ? Math.round(e.median_lead_years * 12 * 10) / 10 : null;
       const sat = Object.keys(e.benchmarks || {}).filter(b => e.benchmarks[b] && e.benchmarks[b].saturated).map(b => e.benchmarks[b].title || b);
@@ -973,17 +1074,21 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       const testNote = tested
         ? 'How tested: ' + leadTxt + ', inside the backtested range (up to ' + (maxLead != null ? Math.round(maxLead * 12) + ' months' : 'six months') + ').'
         : 'How tested: ' + leadTxt + ', beyond anything backtested (longest lead tested: ' + (maxLead != null ? Math.round(maxLead * 12) + ' months, ' + nMax + ' folds' : 'six months') + ').';
-      return '<article class="nm' + (twin ? ' twin' : '') + '" style="--c:' + famVar(twin ? 'fable' : f.entity) + '">' +
-        '<div class="nm-name">' + esc(short(f.name)) + '</div><div class="nm-prev">after ' + esc(String(e.previous_model || '—').split(' / ').map(short).join(' / ')) + (ok(e.previous_eci) ? ' (ECI ' + num(e.previous_eci) + ')' : '') + '</div>' +
+      return '<article class="nm' + (twin ? ' twin' : '') + (Vc ? ' whatif' : '') + '" style="--c:' + famVar(twin ? 'fable' : f.entity) + '">' +
+        (Vc ? '<div class="nm-whatif">What-if with Model 4 · not graded</div>' : '') + '<div class="nm-name">' + esc(short(f.name)) + '</div><div class="nm-prev">after ' + esc(String(e.previous_model || '—').split(' / ').map(short).join(' / ')) + (ok(e.previous_eci) ? ' (ECI ' + num(e.previous_eci) + ')' : '') + '</div>' +
         '<div class="lab">Public ECI, median</div><div class="big">' + num(v.median) + '</div>' +
+        delta(v, pf && pf.eci) +
         '<dl><dt>50%</dt><dd>' + rng(v.lo50, v.hi50) + '</dd><dt>80%</dt><dd>' + rng(v.lo80, v.hi80) + '</dd><dt>95%</dt><dd>' + rng(v.lo95, v.hi95) + '</dd></dl>' +
         '<div class="lab">Release</div><div class="nm-line"><b>' + esc(fmtD(w.median)) + '</b><br>10–90%: ' + esc(fmtS(w.q10)) + ' – ' + esc(fmtS(w.q90)) + '</div>' +
         '<div class="lab">AECI, own card' + (f.aeci_own_card_conditional ? ' <span class="chip warn">conditional</span>' : '') + '</div><div class="nm-line"><b>' + num(a.median) + '</b> (80%: ' + rng(a.lo80, a.hi80) + ')' + (f.aeci_own_card_conditional ? '<br>only if the card prints one' : '') + '</div>' +
+        delta(a, pf && pf.aeci_own_card) +
         '<div class="lab">Benchmarks, graded</div>' + (gradedOf(f, e).slice(0, 3).map(b => '<div class="nm-line">' + esc(b.title || b.benchmark) + ' <b>' + num(b.median, Math.abs(b.median) >= 1000 ? 0 : 1) + '</b> (' + rng(b.lo80, b.hi80, Math.abs(b.median) >= 1000 ? 0 : 1) + ')</div>').join('') || '<div class="nm-line">No graded benchmark prediction for this family.</div>') +
         (sat.length ? '<div class="nm-line">Saturated, no number: ' + esc(sat.join(', ')) + '. Expect the next model at or just below the ceiling.</div>' : '') +
-        (ok(e.p_regression_below_predecessor) ? '<div class="nm-line" style="margin-top:6px">Chance it scores below its predecessor: <b>' + pct(e.p_regression_below_predecessor, 1) + '</b></div>' : '') +
+        (ok(e.p_regression_below_predecessor) && !Vc ? '<div class="nm-line" style="margin-top:6px">Chance it scores below its predecessor: <b>' + pct(e.p_regression_below_predecessor, 1) + '</b></div>' : '') +
         '<div class="nm-test' + (tested ? '' : ' untested') + '">' + esc(testNote) + '</div></article>';
     }).join('');
+    };
+    renderCards();
     setText('info-next-how', (D.next_models || {}).note || '');
     setText('info-next-aeci', [(A.own_card || {}).label, (A.own_card || {}).conditional].filter(Boolean).join(' '));
     setText('info-next-bench', L.method || '');
@@ -1141,6 +1246,57 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
     }
     $('review-note').innerHTML = prevVersions.map(x => 'Version ' + esc(x.version) + ' was ' + esc(x.status || 'withdrawn') + (x.review ? ' (<a href="' + REPO + esc(x.review) + '">review</a>)' : '') + '.').join(' ');
     table('review-table', ['Finding', { h: 'Issue', l: true }, { h: 'Outcome', l: true }, { h: 'What was done', l: true }], rev.map(r => [{ v: esc(r.finding), cls: 'l' }, { v: esc(r.title), cls: 'l wrap' }, { v: esc(r.disposition), cls: 'l' }, { v: esc(r.action), cls: 'l wrap' }]));
+
+    // ---------- the 'with Model 4' what-if ----------
+    const V4 = variant();
+    $('ctl-m4').hidden = !V4;
+    if (V4) {
+      const m = V4.model_4 || {}, as = V4.assumptions || {}, dv = V4.delta_vs_default || {}, eq = m.eci_equivalent || {}, tr = as.trend || {};
+      const p = as.p_next_frontier_release_is_model_4_or_better;
+      $('info-m4').hidden = false;
+      $('info-m4').innerHTML = '<strong>Model 4.</strong> ' + esc(V4.description || '') + ' It is the unreleased internal model in Anthropic’s latest system card' + (ok(m.aeci_nov6) ? ' (AECI ' + num(m.aeci_nov6, 2) + ' on ' + esc(m.n_benchmarks) + ' internal benchmarks' + (ok(eq.median) ? ', roughly public ECI ' + num(eq.median) : '') + ')' : '') + '. ' + esc(m.identification || '') +
+        ' The published forecast leaves it out because it is unreleased, has no public score, is measured only on internal benchmarks where the index is close to saturated for it, and has an internal date where every other model has a public one. Switching it on assumes' + (ok(p) ? ' a ' + pct(p) + ' chance that the next Fable/Mythos is at least this capable, and' : '') + ' this about timing: ' + esc(((as.lag || {}).treatment) || '') +
+        ' Details: <a href="' + REPO + 'capability/METHODS.md#15-anthropics-unreleased-internal-model-metrs-model-4">METHODS.md, section 15</a>.';
+      const cell = x => x && ok(x.median) ? num(x.median) + ' <small>(' + rng(x.lo80, x.hi80) + ')</small>' : '—';
+      // on a phone the shift comes first: it is the point of the table and the rest scrolls
+      const ph = COMPACT.matches, ord = c => ph ? [c[0], c[3], c[2], c[1]] : c;
+      const rowsOf = (list, label) => (list || []).map(r => ord([{ v: esc(label(r.item)), cls: 'l' }, cell(r.default), cell(r.with_model_4), { v: signed((r.difference || {}).median, 2), cls: 'num shift' }]));
+      table('m4-delta', ord(['', 'Published', 'With Model 4', 'Shift in median']),
+        rowsOf(dv.next_models_eci, x => short(x) + ', public ECI').concat(rowsOf(dv.next_models_aeci_own_card, x => short(x) + ', AECI own card'), rowsOf(dv.anthropic_frontier_eci, x => 'Frontier, end ' + String(x).slice(0, 4))));
+      setText('m4-delta-note', 'Median with the 80% interval. ' + ((V4.projection || {}).note || '') + ' ' + (V4.method || ''));
+      const comp = ((V4.components || {}).table) || [], yrs = comp.length ? Object.keys(comp[0].frontier_shift || {}).sort() : [];
+      const showY = yrs.filter(y => y === '2027' || y === yrs[yrs.length - 1]);
+      const CN = { level_only: 'Level only', next_release_only: 'Next release only', trend_only: 'Trend only', level_and_next_release: 'Level + next release', all: 'All three (the what-if shown)' };
+      table('m4-comp', ['Evidence switched on', 'Fable / Mythos', 'Opus'].concat(showY.map(y => 'Frontier, end ' + y)),
+        comp.map(r => ({ hl: r.components === 'all', cells: [{ v: esc(CN[r.components] || pretty(r.components)), cls: 'l' }, signed(r.fable_mythos_shift, 2), signed(r.opus_shift, 2)].concat(showY.map(y => signed((r.frontier_shift || {})[y], 2))) })));
+      $('m4-comp-what').innerHTML =
+        '<li><b>Level.</b> Model 4 exists, so Anthropic’s best is already at about its level' + (ok(eq.median) ? ' (public ECI ' + num(eq.median) + ', 80% ' + rng(eq.lo80, eq.hi80) + ')' : '') + ': paths that start lower count for less.</li>' +
+        '<li><b>Next release.</b> ' + (ok(p) ? 'With probability ' + pct(p) + ' the' : 'The') + ' next Fable/Mythos is Model 4 or better' + (ok(as.p_draws_already_at_or_above_model_4) ? '; ' + pct(as.p_draws_already_at_or_above_model_4) + ' of the published draws already are' : '') + '.</li>' +
+        '<li><b>Trend.</b> ' + esc(tr.channel || '') + ' ' + esc(tr.caveat || '') + '</li>' +
+        (((V4.components || {}).note) ? '<li>' + esc(V4.components.note) + '</li>' : '');
+      const ps = V4.p_sensitivity || [], lastY = y => { const k2 = Object.keys(y || {}).sort(); return k2.length ? k2[k2.length - 1] : null; };
+      setText('m4-psens', ps.length ? 'How much the ' + pct(p) + ' matters: ' + ps.map(r => 'at p = ' + r.p + ', Fable / Mythos ' + num((r.next_models_eci_median || {}).fable_mythos) + ' and the frontier at end ' + lastY(r.anthropic_frontier_eci_median) + ' ' + num((r.anthropic_frontier_eci_median || {})[lastY(r.anthropic_frontier_eci_median)])).join('; ') + '. ' + (as.p_basis || '') : '');
+      // the plain reading, from the numbers
+      const nm = dv.next_models_eci || [], fr = dv.anthropic_frontier_eci || [];
+      const maxNext = nm.reduce((mx, r) => Math.max(mx, Math.abs((r.difference || {}).median || 0)), 0);
+      const width = nm.reduce((mn, r) => Math.min(mn, r.default && ok(r.default.hi80) ? r.default.hi80 - r.default.lo80 : Infinity), Infinity);
+      const lastF = fr[fr.length - 1], all = comp.find(r => r.components === 'all'), tOnly = comp.find(r => r.components === 'trend_only');
+      const fy = lastF ? String(lastF.item).slice(0, 4) : null;
+      let reading = 'Counting Model 4 barely moves the next releases: the largest change in a median is ' + signed(maxNext, 1) + ' ECI points, against 80% intervals at least ' + (isFinite(width) ? num(width, 0) : '—') + ' points wide. The published forecast already expects about that level.';
+      if (lastF && ok((lastF.difference || {}).median)) reading += ' The long range moves more: ' + signed(lastF.difference.median, 1) + ' on the frontier median at end ' + fy + ' (' + num(lastF.default.median, 0) + ' to ' + num(lastF.with_model_4.median, 0) + ').';
+      if (all && tOnly && fy && ok((tOnly.frontier_shift || {})[fy])) reading += ' Most of that comes from the trend component (' + signed(tOnly.frontier_shift[fy], 1) + ' by itself, of ' + signed((all.frontier_shift || {})[fy], 1) + '), which is also the weakest: it rests on ' + (m.n_benchmarks || 'a few') + ' internal benchmarks on which the model already scores above 50%.';
+      setText('m4-reading', reading);
+    }
+    applyM4 = () => {
+      const on = m4on();
+      document.querySelectorAll('[data-whatif], [data-whatif-fixed]').forEach(el => { el.hidden = !on; });
+      $('m4-block').hidden = !on;
+      $('chart').classList.toggle('whatif', on); $('next').classList.toggle('whatif', on);
+      const sel = $('sel-weight');
+      if (on) { state.weighting = 'central'; sel.value = 'central'; }
+      sel.disabled = on; sel.title = on ? 'The what-if is published for the central weighting only' : '';
+      renderCards(); drawMain();
+    };
   }
 
   // ---------- scorecard (optional file) ----------
@@ -1175,7 +1331,7 @@ body.cf { margin: 0; background: linear-gradient(135deg, var(--ground-a) 0%, var
       if (b.hasAttribute('data-toggle')) { state[ctl] = !state[ctl]; b.setAttribute('aria-pressed', String(state[ctl])); drawMain(); return; }
       g.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
       state[ctl] = b.getAttribute('data-v');
-      if (ctl === 'lead') drawBacktest(); else drawMain();
+      if (ctl === 'lead') drawBacktest(); else if (ctl === 'm4') applyM4(); else drawMain();
     });
     $('sel-weight').addEventListener('change', e => { state.weighting = e.target.value; drawMain(); });
     const redraw = () => { hideTip(); drawMain(); drawBacktest(); };
