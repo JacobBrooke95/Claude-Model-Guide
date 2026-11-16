@@ -458,3 +458,4 @@ date,source_id,kind,url,status,result,detail
 2026-11-16,x_tipsters,manual,,,skipped,X not readable; no relay of a new tip found in search or on TestingCatalog
 2026-11-16,voice_press,manual,,,nothing,search for an Anthropic speech/audio model: nothing dated November; coverage is the July voice-mode upgrade and third-party realtime APIs
 2026-11-16,competitors,manual,,,nothing,"one search: roundup pages only, no frontier launch dated 11-15 or 11-16 found; no primary opened, no row added"
+2026-11-16,the_information,headlines,https://www.theinformation.com/feed,200,baseline,5 names recorded; nothing to compare against yet

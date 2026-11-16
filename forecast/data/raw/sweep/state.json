@@ -1003,6 +1003,22 @@
   ],
   "url": "https://www.testingcatalog.com/tag/anthropic/"
  },
+ "the_information": {
+  "final_url": "https://www.theinformation.com/feed",
+  "last_changed": "2026-11-16",
+  "last_checked": "2026-11-16",
+  "last_ok": "2026-11-16",
+  "last_status": 200,
+  "sha": "bab9284ba90c4db0",
+  "tokens": [
+   "2026-11-13 | Inside Anthropic\u2019s Lavish Roadshow Event at J.P. Morgan\u2019s Headquarters | https://www.theinformation.com/briefings/inside-anthropics-lavish-roadshow-event-j-p-morgans-headquarters",
+   "2026-11-13 | White House AI Task Force Discussed Cyber Threats, Critical Infrastructure at Second Meeting | https://www.theinformation.com/briefings/white-house-ai-task-force-discussed-cyber-threats-critical-infrastructure-second-meeting",
+   "2026-11-15 | Nvidia\u2019s Earnings on Deck; Anthropic\u2019s Public Debut | https://www.theinformation.com/articles/nvidias-earnings-deck-anthropics-public-debut",
+   "2026-11-16 | Microsoft Data Shows Claude Is Stalling Against Copilot in Office | https://www.theinformation.com/articles/microsoft-data-shows-claude-stalling-copilot-office",
+   "2026-11-16 | OpenAI Explored $5 Billion\u2013Plus Acquisition of Startup That Decodes How AI \u2018Thinks\u2019 | https://www.theinformation.com/articles/openai-explored-5-billion-plus-acquisition-startup-decodes-ai-thinks"
+  ],
+  "url": "https://www.theinformation.com/feed"
+ },
  "vertex": {
   "final_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude",
   "last_changed": "2026-11-10",

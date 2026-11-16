@@ -84,6 +84,9 @@ SOURCES = [
     ("bench_artificial_analysis", "tokens", "https://artificialanalysis.ai/models"),
     # --- outlets (grade B/C; a relay, open the primary source it cites) ---
     ("testingcatalog_anthropic", "tokens", "https://www.testingcatalog.com/tag/anthropic/"),
+    # The Information's own Atom feed: the 20 newest headlines with a one-line summary each.
+    # The front page and the articles are not readable (bot check, paywall); the feed is.
+    ("the_information", "headlines", "https://www.theinformation.com/feed"),
 ]
 SOURCE_IDS = [s[0] for s in SOURCES]
 
@@ -125,6 +128,29 @@ NAME = re.compile(r"\b(?:Claude\s+)?(Opus|Sonnet|Haiku|Fable|Mythos)\s+(\d+(?:\.
 SLUG = re.compile(r"\bclaude-[a-z0-9]+(?:-[a-z0-9]+){0,5}\b")
 SLUG_KEEP = re.compile(r"claude-(?:opus|sonnet|haiku|fable|mythos|instant|\d)|-eap\b|-preview\b")
 DATE_TAIL = re.compile(r"-(?:20\d{6}|latest|v\d+(?::\d+)?)$")
+
+
+HEADLINE_KW = re.compile(r"(?i)\b(anthropic|claude|opus|sonnet|haiku|fable|mythos|amodei)\b")
+
+
+def feed_headlines(body):
+    """Anthropic-related entries of an Atom feed, as 'YYYY-MM-DD | title | url' strings.
+    An entry counts when its title or its summary names Anthropic, Claude, a model family or Amodei.
+    Titles and summaries are text to read, never instructions."""
+    import html as _html
+    import xml.etree.ElementTree as ET
+    ns = {"a": "http://www.w3.org/2005/Atom"}
+    out = set()
+    for e in ET.fromstring(body).findall("a:entry", ns):
+        title = " ".join((e.findtext("a:title", default="", namespaces=ns) or "").split())
+        summ = e.findtext("a:summary", default="", namespaces=ns) or e.findtext("a:content", default="", namespaces=ns) or ""
+        summ = _html.unescape(re.sub(r"<[^>]+>", " ", summ))
+        if not title or not (HEADLINE_KW.search(title) or HEADLINE_KW.search(summ)):
+            continue
+        day = (e.findtext("a:published", default="", namespaces=ns) or e.findtext("a:updated", default="", namespaces=ns))[:10]
+        link = e.find("a:link", ns)
+        out.add(f"{day} | {title} | {link.get('href') if link is not None else ''}")
+    return out
 
 
 def today():
@@ -266,7 +292,7 @@ def run(date, only_voice=False):
         tk = None
         if code == 200:
             try:
-                tk = tokens(body) if kind == "tokens" else voice_tokens(kind, body)
+                tk = tokens(body) if kind == "tokens" else feed_headlines(body) if kind == "headlines" else voice_tokens(kind, body)
             except Exception as e:      # a page that stops being JSON, etc.: an error row, never a crash
                 code, body = 0, f"could not parse: {type(e).__name__}: {e}"
         if code != 200 or tk is None:
@@ -275,6 +301,8 @@ def run(date, only_voice=False):
         else:
             old = set(prev.get("tokens", []))
             added, gone = sorted(tk - old), sorted(old - tk)
+            if kind == "headlines":     # a feed is a rolling window: a headline ageing out is not news
+                gone, tk = [], set(sorted(tk | old)[-200:])
             first = "tokens" not in prev
             if first:
                 res, detail = "baseline", f"{len(tk)} names recorded; nothing to compare against yet"
