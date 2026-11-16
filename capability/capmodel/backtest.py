@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 from .common import rng as mkrng, yr, AS_OF
-from .level import LevelProcess, WEIGHTS, bias_beta, BIAS_H_CAP
+from .level import LevelProcess, WEIGHTS, bias_beta, BIAS_H_CAP, bias_shape, block_betas, pooled_beta, TREND_SCENARIOS
 from .trend import stack_crps, crps_sample, NU
 from . import links as lk
 from . import families as fam
@@ -24,6 +24,7 @@ LEADS = (0.0, 0.25, 0.5)
 T_NOW = yr(AS_OF)
 N_S = 2000
 CADENCE_SIGMA = 0.42          # the release forecaster's shared log-gap sigma (forecast.json)
+STRICT_EPS = 0.003            # years (~1 day): the origin's vintage excludes anything released on the origin date
 BASELINES = ["prev_plus_slope", "prev_in_family", "family_mean_step", "trailing_12m_linear", "all_history_linear"]
 
 
@@ -118,29 +119,39 @@ def machine_folds(d, B, abilities=None, n=1500):
                 y = float(pool[pool.t <= T].eci.max())
                 s = lp.frontier_at(P, T)
                 out[which].append(dict(which=which, t0=float(t0), h=h, T=float(T), t=float(T), y=y, samples=s,
+                                       trend_mask=np.isin(P["scn"], TREND_SCENARIOS).astype(float),
                                        err_raw=float(y - np.median(s)), cutoff=float(lp.ens.series.t.max()), F0=lp.F0))
     return out
 
 
-def score_machine(folds):
-    """Raw, bias-corrected (beta learned from folds whose target precedes the origin) and
-    calibrated scores by horizon; plus the live beta and factors."""
+def rolling_beta(mfolds, before):
+    """Pooled correction available at a given origin: random-effects pooling of the block
+    slopes of BOTH series, using only folds whose target precedes the origin."""
+    bl = block_betas(mfolds["all"] + mfolds["anthropic"], before=before)
+    return pooled_beta(bl)["mu"] if len(bl) >= 2 else 0.0
+
+
+def score_machine(folds, mfolds):
+    """Raw scores, and scores of the configuration actually published: pooled beta (learned
+    only from folds, of either series, whose target precedes the origin) x bias_shape(h),
+    added on trend-continuation paths only. Calibration factors are fitted on the latter."""
     rows = []
     for f in folds:
-        beta, nprior = bias_beta(folds, before=f["t0"])
+        beta = rolling_beta(mfolds, f["t0"])
+        nprior = sum(1 for g in mfolds["all"] + mfolds["anthropic"] if g["T"] < f["t0"])
         f["beta_rolling"] = beta
         raw = interval_stats(f["samples"], f["y"])
-        cor = interval_stats(f["samples"] + beta * min(f["h"], BIAS_H_CAP), f["y"])
-        rows.append(dict(t0=f["t0"], t=f["T"], h=f["h"], y=f["y"], variant="raw", n_prior=nprior, **raw))
-        rows.append(dict(t0=f["t0"], t=f["T"], h=f["h"], y=f["y"], variant="bias_corrected", n_prior=nprior, **cor))
+        cor = interval_stats(f["samples"] + beta * float(bias_shape(f["h"])) * f["trend_mask"], f["y"])
+        rows.append(dict(t0=f["t0"], t=f["T"], h=f["h"], y=f["y"], variant="raw", n_prior=nprior, beta=beta, **raw))
+        rows.append(dict(t0=f["t0"], t=f["T"], h=f["h"], y=f["y"], variant="published_config", n_prior=nprior, beta=beta, **cor))
     R = pd.DataFrame(rows)
     tab, cal = [], {}
     for h in MACHINE_H:
-        for v in ("raw", "bias_corrected"):
+        for v in ("raw", "published_config"):
             g = R[(R.h == h) & (R.variant == v)]
             if len(g):
-                tab.append(dict(horizon_years=h, variant=v, **scores(g)))
-        g = R[(R.h == h) & (R.variant == "bias_corrected")]
+                tab.append(dict(horizon_years=h, variant=v, n_with_nonzero_correction=int((g.beta != 0).sum()), **scores(g)))
+        g = R[(R.h == h) & (R.variant == "published_config")]
         if len(g):
             cal[h] = rolling_calibration(g)
     return R, tab, cal
@@ -189,7 +200,7 @@ def release_folds(d, B, mfolds, abilities_by_date=None, with_bench=True, variant
     for t0, lead, tgt in jobs:
         ab = y_ab = None
         if abilities_by_date is not None:
-            ab = abilities_by_date[round(float(t0), 4)][0]
+            ab = abilities_by_date[round(float(t0) - STRICT_EPS, 4)][0]      # strict origin: refit on models released BEFORE t0
             y_ab = abilities_by_date[round(float(tgt.t), 4)][0]
             if tgt.model_id not in y_ab.index:
                 continue
@@ -207,7 +218,7 @@ def release_folds(d, B, mfolds, abilities_by_date=None, with_bench=True, variant
         T = float(tgt.t)
         hf = hist[hist.family == tgt.family].sort_values("t")
         prev = None if not len(hf) else (float(hf.t.iloc[-1]), float(hf.eci.iloc[-1]))
-        beta, _ = bias_beta(mfolds["anthropic"], before=t0)
+        beta = rolling_beta(mfolds, t0)
         c, s, nst, _ = fam.gain_stats(hist, lp.ref)
         # cadence reconstruction of the release date
         allg = hist.sort_values("t").groupby("family").t.diff().dropna()
@@ -220,9 +231,11 @@ def release_folds(d, B, mfolds, abilities_by_date=None, with_bench=True, variant
         P = lp.paths(N_S, WEIGHTS["central"], t0 + 2.6)
         ref0 = float(lp.ref([t0])[0])
 
+        tmask = np.isin(P["scn"], TREND_SCENARIOS).astype(float)
+
         def predict(Tx, b=beta, ratio=True):
             hx = np.maximum(np.asarray(Tx, float) - t0, 0.0)
-            LT = lp.at(P, Tx) + b * np.minimum(hx, BIAS_H_CAP)
+            LT = lp.at(P, Tx) + b * bias_shape(hx) * tmask
             if prev is None:      # first of a family: on the record line, with record scatter
                 return LT + lp.S * r.standard_t(NU, N_S) / np.sqrt(NU / (NU - 2)) + lp.meas_sd * r.standard_normal(N_S), LT
             gain = LT - P["L0"] + P["b_post"] * (t0 - prev[0])     # recent slope x time already elapsed + path from here

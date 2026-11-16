@@ -5,10 +5,10 @@ import time
 import numpy as np
 import pandas as pd
 
-from .common import rng as mkrng, yr, from_yr, AS_OF, RAW, summarize, widen, wsummary, wquantile
+from .common import rng as mkrng, yr, from_yr, AS_OF, MODEL_VERSION, RAW, summarize, widen, wsummary, wquantile
 from .data import D
 from .level import (LevelProcess, WEIGHTS, SCENARIOS, SCENARIO_DEFS, COMPUTE, KAPPA_MEAN, KAPPA_SD, HAIRCUT, BIAS_H_CAP, DT,
-                    bias_beta, bias_beta_se, crossing_date, date_summary)
+                    bias_beta, bias_beta_se, crossing_date, date_summary, bias_shape, block_betas, pooled_beta, TREND_SCENARIOS)
 from .trend import break_analysis, records, NU
 from . import backtest as bt
 from . import irt, aeci, links as lk, predict as pr, families as fam
@@ -24,7 +24,9 @@ ENT_FAMILY = {"opus": "opus", "sonnet": "sonnet", "haiku": "haiku", "fable_mytho
 QUARTERS = [q for q in (f"{y}-{md}" for y in range(2026, 2031) for md in ("03-31", "06-30", "09-30", "12-31")) if yr(q) > T_NOW]
 TQ = np.array([yr(q) for q in QUARTERS])
 STALE_DAYS = 183
-STARTING_SET = ["swe_bench_pro", "hle", "terminal_bench_2_1", "rli", "aa_index", "vals_index"]   # reviewer's usable set
+MIN_FOLDS, MIN_COV80 = 4, 0.7          # a benchmark prediction is graded only with this much backtest support
+WITHDRAWN = {"gdpval_aa": "the linear Elo link over-extrapolates (the six highest-ECI models sit about 250 Elo below it; the backtest "
+                          "over-predicted in 10 of 12 folds; v2.0's 80% lower bounds exceeded the best score ever recorded)"}
 EXPIRY_MONTHS = 18
 
 
@@ -106,37 +108,58 @@ def run(full=False):
 
     # ------------------------------------------------------------- 1. the level process, backtested
     mf = bt.machine_folds(d, B_BT)
-    mach, beta_live, cal_h = {}, {}, {}
+    blocks = block_betas(mf["all"] + mf["anthropic"])
+    pool = pooled_beta(blocks)
+    BETA, BETA_SD = pool["mu"], pool["predictive_sd"]
+    mach, cal_h = {}, {}
     for which in ("all", "anthropic"):
-        Rm, tab, cal = bt.score_machine(mf[which])
-        b_hat, n_b = bias_beta(mf[which])
+        Rm, tab, cal = bt.score_machine(mf[which], mf)
+        b_hat, _ = bias_beta(mf[which])
         se, nblk = bias_beta_se(mf[which], mkrng("beta-" + which))
-        se_used = max(se, abs(b_hat) / 2.0)        # only %d independent half-year blocks: the se is floored at half the estimate
-        raw_mae = float(Rm[(Rm.variant == "raw") & (Rm.n_prior >= 6)].err.abs().mean())
-        cor_mae = float(Rm[(Rm.variant == "bias_corrected") & (Rm.n_prior >= 6)].err.abs().mean())
-        helps = bool(cor_mae < raw_mae)
-        shrink = b_hat ** 2 / (b_hat ** 2 + se_used ** 2)
-        beta_live[which] = (b_hat * shrink if helps else 0.0, se_used)
+        tested = Rm[(Rm.variant == "published_config") & (Rm.beta != 0)]
+        tested_raw = Rm[(Rm.variant == "raw") & (Rm.beta != 0)]
         cal_h[which] = cal
         mach[which] = dict(table=tab, calibration={str(h): c for h, c in cal.items()}, n_folds=len(mf[which]),
-                           n_origins=len({f["t0"] for f in mf[which]}),
-                           bias=dict(beta_per_year=round(b_hat, 2), bootstrap_se=round(se, 2), n_blocks=nblk, se_used=round(se_used, 2),
-                                     rolling_mae_raw=round(raw_mae, 2), rolling_mae_bias_corrected=round(cor_mae, 2),
-                                     correction_helps_out_of_sample=helps, shrinkage=round(shrink, 2),
-                                     beta_mean_used=round(beta_live[which][0], 2), beta_sd_used=round(se_used, 2),
-                                     rule="The term beta*min(h, %.1f) is applied with mean = shrunk estimate only where the rolling "
-                                          "(out-of-sample) correction lowered MAE; otherwise its mean is 0 and only its uncertainty is "
-                                          "carried." % BIAS_H_CAP),
+                           n_origins=len({f["t0"] for f in mf[which]}), n_distinct_outcomes=len({f["y"] for f in mf[which]}),
+                           unpooled_beta=dict(beta_per_year=round(b_hat, 2), block_bootstrap_se=round(se, 2), n_blocks=nblk),
+                           correction_test=dict(n_folds_with_a_rolling_correction=int(len(tested)),
+                                                n_distinct_outcomes=int(tested.y.nunique()) if len(tested) else 0,
+                                                horizons=sorted(tested.h.unique().tolist()) if len(tested) else [],
+                                                mae_raw=None if not len(tested) else round(float(tested_raw.err.abs().mean()), 2),
+                                                mae_published_config=None if not len(tested) else round(float(tested.err.abs().mean()), 2)),
                            per_fold=[dict(t0=round(f["t0"], 5), h=f["h"], t=round(f["T"], 5), y=f["y"], cutoff=round(f["cutoff"], 5),
-                                          err_raw=round(f["err_raw"], 2)) for f in mf[which]])
+                                          err_raw=round(f["err_raw"], 2), beta_rolling=round(f["beta_rolling"], 2)) for f in mf[which]])
+    g_end27 = float(bias_shape(yr("2027-12-31") - T_NOW))
     R["machine_backtest"] = dict(
         design="The projection code itself (level.LevelProcess.paths, central scenario weights) run at monthly historical origins "
-               "and scored on the running-max public ECI 0.5, 1.0 and 1.5 years later. 'bias_corrected' adds beta*h with beta "
-               "learned only from folds whose target precedes the origin. Calibration factors are learned the same way and "
-               "applied to the published bands. Folds overlap heavily; origins span 2024-07 to 2026-05, one regime of rising pace. "
-               "The scenario weights are today's prior, so this is not a test of the weights.",
-        all_lab=mach["all"], anthropic=mach["anthropic"])
-    log(f"machine backtest: {len(mf['all'])}+{len(mf['anthropic'])} folds; beta anth {beta_live['anthropic'][0]:.2f}, all {beta_live['all'][0]:.2f}", t_start)
+               "and scored on the running-max public ECI 0.5, 1.0 and 1.5 years later. 'raw' has no correction. 'published_config' "
+               "is the configuration the live forecast uses: the pooled correction, learned only from folds (of either series) whose "
+               "target precedes the origin, added on trend-continuation paths. Calibration factors are fitted on 'published_config'. "
+               "Folds overlap heavily; origins span 2024-07 to 2026-05, one regime of rising pace. The scenario weights are today's "
+               "prior, so this is not a test of the weights.",
+        all_lab=mach["all"], anthropic=mach["anthropic"],
+        correction=dict(
+            blocks=[dict(series=b_["series"], block=b_["block"], n=b_["n"], beta=round(b_["beta"], 2), se=round(float(np.sqrt(b_["var"])), 2)) for b_ in blocks],
+            unshrunk=dict(anthropic=mach["anthropic"]["unpooled_beta"]["beta_per_year"], all_lab=mach["all"]["unpooled_beta"]["beta_per_year"]),
+            pooled=dict(mu=round(pool["mu"], 2), se=round(pool["se"], 2), between_block_sd=round(pool["tau"], 2),
+                        predictive_sd=round(pool["predictive_sd"], 2), n_blocks=pool["n_blocks"]),
+            value_used=round(BETA, 2), sd_used=round(BETA_SD, 2),
+            shape="level adjustment = beta x g(h): g = h^2 up to 0.5 yr, 0.25 + (h-0.5) - (h-0.5)^2/2 up to 1.5 yr, 0.75 after "
+                  "(the correction rate tapers in from zero, peaks at 0.5 yr, and is zero from 1.5 yr)",
+            applies_to=[SCENARIOS[i] for i in TREND_SCENARIOS],
+            not_applied_to=["slowdown", "reversion", "non-Anthropic frontier"],
+            size_at_end_2027=round(BETA * g_end27, 2), permanent_size_after_1_5_years=round(BETA * 0.75, 2),
+            thin_test="A rolling (out-of-sample) correction exists for only %d Anthropic folds with %d distinct outcomes, all at %s yr. "
+                      "On those it lowered MAE from %s to %s; on the all-lab series the same correction changed MAE from %s to %s over %d folds. "
+                      "Nothing at one year or beyond has been scored with a correction."
+                      % (mach["anthropic"]["correction_test"]["n_folds_with_a_rolling_correction"], mach["anthropic"]["correction_test"]["n_distinct_outcomes"],
+                         mach["anthropic"]["correction_test"]["horizons"], mach["anthropic"]["correction_test"]["mae_raw"],
+                         mach["anthropic"]["correction_test"]["mae_published_config"], mach["all"]["correction_test"]["mae_raw"],
+                         mach["all"]["correction_test"]["mae_published_config"], mach["all"]["correction_test"]["n_folds_with_a_rolling_correction"]),
+            why_pooled="Trend fits ran low on both frontiers over 2024-26, but block slopes range from %.1f to %.1f and the series disagree; "
+                       "a random-effects mean across all blocks is used instead of the Anthropic-only estimate, with the between-block "
+                       "spread carried as its uncertainty." % (min(b_["beta"] for b_ in blocks), max(b_["beta"] for b_ in blocks))))
+    log(f"machine backtest: {len(mf['all'])}+{len(mf['anthropic'])} folds; pooled beta {BETA:.2f} (sd {BETA_SD:.2f}); unshrunk anth {mach['anthropic']['unpooled_beta']['beta_per_year']}", t_start)
 
     # ------------------------------------------------------------- 2. release folds (all folds)
     rel, benchbt = bt.release_folds(d, B_BT, mf)
@@ -196,7 +219,8 @@ def run(full=False):
 
     # ------------------------------------------------------------- 3. vintage IRT (deterministic, cached in data/)
     claude = d.claude()
-    dates = sorted({round(float(t - ld), 4) for t in claude.t if t >= 2024.45 for ld in bt.LEADS})
+    dates = sorted({round(float(t - ld) - bt.STRICT_EPS, 4) for t in claude.t if t >= 2024.45 for ld in bt.LEADS} |
+                   {round(float(t), 4) for t in claude.t if t >= 2024.45})
     vint = irt.vintage_abilities(dates, pub, full)
     cfull, _ = irt.fit_irt(irt.load_inputs(), pub)
     x = pd.DataFrame({"mine": cfull, "pub": pub}).dropna()
@@ -215,8 +239,8 @@ def run(full=False):
     R["irt_refit_check"] = dict(
         design="Own least-squares 2PL refit of Epoch's benchmark-level inputs, refitted at every fold origin on models released on "
                "or before that date, mapped to ECI units by a monotone alignment to the published ECI of those same models. The "
-               "release backtest is rerun with history from the origin's vintage and the target's actual from the release date's "
-               "vintage. The fit is deterministic; the vintages are stored in data/irt_vintages.csv.gz, which is committed and "
+               "release backtest is rerun with history from a strict-origin vintage (models released before the origin; in v2.0 the "
+               "lead-0 vintage included the target) and the target's actual from the release date's vintage. The fit is deterministic; the vintages are stored in data/irt_vintages.csv.gz, which is committed and "
                "covered by the input hash (run.py --full rebuilds it; a test recomputes two vintages and compares).",
         v1_bug="In v1 a date-rounding slip excluded the target from its own vintage on a clean cache, which is why the reviewer's "
                "clean run found 18 folds instead of 33. Fixed (tolerance on 'on or before'); numbers below are from a clean rebuild.",
@@ -261,19 +285,19 @@ def run(full=False):
     # ------------------------------------------------------------- 5. the live level process (one set of paths)
     r = mkrng("live")
     lpA = LevelProcess(d.series("anthropic"), T_NOW + 1e-6, B_LIVE, r)
-    lpL = LevelProcess(d.series("all"), T_NOW + 1e-6, B_LIVE, mkrng("live-all"))
+    lpL = LevelProcess(d.series("others"), T_NOW + 1e-6, B_LIVE, mkrng("live-all"))     # the non-Anthropic frontier, fitted on its own records
     W = dict(WEIGHTS)
     ev_w, ev_detail = evidence_average(rc, ba_anth, ba_all)
     W["unweighted_evidence_average"] = ev_w
     PA = lpA.paths(N_PATHS, W["central"], 2031.0)
     PL = lpL.paths(N_PATHS, W["central"], 2031.0, scn=PA["scn"])
     clipA, clipL = lpA.clip_share, lpL.clip_share
-    betaA = beta_live["anthropic"][0] + beta_live["anthropic"][1] * r.standard_normal(N_PATHS)
-    betaL = beta_live["all"][0] + beta_live["all"][1] * r.standard_normal(N_PATHS)
-    hm = np.minimum(PA["tm"] - PA["tm"][0], BIAS_H_CAP)[None, :]
-    PA["level"] = PA["level"] + betaA[:, None] * hm          # the bias term is part of the level from here on, in both layers
-    PL["level"] = PL["level"] + betaL[:, None] * hm
     scn = PA["scn"]
+    # The pooled correction: trend-continuation scenarios only, Anthropic line only, tapered in and out (level.bias_shape).
+    # It is part of the level from here on, so the next-model layer and the projection carry exactly the same term.
+    betaA = (BETA + BETA_SD * r.standard_normal(N_PATHS)) * np.isin(scn, TREND_SCENARIOS)
+    PA["level_uncorrected"] = PA["level"].copy()
+    PA["level"] = PA["level"] + betaA[:, None] * bias_shape(PA["tm"] - PA["tm"][0])[None, :]
     wts = {wn: np.array([wv[SCENARIOS[s]] / max(W["central"][SCENARIOS[s]], 1e-12) for s in scn]) for wn, wv in W.items()}
     for wn in wts:
         wts[wn] = wts[wn] / wts[wn].sum()
@@ -292,8 +316,10 @@ def run(full=False):
                            share_of_slope_draws_clipped=round(clipA, 3), era_start=lpA.era_start),
             all_lab=dict(level_now=summarize(lpL.draws(6000)[0]), recent_slope=summarize(lpL.draws(6000)[1]),
                          annual_pace_sd=round(lpL.sigma_w, 2), share_of_slope_draws_clipped=round(clipL, 3), era_start=lpL.era_start,
-                         note="Fitted to all-lab records; no step-up is found, so 'pre-break' pace equals the recent pace and the "
-                              "'reversion' scenario coincides with 'hold' for this series."),
+                         series="non-Anthropic records (v2.1; the all-lab frontier is the larger of this line and Anthropic's)",
+                         note="Fitted to the other labs' records; no step-up is found, so 'pre-break' pace is at most the recent pace "
+                              "and 'reversion' nearly coincides with 'hold' for this series. No under-prediction correction is applied "
+                              "to it. A sizeable share of its slope draws hit the clipping bounds (reported above)."),
             bootstrap="Subsample bootstrap: each replicate keeps the distinct members of a with-replacement resample of models "
                       "(about 63%) and one of Epoch's 500 joint posterior draws; record sets are recomputed per replicate. Slope "
                       "draws outside 4-60 (recent) or 4-40 (pre-break) ECI/yr are clipped to the bound; the share is reported.",
@@ -304,19 +330,24 @@ def run(full=False):
         records_all_lab=[dict(t=round(float(t), 3), eci=float(y)) for t, y in zip(lpL.rt, lpL.ry)])
 
     # scale identification: where today's public basket stops separating models
-    edi2 = edi[edi.estimated_slope_scaled >= 0.04]     # shallow-slope legacy items (e.g. PIQA) do not discriminate at the frontier
-    edi2 = edi2.assign(a90=edi2.edi + 2.197 / edi2.estimated_slope_scaled).sort_values("a90", ascending=False)
-    top = edi2.head(4)
-    beyond = float(top.a90.iloc[1])           # second-hardest benchmark reaches 90%: one benchmark alone cannot hold a scale
+    ed = edi.assign(a90=edi.edi + 2.197 / edi.estimated_slope_scaled)       # ECI at which each benchmark is 90% solved (Epoch's item parameters)
+    lvl80, lvl90 = float(np.quantile(ed.a90, 0.80)), float(np.quantile(ed.a90, 0.90))
+    beyond = lvl90
     mpg = aeci.Mapping(d, 400, mkrng("mapping"))
     R["scale"] = dict(
         beyond_measured_scale_above_eci=round(beyond, 1),
-        display_cap_eci=float(np.ceil((beyond + 15) / 10) * 10),
-        rule="Public ECI at which the second-hardest discriminating benchmark (slope >= 0.04) in Epoch's current basket is 90% "
-             "solved (difficulty + 2.2/slope from Epoch's item parameters). Above it at most one benchmark still separates models, so ECI values are extrapolations of "
-             "the scale itself, not measurements. Bands above this line are kept in the data and flagged; the page should shade "
-             "them and need not draw above display_cap_eci.",
-        hardest_benchmarks=[dict(benchmark=b.benchmark_name, difficulty=round(b.edi, 1), eci_at_90pct=round(b.a90, 1)) for b in top.itertuples()],
+        range_eci=[round(lvl80, 1), round(lvl90, 1)],
+        range_meaning="public ECI at which 80%% / 90%% of the %d benchmarks in Epoch's current basket are at least 90%% solved" % len(ed),
+        share_of_basket_90pct_solved_at_frontier_now=round(float((ed.a90 <= lpA.F0).mean()), 2),
+        display_cap_eci=float(np.ceil((lvl90 + 30) / 10) * 10),
+        rule="For each benchmark in Epoch's basket, the ECI at which it is 90% solved is difficulty + 2.2/slope (Epoch's item "
+             "parameters; all benchmarks, no slope cut-off). The range reported runs from the level where 80% of the basket is that "
+             "far solved to the level where 90% is; the upper end is the one value the page shades from (the lower end is already "
+             "close to today's frontier because the basket still holds many old, solved benchmarks). Above the upper end only about "
+             "one benchmark in ten still separates models, so ECI values are extrapolations of the scale itself. "
+             "Bands above it are kept in the data and flagged.",
+        hardest_benchmarks=[dict(benchmark=b_.benchmark_name, difficulty=round(b_.edi, 1), slope=round(b_.estimated_slope_scaled, 3), eci_at_90pct=round(b_.a90, 1))
+                            for b_ in ed.sort_values("a90", ascending=False).head(6).itertuples()],
         frontier_now=float(lpA.F0))
     thr = beyond
 
@@ -405,10 +436,11 @@ def run(full=False):
         c_ = g[g.method == "curve_level"]
         bstat[key] = dict(n=int(len(a_)), mae_anchored=round(float(a_.err.abs().mean()), 2), mae_curve_level=round(float(c_.err.abs().mean()), 2),
                           mae_prev_in_family=round(float(p_.err.abs().mean()), 2), bias_anchored=round(float(a_.err.mean()), 2),
+                          rmse_anchored=round(float(np.sqrt((a_.err ** 2).mean())), 2),
                           cov50=round(float(a_.in50.mean()), 2), cov80=round(float(a_.in80.mean()), 2), cov95=round(float(a_.in95.mean()), 2))
     pooled_cal = bt.rolling_calibration(benchbt[benchbt.method == "anchored"])
     fpool = bt.factors(pooled_cal)
-    admitted, excluded, sat_statements = {}, [], []
+    admitted, excluded, sat_statements, tier = {}, [], [], {}
     last_date = d.bench.groupby("benchmark").release_date.max()
     for key in meta.index:
         title = meta.loc[key, "title"]
@@ -435,19 +467,28 @@ def run(full=False):
                 excluded.append(dict(benchmark=key, title=title, reason="saturated: every family's latest score is at or above 90%% of the %s ceiling (best %.1f, ceiling %.1f)"
                                      % ("estimated" if l.ceiling_estimated else "nominal", l.y.max(), l.hi)))
                 continue
-        if key in STARTING_SET:
-            ok = st["n"] == 0 or st["mae_anchored"] <= st["mae_prev_in_family"]
-            why = "reviewer's usable set" + ("; no backtest folds exist" if st["n"] == 0 else f"; anchored MAE {st['mae_anchored']} vs previous-in-family {st['mae_prev_in_family']} on {st['n']} folds")
-        else:
-            ok = st["n"] >= 6 and st["mae_anchored"] <= st["mae_prev_in_family"] and st["cov80"] >= 0.6
-            why = (f"re-admitted: anchored MAE {st.get('mae_anchored')} vs previous-in-family {st.get('mae_prev_in_family')}, 80% coverage "
-                   f"{st.get('cov80')} on {st['n']} folds")
-        if not ok:
-            excluded.append(dict(benchmark=key, title=title, reason=(
-                f"not validated: {st['n']} folds, anchored MAE {st.get('mae_anchored')} vs previous-in-family {st.get('mae_prev_in_family')}, "
-                f"80% coverage {st.get('cov80')}") if st["n"] else "not validated: no backtest folds and not in the starting set"))
+        if key in WITHDRAWN:
+            excluded.append(dict(benchmark=key, title=title, reason="withdrawn: " + WITHDRAWN[key]))
             continue
-        admitted[key] = why
+        if st["n"] >= MIN_FOLDS and st["mae_anchored"] > st["mae_prev_in_family"]:
+            excluded.append(dict(benchmark=key, title=title, reason=f"no skill: anchored MAE {st['mae_anchored']} vs previous-in-family "
+                                 f"{st['mae_prev_in_family']} on {st['n']} folds"))
+            continue
+        hugging = bool(l.kind == "bounded" and l.ceiling_estimated and (l.hi - l.y.max()) < 0.02 * (l.hi - l.lo))
+        fails = []
+        if st["n"] < MIN_FOLDS:
+            fails.append(f"{st['n']} backtest folds (needs {MIN_FOLDS})")
+        else:
+            if st["cov80"] < MIN_COV80:
+                fails.append(f"80% coverage {st['cov80']} (needs {MIN_COV80})")
+            if abs(st["bias_anchored"]) > 0.5 * st["rmse_anchored"]:
+                fails.append(f"bias {st['bias_anchored']} is more than half the RMSE {st['rmse_anchored']}")
+        if meta.loc[key, "group"] != "site":
+            fails.append("no resolvable source (not a site chart; arena ratings and outside indices are read at mixed snapshots)")
+        if hugging:
+            fails.append("estimated ceiling %.1f merely hugs the best observed score %.1f" % (l.hi, l.y.max()))
+        tier[key] = dict(tier="indicative" if fails else "graded", reasons=fails, hugging_ceiling=hugging)
+        admitted[key] = "graded" if not fails else "indicative: " + "; ".join(fails)
     excluded.append(dict(benchmark="terminal_bench_4_0", title="Terminal-Bench 4.0", reason="too thin: scores for five Claude models only, all released Sept-Nov 2026"))
     R["links"] = dict(
         method="Bounded scores follow p = (score - floor)/(ceiling - floor) = sigmoid(a (ability - D)); the ceiling is estimated "
@@ -456,11 +497,20 @@ def run(full=False):
                "ability gain (on the logit scale for bounded scores, under a ceiling drawn from its bootstrap and never below "
                "the last score), plus step noise estimated from past within-family steps. A benchmark is published only if it is "
                "not stale (a model scored in the last six months), not saturated (best score below 90% of the ceiling), not too "
-               "thin, and the anchored method is no worse than 'previous in family' in backtest.",
+               "thin; whether it is graded or only indicative is decided by the admission rule below.",
         table=[dict(l.describe(), title=meta.loc[k, "title"], unit=meta.loc[k, "unit"], group=meta.loc[k, "group"], lo=meta.loc[k, "lo"],
                     hi_nominal=meta.loc[k, "hi"], configuration=meta.loc[k, "configuration"], source=meta.loc[k, "source"],
-                    admitted=k in admitted, admission=admitted.get(k), backtest=bstat.get(k)) for k, l in links.items()],
-        admitted=list(admitted), excluded=excluded, saturation_statements=sat_statements,
+                    admitted=k in admitted, admission=admitted.get(k), tier=tier.get(k, {}).get("tier"), backtest=bstat.get(k)) for k, l in links.items()],
+        admitted=list(admitted), graded=[k for k in admitted if tier[k]["tier"] == "graded"],
+        indicative=[k for k in admitted if tier[k]["tier"] == "indicative"], tiers=tier,
+        admission_rule="A benchmark with a fitted link is dropped if it is stale (no model scored in six months), withdrawn, shows no skill "
+                       "against 'previous in family' on %d or more folds, or every family is saturated. Otherwise it is GRADED only if it has at "
+                       "least %d backtest folds, 80%% coverage of at least %.1f, |bias| no more than half its RMSE, a resolvable source (a "
+                       "site chart still reporting the family), and an estimated ceiling that does not merely hug the record; every other "
+                       "benchmark is INDICATIVE: shown, not graded. Per family, no number is published if the family's latest score or its "
+                       "predicted median is at or above 90%% of the ceiling (a saturation statement is given instead), or if the family's "
+                       "latest model has no score to anchor on." % (MIN_FOLDS, MIN_FOLDS, MIN_COV80),
+        excluded=excluded, saturation_statements=sat_statements,
         calibration_pooled=pooled_cal, calibration_factors={str(k): v for k, v in fpool.items()},
         backtest_design="Same folds as the release backtest (families with an earlier score on the benchmark). 'anchored' is the "
                         "published method; 'curve_level' is v1's method (the fitted curve's level at the predicted ability), kept "
@@ -516,19 +566,20 @@ def run(full=False):
             if site:
                 srs = charts[k]["series"].get(series_fam, [])
                 live_series = bool(srs) and (pd.Timestamp(AS_OF) - pd.Timestamp(max(p["date"] for p in srs))).days <= STALE_DAYS
-            if not len(pb) or (pb.model_id.iloc[-1] != last.model_id and (T_NOW - pb.t.iloc[-1]) * 365.25 > STALE_DAYS):
-                benches[k] = dict(available=False, title=meta.loc[k, "title"], resolvable=False,
-                                  reason="the family has no current score on this benchmark to anchor on (none, or older than six months and not its latest model)")
+            if not len(pb) or pb.model_id.iloc[-1] != last.model_id:
+                benches[k] = dict(available=False, graded=False, title=meta.loc[k, "title"], resolvable=False,
+                                  reason="the family's latest model has no score on this benchmark to anchor on")
                 continue
             sp, tp = float(pb.value.iloc[-1]), float(pb.eci.iloc[-1])
-            if l.kind == "bounded" and (sp - l.lo) / (l.hi - l.lo) >= 0.9:
-                benches[k] = dict(available=False, saturated=True, title=meta.loc[k, "title"], resolvable=False,
-                                  previous_in_family=dict(model_id=pb.model_id.iloc[-1], value=sp), ceiling=round(float(l.hi), 2),
-                                  reason=f"saturated for this family: its latest score {sp:.1f} is within a tenth of the ceiling (~{l.hi:.1f}); "
-                                         "expect the next model at or just below the ceiling")
-                continue
             sdv = bt.step_sd(l, d.bench, hist, k, T_NOW + 1)
             s = l.anchored(theta, tp, sp, sdv, rr)
+            sat_line = l.lo + 0.9 * (l.hi - l.lo) if l.kind == "bounded" else np.inf
+            if sp >= sat_line or float(np.median(s)) >= sat_line:     # one rule: the latest score OR the predicted median is in the top tenth
+                benches[k] = dict(available=False, graded=False, saturated=True, title=meta.loc[k, "title"], resolvable=False,
+                                  previous_in_family=dict(model_id=pb.model_id.iloc[-1], value=sp), ceiling=round(float(l.hi), 2),
+                                  reason=f"saturated for this family: its latest score ({sp:.1f}) or its predicted next score is within a tenth "
+                                         f"of the ceiling (~{l.hi:.1f}); expect the next model at or just below the ceiling")
+                continue
             if l.kind == "bounded":
                 lo_, hi_ = float(l.lo), float(meta.loc[k, "hi"])
                 pz = np.clip((s - lo_) / (hi_ - lo_), 1e-4, 1 - 1e-4)
@@ -537,10 +588,13 @@ def run(full=False):
             else:
                 w_ = {kk: round(v, 0) for kk, v in widen(s, fpool).items()}
             w_.pop("mean", None)
-            benches[k] = dict(available=True, **w_, title=meta.loc[k, "title"], unit=meta.loc[k, "unit"], method="anchored on previous score",
+            is_graded = bool(tier[k]["tier"] == "graded" and live_series)
+            benches[k] = dict(available=True, graded=is_graded, status="graded" if is_graded else "indicative, not graded",
+                              not_graded_because=None if is_graded else (tier[k]["reasons"] or ["the site chart no longer reports this family"]),
+                              **w_, title=meta.loc[k, "title"], unit=meta.loc[k, "unit"], method="anchored on previous score",
                               previous_in_family=dict(model_id=pb.model_id.iloc[-1], value=sp, eci=tp), step_noise=round(sdv, 3),
                               best_observed_any_model=round(float(l.y.max()), 2), ceiling=None if l.kind != "bounded" else round(float(l.hi), 2),
-                              p_below_previous=round(float((s < sp).mean()), 3), resolvable=bool(live_series) if site else False,
+                              p_below_previous=round(float((s < sp).mean()), 3), resolvable=is_graded,
                               resolution_series=(f"data/benchmarks.json charts.{k}.series.{series_fam}" if site else None))
         nxt[ent] = dict(
             entity=ent, labels=(["Claude Fable", "Claude Mythos"] if ent == "fable_mythos" else [f"Claude {f.capitalize()}"]),
@@ -560,7 +614,7 @@ def run(full=False):
             scale_labels=dict(eci="Fable label (Epoch scores Fable)" if ent == "fable_mythos" else "public ECI",
                               aeci="Mythos label (Anthropic prints AECI for Mythos)" if ent == "fable_mythos" else "AECI"))
         keep[ent] = dict(theta=theta, T=T)
-        base = f"{AS_OF}:cap-v2:{ent}:next"
+        base = f"{AS_OF}:{MODEL_VERSION}:{ent}:next"
         gfam = "fable" if ent == "fable_mythos" else f
         common = dict(entity=ent, issued=AS_OF, expires=expires, release_rule=f"first {gfam} release after {AS_OF} in data/models.json")
         pick = lambda sdict: {k: sdict[k] for k in ("median", "lo50", "hi50", "lo80", "hi80", "lo95", "hi95")}
@@ -575,7 +629,7 @@ def run(full=False):
                                resolution="AECI printed for the model in its own system card. If the card prints none, the prediction "
                                           "expires unresolved."))
         for k, bb in benches.items():
-            if not bb.get("available") or not bb.get("resolvable"):
+            if not bb.get("available") or not bb.get("graded"):
                 continue
             open_preds.append(dict(id=base + ":" + k, family=gfam, quantity=k, unit=meta.loc[k, "unit"], **common, **pick(bb),
                                    resolution_source=bb["resolution_series"],
@@ -601,8 +655,27 @@ def run(full=False):
             age = np.minimum(lp.ens.sample_age(N_PATHS, lp.rng), tq - T_NOW)
             out[:, j] = lp.at(P, tq - age) + lp.S * lp.rng.standard_t(NU, N_PATHS) / np.sqrt(NU / (NU - 2))
         return np.maximum.accumulate(np.maximum(out, f0[:, None]), axis=1)
-    FA = frontier(lpA, PA, f0A)
-    FL = np.maximum(frontier(lpL, PL, f0L), FA)          # Anthropic is one of the labs
+    # Anthropic frontier, built so the two layers agree: until both frontier families (Opus, Fable/Mythos) have shipped
+    # their next model, the frontier is the best of the standing leader and whichever next models are out, taken from the
+    # very draws the next-model layer publishes; after that, later releases follow the record line.
+    line = np.empty((N_PATHS, len(TQ)))
+    for j, tq in enumerate(TQ):
+        age = np.minimum(lpA.ens.sample_age(N_PATHS, rp), tq - T_NOW)
+        line[:, j] = lpA.at(PA, tq - age) + lpA.S * rp.standard_t(NU, N_PATHS) / np.sqrt(NU / (NU - 2))
+    rel_best = np.full((N_PATHS, len(TQ)), -np.inf)
+    for ent in ENTITIES:
+        shipped = keep[ent]["T"][:, None] <= TQ[None, :]
+        rel_best = np.maximum(rel_best, np.where(shipped, keep[ent]["theta"][:, None], -np.inf))
+    both = np.maximum(keep["opus"]["T"], keep["fable_mythos"]["T"])[:, None] <= TQ[None, :]
+    next_only = np.maximum(f0A[:, None], rel_best)
+    FA = np.maximum.accumulate(np.where(both, np.maximum(next_only, line), next_only), axis=1)
+    FO = frontier(lpL, PL, f0L)                          # other labs, fitted on their own records, no correction
+    FL = np.maximum(FO, FA)                              # the all-lab frontier is the larger of the two
+    agree = []
+    for j in range(len(TQ)):
+        a_, b_ = wquantile(FA[:, j], wts["central"], [0.5])[0], wquantile(np.maximum.accumulate(next_only, axis=1)[:, j], wts["central"], [0.5])[0]
+        agree.append(dict(date=QUARTERS[j], frontier_median=round(a_, 3), next_models_layer_median=round(b_, 3), shortfall=round(b_ - a_, 3),
+                          share_paths_both_frontier_families_shipped=round(float(np.sum(wts["central"] * both[:, j])), 3)))
     forms = (rp.random(N_PATHS) < p_offset).astype(int)
     pidx = rp.integers(0, 10 ** 6, N_PATHS)
     AA = mpg.sample(FA, forms, rp, noise=False, pidx=pidx) + map_sd * rp.standard_normal((N_PATHS, 1))
@@ -612,10 +685,12 @@ def run(full=False):
     proj = dict(quarters=QUARTERS, series={}, scenario_series={})
     proj["series"]["anthropic_frontier_eci"] = _bands(FA, wc, calA, thr=thr)
     proj["series"]["all_lab_frontier_eci"] = _bands(FL, wc, calL, thr=thr)
+    proj["series"]["non_anthropic_frontier_eci"] = _bands(FO, wc, calL, thr=thr)
     proj["series"]["anthropic_frontier_aeci_nov6_scale"] = _bands(AA, wc, calA)
     for s in SCENARIOS:
         proj["scenario_series"][s] = dict(anthropic_frontier_eci=_bands(FA, one[s], None, thr=thr),
                                           all_lab_frontier_eci=_bands(FL, one[s], None, thr=thr),
+                                          non_anthropic_frontier_eci=_bands(FO, one[s], None, thr=thr),
                                           anthropic_frontier_aeci_nov6_scale=_bands(AA, one[s], None))
     # families: latest released model per family
     fam_cur = {e_: float(hist[hist.family == ENT_FAMILY[e_]].sort_values("t").eci.iloc[-1]) for e_ in ENTITIES}
@@ -643,20 +718,28 @@ def run(full=False):
     # scenario table, sensitivity, headline
     scn_tab = []
     tm = PA["tm"]
+    iy = {y: int(np.argmin(np.abs(tm - y))) for y in range(2027, 2032)}
     for i, s in enumerate(SCENARIOS):
         mk = scn == i
-        row = dict(scenario=s, definition=SCENARIO_DEFS[s], n_paths=int(mk.sum()))
+        row = dict(scenario=s, definition=SCENARIO_DEFS[s], n_paths=int(mk.sum()), carries_correction=i in TREND_SCENARIOS)
         for y in range(2027, 2031):
-            cols = (tm >= y) & (tm < y + 1)
-            pc = PA["pace"][mk][:, cols].mean(1)
-            pl = PL["pace"][mk][:, cols].mean(1)
+            pc = PA["level"][mk][:, iy[y + 1]] - PA["level"][mk][:, iy[y]]              # realised gain of the record line over the year,
+            pu = PA["level_uncorrected"][mk][:, iy[y + 1]] - PA["level_uncorrected"][mk][:, iy[y]]   # correction included / excluded
+            pl = PL["level"][mk][:, iy[y + 1]] - PL["level"][mk][:, iy[y]]
             row[f"pace_anthropic_{y}"] = dict(median=round(float(np.median(pc)), 1), lo80=round(float(np.quantile(pc, 0.1)), 1), hi80=round(float(np.quantile(pc, 0.9)), 1))
+            row[f"pace_anthropic_{y}_without_correction_median"] = round(float(np.median(pu)), 1)
             row[f"pace_all_lab_{y}_median"] = round(float(np.median(pl)), 1)
             row[f"x_pre_break_{y}_median"] = round(float(np.median(pc / PA["b_pre"][mk])), 2)
             row[f"share_below_pre_break_{y}"] = round(float(np.mean(pc < PA["b_pre"][mk])), 2)
+        row["realised_gain_2027"] = row["pace_anthropic_2027"]
         row["end_2030_anthropic_frontier_median"] = round(wquantile(FA[:, -1], one[s], [0.5])[0], 1)
         row["weights"] = {wn: W[wn][s] for wn in W}
         scn_tab.append(row)
+    pcm = PA["level"][:, iy[2028]] - PA["level"][:, iy[2027]]
+    pum = PA["level_uncorrected"][:, iy[2028]] - PA["level_uncorrected"][:, iy[2027]]
+    mix_pace = dict(realised_gain_2027_median=round(wquantile(pcm, wts["central"], [0.5])[0], 1),
+                    without_correction_median=round(wquantile(pum, wts["central"], [0.5])[0], 1),
+                    pre_break_slope_median=round(float(np.median(PA["b_pre"])), 1), recent_slope_median=round(float(np.median(PA["b_post"])), 1))
     qi = {q: i for i, q in enumerate(QUARTERS)}
     sens = []
     for wn in W:
@@ -668,10 +751,23 @@ def run(full=False):
     for q in ("2026-12-31", "2027-12-31", "2028-12-31", "2029-12-31", "2030-12-31"):
         j = qi[q]
         head.append(dict(date=q, anthropic_eci=proj["series"]["anthropic_frontier_eci"][j], all_lab_eci=proj["series"]["all_lab_frontier_eci"][j],
+                         non_anthropic_eci=proj["series"]["non_anthropic_frontier_eci"][j],
+                         share_of_paths_anthropic_leads=round(float(np.sum(wc * (FA[:, j] >= FO[:, j]))), 3),
+                         correction_in_record_line_median=round(
+                             wquantile(PA["level"][:, min(int(round((TQ[j] - T_NOW) / DT)), len(tm) - 1)], wc, [0.5])[0] -
+                             wquantile(PA["level_uncorrected"][:, min(int(round((TQ[j] - T_NOW) / DT)), len(tm) - 1)], wc, [0.5])[0], 2),
                          anthropic_aeci_nov6_scale=proj["series"]["anthropic_frontier_aeci_nov6_scale"][j]))
-    # validated-through: the longest backtested horizon with at least 10 Anthropic folds
+    # backtested-through: last quarter end within the longest horizon that has at least 10 Anthropic folds (no rounding up)
     hv = max([h for h in bt.MACHINE_H if sum(1 for f in mf["anthropic"] if f["h"] == h) >= 10] or [0.5])
-    vt = [q for q in QUARTERS if yr(q) <= T_NOW + hv + 0.13][-1]
+    vt = [q for q in QUARTERS if yr(q) <= T_NOW + hv][-1]
+    f_hv = [f for f in mf["anthropic"] if f["h"] == hv]
+    bt_caveat = ("'Backtested through %s' means only this: the UNCORRECTED code was run at a %.1f-year horizon from %d overlapping monthly "
+                 "origins (%d distinct outcomes) in one regime, and under-predicted in %d of them (mean error %+.1f ECI; 50%% coverage %.2f). "
+                 "The corrected configuration that is published has been scored out of sample only at six months, on %d folds with %d "
+                 "distinct outcomes." % (vt, hv, len(f_hv), len({f["y"] for f in f_hv}), sum(1 for f in f_hv if f["err_raw"] > 0),
+                                         float(np.mean([f["err_raw"] for f in f_hv])), cal_h["anthropic"][hv]["raw_cov50"],
+                                         mach["anthropic"]["correction_test"]["n_folds_with_a_rolling_correction"],
+                                         mach["anthropic"]["correction_test"]["n_distinct_outcomes"]))
     # reconciliation with research note 1's central path
     j30 = qi["2030-12-31"]
     medL, medA = wquantile(FL[:, j30], wc, [0.5])[0], wquantile(FA[:, j30], wc, [0.5])[0]
@@ -719,17 +815,22 @@ def run(full=False):
     proj.update(
         scenarios=scn_tab, weights=W, weights_are="priors. 'central' is the author's judgement; 'sceptic' and 'accelerationist' bracket it; "
         "'unweighted_evidence_average' is an unweighted average of three unlike data-based numbers, shown for transparency, not an estimate.",
-        evidence_average_detail=ev_detail, sensitivity=sens, headline=head, validated_through=vt,
-        validation_statement="Up to %s the bands rest on a backtest of this same code (Anthropic frontier: %d folds at 0.5 yr, %d at 1.0, %d "
-                             "at 1.5, from %d monthly origins in one regime). Beyond it they are a scenario projection driven by the "
-                             "stated priors: read each scenario path separately and treat the mixture as a summary of the prior."
-                             % (vt, *[sum(1 for f in mf["anthropic"] if f["h"] == h) for h in bt.MACHINE_H], len({f["t0"] for f in mf["anthropic"]})),
+        evidence_average_detail=ev_detail, sensitivity=sens, headline=head, backtested_through=vt, validated_through=vt,
+        validated_through_deprecated="alias of backtested_through, kept for one version", backtested_through_caveat=bt_caveat,
+        layer_agreement=dict(rows=agree, max_shortfall=round(max(a_["shortfall"] for a_ in agree), 3),
+                             note="Frontier median minus the median implied by the next-model layer's own draws (leader and released next "
+                                  "models). Zero by construction until both frontier families have shipped; the frontier is never below it."),
+        mixture_pace_2027=mix_pace,
+        validation_statement=bt_caveat + " Beyond %s the bands are a scenario projection driven by the stated priors: read each scenario "
+                             "path separately and treat the mixture as a summary of the prior." % vt,
         calibration_applied=dict(anthropic={str(h): bt.factors(c) for h, c in calA.items()}, all_lab={str(h): bt.factors(c) for h, c in calL.items()},
-                                 rule="Mixture bands are stretched about the median by the factor for their horizon (interpolated "
-                                      "between 0.5, 1.0 and 1.5 years, held flat beyond). Scenario-conditional bands are not stretched."),
-        bias_term=dict(anthropic=dict(mean=round(beta_live["anthropic"][0], 2), sd=round(beta_live["anthropic"][1], 2)),
-                       all_lab=dict(mean=round(beta_live["all"][0], 2), sd=round(beta_live["all"][1], 2)),
-                       form="beta * min(h, %.1f) ECI points added to every path; not extrapolated past the longest backtested horizon" % BIAS_H_CAP),
+                                 rule="Factors are fitted on the published configuration (pooled correction on trend scenarios). Mixture "
+                                      "bands are stretched about the median by the factor for their horizon (interpolated between 0.5, 1.0 "
+                                      "and 1.5 years, held flat beyond). Scenario-conditional bands are not stretched.",
+                                 no_op_where="Every factor equal to 1.0 changes nothing: that is all three levels at 0.5 and 1.5 years "
+                                             "and the 80%/95% levels wherever raw coverage was already at or above nominal."),
+        bias_term=dict(R["machine_backtest"]["correction"], anthropic=dict(mean=round(BETA, 2), sd=round(BETA_SD, 2)),
+                       all_lab=dict(mean=0.0, sd=0.0), form=R["machine_backtest"]["correction"]["shape"]),
         reconciliation_with_research_note_1=recon, saturation=sat, external_comparison=ext,
         metr_horizon=dict(statement="No hours series is published. METR's last measurement is 17.4 hours (Claude Mythos Preview, April 2026) "
                                     "and METR calls estimates above 16 hours unreliable; the fitted link (about 4.75 ECI points per doubling) "
@@ -748,20 +849,80 @@ def run(full=False):
     hl_f = []
     for ent in ENTITIES:
         v = nxt[ent]
-        bsel = [k for k in ("swe_bench_pro", "hle", "terminal_bench_2_1", "rli", "aa_index", "gdpval_aa", "vals_index")
-                if v["benchmarks"].get(k, {}).get("available")][:3]
+        av = [k for k in admitted if v["benchmarks"].get(k, {}).get("available")]
+        bsel = ([k for k in av if v["benchmarks"][k]["graded"]] + [k for k in ("terminal_bench_2_1", "rli", "aa_index", "vals_index", "osworld")
+                                                                    if k in av and not v["benchmarks"][k]["graded"]])[:3]
         hl_f.append(dict(entity=ent, name=v["predicted_name"], labels=v["labels"],
                          release_window=dict(q10=v["release_date"]["q10"], median=v["release_date"]["median"], q90=v["release_date"]["q90"]),
                          eci=trio(v["eci"]), aeci_own_card=trio(v["aeci_own_card"]), aeci_own_card_conditional=v["aeci_own_card_conditional"],
                          lead_tested=v["lead_tested"],
-                         benchmarks=[dict(benchmark=k, title=v["benchmarks"][k]["title"], unit=v["benchmarks"][k]["unit"], **trio(v["benchmarks"][k])) for k in bsel]))
+                         benchmarks=[dict(benchmark=k, title=v["benchmarks"][k]["title"], unit=v["benchmarks"][k]["unit"], graded=v["benchmarks"][k]["graded"],
+                                          status=v["benchmarks"][k]["status"], **trio(v["benchmarks"][k])) for k in bsel]))
+    corr = R["machine_backtest"]["correction"]
+    h27 = next(h for h in head if h["date"] == "2027-12-31")
+    sc = {r_["scenario"]: r_ for r_ in scn_tab}
+    s0, s3 = by_lead["0.0"], by_lead["0.25"]
+    nfolds_b = [v_["n"] for v_ in bstat.values()]
+    notes = [
+        "Intervals are 50/80/95% central intervals.",
+        "The next-model point forecasts are, in effect, predecessor + recent Anthropic record slope x elapsed time; in backtest (RMSE %.1f at "
+        "release, n=%d) they are no better than that two-line rule (RMSE %.1f)." % (s0["model"]["rmse"], s0["model"]["n"], s0["prev_plus_slope"]["rmse"]),
+        "Frontier figures include an under-prediction correction on the 'hold' and faster scenarios only: a pooled %.1f ECI/yr (sd %.1f; "
+        "Anthropic-only estimate %.1f, all-lab %.1f), tapered in from zero and out by 1.5 years. It adds %.1f ECI to those paths at end-2027 "
+        "(%.1f to the mixture's record-line median). Its out-of-sample check is %d overlapping six-month folds with %d distinct outcomes."
+        % (corr["value_used"], corr["sd_used"], corr["unshrunk"]["anthropic"], corr["unshrunk"]["all_lab"], corr["size_at_end_2027"],
+           h27["correction_in_record_line_median"], mach["anthropic"]["correction_test"]["n_folds_with_a_rolling_correction"],
+           mach["anthropic"]["correction_test"]["n_distinct_outcomes"]),
+        "Scenario paces in 2027, correction included (ECI points gained by the record line): " +
+        ", ".join("%s %.1f" % (k, sc[k]["realised_gain_2027"]["median"]) for k in SCENARIOS) +
+        "; mixture %.1f; pre-break pace %.1f, recent pace %.1f." % (mix_pace["realised_gain_2027_median"], mix_pace["pre_break_slope_median"], mix_pace["recent_slope_median"]),
+        bt_caveat,
+        "The all-lab frontier is the larger of Anthropic's and the other labs'; Anthropic leads in %.0f%% of paths at end-2027 and %.0f%% at "
+        "end-2030. The other labs' line is fitted on their own records and carries no correction."
+        % (100 * h27["share_of_paths_anthropic_leads"], 100 * head[-1]["share_of_paths_anthropic_leads"]),
+        "Benchmark forecasts are thinly tested (%d to %d backtest folds per benchmark). Only those marked graded are scored; arena, index and "
+        "other 'indicative' rows are shown for orientation and are not graded." % (min(nfolds_b), max(nfolds_b)),
+        "The Haiku forecast (median lead about %.0f months) lies beyond any tested lead (the longest is six months, %d folds)."
+        % (12 * nxt["haiku"]["median_lead_years"], int(((rel.method == "model") & (rel.lead == 0.5)).sum())),
+        "AECI own-card values are judgement-heavy estimates from eight cards (rolling RMSE %.1f)." % oc.rmse,
+        "Above public ECI %.0f (80%% of today's benchmark basket is already 90%% solved at %.0f, 90%% at %.0f) the basket no longer identifies "
+        "the scale; rows flagged beyond_measured_scale are extrapolations of the scale itself."
+        % (R["scale"]["beyond_measured_scale_above_eci"], *R["scale"]["range_eci"]),
+    ]
+    changes = []
+    try:
+        old = __import__("json").loads((RAW.parents[1] / "history" / "capability_forecast_v2.0_superseded.json").read_text())
+        of = {f_["date"]: f_ for f_ in old["headline"]["frontier"]}
+        changes.append("Frontier, end-2027 median: %.1f -> %.1f; end-2030: %.1f -> %.1f. The under-prediction correction is now pooled across both "
+                       "series (%.1f instead of 5.0 ECI/yr), applied only to 'hold' and faster scenarios, and tapered to zero by 1.5 years instead "
+                       "of being added to every path permanently." % (of["2027-12-31"]["eci"]["median"], h27["anthropic_eci"]["median"],
+                                                                     of["2030-12-31"]["eci"]["median"], head[-1]["anthropic_eci"]["median"], corr["value_used"]))
+        for f_ in old["headline"]["families"]:
+            changes.append("%s public ECI median: %.1f -> %.1f." % (f_["name"], f_["eci"]["median"], nxt[f_["entity"]]["eci"]["median"]))
+        changes += [
+            "'Slowdown' and 'reversion' no longer carry the correction; slowdown now runs below the pre-break pace in 2027. Scenario paces are published as realised gains, correction included.",
+            "validated_through renamed backtested_through (%s; the old key is kept as an alias for this version) and now carries a caveat." % vt,
+            "Benchmarks split into graded and indicative. GDPval-AA predictions and the Fable/Mythos Terminal-Bench 2.1 prediction are withdrawn; "
+            "one saturation rule (latest score or predicted median in the top tenth) replaces per-family inconsistencies. Graded: %s."
+            % (", ".join(sorted({p_["quantity"] for p_ in open_preds if p_["quantity"] not in ("eci_public", "aeci_own_card")})) or "none"),
+            "All-lab frontier: the non-Anthropic line is now fitted separately and published; the share of paths in which Anthropic leads is reported.",
+            "Own-card AECI: gap rule changed to an equal blend of the last gap and the mean of the last three (rolling RMSE %.1f)." % oc.rmse,
+            "Measured-scale threshold is now a range derived from the whole basket (%.0f-%.0f); the page shades from %.0f (was 207.6)."
+            % (*R["scale"]["range_eci"], R["scale"]["beyond_measured_scale_above_eci"]),
+        ]
+    except FileNotFoundError:
+        pass
     R["headline"] = dict(
         families=hl_f,
-        frontier=[dict(date=h["date"], eci=trio(h["anthropic_eci"]), all_lab_eci=trio(h["all_lab_eci"]),
+        frontier=[dict(date=h["date"], eci=trio(h["anthropic_eci"]), all_lab_eci=trio(h["all_lab_eci"]), non_anthropic_eci=trio(h["non_anthropic_eci"]),
+                       share_of_paths_anthropic_leads=h["share_of_paths_anthropic_leads"],
                        beyond_measured_scale=h["anthropic_eci"]["median_beyond_measured_scale"]) for h in head],
-        validated_through=vt, beyond_measured_scale_above=R["scale"]["beyond_measured_scale_above_eci"], display_cap_eci=R["scale"]["display_cap_eci"],
-        notes=["Intervals are 50/80/95% central intervals.", "AECI own-card values are judgement-heavy estimates.",
-               "After validated_through the frontier rows are a scenario projection, not a tested forecast."])
+        backtested_through=vt, validated_through=vt, backtested_through_caveat=bt_caveat,
+        beyond_measured_scale_above=R["scale"]["beyond_measured_scale_above_eci"], beyond_measured_scale_range=R["scale"]["range_eci"],
+        display_cap_eci=R["scale"]["display_cap_eci"],
+        correction=dict(value_eci_per_year=corr["value_used"], sd=corr["sd_used"], size_at_end_2027=corr["size_at_end_2027"],
+                        in_mixture_record_line_median_at_end_2027=h27["correction_in_record_line_median"], applies_to=corr["applies_to"]),
+        notes=notes, changes_since_previous=changes)
     R["_runtime_seconds"] = round(time.time() - t_start, 1)
     R["_objects"] = dict(d=d, lpA=lpA, lpL=lpL, links=links, mp=mpg, rel=rel, benchbt=benchbt, FA=FA, FL=FL, AA=AA, wts=wts, one=one,
                          admitted=admitted, oc=oc)

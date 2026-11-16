@@ -139,8 +139,10 @@ class OwnCard:
     one per card that printed an own value, in card order. The gap is a property of the
     card's fit (it rose from about -4 to about +4 between May and November 2026, with two
     large steps that coincided with basket changes), not of the model's level, so it is
-    forecast as a level: the mean of the last three cards' gaps. The predictive sd is the
-    larger of the rolling out-of-sample RMSE of that rule and the sd of the last four gaps,
+    forecast as a level: an equal blend of the last card's gap and the mean of the last
+    three (v2.0 used the mean of three alone, which scored worse than the last gap in the
+    rolling test). The predictive sd is the larger of the rolling out-of-sample RMSE of
+    the blend and the sd of the last four gaps,
     widened by sqrt(1 + 0.25 (K-1)) for K card refits before the model's own card. Steps are
     not treated as iid and no upward drift is extrapolated. Eight cards: a judgement-heavy
     estimate, not a tested forecast."""
@@ -158,12 +160,13 @@ class OwnCard:
                              n_benchmarks=r.n_benchmarks))
         self.tab = pd.DataFrame(rows)
         g = self.tab.gap.to_numpy()
-        self.pred = float(g[-3:].mean())
+        rule = lambda prev: 0.5 * prev[-1] + 0.5 * prev[-3:].mean()      # equal blend of 'last gap' and 'mean of last three'
+        self.pred = float(rule(g))
         bt = []
         for i in range(3, len(g)):
-            bt.append(dict(card=self.tab.card.iloc[i], model_id=self.tab.model_id.iloc[i], predicted_gap=round(float(g[i - 3:i].mean()), 2),
-                           actual_gap=round(float(g[i]), 2), error=round(float(g[i] - g[i - 3:i].mean()), 2),
-                           last_gap_rule_error=round(float(g[i] - g[i - 1]), 2)))
+            bt.append(dict(card=self.tab.card.iloc[i], model_id=self.tab.model_id.iloc[i], predicted_gap=round(float(rule(g[:i])), 2),
+                           actual_gap=round(float(g[i]), 2), error=round(float(g[i] - rule(g[:i])), 2),
+                           last_gap_rule_error=round(float(g[i] - g[i - 1]), 2), mean_of_last_3_rule_error=round(float(g[i] - g[i - 3:i].mean()), 2)))
         self.backtest = bt
         e = np.array([b["error"] for b in bt])
         self.rmse = float(np.sqrt(np.mean(e ** 2)))
@@ -177,7 +180,10 @@ class OwnCard:
 
     def summary(self):
         e = [b["last_gap_rule_error"] for b in self.backtest]
-        return dict(predicted_gap=round(self.pred, 2), sd=round(self.sd, 2), rolling_rmse_mean_of_last_3=round(self.rmse, 2),
+        e3 = [b["mean_of_last_3_rule_error"] for b in self.backtest]
+        return dict(predicted_gap=round(self.pred, 2), sd=round(self.sd, 2), rule="equal blend of the last gap and the mean of the last three",
+                    rolling_rmse=round(self.rmse, 2), rolling_mean_error=round(float(np.mean([b["error"] for b in self.backtest])), 2),
+                    rolling_rmse_mean_of_last_3=round(float(np.sqrt(np.mean(np.square(e3)))), 2),
                     rolling_rmse_last_gap_rule=round(float(np.sqrt(np.mean(np.square(e)))), 2), n_cards=int(len(self.tab)),
                     n_backtest=len(self.backtest), cov80_in_sample_sd=round(float(np.mean([b["inside_80"] for b in self.backtest])), 2))
 

@@ -168,7 +168,15 @@ class Outputs(unittest.TestCase):
                 peers = b[(b.benchmark == k) & (b.eci >= v["eci"]["lo95"])]
                 if len(peers):
                     self.assertLessEqual(p["lo95"], peers.value.max() + 1e-6, (e, k))
-        self.assertGreater(n, 15)
+                # (iv) nor above the best score any model has ever recorded on the benchmark
+                self.assertLessEqual(p["lo95"], b[b.benchmark == k].value.max() + 1e-6, (e, k))
+                # (v) the family's latest model is the anchor (no stale anchors)
+                latest = self.d.claude().query("family == @fam[@e]").sort_values("t").model_id.iloc[-1]
+                self.assertEqual(p["previous_in_family"]["model_id"], latest, (e, k))
+        self.assertGreater(n, 10)
+        for v in self.J["next_models"]["entities"].values():       # withdrawn predictions stay withdrawn
+            self.assertNotIn("gdpval_aa", v["benchmarks"])
+        self.assertFalse(self.J["next_models"]["entities"]["fable_mythos"]["benchmarks"]["terminal_bench_2_1"].get("available"))
 
     def test_saturated_families_get_statements_not_numbers(self):
         b = self.d.bench
@@ -181,6 +189,7 @@ class Outputs(unittest.TestCase):
                     continue
                 prev = b[(b.benchmark == k) & (b.family == fam[e])].sort_values("t").value.iloc[-1]
                 self.assertLess((prev - r["lo"]) / (r["ceiling"] - r["lo"]), 0.9, (e, k))
+                self.assertLess((p["median"] - r["lo"]) / (r["ceiling"] - r["lo"]), 0.9, (e, k))    # one rule: nor may the predicted median be
         for r in self.J["links"]["table"]:
             if r["kind"] == "bounded":
                 self.assertGreaterEqual(r["ceiling"], r["best_observed"] - 1e-6, r["benchmark"])   # no ceiling below an observed score
@@ -207,21 +216,51 @@ class Outputs(unittest.TestCase):
         self.assertNotIn("anthropic_frontier_metr_h50_hours", self.J["projection"]["series"])
         self.assertFalse(self.J["projection"]["metr_horizon"]["implied_horizon_published"])
 
-    def test_both_layers_share_one_level_process(self):
-        """The next-model forecast for the family that sets the frontier must sit inside the
-        frontier band at its median release date (v1's two layers disagreed by ~3 points)."""
-        v = self.J["next_models"]["entities"]["fable_mythos"]
+    def test_layers_agree_numerically(self):
+        """The projection's frontier may never sit below what the next-model layer's own draws
+        imply (v2.0: about 1 ECI below at 2027-03-31). Checked two ways: the pipeline's
+        per-quarter shortfall, and independently from the published medians."""
+        la = self.J["projection"]["layer_agreement"]
+        self.assertLessEqual(la["max_shortfall"], 0.05)
         tq = [yr(q) for q in self.J["projection"]["quarters"]]
         b = self.J["projection"]["series"]["anthropic_frontier_eci"]
-        j = int(np.argmin([abs(t - yr(v["release_date"]["median"])) for t in tq]))
-        self.assertLessEqual(b[j]["lo95"], v["eci"]["median"])
-        self.assertGreaterEqual(b[j]["hi95"], v["eci"]["median"])
+        for e in ("opus", "fable_mythos"):
+            v = self.J["next_models"]["entities"][e]
+            # by the 90th percentile of its release date the model is out in 90% of paths, so the frontier's
+            # 80th percentile must be at least the model's 10th-percentile score, and its median at least the model's lo50 - MC noise
+            j = next(i for i, t in enumerate(tq) if t >= yr(v["release_date"]["q90"]))
+            self.assertGreaterEqual(b[j]["median"], v["eci"]["lo50"] - 0.3, e)
+            self.assertGreaterEqual(b[j]["hi80"], v["eci"]["median"], e)
+
+    def test_scenarios_do_what_their_definitions_say(self):
+        P = self.J["projection"]
+        sc = {r["scenario"]: r for r in P["scenarios"]}
+        pre = P["mixture_pace_2027"]["pre_break_slope_median"]
+        self.assertLess(sc["slowdown"]["realised_gain_2027"]["median"], pre)
+        self.assertGreater(sc["slowdown"]["share_below_pre_break_2027"], 0.7)
+        for k in ("slowdown", "reversion"):
+            self.assertFalse(sc[k]["carries_correction"])
+            self.assertAlmostEqual(sc[k]["realised_gain_2027"]["median"], sc[k]["pace_anthropic_2027_without_correction_median"], places=1)
+        self.assertGreater(sc["hold"]["realised_gain_2027"]["median"], sc["hold"]["pace_anthropic_2027_without_correction_median"])
+        self.assertLess(P["bias_term"]["value_used"], P["bias_term"]["unshrunk"]["anthropic"])       # pooled, not Anthropic-only
+        fr = self.J["headline"]["frontier"]
+        for r in fr:      # the all-lab frontier is the larger of the two lines
+            self.assertGreaterEqual(r["all_lab_eci"]["median"], max(r["eci"]["median"], r["non_anthropic_eci"]["median"]) - 1e-6)
+            self.assertTrue(0 < r["share_of_paths_anthropic_leads"] < 1)
 
     def test_headline_block(self):
         h = self.J["headline"]
         self.assertEqual(len(h["families"]), 4)
         self.assertEqual(len(h["frontier"]), 5)
-        self.assertTrue(h["validated_through"] and h["beyond_measured_scale_above"] and h["display_cap_eci"])
+        self.assertTrue(h["backtested_through"] and h["beyond_measured_scale_above"] and h["display_cap_eci"])
+        self.assertEqual(h["validated_through"], h["backtested_through"])           # deprecated alias, one version
+        self.assertLessEqual(yr(h["backtested_through"]), yr(AS_OF) + 1.0 + 1e-6)   # no rounding up past the tested horizon
+        self.assertGreaterEqual(len(h["notes"]), 8)
+        self.assertTrue(h["changes_since_previous"])
+        for f in h["families"]:
+            for bch in f["benchmarks"]:
+                self.assertNotIn(bch["benchmark"], ("gdpval_aa",))
+                self.assertIn("graded", bch)
         for f in h["families"]:
             self.assertLessEqual(len(f["benchmarks"]), 3)
 
@@ -241,6 +280,9 @@ class Units(unittest.TestCase):
         # the target of each release-date vintage is in its own vintage (the v1 bug)
         last = d.claude().sort_values("t").iloc[-1]
         self.assertIn(last.model_id, set(df[df.date == round(float(last.t), 4)].model))
+        # and NOT in the strict-origin vintage used as its lead-0 history
+        from capmodel.backtest import STRICT_EPS
+        self.assertNotIn(last.model_id, set(df[df.date == round(float(last.t) - STRICT_EPS, 4)].model))
 
     def test_name_matcher_keeps_dated_variants_apart(self):
         import build_data as bd
@@ -278,7 +320,14 @@ class Units(unittest.TestCase):
         buf = io.StringIO()
         with contextlib.redirect_stdout(buf):
             grade.main(["--dry-run", "--today", "2029-01-01"])
-        self.assertIn("expired 27", buf.getvalue().replace("expired %d" % 0, "x"))
+        n_open = len(strict(ROOT / "output" / "capability_forecast.json")["open_predictions"])
+        self.assertIn("expired %d" % n_open, buf.getvalue())
+
+    def test_grading_matches_chart_rows_by_model_name(self):
+        import grade
+        rel = {"model": "Claude Opus 5.5", "date": "2026-09-23"}       # one day off the chart's date
+        val, src = grade.lookup("hle", "opus", rel)
+        self.assertAlmostEqual(val, 64.4)
 
 
 if __name__ == "__main__":

@@ -519,5 +519,7 @@
    "resolution_source": "data/benchmarks.json charts.hle.series.fable",
    "resolution": "First score charted for the model in that series (Anthropic system cards, no-tools, max effort / adaptive thinking (first-party))."
   }
- ]
+ ],
+ "withdrawn": true,
+ "withdrawn_reason": "cap-v2.0 was superseded the same day by cap-v2.1 after a second independent review (research/05-adversarial-review-v2.md); no release occurred in between. Kept for the record; not graded."
 }

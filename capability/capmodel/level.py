@@ -11,8 +11,8 @@ For a frontier series (Anthropic's records, or all labs') as of origin t0:
   pre-break slope    the hinge's first segment (all-history line where no hinge fits).
   path               L(t) = L0 + integral of pace, pace(t) = KAPPA*log10(compute growth)
                      + a0*m(t), with m(t) set by a scenario drawn per path (see SCENARIOS).
-  bias term          added by the caller: beta*min(h, 1.5), beta estimated out of sample
-                     from this process's own backtest (backtest.machine_folds).
+  correction         added by the caller on trend-continuation scenarios only (hold and
+                     faster): beta_pooled * bias_shape(h); see bias_shape and pooled_beta.
 
 Uncertainty in the fits is a subsample bootstrap: each replicate keeps each model with
 probability ~0.63 (the distinct members of a with-replacement resample) and takes one of
@@ -181,21 +181,76 @@ class LevelProcess:
         rr = np.arange(P["level"].shape[0])
         return P["level"][rr, i0] * (1 - fr) + P["level"][rr, i0 + 1] * fr
 
-    def frontier_at(self, P, T, beta=0.0):
+    def frontier_at(self, P, T):
         """Draws of the running maximum held at T: max(leader's own (uncertain) value,
         line level lagged by the standing record's age + scatter)."""
         n = P["level"].shape[0]
         r = self.rng
         h = max(T - self.t0, 0.0)
         age = np.minimum(self.ens.sample_age(n, r), h)
-        Lt = self.at(P, T - age) + beta * np.minimum(np.maximum(T - age - self.t0, 0), BIAS_H_CAP)
+        Lt = self.at(P, T - age)
         f0 = r.choice(self.F0_draws, n)
         return np.maximum(Lt + self.S * r.standard_t(NU, n) / T_SD, f0)
 
 
+TREND_SCENARIOS = (2, 3, 4)      # hold, compounding, explosive: the scenarios that claim the recent trend continues
+
+
+def bias_shape(h):
+    """Shape of the under-prediction correction as a level adjustment, per unit beta.
+    The correction *rate* rises linearly from 0 at h=0 to beta at h=0.5 yr, then falls
+    linearly to 0 at h=1.5 yr (tapered in because the no-correction variant scored no
+    worse at short leads; tapered out because nothing beyond 1.5 years was tested).
+    The level adjustment is its integral: h^2 for h<=0.5, then 0.25+(h-0.5)-(h-0.5)^2/2,
+    flat at 0.75 from 1.5 years on. It is always below beta*h, the uncorrected linear fit."""
+    h = np.clip(np.asarray(h, float), 0.0, BIAS_H_CAP)
+    u = np.maximum(h - 0.5, 0.0)
+    return np.where(h <= 0.5, h * h, 0.25 + u - 0.5 * u * u)
+
+
+def block_betas(folds, before=None):
+    """Per half-year block of origins: slope of (actual - predicted median) on horizon
+    through the origin, with its sampling variance. Returns list of dicts."""
+    use = [f for f in folds if before is None or f["T"] < before]
+    blocks = {}
+    for f in use:
+        blocks.setdefault((f["which"], int(f["t0"] * 2)), []).append(f)
+    out = []
+    for (which, k), fs in sorted(blocks.items()):
+        h = np.array([min(f["h"], BIAS_H_CAP) for f in fs])
+        e = np.array([f["err_raw"] for f in fs])
+        b = float((e * h).sum() / (h * h).sum())
+        res = e - b * h
+        v = float((res @ res) / max(len(fs) - 1, 1) / (h * h).sum()) if len(fs) > 1 else np.nan
+        out.append(dict(series=which, block=f"{k // 2}H{k % 2 + 1}", n=len(fs), beta=b, var=v))
+    vs = [o["var"] for o in out if np.isfinite(o["var"])]
+    for o in out:   # single-fold blocks and implausibly small variances get the median block variance
+        if not np.isfinite(o["var"]) or o["var"] < 0.25:
+            o["var"] = max(float(np.median(vs)) if vs else 4.0, 0.25)
+    return out
+
+
+def pooled_beta(blocks):
+    """Random-effects (DerSimonian-Laird) pooling of block betas across both series.
+    Returns dict(mu, se, tau, predictive_sd, n_blocks). The value used is mu; its sd is the
+    predictive sd for a new block, sqrt(se^2 + tau^2), because the future is a new block."""
+    if len(blocks) < 2:
+        return dict(mu=0.0, se=0.0, tau=0.0, predictive_sd=0.0, n_blocks=len(blocks))
+    y = np.array([b["beta"] for b in blocks])
+    v = np.array([b["var"] for b in blocks])
+    w = 1 / v
+    mu_f = float((w * y).sum() / w.sum())
+    Q = float((w * (y - mu_f) ** 2).sum())
+    c = float(w.sum() - (w ** 2).sum() / w.sum())
+    tau2 = max((Q - (len(y) - 1)) / c, 0.0)
+    ws = 1 / (v + tau2)
+    mu = float((ws * y).sum() / ws.sum())
+    se = float(np.sqrt(1 / ws.sum()))
+    return dict(mu=mu, se=se, tau=float(np.sqrt(tau2)), predictive_sd=float(np.sqrt(se ** 2 + tau2)), n_blocks=len(y))
+
+
 def bias_beta(folds, before=None, min_folds=6):
-    """Slope of (actual - predicted median) on horizon through the origin, from folds whose
-    target precedes `before`. Returns (beta, n)."""
+    """Unpooled single-series slope (kept for the side-by-side table)."""
     use = [f for f in folds if before is None or f["T"] < before]
     if len(use) < min_folds:
         return 0.0, len(use)
@@ -205,7 +260,7 @@ def bias_beta(folds, before=None, min_folds=6):
 
 
 def bias_beta_se(folds, rng, nboot=400):
-    """Block bootstrap (blocks = half-years of origin) standard error of beta."""
+    """Block bootstrap (blocks = half-years of origin) standard error of the unpooled slope."""
     blocks = {}
     for f in folds:
         blocks.setdefault(int(f["t0"] * 2), []).append(f)

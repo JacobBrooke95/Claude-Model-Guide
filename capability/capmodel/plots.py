@@ -194,7 +194,7 @@ def _proj_chart(R, key, title, sub, yr_, ylabel, hist, name, nextkey, note, thr=
         c.line([2024.0, 2031.05], [thr, thr], INK2, 1, dash=3)
         c.text(2024.05, thr, "beyond the measured scale: today's benchmarks no longer separate models", 9, INK2, dx=4, dy=-15)
     c.vline(T_NOW, "as of " + AS_OF)
-    c.vline(yr(P["validated_through"]), "backtested to here; scenario projection after")
+    c.vline(yr(P["backtested_through"]), "uncorrected code backtested to here; scenario projection after")
     for f in ["legacy"] + FAMILIES:
         pts = [p for p in hist["points"] if p["family"] == f]
         if pts:
@@ -256,7 +256,7 @@ def make_all(R):
         c.line(tq, [min(x["median"], cap + 60) for x in b], colr, 2, label=f"{s_} ({P['weights']['central'][s_]:.0%})")
     c.line(tq, [b["median"] for b in mixb], INK, 2, dash=4, label="mixture median")
     c.legend_items.append(("band", _light(PAL[6], 0.75), "mixture 80% band", None))
-    c.vline(yr(P["validated_through"]), "backtested to here")
+    c.vline(yr(P["backtested_through"]), "backtested to here")
     c.save("scenario_paths.png")
     # ---- release backtest
     rel = O["rel"]

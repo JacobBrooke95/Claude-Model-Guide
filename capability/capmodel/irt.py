@@ -45,6 +45,11 @@ def load_inputs():
     b = b.groupby(["model", "benchmark"], as_index=False).agg(
         p=("performance_0_1", "max"), date=("model_release_date", "first"))
     b["t"] = b.date.map(yr)
+    # canonical release dates (the repo's for Claude models), so a model cannot enter a vintage before its canonical date
+    from .common import DATA
+    m = pd.read_csv(DATA / "models.csv")
+    canon = dict(zip(m.model_id, m.release_date.map(yr)))
+    b["t"] = [canon.get(mod, t) for mod, t in zip(b.model, b.t)]
     return b
 
 

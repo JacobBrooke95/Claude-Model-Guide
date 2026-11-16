@@ -58,8 +58,10 @@ def lookup(quantity, family, rel):
         return None, "no own-card AECI row yet"
     charts = json.loads((REPO / "data/benchmarks.json").read_text())["charts"]
     if quantity in charts and "series" in charts[quantity]:
-        for p in charts[quantity]["series"].get(family, []):
-            if p.get("date") == rel["date"] and p.get("score") is not None:
+        norm = lambda x: "".join(ch for ch in str(x).lower().replace("claude", "") if ch.isalnum())
+        want = norm(rel["model"])
+        for p in charts[quantity]["series"].get(family, []):      # match on the model's name; the chart's date may differ by a day or two
+            if p.get("score") is not None and (norm(p.get("model", "")) == want or norm(p.get("label", "")) == want):
                 return float(p["score"]), f"data/benchmarks.json charts.{quantity}.series.{family}"
         return None, "no chart row yet"
     return None, "unknown quantity"
