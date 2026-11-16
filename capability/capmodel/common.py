@@ -9,7 +9,7 @@ import numpy as np
 
 SEED = 20261116
 AS_OF = "2026-11-16"
-MODEL_VERSION = "cap-v1.0"
+MODEL_VERSION = "cap-v2.0"
 
 ROOT = Path(__file__).resolve().parents[1]          # capability/
 REPO = ROOT.parent

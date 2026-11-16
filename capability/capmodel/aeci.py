@@ -132,6 +132,56 @@ def drift_table(d):
     return pd.DataFrame(rows), piv
 
 
+class OwnCard:
+    """'AECI as printed in the model's own system card', modelled directly (v2).
+
+    gap_i = own-card AECI_i - public ECI_i (today's Epoch fit; vintage ECI is not available),
+    one per card that printed an own value, in card order. The gap is a property of the
+    card's fit (it rose from about -4 to about +4 between May and November 2026, with two
+    large steps that coincided with basket changes), not of the model's level, so it is
+    forecast as a level: the mean of the last three cards' gaps. The predictive sd is the
+    larger of the rolling out-of-sample RMSE of that rule and the sd of the last four gaps,
+    widened by sqrt(1 + 0.25 (K-1)) for K card refits before the model's own card. Steps are
+    not treated as iid and no upward drift is extrapolated. Eight cards: a judgement-heavy
+    estimate, not a tested forecast."""
+
+    def __init__(self, d):
+        a = d.index[(d.index.scale == "aeci") & (d.index.own_card == 1) & (d.index.value_type == "printed")]
+        m = d.models.set_index("model_id")
+        rows = []
+        for r in a.sort_values("fit_order").itertuples():
+            src = r.model_id if np.isfinite(m.loc[r.model_id, "eci"]) else m.loc[r.model_id, "twin"]
+            if not isinstance(src, str):
+                continue
+            rows.append(dict(card=r.fit, model_id=r.model_id, eci_source=src, card_date=m.loc[r.model_id, "release_date"],
+                             aeci_own=float(r.value), eci=float(m.loc[src, "eci"]), gap=float(r.value - m.loc[src, "eci"]),
+                             n_benchmarks=r.n_benchmarks))
+        self.tab = pd.DataFrame(rows)
+        g = self.tab.gap.to_numpy()
+        self.pred = float(g[-3:].mean())
+        bt = []
+        for i in range(3, len(g)):
+            bt.append(dict(card=self.tab.card.iloc[i], model_id=self.tab.model_id.iloc[i], predicted_gap=round(float(g[i - 3:i].mean()), 2),
+                           actual_gap=round(float(g[i]), 2), error=round(float(g[i] - g[i - 3:i].mean()), 2),
+                           last_gap_rule_error=round(float(g[i] - g[i - 1]), 2)))
+        self.backtest = bt
+        e = np.array([b["error"] for b in bt])
+        self.rmse = float(np.sqrt(np.mean(e ** 2)))
+        self.sd = max(self.rmse, float(g[-4:].std(ddof=1)))
+        for b in bt:
+            b["inside_80"] = int(abs(b["error"]) <= 1.2816 * self.sd)
+
+    def sample(self, K, rng):
+        K = np.minimum(np.asarray(K, float), 8.0)
+        return self.pred + self.sd * np.sqrt(1 + 0.25 * (K - 1)) * rng.standard_t(4, K.shape) / np.sqrt(2.0)
+
+    def summary(self):
+        e = [b["last_gap_rule_error"] for b in self.backtest]
+        return dict(predicted_gap=round(self.pred, 2), sd=round(self.sd, 2), rolling_rmse_mean_of_last_3=round(self.rmse, 2),
+                    rolling_rmse_last_gap_rule=round(float(np.sqrt(np.mean(np.square(e)))), 2), n_cards=int(len(self.tab)),
+                    n_backtest=len(self.backtest), cov80_in_sample_sd=round(float(np.mean([b["inside_80"] for b in self.backtest])), 2))
+
+
 class Drift:
     """Empirical model of the per-refit change in printed AECI of frontier models."""
 

@@ -14,6 +14,6 @@ gpqa_diamond,GPQA Diamond,bounded,25.0,97.0,%,other,hub,"Epoch hub, best score a
 frontiermath_t13,FrontierMath Tiers 1-3,bounded,0.0,95.0,%,other,hub,"Epoch hub (v2 private set), best config; ceiling 95% per Epoch",90,90,14
 terminal_bench_2,Terminal-Bench 2.0,bounded,0.0,100.0,%,other,hub,"Epoch hub 'Terminal Bench', best accuracy per model; coverage ends April 2026",32,32,7
 webdev_arena,WebDev Arena,elo,,,Arena score,other,hub,"Epoch hub copy of LMArena WebDev scores, best per model",80,80,14
-lmarena_text,LMArena text,elo,,,Arena score,other,lmarena,"LMArena text 'overall', latest snapshot per model (style-controlled era)",114,114,23
+lmarena_text,LMArena text,elo,,,Arena score,other,lmarena,"LMArena text 'overall', latest snapshot per model (style-controlled era)",104,104,24
 aa_index,AA Intelligence Index v5,bounded,0.0,100.0,index,other,aa,"Artificial Analysis v5.0.1, strongest config per release",31,31,7
 vals_index,Vals Index v2.2,bounded,0.0,100.0,% accuracy,other,vals,"Vals Index v2.2 overall, best config per model",23,23,4

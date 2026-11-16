@@ -797,5 +797,7 @@
    "hi95": 22231.48,
    "resolution": "Score of the model on data/benchmarks.json chart 'vending_bench_2' in the series' stated configuration (Andon Labs leaderboard, mean final balance)."
   }
- ]
+ ],
+ "withdrawn": true,
+ "withdrawn_reason": "cap-v1.0 was withdrawn after independent review (research/04-adversarial-review-v1.md). Kept for the record; not graded."
 }

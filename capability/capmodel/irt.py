@@ -104,23 +104,31 @@ def fit_irt(obs: pd.DataFrame, published: pd.Series):
     return out, {"n_models": M, "n_bench": Bn, "n_obs": N, "align_rmse": rmse, "cost": float(r.cost)}
 
 
+VINTAGE_FILE = "irt_vintages.csv.gz"
+DATE_TOL = 2e-4      # years (~0.07 day): dates are keyed rounded to 4 decimals, so 'on or before d' needs a tolerance
+
+
 def vintage_abilities(dates, published: pd.Series, full=False):
-    """Abilities re-estimated at each date from data on models released on or before it.
-    Cached under capability/cache/ (use full=True to recompute)."""
-    CACHE.mkdir(exist_ok=True)
-    f = CACHE / "irt_vintages.pkl"
-    cache = {}
+    """Abilities re-estimated at each date from models released on or before it.
+    The fit is deterministic. Results are stored in capability/data/irt_vintages.csv.gz
+    (committed, and part of the input hash that --check verifies); full=True recomputes
+    every vintage, otherwise only missing dates are computed."""
+    from .common import DATA
+    f = DATA / VINTAGE_FILE
+    keys = sorted({round(float(d), 4) for d in dates})
+    have = {}
     if f.exists() and not full:
-        cache = pd.read_pickle(f)
+        df = pd.read_csv(f)
+        have = {k: g.set_index("model").ability for k, g in df.groupby("date")}
     obs = load_inputs()
     changed = False
-    for d in dates:
-        k = round(float(d), 4)
-        if k in cache:
-            continue
-        sub = obs[obs.t <= d + 1e-9]
-        cache[k] = fit_irt(sub, published)
-        changed = True
-    if changed:
-        pd.to_pickle(cache, f)
-    return {round(float(d), 4): cache[round(float(d), 4)] for d in dates}
+    for k in keys:
+        if k not in have:
+            have[k] = fit_irt(obs[obs.t <= k + DATE_TOL], published)[0].round(3)
+            changed = True
+    if changed or full or set(have) != set(keys):
+        import gzip
+        rows = pd.concat([pd.DataFrame({"date": k, "model": have[k].index, "ability": have[k].to_numpy()}) for k in keys])
+        with gzip.GzipFile(f, "wb", mtime=0) as fh:
+            fh.write(rows.to_csv(index=False).encode())
+    return {k: (have[k], {}) for k in keys}

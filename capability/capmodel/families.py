@@ -18,7 +18,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from .trend import envelope, NU
+from .trend import NU
 
 HALF_LIFE = 1.5     # years; recency weighting of past offsets (assumption; families re-rank over time)
 ETA_FLOOR = 1.0     # floor on within-family scatter, ECI points (assumption: ~ECI measurement sd)
@@ -101,3 +101,40 @@ def version_type_of_name(name: str, last_gen: int) -> str:
     if int(v) > last_gen:
         return "gen"
     return "half" if abs(v * 10 % 10 - 5) < 1e-6 else "minor"
+
+
+# ----------------------------------------------------------------------------- v2 gain model
+GAIN_FLOOR = 0.3        # ECI points: smallest line gain the multiplicative model is applied to
+RATIO_SD_FLOOR = 0.25   # floor on the log-sd of (actual step / line gain)
+
+
+def gain_stats(hist: pd.DataFrame, ref):
+    """Historical within-family steps before the origin, as a ratio to the reference line's
+    gain over the same interval. Returns (median log ratio, robust log sd, n steps, min step)."""
+    lr, steps = [], []
+    for _, g in hist.sort_values("t").groupby("family"):
+        if len(g) < 2:
+            continue
+        dy = np.diff(g.eci.to_numpy())
+        dl = np.diff(ref(g.t.to_numpy()))
+        ok = dy > 0
+        lr += list(np.log(dy[ok] / np.maximum(dl[ok], GAIN_FLOOR)))
+        steps += list(dy)
+    if len(lr) < 5:
+        return 0.0, 0.5, len(lr), (min(steps) if steps else None)
+    lr = np.asarray(lr)
+    c = float(np.median(lr))
+    s = max(float(1.4826 * np.median(np.abs(lr - c))), RATIO_SD_FLOOR)
+    return c, s, len(lr), float(min(steps))
+
+
+def predict_step(y_prev, line_gain, c, s, meas_sd, rng, use_ratio=True):
+    """Next release = predecessor + a positive gain + measurement noise of the new score.
+    gain = max(line gain, floor) * exp(c + s*z): a shifted-lognormal step, so the latent step
+    is never negative; the published score can still land below the predecessor through
+    measurement noise alone."""
+    n = len(line_gain)
+    g = np.maximum(line_gain, GAIN_FLOOR)
+    if use_ratio:
+        g = g * np.exp(c + s * rng.standard_normal(n))
+    return y_prev + g + meas_sd * rng.standard_normal(n)

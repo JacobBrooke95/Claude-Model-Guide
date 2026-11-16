@@ -14,11 +14,13 @@ def input_hash() -> str:
     whether the outputs are current."""
     files = sorted(RAW.glob("*.csv")) + sorted(RAW.glob("*.csv.gz")) + [
         REPO / "data" / "models.json", REPO / "data" / "benchmarks.json", REPO / "forecast" / "output" / "forecast.json"]
+    files += [ROOT / "data" / "irt_vintages.csv.gz"]       # committed vintage IRT refits (rebuilt by run.py --full)
     files += sorted((ROOT / "capmodel").glob("*.py")) + [ROOT / "build_data.py", ROOT / "run.py"]
     h = hashlib.sha256()
     for f in files:
-        h.update(f.name.encode())
-        h.update(f.read_bytes())
+        if f.exists():
+            h.update(f.name.encode())
+            h.update(f.read_bytes())
     return h.hexdigest()
 
 
@@ -37,10 +39,51 @@ def history(R):
                         aeci_by_fit=fits))
     others = [dict(model_id=r.model_id, lab=r.lab, release_date=r.release_date, eci=r.eci, eci_lo90=r.eci_lo90, eci_hi90=r.eci_hi90)
               for r in m[(m.lab != "Anthropic") & (m.in_public_eci == 1) & (m.t >= 2023.15)].sort_values("t").itertuples()]
-    fr = R["trend"]["records_all_lab"]
-    return dict(claude=out, other_labs=others, all_lab_frontier_records=fr,
+    return dict(claude=out, other_labs=others, all_lab_frontier_records=R["trend"]["records_all_lab"],
                 internal_model=dict(name="Anthropic internal model (unreleased)", aeci_nov6=178.78, lo95=173.75, hi95=185.18,
                                     internal_date_approx="2026-09-26", n_benchmarks=15, used_in_fit=False))
+
+
+REVIEW = [
+    ("B1", "Headline backtest omitted the worst fold; strawman baselines", "fixed",
+     "Every table is on all folds (Fable 5 included; a first-of-family release is placed on the record line). The reviewer's baseline "
+     "is a named baseline with paired differences and bootstrap intervals. 'Beats every baseline' is withdrawn: the model is not "
+     "distinguishable from previous-in-family + trailing-12-month slope, which is now its core."),
+    ("B2", "Benchmark predictions contradicted observed scores", "fixed",
+     "Ceilings are estimated where the data allow; predictions are anchored on the family's own last score; saturated, stale and thin "
+     "benchmarks are dropped with reasons; a family already within a tenth of the ceiling gets a saturation statement instead of a "
+     "number; tests check every open prediction against observed scores."),
+    ("M1", "Corner-solution stacking; the two layers disagreed", "fixed",
+     "Stacking is gone. One level process (equal weights over three recent-trend forms; no all-history forms) feeds both the next-model "
+     "layer and the projection from the same simulated paths."),
+    ("M2", "The 2027-30 band was an untested prior", "partly",
+     "The projection code is now backtested at 0.5, 1.0 and 1.5 years on both frontiers, its bias term is estimated out of sample and "
+     "carried with uncertainty, and its calibration factors are applied. The all-lab frontier is fitted to all-lab data. A below-pre-break "
+     "scenario exists. Beyond 1.5 years nothing can be tested: those bands remain a prior and are labelled as such; values above the "
+     "measured scale are flagged."),
+    ("M3", "Implied METR horizon was false precision", "fixed", "The hours series and the work-month / work-year probabilities are removed; a qualitative statement replaces them."),
+    ("M4", "AECI layer", "partly",
+     "Own-card AECI is modelled directly from the eight own-card values and labelled a judgement-heavy estimate; refit steps are no longer "
+     "summed as iid draws; Sonnet/Haiku predictions are marked conditional. It is still eight cards: the rolling test is poor and is reported."),
+    ("M5", "Twins and grading", "fixed",
+     "Fable and Mythos are one entity. Unresolvable predictions are pruned; grade.py has an expiry rule and grades against the first published value."),
+    ("M6", "Regression odds contradicted the record", "fixed", "Positive-step model; implied P(regression) is reported per entity and is a few percent, from measurement noise only."),
+    ("M7", "Section 7.4 not reproducible", "fixed",
+     "Root cause was a date-rounding bug that dropped the target from its own vintage on a clean cache. Fixed; vintages are committed, hashed and tested."),
+    ("M8", "Live leads untested; calibration a no-op", "partly",
+     "The date-unknown variant is the headline for leads above zero and the limits of n are stated. Ability calibration factors are still 1: "
+     "raw coverage on all folds is at or above nominal, so there is nothing to widen. That is a finding, not an omission; the frontier bands "
+     "do get non-trivial factors. Haiku's eight-month lead remains untested and is flagged in the output."),
+    ("minor", "Name-matcher merges", "fixed", "Dated variants no longer merge into siblings; explicit aliases for Claude 3.5 Sonnet (Oct/Jun); every non-exact match is logged."),
+    ("minor", "Bootstrap was a subsample; slope draws truncated", "fixed", "Called a subsample bootstrap; draws are clipped (not discarded) and the clipped share is reported."),
+    ("minor", "Tests asserted what the code wrote", "fixed", "Leak tests perturb future data and require unchanged predictions; the mapping test is leave-one-out."),
+    ("minor", "Monte Carlo noise comparable to differences", "fixed", "Draws raised; a second-seed rerun is reported; candidate differences inside that noise are no longer interpreted."),
+    ("minor", "m compared with METR's total-slope ratio", "fixed", "The total slope ratio is reported for the like-for-like comparison."),
+    ("minor", "Degenerate frontier floor", "fixed", "The standing leader's value is drawn from Epoch's posterior."),
+    ("minor", "Full-sample tuning choices (df, floors, half-life)", "rejected",
+     "Left as stated assumptions (METHODS section 11). The reviewer measured their effect at RMSE 2.36-2.83, inside fold noise; tuning them "
+     "by nested cross-validation on ~20 folds would add machinery without changing any number that matters."),
+]
 
 
 def build_json(R, plots):
@@ -48,44 +91,39 @@ def build_json(R, plots):
         metadata=dict(
             as_of=AS_OF, model_version=MODEL_VERSION, seed=SEED, input_hash=input_hash(), runtime_seconds=R["_runtime_seconds"],
             generated_by="python3 capability/run.py",
+            supersedes=dict(version="cap-v1.0", status="withdrawn after independent review (two blockers, eight majors)",
+                            archive="capability/history/capability_forecast_v1.0_withdrawn.json",
+                            review="capability/research/04-adversarial-review-v1.md"),
             scales=dict(
-                eci_public="Epoch Capabilities Index, public, Bayesian fit of November 2026 (Claude 3.5 Sonnet = 130, GPT-5 = 150). "
-                           "Primary modelling scale.",
-                aeci_nov6="Anthropic ECI on the November 6 2026 fit (Fable 5.2 / Mythos 5.2 system card). Reporting scale, "
-                          "reached through the ECI->AECI mapping.",
-                aeci_own_card="AECI as it will be printed in the model's own system card: the Nov 6-scale value plus the "
-                              "scale drift expected over the card refits before then. This is the quantity that gets graded."),
+                eci_public="Epoch Capabilities Index, public, Bayesian fit of November 2026 (Claude 3.5 Sonnet = 130, GPT-5 = 150). Modelling scale.",
+                aeci_own_card="AECI as printed in the model's own system card. Modelled directly; judgement-heavy. This is what is graded.",
+                aeci_nov6="AECI on the November 6 2026 fit, through a level mapping from public ECI. Secondary."),
             interval_convention="median with central 50%, 80% and 95% intervals (lo50/hi50, lo80/hi80, lo95/hi95); null where undefined",
             caveats=[
-                "Small samples: 25 Claude models with a public ECI, 3 Fable releases, 4 Haiku releases, 13 models linking AECI to ECI, 7 AECI refit transitions.",
-                "Both indices are re-estimated on every update. Predictions on the ECI scale are in today's units; AECI own-card predictions include an empirical drift model built on seven refits.",
-                "AECI rests on first-party internal benchmarks that cannot be inspected; the mapping from public ECI may shift.",
-                "A frontier is a running maximum of selected, best-configuration results; record-setters are noisy winners.",
-                "Benchmark scores stop carrying information near their ceiling; the index scale itself is anchored on today's benchmark basket, so values far above ~200 have no direct empirical meaning.",
-                "Scenario weights for 2027-2030 are a documented prior, not an estimate. The sensitivity table shows how much the answer moves.",
-                "The model cannot see regime changes it has no data on (new architectures, export controls, a compute shock, a pause).",
+                "Small samples: 25 Claude models with a public ECI, 21 within-family steps, 8 own-card AECI values, 13 models linking AECI to ECI.",
+                "The next-model point forecast is, in effect, 'predecessor + recent record-line slope x elapsed time'. Nothing more elaborate tested better.",
+                "Backtest evidence stops at six months ahead (4 folds; 3 with the date unknown, all under-predictions). Haiku's forecast is beyond it.",
+                "All backtest folds lie in 2024-26, one regime of rising pace. Every method under-predicted in it.",
+                "Beyond about 1.5 years the bands are a scenario projection driven by stated priors, not a validated forecast.",
+                "Above public ECI ~208 today's benchmark basket no longer identifies the scale; values there are flagged, not meaningful measurements.",
+                "Both indices are re-estimated on every update. AECI rests on first-party internal benchmarks; own-card predictions are judgement with a wide band.",
+                "Benchmark predictions are anchored on each family's last score; families near a ceiling get a saturation statement instead.",
                 "Release dates come from the site's release forecaster; its errors pass straight through.",
+                "The model cannot see regime changes it has no data on (new architectures, export controls, a compute shock, a pause).",
             ],
             plots=plots),
-        history=history(R),
-        trend=R["trend"], families=R["families"], aeci=R["aeci"], links=R["links"],
-        next_models=R["next_models"], projection=R["projection"],
-        backtest=dict(frontier=R["frontier_backtest"], release=R["release_backtest"], benchmarks=R["benchmark_backtest"],
-                      irt_refit_check=R["irt_refit_check"], aeci_drift_leave_one_out=R["aeci"]["drift"]["leave_one_out"]),
-        calibration=dict(ability_factors=R["release_backtest"]["calibration"]["factors_used"],
-                         ability=R["release_backtest"]["calibration"],
-                         benchmark_factors=R["links"]["calibration_factors"],
-                         benchmarks_pooled=R["benchmark_backtest"]["calibration"]["pooled"],
-                         frontier=R["frontier_backtest"]["calibration"],
-                         method="Conformal-style: per nominal level, the factor by which the interval must be stretched about "
-                                "the median to cover the stated share of backtest outcomes; learned on earlier folds only when "
-                                "scoring (rolling), and on all folds for the live forecast; floored at 1."),
-        reference_class=R["reference_class"], open_predictions=R["open_predictions"])
+        headline=R["headline"], history=history(R), scale=R["scale"], trend=R["trend"], families=R["families"], aeci=R["aeci"],
+        links=R["links"], next_models=R["next_models"], projection=R["projection"],
+        backtest=dict(machine=R["machine_backtest"], release=R["release_backtest"], irt_refit_check=R["irt_refit_check"],
+                      benchmarks=dict(design=R["links"]["backtest_design"], by_benchmark={r["benchmark"]: r["backtest"] for r in R["links"]["table"]},
+                                      calibration_pooled=R["links"]["calibration_pooled"]),
+                      aeci_own_card=R["aeci"]["own_card"]["backtest"]),
+        reference_class=R["reference_class"], open_predictions=R["open_predictions"],
+        review=[dict(finding=a, title=b, disposition=c, action=d_) for a, b, c, d_ in REVIEW])
     dump_json(J, OUT / "capability_forecast.json")
     return J
 
 
-# ---------------------------------------------------------------------------- METHODS.md
 def _tab(rows, cols, heads=None, fmt=None):
     heads = heads or cols
     fmt = fmt or {}
@@ -93,11 +131,13 @@ def _tab(rows, cols, heads=None, fmt=None):
     for r in rows:
         cells = []
         for c in cols:
-            v = r.get(c) if isinstance(r, dict) else r[c]
+            v = r.get(c)
             if v is None or (isinstance(v, float) and not np.isfinite(v)):
                 cells.append("-")
             elif c in fmt:
                 cells.append(fmt[c](v))
+            elif isinstance(v, bool):
+                cells.append("yes" if v else "no")
             elif isinstance(v, float):
                 cells.append(f"{v:.2f}")
             else:
@@ -107,262 +147,206 @@ def _tab(rows, cols, heads=None, fmt=None):
 
 
 def _iv(s, nd=1, lv="80"):
-    if s is None or s.get("median") is None:
+    if not s or s.get("median") is None:
         return "-"
-    return f"{s['median']:.{nd}f} ({s['lo'+lv]:.{nd}f} to {s['hi'+lv]:.{nd}f})"
+    return f"{s['median']:.{nd}f} ({s['lo' + lv]:.{nd}f} to {s['hi' + lv]:.{nd}f})"
 
 
 def write_methods(J):
-    R = J
     md = []
     A = md.append
-    nm = R["next_models"]["families"]
-    P = R["projection"]
-    rb = R["backtest"]["release"]
-    fb = R["backtest"]["frontier"]
-    bb = R["backtest"]["benchmarks"]
-    irt = R["backtest"]["irt_refit_check"]
-    tr = R["trend"]
-    ae = R["aeci"]
-    A(f"# Capability model: methods\n\nModel version `{MODEL_VERSION}`, as of {AS_OF}. Every number in this file is written by "
-      "`python3 capability/run.py` from `capability/output/capability_forecast.json`; do not edit it by hand.\n")
-    A("## 1. What is forecast\n\n"
-      "1. The capability of the next model in each Anthropic family (Opus, Sonnet, Haiku, Fable, Mythos): public ECI, AECI on "
-      "the November 6 2026 scale, AECI as it will be printed in the model's own system card, and its score on each tracked benchmark.\n"
-      "2. The Anthropic frontier, each family, and the all-lab frontier by quarter to the end of 2030.\n\n"
+    nm, P, rb, mb, irt, tr, ae, L = J["next_models"]["entities"], J["projection"], J["backtest"]["release"], J["backtest"]["machine"], \
+        J["backtest"]["irt_refit_check"], J["trend"], J["aeci"], J["links"]
+    lp = tr["level_process"]
+    A(f"# Capability model: methods\n\nModel version `{MODEL_VERSION}`, as of {AS_OF}. Every number here is written by "
+      "`python3 capability/run.py` from `capability/output/capability_forecast.json`; do not edit by hand.\n\n"
+      "**v1 was withdrawn.** An independent adversarial review of cap-v1.0 (`research/04-adversarial-review-v1.md`) found two blockers "
+      "and eight major problems: the headline backtest left out its worst fold and compared against weak baselines; several benchmark "
+      "predictions contradicted scores already observed; and the long-range band was an untested prior. v1's output is kept, unedited, "
+      "at `history/capability_forecast_v1.0_withdrawn.json`, and its predictions stay on file marked withdrawn. Section 14 lists each "
+      "finding and what changed.\n")
+    A("## 1. What is forecast, and how far to trust each part\n\n"
+      "| Output | Status |\n|---|---|\n"
+      "| Public ECI of the next Opus, Sonnet, Fable/Mythos (1-3 months out) | Tested on all past releases; about 2.5-3 ECI points RMSE; no better than a two-line baseline, which is its core |\n"
+      "| Public ECI of the next Haiku (about 8 months out) | Outside anything tested |\n"
+      "| Benchmark scores of the next models | Anchored on each family's last score; thinly tested (2-16 folds per benchmark) |\n"
+      "| AECI as printed in the model's own card | Judgement-heavy estimate from eight cards; wide band |\n"
+      f"| Frontier to {P['validated_through']} | Same code backtested at 0.5-1.5 years; one regime; few independent folds |\n"
+      "| Frontier beyond that, to 2030 | Scenario projection driven by stated priors |\n\n"
       "**Primary scale.** " + ae["primary_scale"] + "\n")
-    A("## 2. Data\n\n`build_data.py` writes four tables under `capability/data/` and logs every rename, date conflict, merge and "
-      "dropped row in `build_log.csv`. Nothing is interpolated.\n\n"
-      "- **Models** (`models.csv`): 256 models with a public ECI plus the Claude releases Epoch does not score (the four Mythos "
-      "models, Claude 2.1, Claude 1). Claude release dates are the repo's (`data/models.json`, first public availability); four "
-      "differ from Epoch's by 4 to 13 days.\n"
-      "- **Index values** (`index_values.csv`): public ECI with 90% credible intervals; every AECI value Anthropic has printed, "
-      "keyed by the card fit it belongs to. Epoch's 500 joint posterior draws per model are in `raw/eci_posterior_draws.csv.gz`.\n"
-      "- **Benchmark scores** (`benchmark_scores.csv`): one row per benchmark and model in one stated configuration. Site-chart "
-      "benchmarks use the site's series (`data/benchmarks.json`); other labs are added from Epoch's hub or Artificial Analysis "
-      "where the same board is the source.\n"
-      "- **Release dates** for the next model in each family come from `forecast/output/forecast.json` and are not re-modelled here.\n")
-    A("## 3. Trend model\n\n"
-      "A frontier series is the set of record-setting releases (running maximum of public ECI by release date). Seven candidate "
-      "forms are fitted to Anthropic's records, each a regression with Student-t errors (4 degrees of freedom, fitted by IRLS):\n\n"
-      "| Candidate | Form |\n|---|---|\n"
-      "| `lin_all` | one slope, all history |\n| `lin_24`, `lin_12` | one slope, trailing 24 or 12 months |\n"
-      "| `hinge` | piecewise linear, changepoint date unknown (profile likelihood over a monthly grid) |\n"
-      "| `jump` | one slope plus a one-time level shift at an unknown date |\n| `quad` | quadratic over the trailing 36 months (smooth acceleration) |\n"
-      "| `pool_all` | the all-lab trailing-24-month line plus a mean-reverting Anthropic gap |\n\n"
-      "Uncertainty: each fit is repeated on bootstrap replicates that resample models and take one of Epoch's 500 joint posterior "
-      "draws, recomputing the record set each time (this carries the winner's-curse selection of noisy records); coefficients "
-      "are drawn from a multivariate t; the changepoint is drawn from its profile likelihood.\n\n"
-      "Two estimands are kept apart. The **level** L(T) is the height of the record line at T: what a record-setter released "
-      "at T is expected to score. The **frontier** F(T) is the running maximum actually held at T, a step function at or below "
-      "the line: F(T) = max(F(now), L(T - A) + e), with A the age of the standing record drawn from the observed record gaps.\n\n"
-      "### Was there a break?\n\n" + tr["note"] + "\n\n" +
-      _tab([dict(series=k, **{f"{f}_w": v[f]["bic_weight"] for f in ("linear", "hinge", "jump", "quadratic")},
-                 pre=v["hinge"]["slope_pre"], post=v["hinge"]["slope_post"], ratio=v["hinge"]["ratio"], tau=v["hinge"]["tau"], n=v["hinge"]["n"])
+    A("## 2. Data\n\n`build_data.py` writes the canonical tables under `capability/data/` and logs every rename, date conflict, merge and "
+      "dropped row in `build_log.csv` (v2: every non-exact name match is logged, and dated variants of a model no longer merge into a "
+      "sibling). Nothing is interpolated. Models: 256 with a public ECI plus the Claude releases Epoch does not score. Index values: "
+      "public ECI with 90% credible intervals and Epoch's 500 joint posterior draws; every AECI value Anthropic has printed, by card. "
+      "Benchmark scores: one row per benchmark and model in one stated configuration. Release dates for the next models come from "
+      "`forecast/output/forecast.json`.\n")
+    a_ = lp["anthropic"]
+    A("## 3. The level process\n\nOne process produces the record line for both layers of the model.\n\n"
+      "- **Fit.** Record-setting releases since Claude 3 Opus. Level now and recent slope are drawn with equal weight from three "
+      "recent-trend forms: trailing-12-month line, trailing-24-month line, and the last segment of a piecewise line with unknown "
+      "changepoint. v1's stacking over seven forms is gone: its weights were corner solutions that flipped between forms, and the "
+      "all-history forms under-predicted in every fold.\n"
+      "- **Uncertainty.** " + lp["bootstrap"] + "\n"
+      "- **Paths.** From today, pace(t) = kappa x log10(compute growth) + a0 x m(t), with a scenario for m(t) drawn per path (section 10), "
+      "plus a random walk whose annual sd is the sd of past 12-month frontier gains.\n"
+      "- **Bias term.** beta x min(h, 1.5) is added to every path, with beta estimated out of sample (section 7.2).\n"
+      "- **Frontier.** The running maximum held at T is max(leader's own value drawn from Epoch's posterior, line level lagged by the "
+      "standing record's age + scatter).\n\n"
+      f"Anthropic today: level {_iv(a_['level_now'])}, recent slope {_iv(a_['recent_slope'])} ECI/yr, pre-break slope "
+      f"{_iv(a_['pre_break_slope'])}, total slope ratio {_iv(a_['total_slope_ratio'], 2)}. {lp['like_for_like']} "
+      f"All labs: recent slope {_iv(lp['all_lab']['recent_slope'])}. {lp['all_lab']['note']}\n\n### Was there a break?\n\n" +
+      _tab([dict(series=k, lw=v["linear"]["bic_weight"], hw=v["hinge"]["bic_weight"], jw=v["jump"]["bic_weight"], qw=v["quadratic"]["bic_weight"],
+                 pre=v["hinge"]["slope_pre"], post=v["hinge"]["slope_post"], ratio=v["hinge"]["ratio"], n=v["hinge"]["n"])
             for k, v in (("Anthropic, public ECI", tr["anthropic_public_eci"]), ("All labs, public ECI", tr["all_lab_public_eci"]),
                          ("AECI Nov 6 fit, public dates", tr["aeci_nov6_public_dates"]),
                          ("AECI Nov 6 fit, internal dates + internal model", tr["aeci_nov6_internal_dates_with_internal_model"]))],
-           ["series", "n", "linear_w", "hinge_w", "jump_w", "quadratic_w", "pre", "post", "ratio", "tau"],
-           ["Series", "n", "BIC wt linear", "hinge", "jump", "quadratic", "Slope before", "after", "Ratio", "Changepoint"],
-           {"tau": lambda v: f"{v:.2f}"}) + "\n\n"
-      f"With bootstrap uncertainty, the public-ECI slope ratio for Anthropic is {_iv(tr['anthropic_public_slope_draws']['ratio'], 2)} "
-      f"(median, 80% interval): {tr['anthropic_public_slope_draws']['pre']['median']:.1f} points/yr before and "
-      f"{tr['anthropic_public_slope_draws']['post']['median']:.1f} after. The probability that it reaches the card's 1.88x is "
-      f"{tr['anthropic_public_slope_draws']['p_ratio_above_1_88']:.0%}. "
-      "The all-lab public frontier shows no break. So the acceleration Anthropic reports on AECI is partly replicated on the "
-      "public scale for Anthropic alone, and not at all for the industry frontier.\n")
-    A("### Combination\n\n" + rb["combination_note"] + "\n\n" +
-      _tab([dict(candidate=k, stack_frontier=rb["weight_components"]["stack_frontier"][k],
-                 stack_release=(rb["weight_components"]["stack_release"] or {}).get(k), equal=rb["weight_components"]["equal"][k],
-                 live=v) for k, v in rb["live_trend_weights"].items()],
-           ["candidate", "stack_frontier", "stack_release", "equal", "live"],
-           ["Candidate", "Stacking on frontier folds", "Stacking on release folds", "Equal", "Live weight (average)"]) +
-      "\n\nStacking minimises the mean CRPS of the mixture over folds, with a 5% floor per candidate. "
-      "All-lab frontier weights: " + ", ".join(f"{k} {v:.2f}" for k, v in fb["final_weights"]["all_lab"].items()) + ".\n")
-    F = R["families"]
-    A("## 4. Families\n\n" + F["note"] + "\n\n" +
-      _tab(F["table"], ["family", "n", "n_eff", "unpooled_mean", "pooled_mean", "pooled_se", "shrinkage", "last_offset"],
-           ["Family", "n", "Effective n", "Unpooled mean", "Pooled mean", "SE", "Shrinkage", "Last offset"]) +
-      f"\n\nWithin-family sd {F['within_family_sd']}, between-family sd {F['between_family_sd']}. The next offset is a mixture: "
-      f"weight {F['alpha_weight_on_last_offset']:.2f} on the family's last offset and the rest on its pooled mean (weight set by CRPS "
-      f"stacking over backtest folds), plus Student-t scatter. A version-type effect (new generation / x.5 / minor) was estimated "
-      f"({', '.join(f'{k} {v:+.2f}' for k, v in F['version_type_effect'].items())} ECI points) and tested: CRPS "
-      f"{rb['version_type_effect']['crps_with']} with it, {rb['version_type_effect']['crps_without']} without. "
-      f"It is {'used' if rb['version_type_effect']['used'] else 'not used'}. " + F["mythos"] + "\n")
-    A("## 5. AECI: mapping and drift\n\n" + ae["divergence_note"] + "\n\n" +
-      _tab(ae["overlap"], ["model_id", "eci", "aeci", "fit_hinge", "fit_offset", "value_type"],
-           ["Model", "Public ECI", "AECI (Nov 6)", "Hinge fit", "Level-shift fit", "AECI source"]) +
-      f"\n\nHinge: knee {ae['mapping_forms']['hinge']['k']:.1f}, slope above it {1 + ae['mapping_forms']['hinge']['c']:.2f}. Level shift: "
-      f"+{ae['mapping_forms']['offset']['c']:.2f} above {ae['mapping_forms']['offset']['k']:.1f}. Overlap RMSE: hinge "
-      f"{ae['overlap_rmse']['hinge']}, level shift {ae['overlap_rmse']['offset']}. In the bootstrap the level-shift form fits better in "
-      f"{ae['bootstrap_share_offset_form_fits_better']:.0%} of replicates; the forecast uses it with probability "
-      f"{ae['p_offset_form_used']:.2f} (clipped to 0.2-0.8 so neither form is ruled out on 13 points). Residual sd used: "
-      f"{ae['mapping_residual_sd_used']} AECI points, which includes the miss on the two site-rescaled values (Sonnet 5.5, Haiku 5.5) "
-      "that were not used in the fit: " +
-      "; ".join(f"{e['model_id']} site estimate {e['repo_rescaled_aeci']}, mapped {e['mapped_offset']} / {e['mapped_hinge']}" for e in ae["out_of_sample_check_repo_rescaled"]) + ".\n\n"
-      "**Drift.** " + ae["drift"]["note"] + "\n\n" +
-      _tab(ae["drift"]["transitions"], ["fit_to", "mean_delta", "n_models"], ["Refit (card)", "Mean change of models in both fits", "Models"]) +
-      f"\n\nMean {ae['drift']['summary']['mean']} per refit, sd {ae['drift']['summary']['sd']}. The own-card prediction adds, for each "
-      "refit expected before the model's card (one per card; other families' releases counted from the release forecaster), a "
-      f"step resampled from these seven, plus sd {ae['drift']['own_card_sd']} for the own-card measurement. Leave-one-out check of "
-      f"the step distribution: {ae['drift']['leave_one_out']['cov80']:.0%} of the seven inside the 80% interval. n = 7; this is the "
-      "least-tested part of the model.\n")
-    A("## 6. Benchmark links\n\nBounded scores: p = (score - floor)/(ceiling - floor) = sigmoid(a(ability - D)), noise Student-t on "
-      "the logit scale so draws respect the bounds. Elo and other unbounded scores: linear in ability. METR horizon: log2(minutes) "
-      "linear in ability. " + R["links"]["note"] + "\n\n" +
-      _tab(R["links"]["table"], ["title", "kind", "n", "slope", "difficulty", "eci_50_to_90", "rmse_score", "epoch_slope", "epoch_difficulty", "configuration"],
-           ["Benchmark", "Link", "n", "Slope", "Difficulty (ECI at 50%)", "ECI from 50% to 90%", "Fit RMSE", "Epoch slope", "Epoch difficulty", "Configuration"],
-           {"slope": lambda v: f"{v:.3f}", "epoch_slope": lambda v: f"{v:.3f}"}) + "\n\n" +
-      "METR: " + next((f"{r['eci_per_doubling']} ECI points per doubling of the 50% horizon (90% interval {r['eci_per_doubling_ci90'][0]} to "
-                       f"{r['eci_per_doubling_ci90'][1]}; Epoch says about 5)" for r in R["links"]["table"] if r["benchmark"] == "metr_h50"), "not fitted") + ".\n\n"
-      "Dropped: " + "; ".join(f"{x['title']} ({x['reason']})" for x in R["links"]["dropped"]) + ".\n")
-    A("## 7. Backtest\n\n### 7.1 Claude releases\n\n" + rb["design"] + "\n")
-    order = ["model", "trailing_12m_linear", "all_history_linear", "family_mean_step", "prev_in_family", "model_date_uncertain"]
-    names = {"model": "Model", "trailing_12m_linear": "Baseline: trailing-12-month all-lab trend at the date",
-             "all_history_linear": "Baseline: all-history all-lab linear trend at the date",
-             "family_mean_step": "Baseline: previous + family's mean step", "prev_in_family": "Baseline: previous model in family",
-             "model_date_uncertain": "Model, release date not given (cadence reconstruction)"}
-    for ld, lab in (("0.0", "Day-of nowcast (lead 0)"), ("0.25", "3 months ahead"), ("0.5", "6 months ahead")):
+           ["series", "n", "lw", "hw", "jw", "qw", "pre", "post", "ratio"],
+           ["Series", "n", "BIC wt linear", "hinge", "jump", "quadratic", "Slope before", "after", "Ratio"]) +
+      "\n\nAnthropic's public-ECI records bend upward; the all-lab frontier does not; the card's 1.88x on AECI is reproduced only with "
+      "internal dates and the unreleased internal model.\n")
+    F = J["families"]
+    A("## 4. Next model in a family\n\n" + F["gain_model"]["note"] + "\n\n"
+      "The line gain is the recent slope times the time already elapsed since the predecessor, plus the simulated path from today to the "
+      "release date (drawn from the release forecaster). c and s are the median and robust sd of log(actual step / line gain) over the "
+      f"{F['gain_model']['n_steps']} past within-family steps: c = {F['gain_model']['median_log_ratio']}, s = {F['gain_model']['log_sd']}. "
+      f"Measurement sd {F['gain_model']['measurement_sd']} ECI (Epoch's posterior sd for recent Anthropic models). "
+      "This is the reviewer's two-line baseline with a distribution around it. " + F["twin"] + "\n\n" + F["offsets_note"] + "\n")
+    oc = ae["own_card"]
+    A("## 5. AECI\n\n### Own card (primary AECI output)\n\n" + oc["method"] + "\n\n" +
+      _tab(oc["table"], ["card", "model_id", "aeci_own", "eci", "gap"], ["Card", "Model", "Own-card AECI", "Public ECI (today's fit)", "Gap"]) +
+      f"\n\nPredicted gap {oc['summary']['predicted_gap']:+.2f}, sd {oc['summary']['sd']}. Rolling test (each card predicted from the three before it):\n\n" +
+      _tab(oc["backtest"], ["model_id", "predicted_gap", "actual_gap", "error", "last_gap_rule_error"],
+           ["Card", "Predicted gap", "Actual", "Error", "Error of 'last gap' rule"]) +
+      f"\n\nRMSE {oc['summary']['rolling_rmse_mean_of_last_3']} ('last gap' rule: {oc['summary']['rolling_rmse_last_gap_rule']}). "
+      + oc["label"] + " " + oc["conditional"] + "\n\n### November 6 scale (secondary)\n\n"
+      f"A level mapping fitted on 13 Claude models (hinge above a knee, or a one-time level shift; the forecast mixes them "
+      f"{1 - ae['nov6_mapping']['p_level_shift_form']:.1f}/{ae['nov6_mapping']['p_level_shift_form']:.1f}). Leave-one-out RMSE "
+      f"{ae['nov6_mapping']['leave_one_out_rmse']}; residual sd used {ae['nov6_mapping']['residual_sd_used']}. Caveats: " +
+      " ".join(ae["nov6_mapping"]["caveats"]) + "\n\n### Refits\n\n" + ae["refits"]["note"] + "\n")
+    A("## 6. Benchmarks\n\n" + L["method"] + "\n\n" +
+      _tab([dict(t=r["title"], kind=r["kind"], n=r["n"], ceil=r.get("ceiling"), est=r.get("ceiling_estimated"), best=r["best_observed"],
+                 adm=r["admitted"], nb=(r["backtest"] or {}).get("n"), ma=(r["backtest"] or {}).get("mae_anchored"),
+                 mc=(r["backtest"] or {}).get("mae_curve_level"), mp=(r["backtest"] or {}).get("mae_prev_in_family"), cv=(r["backtest"] or {}).get("cov80"))
+            for r in L["table"]], ["t", "kind", "n", "ceil", "est", "best", "nb", "ma", "mc", "mp", "cv", "adm"],
+           ["Benchmark", "Link", "Models", "Ceiling", "Estimated", "Best observed", "Backtest folds", "MAE anchored", "MAE v1 curve level",
+            "MAE previous-in-family", "80% coverage", "Published"]) +
+      "\n\nNot published:\n\n" + "\n".join(f"- **{x['title']}**: {x['reason']}." for x in L["excluded"]) +
+      "\n\nSaturation statements (published instead of numbers for families at the ceiling):\n\n" +
+      "\n".join(f"- {x['statement']} Families at or above 90%: {', '.join(x['families_at_or_above_90pct']) or 'none'}." for x in L["saturation_statements"]) +
+      f"\n\nPooled over benchmarks, anchored intervals cover {L['calibration_pooled']['raw_cov50']:.0%} / {L['calibration_pooled']['raw_cov80']:.0%} / "
+      f"{L['calibration_pooled']['raw_cov95']:.0%} at nominal 50 / 80 / 95% ({L['calibration_pooled']['n_folds']} fold-benchmarks); the 50% "
+      f"intervals are stretched by {L['calibration_pooled']['factor50']}. Site-chart benchmarks have few folds each: treat them as thinly tested.\n")
+    A("## 7. Backtests\n\n### 7.1 Claude releases, all folds\n\n" + rb["design"] + "\n")
+    names = {"model": "Model, date given", "model_date_unknown": "**Model, date not given**", "prev_plus_slope": "Baseline: previous + 12-month Anthropic slope x elapsed (date given)",
+             "prev_plus_slope_date_unknown": "Baseline: same, date not given", "prev_in_family": "Baseline: previous model in family",
+             "family_mean_step": "Baseline: previous + family's mean step", "trailing_12m_linear": "Baseline: trailing-12-month all-lab line",
+             "all_history_linear": "Baseline: all-history all-lab line"}
+    for ld, lab in (("0.0", "Day-of (lead 0)"), ("0.25", "3 months ahead"), ("0.5", "6 months ahead")):
         s = rb["summary_by_lead"][ld]
-        rows = [dict(method=names[k], **s[k]) for k in order if k in s]
-        A(f"**{lab}**\n\n" + _tab(rows, ["method", "n", "bias", "mae", "rmse", "crps", "cov50", "cov80", "cov95"],
+        A(f"**{lab}**\n\n" + _tab([dict(method=names[k], **s[k]) for k in names if k in s],
+                                   ["method", "n", "bias", "mae", "rmse", "crps", "cov50", "cov80", "cov95"],
                                    ["Method", "n", "Bias (actual - predicted)", "MAE", "RMSE", "CRPS", "Cov 50%", "Cov 80%", "Cov 95%"]) + "\n")
-    A("Errors are in public-ECI points. The model beats every baseline at every lead on RMSE and CRPS. It under-predicts on "
-      "average (positive bias, growing with lead). Subtracting the rolling mean of earlier errors did not reduce "
-      "out-of-sample error, so no correction is applied; read the medians as slightly conservative. Not knowing the release date "
-      "roughly doubles the error at 6 months.\n\n"
-      "Combination rules and single candidates, same folds:\n\n" +
-      _tab([r for r in rb["combination_rules"] if r["lead_years"] in (0.0, 0.25)], ["lead_years", "variant", "n", "rmse", "crps", "cov80"],
-           ["Lead (yr)", "Variant", "n", "RMSE", "CRPS", "Cov 80%"]) + "\n")
-    A("### 7.2 Frontier at fixed horizons\n\n" + fb["design"] + "\n\n" +
-      _tab([r for r in fb["table"] if r["method"] in ("stacked", "lin_12", "lin_all", "pool_all", "hinge", "persistence") and r["horizon_years"] in (0.5, 1.0, 1.5)],
-           ["series", "horizon_years", "method", "n", "bias", "mae", "rmse", "crps", "cov50", "cov80", "cov95"],
-           ["Series", "Horizon (yr)", "Method", "n", "Bias", "MAE", "RMSE", "CRPS", "Cov 50%", "Cov 80%", "Cov 95%"]) +
-      "\n\nEvery trend form under-predicted the frontier over 2024-26, by about 6 ECI points at one year for the stacked model: "
-      "the pace rose during the test window. Folds overlap heavily (monthly origins), so the effective sample is far below n.\n")
-    A("### 7.3 Benchmark scores\n\n" + bb["design"] + "\n\n" +
-      _tab(bb["paired_vs_previous"], ["benchmark", "n", "mae_model", "mae_prev_in_family", "model_better"],
-           ["Benchmark", "n", "MAE model", "MAE previous-in-family", "Model better"]) +
-      f"\n\nWith the true ability known, link error on bounded benchmarks is RMSE {bb['link_only_rmse_bounded_fraction']} and MAE "
-      f"{bb['link_only_mae_bounded_fraction']} of the score range ({bb['research_note_reference']}). The model loses to "
-      "'previous in family' on ForecastBench and Vending-Bench 2, where scores barely track ability; treat those two predictions as weak.\n")
-    A("### 7.4 Leave-future-out IRT refit\n\n" + irt["design"] + "\n\n"
-      f"Reproduction on all data: correlation {irt['full_data_reproduction']['corr']} with Epoch's published ECI, RMSE "
-      f"{irt['full_data_reproduction']['rmse_above_140']} above ECI 140 ({irt['full_data_reproduction']['rmse_all']} overall). "
-      f"Vintage versus published ability of the target: mean shift {irt['target_shift']['mean_vintage_minus_published']}, mean absolute "
-      f"{irt['target_shift']['mean_abs']}, maximum {irt['target_shift']['max_abs']} ECI points over {irt['target_shift']['n']} folds.\n\n" +
-      _tab([dict(lead=k, n=v["n"], rmse_v=v["vintage"]["rmse"], rmse_p=v["published"]["rmse"], bias_v=v["vintage"]["bias"],
-                 bias_p=v["published"]["bias"], cov_v=v["vintage"]["cov80"], cov_p=v["published"]["cov80"]) for k, v in irt["comparison_by_lead"].items()],
-           ["lead", "n", "rmse_v", "rmse_p", "bias_v", "bias_p", "cov_v", "cov_p"],
-           ["Lead (yr)", "n", "RMSE vintage", "RMSE published", "Bias vintage", "Bias published", "Cov 80% vintage", "Cov 80% published"]) +
-      "\n\nUsing today's abilities for past models (the look-ahead in the scale) flatters the backtest slightly: errors are "
-      "about 10-20% larger on vintage abilities. " + irt["caveat"] + "\n")
+    A("Paired differences in absolute error (model minus baseline; negative = model better), bootstrap 90% interval over folds:\n\n" +
+      _tab(rb["paired_differences"], ["lead_years", "date", "b", "n", "mae_a", "mae_b", "diff", "lo90", "hi90", "a_better_in"],
+           ["Lead (yr)", "Date", "Baseline", "n", "MAE model", "MAE baseline", "Difference", "90% low", "90% high", "Folds model better"]) +
+      "\n\n**Verdict.** " + rb["verdict"] + "\n\n**What the sample supports.** " + rb["what_n_supports"] + "\n\n"
+      f"Within-family steps: {rb['within_family_steps']['n']} observed, {rb['within_family_steps']['n_negative']} negative, smallest "
+      f"+{rb['within_family_steps']['min']}. Variants tested on the same folds (no bias term; no step ratio; record line + pooled family "
+      "offset; a stacked mix of the two) are in the JSON; none is better beyond noise. Monte Carlo noise: a second seed gives RMSE " +
+      ", ".join(f"{m['rmse_seed_b']} vs {m['rmse_seed_a']} at {m['lead_years']} yr" for m in rb["monte_carlo_noise"]) + ".\n")
+    A("### 7.2 The projection code itself\n\n" + mb["design"] + "\n")
+    for key, lab in (("anthropic", "Anthropic frontier"), ("all_lab", "All-lab frontier")):
+        m = mb[key]
+        A(f"**{lab}** ({m['n_folds']} folds from {m['n_origins']} origins)\n\n" +
+          _tab(m["table"], ["horizon_years", "variant", "n", "bias", "mae", "rmse", "crps", "cov50", "cov80", "cov95"],
+               ["Horizon (yr)", "Variant", "n", "Bias", "MAE", "RMSE", "CRPS", "Cov 50%", "Cov 80%", "Cov 95%"]) +
+          f"\n\nBias slope beta = {m['bias']['beta_per_year']} ECI/yr (block-bootstrap se {m['bias']['bootstrap_se']} over {m['bias']['n_blocks']} "
+          f"half-year blocks; se used {m['bias']['se_used']}). Rolling test on folds with at least six earlier folds: MAE "
+          f"{m['bias']['rolling_mae_raw']} raw, {m['bias']['rolling_mae_bias_corrected']} corrected. " + m["bias"]["rule"] +
+          f" Used: mean {m['bias']['beta_mean_used']}, sd {m['bias']['beta_sd_used']}. Calibration factors (50/80/95%) by horizon: " +
+          "; ".join(f"{h} yr: {c['factor50']}/{c['factor80']}/{c['factor95']}" for h, c in m["calibration"].items()) + ".\n")
+    A("The process under-predicted both frontiers in this window. For Anthropic the out-of-sample correction helped and is applied; "
+      "for all labs it made things worse, so only its uncertainty is carried. 80% and 95% bands covered; the 50% band was too narrow "
+      "around a biased median, which is what the 50% factor at one year repairs. 'bias_corrected' equals 'raw' at 1.0 and 1.5 years "
+      "because no fold at those horizons has six earlier resolved folds: the correction is untested there.\n")
+    A("### 7.3 Leave-future-out IRT refit\n\n" + irt["design"] + " " + irt["v1_bug"] + "\n\n"
+      f"Reproduction on all data: correlation {irt['full_data_reproduction']['corr']} with Epoch's ECI, RMSE {irt['full_data_reproduction']['rmse_above_140']} "
+      f"above ECI 140. Target shift, vintage vs published: mean absolute {irt['target_shift']['mean_abs']}, max {irt['target_shift']['max_abs']} "
+      f"over {irt['target_shift']['n']} folds.\n\n" +
+      _tab([dict(lead=k, meth=m, n=v[m]["n"], rv=v[m]["vintage"]["rmse"], rp=v[m]["published"]["rmse"], bv=v[m]["vintage"]["bias"], bp=v[m]["published"]["bias"])
+            for k, v in irt["comparison_by_lead"].items() for m in v], ["lead", "meth", "n", "rv", "rp", "bv", "bp"],
+           ["Lead (yr)", "Method", "n", "RMSE vintage", "RMSE published", "Bias vintage", "Bias published"]) + "\n\n" + irt["caveat"] + "\n")
     cal = rb["calibration"]
-    bc = bb["calibration"]["pooled"]
-    A("## 8. Calibration\n\n" + R["calibration"]["method"] + "\n\n" +
-      _tab([dict(set="Ability, day-of", **cal["lead_0"]), dict(set="Ability, 3-6 months ahead", **cal["lead_3_to_6_months"]),
-            dict(set="Benchmark scores, pooled", **bc)],
-           ["set", "n_folds", "raw_cov50", "raw_cov80", "raw_cov95", "n_scored_rolling", "calibrated_cov50", "calibrated_cov80", "calibrated_cov95",
-            "factor50", "factor80", "factor95", "factor80_unfloored"],
-           ["Set", "Folds", "Raw 50%", "Raw 80%", "Raw 95%", "Folds scored rolling", "Calibrated 50%", "80%", "95%", "Factor 50%", "80%", "95%", "80% factor before floor"]) +
-      "\n\nRaw intervals already cover at or above nominal for ability, so the factors sit at or near 1 and calibration changes "
-      "little; the unfloored factors below 1 say the raw intervals are, if anything, slightly wide. They are not narrowed. "
-      "AECI intervals use the ability factors; there is no AECI backtest beyond the drift check.\n")
-    A("## 9. Next-model predictions\n\n" + R["next_models"]["date_integration"] + " " + R["next_models"]["note"] + "\n\n" +
-      _tab([dict(family=f, name=v["predicted_name"], date=f"{v['release_date']['median']} ({v['release_date']['q10']} to {v['release_date']['q90']})",
-                 eci=_iv(v["eci"]), a6=_iv(v["aeci_nov6_scale"]), own=_iv(v["aeci_own_card"]), prev=v["previous_eci"],
-                 pint=v["p_aeci_at_or_above_internal_model"]) for f, v in nm.items()],
-           ["family", "name", "date", "prev", "eci", "a6", "own", "pint"],
-           ["Family", "Likeliest name", "Release (median, 10-90%)", "Previous ECI", "Public ECI (80%)", "AECI Nov 6 scale (80%)",
-            "AECI own card (80%)", "P(AECI >= internal model)"]) + "\n\n" +
-      "Benchmarks, median with 80% interval:\n\n" +
-      _tab([dict(b=R["links"]["table"][i]["title"], **{f: _iv(nm[f]["benchmarks"][r["benchmark"]], 0 if r["kind"] in ("elo", "loghorizon") or r["benchmark"] == "vending_bench_2" else 1)
-                                                        for f in ("opus", "sonnet", "haiku", "fable")}) for i, r in enumerate(R["links"]["table"])],
-           ["b", "opus", "sonnet", "haiku", "fable"], ["Benchmark", "Opus", "Sonnet", "Haiku", "Fable / Mythos"]) +
-      "\n\nMythos shares Fable's ability; its release window differs slightly, so its numbers in the JSON differ by a few tenths.\n")
-    A("## 10. Projection, 2026-2030\n\n"
-      "Pace on the public-ECI scale is decomposed with the driver tables: pace(t) = kappa x log10(compute growth in year t) + a0 x m(t), "
-      f"with kappa = {P['assumptions']['kappa_eci_per_10x_compute'][0]} +/- {P['assumptions']['kappa_eci_per_10x_compute'][1]} ECI per 10x "
-      "training compute (research note 1), a0 the algorithmic share at the pre-break pace (pre-break slope minus kappa x log10(5), "
-      "5x/yr being Epoch's compute trend), and m(t) a multiplier on algorithmic progress. The post-break public slope implies "
-      f"m = {P['assumptions']['m_post']['median']} (80% {P['assumptions']['m_post']['lo80']} to {P['assumptions']['m_post']['hi80']}); "
-      "METR and the AI Futures Project attribute 1.7-1.9x to AI assistance. Scenarios differ only in the compute path and m(t):\n\n" +
-      _tab([dict(s=r["scenario"], d=r["definition"], p27=f"{r['pace_eci_2027']['median']} ({r['pace_eci_2027']['lo80']} to {r['pace_eci_2027']['hi80']})",
-                 p28=r["pace_eci_2028"]["median"], p30=r["pace_eci_2030"]["median"], a27=r["pace_aeci_2027_median"], k27=r["k_vs_prebreak_2027_median"])
-            for r in P["scenarios"]], ["s", "d", "p27", "p28", "p30", "a27", "k27"],
-           ["Scenario", "Definition", "ECI pts/yr 2027 (80%)", "2028", "2030", "AECI pts/yr 2027", "x pre-break pace, 2027"]) +
-      f"\n\nOn top of each path: a random walk with annual sd {P['assumptions']['annual_random_walk_sd']} ECI points (the spread of "
-      "one-year frontier errors in backtest), trend-parameter draws for the starting level, record-age and residual noise for the "
-      "step-function frontier. The all-lab frontier is the larger of Anthropic's and a rival frontier whose gap to Anthropic "
-      f"mean-reverts to its 2024-26 average ({P['assumptions']['other_labs_gap']['mean']:+.1f} ECI, sd {P['assumptions']['other_labs_gap']['sd']}; "
-      f"today {P['assumptions']['other_labs_gap']['now']:+.1f}). Families sit at the record line lagged by their release cadence plus "
-      "their pooled offset, which is allowed to drift.\n\n### Weights\n\n"
-      "The data cannot set these weights alone, so they are an explicit prior built in two steps.\n\n"
-      "*Step 1, data only.* Three lines of evidence on whether the step-up reverts, averaged: (a) the reference class of earlier "
-      f"apparent accelerations in the ECI frontier and METR horizons, Laplace-smoothed: {P['weights_evidence']['p_revert_reference_class']}; "
-      f"(b) BIC weight on 'jump or no change' for Anthropic's public-ECI records: {P['weights_evidence']['p_revert_anthropic_public_bic']}; "
-      f"(c) BIC weight on 'no slope increase' for the all-lab frontier: {P['weights_evidence']['p_revert_all_lab_bic']}. "
-      f"Combined P(revert) = {P['weights_evidence']['p_revert_combined']}. The remainder is split between 'hold' and 'compounding' by "
-      f"the reference class (share that accelerated again: {P['weights_evidence']['compounding_share_of_persisting']}). The reference "
-      "class is two independent episodes (the 2024 break in ECI and in METR horizons); both persisted for 12 months or more, one "
-      "accelerated again. Slowdown and explosive have no precedent in the sample and get zero by construction.\n\n"
-      "*Step 2, central prior.* Data-only weights scaled to 84%, plus 10% slowdown and 6% explosive. Reasons for the tails: "
-      "compute growth cannot stay at 5x/yr (lead times, capital, possible export restrictions; research note 1), which argues for "
-      "a slowdown tail; Anthropic's S-1/A says the AI R&D threshold is met on the 'expect' prong and takeoff models put large mass "
-      "on rapid acceleration, which argues for an explosive tail; scenario-style forecasts have run at 60-75% of predicted pace, "
-      "which is why that tail is small and why accelerating scenarios carry a realisation haircut. The orchestrator's note in "
-      "research note 3 is followed: the collecting worker's 15/35/30/20 is kept only as the 'accelerationist' alternative.\n\n" +
+    A("## 8. Calibration\n\nConformal-style: per nominal level, the factor by which an interval must be stretched about its median to cover "
+      "the stated share of backtest outcomes, learned from earlier folds when scoring and from all folds for the live forecast; floored at 1.\n\n" +
+      _tab([dict(set="Ability, date given, lead 0", **cal["date_given_lead_0"]), dict(set="Ability, date not given, 3-6 months", **cal["date_unknown_leads_3_6_months"]),
+            dict(set="Benchmarks, anchored, pooled", **L["calibration_pooled"])],
+           ["set", "n_folds", "raw_cov50", "raw_cov80", "raw_cov95", "factor50", "factor80", "factor95", "factor80_unfloored"],
+           ["Set", "Folds", "Raw 50%", "Raw 80%", "Raw 95%", "Factor 50%", "80%", "95%", "80% factor before floor"]) +
+      "\n\nFor ability the raw intervals already cover at or above nominal on all folds, so the factors are 1 and calibration changes "
+      "nothing there. That is a statement about the folds we have, not about longer leads. The frontier bands use the factors in 7.2.\n")
+    A("## 9. Next-model predictions\n\n" + J["next_models"]["note"] + "\n\n" +
+      _tab([dict(e=v["predicted_name"], d=f"{v['release_date']['median']} ({v['release_date']['q10']} to {v['release_date']['q90']})",
+                 prev=v["previous_eci"], eci=_iv(v["eci"]), e95=f"{v['eci']['lo95']:.1f} to {v['eci']['hi95']:.1f}", own=_iv(v["aeci_own_card"]),
+                 n6=_iv(v["aeci_nov6_scale"]), pr=v["p_regression_below_predecessor"], tested=v["lead_tested"]) for v in nm.values()],
+           ["e", "d", "prev", "eci", "e95", "own", "n6", "pr", "tested"],
+           ["Next model", "Release (median, 10-90%)", "Predecessor ECI", "Public ECI (80%)", "95%", "AECI own card (80%)", "AECI Nov 6 scale (80%)",
+            "P(below predecessor)", "Lead within tested range"], {"pr": lambda v: f"{v:.1%}"}) + "\n\nBenchmarks (median, 80% interval; 'saturated' = statement only; '-' = no current anchor):\n\n" +
+      _tab([dict(b=next(r["title"] for r in L["table"] if r["benchmark"] == k),
+                 **{e: (_iv(v["benchmarks"][k], 0 if v["benchmarks"][k].get("median", 0) > 300 else 1) if v["benchmarks"][k].get("available")
+                        else ("saturated" if v["benchmarks"][k].get("saturated") else "-")) for e, v in nm.items()}) for k in L["admitted"]],
+           ["b", "opus", "sonnet", "haiku", "fable_mythos"], ["Benchmark", "Opus", "Sonnet", "Haiku", "Fable / Mythos"]) + "\n")
+    A("## 10. Projection to 2030\n\n" + P["validation_statement"] + "\n\n### Scenarios\n\n" +
+      _tab([dict(s=r["scenario"], d=r["definition"], p27=f"{r['pace_anthropic_2027']['median']} ({r['pace_anthropic_2027']['lo80']} to {r['pace_anthropic_2027']['hi80']})",
+                 p28=r["pace_anthropic_2028"]["median"], p30=r["pace_anthropic_2030"]["median"], b27=r["share_below_pre_break_2027"],
+                 e30=r["end_2030_anthropic_frontier_median"]) for r in P["scenarios"]], ["s", "d", "p27", "p28", "p30", "b27", "e30"],
+           ["Scenario", "Definition", "Anthropic ECI pts/yr 2027 (80%)", "2028", "2030", "Share of paths below pre-break pace, 2027", "Frontier, end-2030 (median)"]) +
+      "\n\n### Weights\n\n" + P["weights_are"] + "\n\n" +
       _tab([dict(w=k, **v) for k, v in P["weights"].items()], ["w", "slowdown", "reversion", "hold", "compounding", "explosive"],
-           ["Weighting", "Slowdown", "Reversion", "Hold", "Compounding", "Explosive"]) + "\n\n### Results (central weights)\n\n" +
-      _tab([dict(d=h["date"], e80=_iv(h["eci"]), e95=f"{h['eci']['lo95']} to {h['eci']['hi95']}", a80=_iv(h["aeci"]),
-                 a95=f"{h['aeci']['lo95']} to {h['aeci']['hi95']}", l=_iv(h["all_lab_eci"]), m=h["metr_h50_hours"]["median"]) for h in P["headline"]],
-           ["d", "e80", "e95", "a80", "a95", "l", "m"],
-           ["Date", "Anthropic frontier, public ECI (80%)", "95%", "AECI Nov 6 scale (80%)", "95%", "All-lab public ECI (80%)", "Implied 50% horizon, hours (median)"],
-           {"m": lambda v: ("100,000+" if v >= 100000 else f"{v:,.0f}")}) +
-      "\n\n" + P["metr_horizon_note"] + "\n\n### Sensitivity to the prior\n\n" +
-      _tab([s for s in P["sensitivity"] if s["date"] in ("2028-12-31", "2030-12-31")], ["weighting", "series", "date", "median", "lo80", "hi80"],
-           ["Weighting", "Series", "Date", "Median", "80% low", "80% high"], {"median": lambda v: f"{v:.0f}", "lo80": lambda v: f"{v:.0f}", "hi80": lambda v: f"{v:.0f}"}) +
-      "\n\nThe median at end-2030 moves by tens of points across weightings and the upper 80% bound by far more: the long-range "
-      "answer is mostly the prior.\n\n### Interval widths against the track record\n\n" +
-      _tab(P["width_check"], ["date", "horizon_years", "ours_minus", "ours_plus", "research_minus", "research_plus", "at_least_as_wide"],
-           ["Date", "Horizon (yr)", "Ours, 80% below median", "above", "Research note 1, below", "above", "At least as wide"],
-           {"ours_minus": lambda v: f"{v:+.0f}", "ours_plus": lambda v: f"{v:+.0f}", "research_minus": lambda v: f"{v:+d}", "research_plus": lambda v: f"{v:+d}"}) +
-      "\n\n### Saturation\n\nDate at which Anthropic's record line reaches 90% and 95% of each bounded benchmark's ceiling-rescaled "
-      "range. After that the benchmark no longer separates models.\n\n" +
-      _tab([dict(t=s["title"], now=s["frontier_score_now"], best=s["best_observed"], c90=f"{s['cross_90']['median']} ({s['cross_90']['q10']} to {s['cross_90']['q90']})",
-                 c95=f"{s['cross_95']['median']} ({s['cross_95']['q10']} to {s['cross_95']['q90']})") for s in P["saturation"]],
-           ["t", "now", "best", "c90", "c95"], ["Benchmark", "Fitted frontier score now", "Best observed", "Crosses 90% (median, 10-90%)", "Crosses 95%"]) +
-      "\n\n### Against external forecasts\n\n" +
-      _tab(P["external_comparison"], ["source", "quantity", "theirs", "ours", "why"], ["Source", "Quantity", "Theirs", "Ours", "Why they differ"]) + "\n")
-    A("## 11. Assumptions that are not estimated\n\n"
-      "| Assumption | Value | Source |\n|---|---|---|\n"
-      "| Residual distribution | Student-t, 4 df | robustness choice |\n"
-      "| Floor on trend residual scale | 0.75 ECI | Epoch posterior sd at the frontier is 1-2 points |\n"
-      "| Recency half-life for family offsets | 1.5 years | judgement; families re-rank over time |\n"
-      "| Stacking floor | 5% per candidate | hedge against overfitting ~45 overlapping folds |\n"
-      "| Mapping-form probability clip | 0.2 to 0.8 | 13 overlap points cannot exclude either form |\n"
-      "| ECI per 10x compute | 9 +/- 2 | research note 1 (worker's derivation from Rosetta) |\n"
-      "| Compute growth paths | low / central / high | `driver_scenarios_2026_2030.csv` |\n"
-      "| Algorithmic multiplier ranges per scenario | see scenario table | research note 3 bands |\n"
-      "| Realisation haircut on accelerating scenarios | 60-100% | AI 2027 ran at 58-75% of pace |\n"
-      "| Scenario weights | see table | section 10; prior |\n"
-      "| Family offset drift | 1.5 ECI per sqrt(year) | judgement from Sonnet's 2024-26 slide |\n"
-      "| Rival-frontier gap is stationary | mean-reverting to 2024-26 average | judgement; METR finds 1.4x if all labs are included |\n"
-      "| Fable = Mythos in ability | identical | Anthropic's statement that they are one model |\n")
-    A("## 12. Limitations\n\n" + "\n".join(f"- {c}" for c in R["metadata"]["caveats"]) + "\n"
-      "- Backtest folds at 3 and 6 months are few (see the tables) because families ship every ~3 months; the long-lead evidence is thin.\n"
-      "- All backtest folds fall in 2024-26, a period of rising pace. Every method under-predicted; the model may still be doing so.\n"
-      "- The trend candidates cannot be told apart on release folds; the combination weights are a hedge, not a finding.\n"
-      "- Links are fitted on ability point estimates (no errors-in-variables) and, for site charts, on Claude models only (10-17 points).\n"
-      "- OSWorld mixes three eval versions; HLE and SWE-bench Pro are first-party; ForecastBench set-ups differ by model.\n"
-      "- Family projections assume today's cadence and a slowly drifting offset; a tier could be repositioned or retired.\n"
-      "- The implied METR horizon is extrapolated two or more orders of magnitude beyond anything METR measured.\n")
+           ["Weighting", "Slowdown", "Reversion", "Hold", "Compounding", "Explosive"]) +
+      "\n\nWhy the central prior looks as it does. For reversion or slower (40%): the all-lab frontier shows no break; the AECI result depends "
+      "on the link function and on unreleased models; compute growth cannot stay at 5x/yr; scenario-style forecasts have run at 60-75% of "
+      "predicted pace. For hold (38%): Anthropic's public-ECI records do bend, and the two earlier breaks in the reference class both "
+      "persisted for a year or more. For compounding and explosive (22%): Anthropic's S-1/A says the AI R&D threshold is met on the "
+      "'expect' prong; point forecasters have under-predicted benchmark progress. The unweighted evidence average: " +
+      P["evidence_average_detail"]["warning"] + "\n\n### Results (central weights; mixture bands calibrated)\n\n" +
+      _tab([dict(d=h["date"], e80=_iv(h["anthropic_eci"]), e95=f"{h['anthropic_eci']['lo95']:.0f} to {h['anthropic_eci']['hi95']:.0f}",
+                 l=_iv(h["all_lab_eci"]), a=_iv(h["anthropic_aeci_nov6_scale"]), fl=h["anthropic_eci"]["median_beyond_measured_scale"],
+                 sh=h["anthropic_eci"]["share_of_paths_beyond_measured_scale"]) for h in P["headline"]],
+           ["d", "e80", "e95", "l", "a", "fl", "sh"],
+           ["Date", "Anthropic frontier, public ECI (80%)", "95%", "All-lab frontier (80%)", "AECI Nov 6 scale, secondary (80%)",
+            "Median beyond measured scale", "Share of paths beyond it"], {"sh": lambda v: f"{v:.0%}"}) +
+      f"\n\n**Measured scale.** {J['scale']['rule']} Threshold: {J['scale']['beyond_measured_scale_above_eci']}; display cap {J['scale']['display_cap_eci']:.0f}.\n\n"
+      "### Sensitivity to the prior\n\n" +
+      _tab([s for s in P["sensitivity"] if s["series"] == "anthropic_frontier_eci"], ["weighting", "date", "median", "lo80", "hi80"],
+           ["Weighting", "Date", "Median", "80% low", "80% high"], {k: (lambda v: f"{v:.0f}") for k in ("median", "lo80", "hi80")}) +
+      "\n\n### Research note 1's central path\n\n" + P["reconciliation_with_research_note_1"]["explanation"] +
+      f" Note 1: +65, about {P['reconciliation_with_research_note_1']['research_note_1_central_level_2030']:.0f} by end-2030. Ours, all-lab: " +
+      ", ".join(f"{k} {v:.0f}" for k, v in P["reconciliation_with_research_note_1"]["ours_all_lab_by_scenario"].items()) +
+      f"; mixture median {P['reconciliation_with_research_note_1']['ours_all_lab_median_2030']:.0f}.\n\n### Time horizon\n\n" + P["metr_horizon"]["statement"] +
+      "\n\n### Against external forecasts\n\n" + _tab(P["external_comparison"], ["source", "quantity", "theirs", "ours", "why"],
+                                                      ["Source", "Quantity", "Theirs", "Ours", "Why they differ"]) + "\n")
+    A("## 11. Assumptions that are not estimated\n\n| Assumption | Value | Source |\n|---|---|---|\n"
+      "| Residual distribution | Student-t, 4 df | robustness choice |\n| Floor on trend residual scale | 0.75 ECI | Epoch posterior sd at the frontier is 1-2 points |\n"
+      "| Recent-trend forms and their weights | three forms, equal | review decision; all-history forms under-predict |\n"
+      "| Bias term cap | 1.5 years | longest backtested horizon |\n| Bias se floor | half the estimate | 3-4 independent blocks |\n"
+      "| Gain floor; log-ratio sd floor | 0.3 ECI; 0.25 | keep the multiplicative step defined |\n"
+      "| ECI per 10x compute | 9 +/- 2 | research note 1 |\n| Compute growth paths | low / central / high | `driver_scenarios_2026_2030.csv` |\n"
+      "| Multiplier ranges per scenario; 60-100% realisation haircut | scenario table | research note 3; AI 2027 ran at 58-75% of pace |\n"
+      "| Scenario weights | table above | prior |\n| Own-card gap rule and its widening with refits | mean of last three; sqrt(1 + 0.25(K-1)) | judgement |\n"
+      "| Mapping-form probability clip | 0.2 to 0.8 | 13 points cannot exclude either form |\n"
+      "| Saturation and staleness thresholds | 90% of ceiling; six months | review decision |\n"
+      "| Family offset drift (post-2027 family paths) | 1.5 ECI per sqrt(year) | judgement |\n| Fable = Mythos | identical | Anthropic |\n")
+    A("## 12. Limitations\n\n" + "\n".join(f"- {c}" for c in J["metadata"]["caveats"]) + "\n"
+      "- Machine-backtest folds overlap (monthly origins, horizons up to 1.5 years): 30 Anthropic folds are about three independent half-years.\n"
+      "- The scenario weights used in the backtest are today's prior; the backtest tests the code and the bias, not the weights.\n"
+      "- Links use ability point estimates and, for site charts, Claude models only. OSWorld mixes three eval versions; HLE and SWE-bench Pro are first-party.\n"
+      "- Public ECI for past models is today's fit (the vintage check suggests this matters little).\n")
     A("## 13. What would change the forecast\n\n"
-      "- The next two Anthropic record-setters: on the hold path they land near the 22-24 ECI/yr line; two in a row near 15-17/yr would shift weight to reversion.\n"
-      "- Epoch scoring more of Fable 5.2 (19 benchmarks so far; 90% interval 169.9 to 177.5): it anchors the current level.\n"
-      "- The next card's refit: another +5 step in printed AECI would confirm upward drift; a stable scale would tighten own-card intervals.\n"
-      "- A released model matching the internal model's 178.8 AECI, and its public ECI: a sixth point on the divergence above 157.\n"
-      "- Other labs' frontier: if it also bends upward, the 'no industry-wide break' evidence weakens.\n"
-      "- A new METR horizon for any post-Mythos-Preview model.\n"
-      "- Compute: delivered capacity against the S-1 commitments; export restrictions.\n")
+      "- The next two Anthropic record-setters: near the 20-25 ECI/yr line supports 'hold'; two near 15 shifts weight to reversion.\n"
+      "- Epoch scoring more of Fable 5.2 (19 benchmarks so far): it anchors the level and every Fable/Mythos prediction.\n"
+      "- The next card's own-card gap: it is the whole basis of the AECI forecast.\n"
+      "- Other labs' frontier bending upward would weaken the 'no industry-wide break' evidence.\n"
+      "- New, harder benchmarks entering Epoch's basket would raise the measured-scale ceiling.\n- Delivered compute against the S-1 commitments; export restrictions.\n")
+    A("## 14. What the review changed\n\n" + _tab(J["review"], ["finding", "title", "disposition", "action"], ["Finding", "Issue", "Disposition", "What was done"]) + "\n")
     (ROOT / "METHODS.md").write_text("\n".join(md))

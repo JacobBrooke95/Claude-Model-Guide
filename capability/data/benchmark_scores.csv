@@ -477,36 +477,27 @@ hle,Claude Fable 5.2,73.2,site,,VERIFIED,Anthropic,fable,2026-11-09,173.44
 lmarena_text,LLaMA-13B,833.55,lmarena,last snapshot the model appears in,VERIFIED,Meta AI,,2023-02-24,85.42
 lmarena_text,Dolly 2.0-12b,851.17,lmarena,last snapshot the model appears in,VERIFIED,Databricks,,2023-04-11,55.82
 lmarena_text,chatglm2-6b,938.67,lmarena,last snapshot the model appears in,VERIFIED,,,2023-06-24,73.99
-lmarena_text,Mistral Large,1265.36,lmarena,last snapshot the model appears in,VERIFIED,Mistral AI,,2024-02-26,119.81
-lmarena_text,Claude 3 Opus,1262.05,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2024-03-04,125.52
-lmarena_text,Claude 3 Sonnet,1218.08,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2024-03-04,119.45
-lmarena_text,Claude 3 Haiku,1194.72,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,haiku,2024-03-13,117.7
-lmarena_text,Claude 3.5 Sonnet,1297.87,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2024-06-20,130.0
-lmarena_text,GPT-4o mini,1286.42,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2024-07-18,123.86
+lmarena_text,Claude 3 Opus,1261.97,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2024-03-04,125.52
+lmarena_text,Claude 3 Sonnet,1218.0,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2024-03-04,119.45
+lmarena_text,Claude 3 Haiku,1194.64,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,haiku,2024-03-13,117.7
+lmarena_text,Claude 3.5 Sonnet,1280.96,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2024-06-20,130.0
 lmarena_text,o1-mini,1317.12,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2024-09-12,135.3
 lmarena_text,o1-preview,1352.82,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2024-09-12,133.84
-lmarena_text,Claude 3.5 Haiku,1255.4,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,haiku,2024-11-04,124.93
+lmarena_text,Claude 3.5 Sonnet (October 2024),1297.87,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2024-10-22,133.43
+lmarena_text,Claude 3.5 Haiku,1255.38,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,haiku,2024-11-04,124.93
 lmarena_text,Phi-4,1216.73,lmarena,last snapshot the model appears in,VERIFIED,Microsoft Research,,2024-12-12,129.04
-lmarena_text,o1,1365.87,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2024-12-17,141.16
-lmarena_text,DeepSeek-V3,1374.66,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2024-12-26,131.7
-lmarena_text,DeepSeek-R1,1427.85,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2025-01-20,138.59
+lmarena_text,DeepSeek-V3,1332.54,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2024-12-26,131.7
+lmarena_text,DeepSeek-R1,1372.73,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2025-01-20,138.59
 lmarena_text,Qwen2.5-Max,1366.74,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-01-25,131.15
 lmarena_text,o3-mini,1336.63,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-01-31,140.61
 lmarena_text,Claude 3.7 Sonnet,1299.39,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2025-02-24,141.0
 lmarena_text,QwQ-32B,1329.08,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-03-05,136.48
-lmarena_text,GPT-4.1,1382.94,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-14,136.15
-lmarena_text,GPT-4.1 mini,1340.61,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-14,134.2
-lmarena_text,GPT-4.1 nano,1284.83,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-14,126.77
-lmarena_text,o3,1409.82,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-16,147.05
-lmarena_text,o4-mini,1353.29,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-04-16,145.25
 lmarena_text,Qwen3-235B-A22B,1393.61,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-04-28,138.42
 lmarena_text,Qwen3-30B-A3B,1317.01,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-04-29,134.14
 lmarena_text,Qwen3-32B,1340.13,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-04-29,136.89
-lmarena_text,Mistral Medium 3,1370.23,lmarena,last snapshot the model appears in,VERIFIED,Mistral AI,,2025-05-07,132.81
-lmarena_text,Claude Opus 4,1366.07,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2025-05-22,142.9
+lmarena_text,Claude Opus 4,1365.89,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2025-05-22,142.9
 lmarena_text,Claude Sonnet 4,1339.25,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2025-05-22,141.86
 lmarena_text,Grok-3 mini,1369.67,lmarena,last snapshot the model appears in,VERIFIED,xAI,,2025-06-24,139.88
-lmarena_text,Grok 4,1411.53,lmarena,last snapshot the model appears in,VERIFIED,xAI,,2025-07-09,146.9
 lmarena_text,Claude Opus 4.1,1418.65,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2025-08-05,144.84
 lmarena_text,gpt-oss-120b,1365.52,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-08-05,140.16
 lmarena_text,gpt-oss-20b,1287.56,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-08-05,134.97
@@ -515,13 +506,12 @@ lmarena_text,GPT-5 mini,1373.36,lmarena,last snapshot the model appears in,VERIF
 lmarena_text,GPT-5 nano,1319.93,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-08-07,139.1
 lmarena_text,DeepSeek-V3.1,1419.93,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2025-08-21,140.85
 lmarena_text,Grok 4 Fast,1406.95,lmarena,last snapshot the model appears in,VERIFIED,xAI,,2025-09-19,144.31
-lmarena_text,Qwen3-Max,1412.93,lmarena,last snapshot the model appears in,VERIFIED,Alibaba,,2025-09-24,142.57
-lmarena_text,Claude Sonnet 4.5,1438.61,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
+lmarena_text,Claude Sonnet 4.5,1438.42,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,sonnet,2025-09-29,147.63
 lmarena_text,DeepSeek-V3.2-Exp,1424.91,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2025-09-29,144.38
 lmarena_text,Claude Haiku 4.5,1396.64,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,haiku,2025-10-15,142.83
 lmarena_text,GPT-5.1,1442.51,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-11-13,150.94
 lmarena_text,Gemini 3 Pro,1479.51,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2025-11-18,152.98
-lmarena_text,Claude Opus 4.5,1451.02,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2025-11-24,151.92
+lmarena_text,Claude Opus 4.5,1450.88,lmarena,last snapshot the model appears in,VERIFIED,Anthropic,opus,2025-11-24,151.92
 lmarena_text,DeepSeek-V3.2,1424.53,lmarena,last snapshot the model appears in,VERIFIED,DeepSeek,,2025-12-01,146.25
 lmarena_text,GPT-5.2,1416.21,lmarena,last snapshot the model appears in,VERIFIED,OpenAI,,2025-12-11,154.46
 lmarena_text,Gemini 3 Flash,1465.98,lmarena,last snapshot the model appears in,VERIFIED,Google DeepMind,,2025-12-17,152.32

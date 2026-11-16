@@ -46,6 +46,22 @@ def _fit_sigmoid(x, p):
         return float(a0), float(D0)
 
 
+def _fit_sigmoid_ceiling(x, y, lo, hi):
+    """Three-parameter fit: slope, difficulty and the ceiling c in [max observed, hi]."""
+    ymax = float(np.max(y))
+    c_lo = min(ymax + 0.002 * (hi - lo), hi)
+    if hi - c_lo < 1e-6:
+        a, D = _fit_sigmoid(x, np.clip((y - lo) / (hi - lo), 0, 1))
+        return a, D, hi
+    a0, D0 = _fit_sigmoid(x, np.clip((y - lo) / (hi - lo), 0, 1))
+    try:
+        r = optimize.least_squares(lambda q: lo + (q[2] - lo) * _sig(q[0] * (x - q[1])) - y, [a0, D0, 0.5 * (c_lo + hi)],
+                                   bounds=([0.005, 40, c_lo], [1.0, 300, hi]), x_scale=[0.05, 10, hi - lo], max_nfev=80)
+        return float(r.x[0]), float(r.x[1]), float(r.x[2])
+    except Exception:
+        return a0, D0, hi
+
+
 def _fit_line(x, y):
     A = np.column_stack([np.ones_like(x), x])
     b = np.linalg.lstsq(A, y, rcond=None)[0]
@@ -59,7 +75,24 @@ class Link:
         self.n = len(self.x)
         self.note = ""
         x, y = self.x, self.y
+        if kind == "bounded" and float(np.max(y)) > hi:      # an observed score above the nominal ceiling: the ceiling was wrong
+            hi = self.hi = float(np.max(y))
+            self.note = "nominal ceiling raised to the best observed score"
+        self.ceiling, self.ceiling_estimated = hi, False
         if kind == "bounded":
+            # estimate the ceiling when the top of the curve is observed: at least four scores above 75% of the range
+            if int(((y - lo) / (hi - lo) > 0.75).sum()) >= 4:
+                a_, D_, c_ = _fit_sigmoid_ceiling(x, y, lo, hi)
+                self.ceiling, self.ceiling_estimated = c_, True
+                cb = []
+                for _ in range(max(B, 1)):
+                    idx = rng.integers(0, self.n, self.n)
+                    if len(np.unique(idx)) >= 5:
+                        cb.append(max(_fit_sigmoid_ceiling(x[idx], y[idx], lo, hi)[2], float(y.max())))
+                self.ceiling_draws = np.asarray(cb) if cb else np.array([c_])
+            else:
+                self.ceiling_draws = np.array([hi])
+            hi = self.hi = float(self.ceiling)
             self.p = np.clip((y - lo) / (hi - lo), 0.0, 1.0)
             self.par = _fit_sigmoid(x, self.p)
             fit_p = _sig(self.par[0] * (x - self.par[1]))
@@ -115,6 +148,37 @@ class Link:
         v = a + b * theta + e
         return 2.0 ** v if self.kind == "loghorizon" else v
 
+    def step_residuals(self, pairs):
+        """Residuals of historical within-family steps under the anchored rule
+        (transformed score change minus slope x ability change). pairs: (theta_prev, s_prev, theta_next, s_next)."""
+        out = []
+        for tp, sp, tn, sn in pairs:
+            if self.kind == "bounded":
+                zp, zn = _logit((sp - self.lo) / (self.hi - self.lo)), _logit((sn - self.lo) / (self.hi - self.lo))
+                out.append(zn - zp - self.par[0] * (tn - tp))
+            elif self.kind == "loghorizon":
+                out.append(np.log2(sn) - np.log2(sp) - self.par[1] * (tn - tp))
+            else:
+                out.append(sn - sp - self.par[1] * (tn - tp))
+        return np.asarray(out, float)
+
+    def anchored(self, theta_next, theta_prev, s_prev, step_sd, rng):
+        """Predictive draws starting from the family's own last score: previous score plus the
+        link-implied change for the ability gain, plus step noise. For bounded benchmarks the
+        step is taken on the logit scale under a ceiling drawn from its bootstrap (never
+        below the previous score)."""
+        theta_next = np.asarray(theta_next, float)
+        n = len(theta_next)
+        pi = rng.integers(0, len(self.boot), n)
+        e = step_sd * rng.standard_t(NU, n) / T_SD
+        if self.kind == "bounded":
+            c = np.maximum(rng.choice(self.ceiling_draws, n), s_prev + 0.005 * (self.hi - self.lo))
+            zp = _logit((s_prev - self.lo) / (c - self.lo))
+            return self.lo + (c - self.lo) * _sig(zp + self.boot[pi, 0] * (theta_next - theta_prev) + e)
+        if self.kind == "loghorizon":
+            return 2.0 ** (np.log2(s_prev) + self.boot[pi, 1] * (theta_next - theta_prev) + e)
+        return s_prev + self.boot[pi, 1] * (theta_next - theta_prev) + e
+
     def ability_at(self, frac):
         """Ability at which the fitted curve reaches `frac` of the ceiling-rescaled range."""
         if self.kind != "bounded":
@@ -123,6 +187,11 @@ class Link:
 
     def describe(self):
         d = dict(benchmark=self.key, kind=self.kind, n=self.n, resid_scale=round(float(self.s), 3),
+                 ceiling=None if self.kind != "bounded" else round(float(self.ceiling), 2),
+                 ceiling_estimated=self.ceiling_estimated,
+                 ceiling_ci90=None if self.kind != "bounded" or not self.ceiling_estimated else
+                 [round(float(v), 2) for v in np.quantile(self.ceiling_draws, [0.05, 0.95])],
+                 best_observed=round(float(self.y.max()), 2),
                  resid_scale_unpooled=None if not np.isfinite(self.s_raw) else round(float(self.s_raw), 3),
                  note=self.note)
         if self.kind == "bounded":

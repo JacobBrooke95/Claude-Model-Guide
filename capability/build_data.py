@@ -62,42 +62,86 @@ METR_NAME = {
 }
 
 _ORG = re.compile(r"^[a-z0-9\-_.]+/")
-_PAREN = re.compile(r"\s*\([^)]*\)")
-_DATE = re.compile(r"[-_ ]?(20\d{6}|\d{4}-\d{2}-\d{2})$")
+_PAREN = re.compile(r"\s*\(([^)]*)\)")
+_DATE8 = re.compile(r"[-_ ]?(20\d{6})$")
 _CLAUDE_SWAP = re.compile(r"^claude (\d[\d.]*) (haiku|sonnet|opus)$")
+# a parenthesised suffix may be dropped only if it is purely a run configuration, never a version or date
+_CONFIG_WORDS = {"high", "max", "xhigh", "low", "medium", "minimal", "none", "reasoning", "thinking", "non", "nonreasoning",
+                 "default", "fallback", "adaptive", "32k", "64k", "16k", "128k", "effort", "extended"}
+ALIASES = {   # explicit, checked by hand: board/API names of models whose plain name is shared by two versions
+    "claude-3-5-sonnet-20241022": "Claude 3.5 Sonnet (October 2024)", "claude-3-5-sonnet-20240620": "Claude 3.5 Sonnet",
+    "Claude 3.5 Sonnet (20241022)": "Claude 3.5 Sonnet (October 2024)", "Claude 3.5 Sonnet (Oct '24)": "Claude 3.5 Sonnet (October 2024)",
+    "Claude 3.5 Sonnet (Oct)": "Claude 3.5 Sonnet (October 2024)", "Claude 3.5 Sonnet (20240620)": "Claude 3.5 Sonnet",
+    "Claude 3.5 Sonnet (June '24)": "Claude 3.5 Sonnet",
+}
+MATCH_LOG: dict = {}
 
 
 def _n(s: str) -> str:
     return re.sub(r"[^a-z0-9]", "", s.lower())
 
 
+def _config_only(inner: str) -> bool:
+    toks = [t for t in re.split(r"[^a-z0-9]+", inner.lower()) if t]
+    return bool(toks) and all(t in _CONFIG_WORDS for t in toks)
+
+
 def make_matcher(canon: list[str]):
-    """Return f(name) -> canonical id or None. Tries, in order: exact normalised match;
-    org prefix stripped; parenthesised suffix (effort/date labels) stripped; trailing date
-    stripped; 'Claude 4.5 Haiku' -> 'Claude Haiku 4.5'."""
+    """Return f(name) -> canonical id or None. In order: explicit alias; exact normalised
+    match; org prefix stripped; a trailing parenthesis dropped ONLY if it holds nothing but
+    run-configuration words (effort, thinking, fallback); a trailing 8-digit API date
+    dropped ONLY if exactly one canonical model has that base name (dated variants such as
+    'Mistral Large 2411' or 'DeepSeek-R1 (0528)' therefore never merge into a sibling);
+    'Claude 4.5 Haiku' -> 'Claude Haiku 4.5'. Every non-exact match is recorded in MATCH_LOG."""
     table = {_n(c): c for c in canon}
+    # base names that are ambiguous because several canonical models extend them with a version/date
+    stems = {}
+    for c in canon:
+        stems.setdefault(_n(_PAREN.sub("", c)), []).append(c)
+
+    def unique_base(key):
+        return key in table and len(stems.get(key, [])) <= 1
 
     def f(name):
         if not isinstance(name, str):
             return None
-        cands = [name]
-        s = _ORG.sub("", name.strip())
-        cands.append(s)
-        s2 = _PAREN.sub("", s).strip()
-        cands.append(s2)
-        s3 = _DATE.sub("", s2).strip()
-        cands.append(s3)
-        s4 = re.sub(r"[-_]", " ", s3)
-        m = _CLAUDE_SWAP.match(s4.lower())
-        if m:
-            cands.append(f"claude {m.group(2)} {m.group(1)}")
-        # api ids such as claude-opus-4-5 -> claude opus 4.5
-        m2 = re.match(r"^claude[- ](opus|sonnet|haiku|fable|mythos)[- ](\d)[- .](\d)$", s3.lower())
-        if m2:
-            cands.append(f"claude {m2.group(1)} {m2.group(2)}.{m2.group(3)}")
-        for c in cands:
-            if _n(c) in table:
-                return table[_n(c)]
+        raw = name.strip()
+        if raw in ALIASES:
+            MATCH_LOG[raw] = (ALIASES[raw], "alias")
+            return ALIASES[raw]
+        if _n(raw) in table:
+            return table[_n(raw)]
+        s = _ORG.sub("", raw)
+        if s in ALIASES:
+            MATCH_LOG[raw] = (ALIASES[s], "alias")
+            return ALIASES[s]
+        steps = [("org prefix stripped", s)]
+        m = _PAREN.search(s)
+        s2 = s
+        if m and s.endswith(")") and _config_only(m.group(1)):
+            s2 = s[:m.start()].strip()
+            steps.append(("config suffix dropped", s2))
+        d8 = _DATE8.search(s2)
+        s3 = s2
+        if d8:
+            s3 = s2[:d8.start()].strip()
+            steps.append(("api date dropped", s3))
+        for how, cand in steps:
+            cands = [cand, re.sub(r"[-_]", " ", cand)]
+            mm = _CLAUDE_SWAP.match(cands[1].lower())
+            if mm:
+                cands.append(f"claude {mm.group(2)} {mm.group(1)}")
+            m2 = re.match(r"^claude[- ](opus|sonnet|haiku|fable|mythos)[- ](\d)[- .](\d)$", cand.lower())
+            if m2:
+                cands.append(f"claude {m2.group(1)} {m2.group(2)}.{m2.group(3)}")
+            m3 = re.match(r"^claude[- ](\d)[- .](\d)[- ](opus|sonnet|haiku)$", cand.lower())
+            if m3:
+                cands.append(f"claude {m3.group(1)}.{m3.group(2)} {m3.group(3)}")
+            for c in cands:
+                k = _n(c)
+                if k in table and (how != "api date dropped" or unique_base(k)) and (how == "org prefix stripped" or unique_base(k)):
+                    MATCH_LOG[raw] = (table[k], how)
+                    return table[k]
         return None
     return f
 
@@ -374,6 +418,7 @@ def build_benchmarks(models):
 
 def main(verbose=True):
     LOG.clear()
+    MATCH_LOG.clear()
     models = build_models()
     draws = extract_draws(models)
     index = build_index(models)
@@ -383,6 +428,8 @@ def main(verbose=True):
     index.to_csv(DATA / "index_values.csv", index=False)
     bench.to_csv(DATA / "benchmark_scores.csv", index=False)
     meta.to_csv(DATA / "benchmarks_meta.csv", index=False)
+    for raw, (mid, how) in sorted(MATCH_LOG.items()):
+        log("name_match", raw, "merged", f"-> '{mid}' ({how})")
     pd.DataFrame(LOG).to_csv(DATA / "build_log.csv", index=False)
     if verbose:
         print(f"[data] models {len(models)} ({int((models.lab == 'Anthropic').sum())} Anthropic), "
