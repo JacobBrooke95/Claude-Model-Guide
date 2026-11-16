@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude Model Guide - Release Cycle Tracker</title>
-    <link rel="stylesheet" href="styles.css?v=7">
+    <link rel="stylesheet" href="styles.css?v=8">
     <style>
         /* Board Coverage: page-specific. Shared tokens and components come from styles.css (see DESIGN.md). */
         .bc-heading:first-child { margin-top: 0; padding-top: 0; border-top: none; }
@@ -58,6 +58,7 @@
             <ul class="nav-links">
                 <li><a href="claude-models.html" class="active">Claude Guide</a></li>
                 <li><a href="release-forecast.html">Release Forecast</a></li>
+                <li><a href="capability-forecast.html">Capability Forecast</a></li>
                 <li><a href="system-card-metrics.html">System Card Metrics</a></li>
                 <li><a href="release-deltas.html">Release Deltas</a></li>
             </ul>
@@ -268,7 +269,7 @@
 
             <div class="benchmark-section" id="aeci">
                 <h2 class="section-title">Anthropic <span class="info-tail">ECI&nbsp;<button type="button" class="info-btn" aria-expanded="false" aria-controls="info-anthropic-eci" aria-label="About Anthropic ECI"><span aria-hidden="true">i</span></button></span></h2>
-                <div class="info-panel" id="info-anthropic-eci" hidden="until-found"><p>One number per model, fitted across hundreds of benchmarks: Anthropic's own composite index, a fork of Epoch's Capabilities Index built on internal results and not comparable to Epoch's public ECI. All points come from a single fit, dated November 6, 2026. Bars are 95% intervals.</p><p><strong>Key.</strong> Hollow circle: read off the card's figure, approximate. Diamond: estimated, rescaled from an earlier fit, not Anthropic's figure. Bar: 95% interval (thick: against the three prior releases).</p></div>
+                <div class="info-panel" id="info-anthropic-eci" hidden="until-found"><p>One number per model, fitted across hundreds of benchmarks: Anthropic's own composite index, a fork of Epoch's Capabilities Index built on internal results and not comparable to Epoch's public ECI. All points come from a single fit, dated November 6, 2026. Bars are 95% intervals.</p><p><strong>Key.</strong> Hollow circle: read off the card's figure, approximate. Diamond: estimated, rescaled from an earlier fit, not Anthropic's figure. Bar: 95% interval (thick: against the three prior releases).</p><p>Where these scores may go next is on the <a href="capability-forecast.html">Capability Forecast</a> page.</p></div>
                 <div class="benchmark-chart-container">
                     <div id="aeci-chart"></div>
                     <p class="chart-caveat">Anthropic's own index, not comparable to Epoch's public ECI. One fit, dated November 6, 2026.</p>
@@ -889,7 +890,7 @@
         </div>
 
         <div class="footer">
-            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Sun 11•15•26</p>
+            <p>Built with Claude <a href="https://claude.ai" class="clawd-link" title="Clawd" target="_blank" rel="noopener">🦀</a> Mon 11•16•26</p>
             <p>Data sourced from <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic News</a></p>
         </div>
     </div>

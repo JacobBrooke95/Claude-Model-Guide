@@ -70,7 +70,7 @@ site = f"""<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 {head_bits}
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=8">
 """
 style_end = rest.index("</style>") + len("</style>")
 site += rest[:style_end] + """
@@ -83,6 +83,7 @@ site += rest[:style_end] + """
             <ul class="nav-links">
                 <li><a href="claude-models.html">Claude Guide</a></li>
                 <li><a href="release-forecast.html" class="active">Release Forecast</a></li>
+                <li><a href="capability-forecast.html">Capability Forecast</a></li>
                 <li><a href="system-card-metrics.html">System Card Metrics</a></li>
                 <li><a href="release-deltas.html">Release Deltas</a></li>
             </ul>
