@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
-from .common import ROOT, REPO, RAW, OUT, AS_OF, MODEL_VERSION, SEED, FAMILIES, dump_json, yr
+from .common import ROOT, REPO, RAW, OUT, AS_OF, MODEL_VERSION, PREDICTION_VERSION, SEED, FAMILIES, dump_json, yr
 
 
 def input_hash() -> str:
@@ -123,6 +123,8 @@ def build_json(R, plots):
         metadata=dict(
             as_of=AS_OF, model_version=MODEL_VERSION, seed=SEED, input_hash=input_hash(), runtime_seconds=R["_runtime_seconds"],
             generated_by="python3 capability/run.py",
+            prediction_version=PREDICTION_VERSION,
+            default_unchanged_from="cap-v2.1 (cap-v2.2 adds variants.with_model_4 only; archive: capability/history/capability_forecast_v2.1_superseded_by_addition.json)",
             supersedes=dict(version="cap-v2.0", status="superseded after a second independent review (no blockers; five majors)",
                             archive="capability/history/capability_forecast_v2.0_superseded.json",
                             review="capability/research/05-adversarial-review-v2.md"),
@@ -156,7 +158,8 @@ def build_json(R, plots):
                       aeci_own_card=R["aeci"]["own_card"]["backtest"]),
         reference_class=R["reference_class"], open_predictions=R["open_predictions"],
         review=[dict(finding=a, title=b, disposition=c, action=d_) for a, b, c, d_ in REVIEW],
-        review_second=[dict(finding=a, title=b, disposition=c, action=d_) for a, b, c, d_ in REVIEW2])
+        review_second=[dict(finding=a, title=b, disposition=c, action=d_) for a, b, c, d_ in REVIEW2],
+        variants=R["variants"])
     dump_json(J, OUT / "capability_forecast.json")
     return J
 
@@ -410,4 +413,46 @@ def write_methods(J):
       "v2.0's output is archived at `history/capability_forecast_v2.0_superseded.json`.\n\n" +
       _tab(J["review_second"], ["finding", "title", "disposition", "action"], ["Finding", "Issue", "Disposition", "What was done"]) +
       "\n\nWhat moved:\n\n" + "\n".join(f"- {c}" for c in J["headline"]["changes_since_previous"]) + "\n")
+    V = J["variants"]["with_model_4"]
+    m4, asm = V["model_4"], V["assumptions"]
+    dl = V["delta_vs_default"]
+    drow = lambda r: dict(item=r["item"], d=f"{r['default']['median']:.1f} ({r['default']['lo80']:.1f} to {r['default']['hi80']:.1f})",
+                          v=f"{r['with_model_4']['median']:.1f} ({r['with_model_4']['lo80']:.1f} to {r['with_model_4']['hi80']:.1f})",
+                          x=f"{r['difference']['median']:+.1f}")
+    A("## 15. Anthropic's unreleased internal model (METR's Model 4)\n\n"
+      f"**What is known.** The Fable 5.2 / Mythos 5.2 card prints 'a separate, unreleased internal research model that is somewhat more capable "
+      f"than Claude Mythos 5.2': AECI {m4['aeci_nov6']} on the November 6 fit (global 95% {m4['aeci_global_ci95'][0]} to {m4['aeci_global_ci95'][1]}; "
+      f"local {m4['aeci_local_ci95'][0]} to {m4['aeci_local_ci95'][1]}), scored on {m4['n_benchmarks']} benchmarks, plotted at an internal date of about "
+      f"{m4['internal_date_figure_read']}. METR's November 5 assessment describes 'Model 4' (finished training {m4['metr_training_finished']}; "
+      f"AECI {m4['metr_value']}, or {m4['metr_value_dropping_3_suspect_benchmarks']} dropping three suspect benchmarks; above 50% on all 15 benchmarks "
+      "it was tested on, which makes METR 'somewhat nervous about our ability to measure AECI'). " + m4["identification"] + " " + m4["models_2_and_3"] +
+      "\n\n**Why the default excludes it.** It is unreleased and has no public ECI; its score rests on 15 of Anthropic's internal benchmarks, all "
+      "above 50%; its date is an internal-availability date while every other point in the model is at its public date; and it is already "
+      f"{m4['days_since_internal_date']} days past that date with no release. In the default it appears only as a comparison "
+      "(`p_aeci_nov6_at_or_above_internal_model`). The default's numbers and open predictions are identical to cap-v2.1.\n\n"
+      "**What the variant assumes** (`variants.with_model_4`; a what-if, not graded). It re-weights the default's own simulated paths by three "
+      "separately switchable pieces of evidence.\n\n"
+      f"- *Level.* Model 4's public-ECI equivalent is {m4['eci_equivalent']['median']} (80% {m4['eci_equivalent']['lo80']} to {m4['eci_equivalent']['hi80']}): "
+      + m4["eci_equivalent"]["method"] + ". " + asm["lag"]["treatment"] + f" Remaining lag: {asm['lag']['remaining_lag']}. The record line at that date is "
+      f"weighted by how well it matches (sd {asm['level_likelihood_sd']}, the scatter of record-setters about the line).\n"
+      f"- *Next release.* With probability p = {asm['p_next_frontier_release_is_model_4_or_better']} the next Fable/Mythos is Model 4 or at least as capable, "
+      f"so its draws are truncated below at Model 4's level ({asm['p_draws_already_at_or_above_model_4']:.0%} of the default's draws already are). "
+      + asm["p_basis"] + "\n"
+      f"- *Trend.* " + asm["trend"]["channel"] + f" BIC weight on 'jump or no change' for the AECI series: {asm['trend']['aeci_bic_weight_on_jump_or_no_change']['public_dates_without_internal_model']} "
+      f"without the internal model, {asm['trend']['aeci_bic_weight_on_jump_or_no_change']['internal_dates_with_internal_model']} with it; four-line average "
+      f"{asm['trend']['p_revert_four_line_average']['without_internal_model']} to {asm['trend']['p_revert_four_line_average']['with_internal_model']}; reversion weight "
+      f"{asm['trend']['weights_before']['reversion']} to {asm['trend']['weights_after']['reversion']}, hold {asm['trend']['weights_before']['hold']} to "
+      f"{asm['trend']['weights_after']['hold']}. " + asm["trend"]["caveat"] + "\n\n**Results (median, 80% interval).**\n\n" +
+      _tab([drow(r) for r in dl["next_models_eci"]] + [dict(drow(r), item="Anthropic frontier, " + r["item"]) for r in dl["anthropic_frontier_eci"]],
+           ["item", "d", "v", "x"], ["Public ECI", "Default", "With Model 4", "Median shift"]) + "\n\nBy component (shift in the median):\n\n" +
+      _tab([dict(c=r["components"], f=r["fable_mythos_shift"], o=r["opus_shift"], y27=r["frontier_shift"]["2027"], y28=r["frontier_shift"]["2028"],
+                 y30=r["frontier_shift"]["2030"], ess=r["effective_sample_size"]) for r in V["components"]["table"]],
+           ["c", "f", "o", "y27", "y28", "y30", "ess"],
+           ["Components on", "Fable/Mythos 5.3", "Opus 5.6", "Frontier end-2027", "end-2028", "end-2030", "Effective paths"],
+           {k: (lambda v: f"{v:+.2f}") for k in ("f", "o", "y27", "y28", "y30")}) +
+      "\n\nSensitivity to p (all components on): " +
+      "; ".join(f"p={r['p']}: Fable/Mythos {r['next_models_eci_median']['fable_mythos']:.1f}, frontier end-2027 {r['anthropic_frontier_eci_median']['2027']:.1f}" for r in V["p_sensitivity"]) +
+      ". Differences of a tenth or two between rows are Monte Carlo noise. Reading: Model 4 moves the next Fable/Mythos by under a point, because "
+      "the default already expects the next release to be about that good; nearly all of the long-range shift comes from the trend component, "
+      "which is the weakest of the three.\n")
     (ROOT / "METHODS.md").write_text("\n".join(md))

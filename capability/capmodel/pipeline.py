@@ -5,7 +5,7 @@ import time
 import numpy as np
 import pandas as pd
 
-from .common import rng as mkrng, yr, from_yr, AS_OF, MODEL_VERSION, RAW, summarize, widen, wsummary, wquantile
+from .common import rng as mkrng, yr, from_yr, AS_OF, MODEL_VERSION, PREDICTION_VERSION, RAW, summarize, widen, wsummary, wquantile
 from .data import D
 from .level import (LevelProcess, WEIGHTS, SCENARIOS, SCENARIO_DEFS, COMPUTE, KAPPA_MEAN, KAPPA_SD, HAIRCUT, BIAS_H_CAP, DT,
                     bias_beta, bias_beta_se, crossing_date, date_summary, bias_shape, block_betas, pooled_beta, TREND_SCENARIOS)
@@ -532,6 +532,19 @@ def run(full=False):
     own_prev = {"opus": 169.36, "sonnet": 167.93, "haiku": 167.11, "fable_mythos": 177.12}
     charts = __import__("json").loads((RAW.parents[2] / "data" / "benchmarks.json").read_text())["charts"]
     nxt, open_preds, keep = {}, [], {}
+
+    def bench_summary(k, s):
+        """Calibrated interval summary of benchmark draws (logit-scale stretch for bounded scores)."""
+        l = links[k]
+        if l.kind == "bounded":
+            lo_, hi_ = float(l.lo), float(meta.loc[k, "hi"])
+            pz = np.clip((s - lo_) / (hi_ - lo_), 1e-4, 1 - 1e-4)
+            ws = widen(np.log(pz / (1 - pz)), fpool, nd=4)
+            w_ = {kk: round(float(lo_ + (hi_ - lo_) / (1 + np.exp(-v))), 1) for kk, v in ws.items()}
+        else:
+            w_ = {kk: round(v, 0) for kk, v in widen(s, fpool).items()}
+        w_.pop("mean", None)
+        return w_
     expires = (pd.Timestamp(AS_OF) + pd.DateOffset(months=EXPIRY_MONTHS)).date().isoformat()
     for ent in ENTITIES:
         f = ENT_FAMILY[ent]
@@ -556,7 +569,7 @@ def run(full=False):
             Tq = max(yr(dd), T_NOW)
             g_ = lpA.at(PA, Tq) - PA["L0"] + PA["b_post"] * (T_NOW - last.t)
             cond.append(dict(release_date=dd, quantile=qk, eci_median=round(float(np.median(fam.predict_step(float(last.eci), g_, c_g, s_g, lpA.meas_sd, rr))), 2)))
-        benches = {}
+        benches, bsamp = {}, {}
         for k in admitted:
             l = links[k]
             pb = d.bench[(d.bench.benchmark == k) & (d.bench.family == f) & d.bench.eci.notna()].sort_values("t")
@@ -580,15 +593,10 @@ def run(full=False):
                                   reason=f"saturated for this family: its latest score ({sp:.1f}) or its predicted next score is within a tenth "
                                          f"of the ceiling (~{l.hi:.1f}); expect the next model at or just below the ceiling")
                 continue
-            if l.kind == "bounded":
-                lo_, hi_ = float(l.lo), float(meta.loc[k, "hi"])
-                pz = np.clip((s - lo_) / (hi_ - lo_), 1e-4, 1 - 1e-4)
-                ws = widen(np.log(pz / (1 - pz)), fpool, nd=4)
-                w_ = {kk: round(float(lo_ + (hi_ - lo_) / (1 + np.exp(-v))), 1) for kk, v in ws.items()}
-            else:
-                w_ = {kk: round(v, 0) for kk, v in widen(s, fpool).items()}
-            w_.pop("mean", None)
+            w_ = bench_summary(k, s)
             is_graded = bool(tier[k]["tier"] == "graded" and live_series)
+            if is_graded:
+                bsamp[k] = s
             benches[k] = dict(available=True, graded=is_graded, status="graded" if is_graded else "indicative, not graded",
                               not_graded_because=None if is_graded else (tier[k]["reasons"] or ["the site chart no longer reports this family"]),
                               **w_, title=meta.loc[k, "title"], unit=meta.loc[k, "unit"], method="anchored on previous score",
@@ -613,8 +621,8 @@ def run(full=False):
             components=dict(line_gain=summarize(gain), step=summarize(theta - last.eci)),
             scale_labels=dict(eci="Fable label (Epoch scores Fable)" if ent == "fable_mythos" else "public ECI",
                               aeci="Mythos label (Anthropic prints AECI for Mythos)" if ent == "fable_mythos" else "AECI"))
-        keep[ent] = dict(theta=theta, T=T)
-        base = f"{AS_OF}:{MODEL_VERSION}:{ent}:next"
+        keep[ent] = dict(theta=theta, T=T, a_own=a_own, bench=bsamp)
+        base = f"{AS_OF}:{PREDICTION_VERSION}:{ent}:next"
         gfam = "fable" if ent == "fable_mythos" else f
         common = dict(entity=ent, issued=AS_OF, expires=expires, release_rule=f"first {gfam} release after {AS_OF} in data/models.json")
         pick = lambda sdict: {k: sdict[k] for k in ("median", "lo50", "hi50", "lo80", "hi80", "lo95", "hi95")}
@@ -923,6 +931,20 @@ def run(full=False):
         correction=dict(value_eci_per_year=corr["value_used"], sd=corr["sd_used"], size_at_end_2027=corr["size_at_end_2027"],
                         in_mixture_record_line_median_at_end_2027=h27["correction_in_record_line_median"], applies_to=corr["applies_to"]),
         notes=notes, changes_since_previous=changes)
+    # ------------------------------------------------------------- 10. what-if variant: with Model 4 (not graded)
+    from . import variant
+    R["variants"] = dict(with_model_4=variant.run(dict(
+        scn=scn, lpA=lpA, PA=PA, keep=keep, FA=FA, FO=FO, AA=AA, f0A=f0A, calA=calA, calL=calL, thr=thr, f_ability=f_ability,
+        bench_summary=bench_summary, bands=_bands, QUARTERS=QUARTERS, SCENARIOS=SCENARIOS, W_central=W["central"], ev_detail=ev_detail,
+        p_rev_aeci_public=float(ba_aeci["jump"]["bic_weight"] + ba_aeci["linear"]["bic_weight"]),
+        p_rev_aeci_internal=float(ba_aeci_int["jump"]["bic_weight"] + ba_aeci_int["linear"]["bic_weight"]),
+        fable_eci=float(d.models.set_index("model_id").loc["Claude Fable 5.2", "eci"]),
+        fable_eci_sd=float(d.draws.loc["Claude Fable 5.2"].std()),
+        default_next=nxt, default_head=head, default_headline=R["headline"],
+        default_non_anthropic_series=proj["series"]["non_anthropic_frontier_eci"])))
+    R["headline"]["changes_since_previous"].append(
+        "cap-v2.2 adds a what-if variant, variants.with_model_4, alongside the default. The default forecast and its open predictions are "
+        "numerically unchanged from cap-v2.1.")
     R["_runtime_seconds"] = round(time.time() - t_start, 1)
     R["_objects"] = dict(d=d, lpA=lpA, lpL=lpL, links=links, mp=mpg, rel=rel, benchbt=benchbt, FA=FA, FL=FL, AA=AA, wts=wts, one=one,
                          admitted=admitted, oc=oc)

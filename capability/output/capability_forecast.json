@@ -1,11 +1,13 @@
 {
  "metadata": {
   "as_of": "2026-11-16",
-  "model_version": "cap-v2.1",
+  "model_version": "cap-v2.2",
   "seed": 20261116,
-  "input_hash": "4d98f80120b01eed1397b44dd21eb50f2d729401da2e4072dd4379a52fd85d87",
-  "runtime_seconds": 47.8,
+  "input_hash": "6ea2d2439ca8c350c3d6973593432bde93ae4906b000230d449dd66d8e52c9a8",
+  "runtime_seconds": 44.9,
   "generated_by": "python3 capability/run.py",
+  "prediction_version": "cap-v2.1",
+  "default_unchanged_from": "cap-v2.1 (cap-v2.2 adds variants.with_model_4 only; archive: capability/history/capability_forecast_v2.1_superseded_by_addition.json)",
   "supersedes": {
    "version": "cap-v2.0",
    "status": "superseded after a second independent review (no blockers; five majors)",
@@ -566,7 +568,8 @@
    "Benchmarks split into graded and indicative. GDPval-AA predictions and the Fable/Mythos Terminal-Bench 2.1 prediction are withdrawn; one saturation rule (latest score or predicted median in the top tenth) replaces per-family inconsistencies. Graded: hle.",
    "All-lab frontier: the non-Anthropic line is now fitted separately and published; the share of paths in which Anthropic leads is reported.",
    "Own-card AECI: gap rule changed to an equal blend of the last gap and the mean of the last three (rolling RMSE 3.9).",
-   "Measured-scale threshold is now a range derived from the whole basket (183-196); the page shades from 196 (was 207.6)."
+   "Measured-scale threshold is now a range derived from the whole basket (183-196); the page shades from 196 (was 207.6).",
+   "cap-v2.2 adds a what-if variant, variants.with_model_4, alongside the default. The default forecast and its open predictions are numerically unchanged from cap-v2.1."
   ]
  },
  "history": {
@@ -31557,5 +31560,2504 @@
    "disposition": "noted",
    "action": "Reported in trend.level_process; the other labs' record series is short and noisy and the clipping bounds are wide (4-60 ECI/yr)."
   }
- ]
+ ],
+ "variants": {
+  "with_model_4": {
+   "label": "With Model 4",
+   "graded": false,
+   "description": "What-if: the forecast if Anthropic's unreleased internal research model (the card's 'Internal Model', METR's 'Model 4') is counted as evidence. Not graded; no predictions are issued from it. The default excludes the model.",
+   "model_4": {
+    "aeci_nov6": 178.78,
+    "aeci_global_ci95": [
+     173.75,
+     185.18
+    ],
+    "aeci_local_ci95": [
+     177.08,
+     180.59
+    ],
+    "n_benchmarks": 15,
+    "internal_date_figure_read": "2026-09-26",
+    "metr_value": 178.6,
+    "metr_value_dropping_3_suspect_benchmarks": 179.7,
+    "metr_training_finished": "September-October 2026",
+    "days_since_internal_date": 51,
+    "public_release": null,
+    "eci_equivalent": {
+     "median": 175.1,
+     "lo80": 171.6,
+     "hi80": 178.7,
+     "sd": 2.78,
+     "method": "Fable 5.2's public ECI (173.44) + the same-fit AECI difference to its twin Mythos 5.2 (+1.66); sd combines the two local AECI intervals (1.13), 1.0 for model-specific scatter of the AECI-ECI gap, and Fable 5.2's own ECI posterior sd (2.33; 19 benchmarks so far)"
+    },
+    "identification": "METR's Model 4 and the card's Internal Model are very probably the same model (author's confidence about 90%): both are Anthropic's most capable internal model in autumn 2026, both were scored on exactly 15 AECI benchmarks, the values are 178.6 (METR, fit before Nov 5) and 178.78 (card, Nov 6 fit), and the card's internal date (~Sept 26) falls in METR's 'finished training September-October 2026'. Neither source names the other's label, so it is an inference, not a statement.",
+    "models_2_and_3": "METR gives only training-completion dates (Model 2: July 2026; Model 3: August-September 2026) and no AECI values, public dates or mapping to released names; they are not used. (METR also lists an 'Unreleased 2022' model.)"
+   },
+   "assumptions": {
+    "p_next_frontier_release_is_model_4_or_better": 0.7,
+    "p_basis": "Judgement. For: the one earlier internally reported frontier model (Mythos Preview, internal use from 2026-02-24) shipped within weeks, and every frontier Claude with an internal date has shipped 3-47 days later. Against: the card calls this one a 'research model', it is evaluated nowhere else in the card, and it is already 51 days past its internal date, longer than any earlier lag. Sensitivity at 0.5 and 0.9 is reported.",
+    "p_draws_already_at_or_above_model_4": 0.774,
+    "lag": {
+     "observed_days": [
+      {
+       "model": "Claude 3 Opus",
+       "lag_days": 4.0
+      },
+      {
+       "model": "Claude 3.5 Sonnet",
+       "lag_days": 3.0
+      },
+      {
+       "model": "Claude 3.5 Sonnet (new)",
+       "lag_days": 12.0
+      },
+      {
+       "model": "Claude 3.7 Sonnet",
+       "lag_days": 4.0
+      },
+      {
+       "model": "Claude Opus 4",
+       "lag_days": 3.0
+      },
+      {
+       "model": "Claude Sonnet 4.5",
+       "lag_days": 7.0
+      },
+      {
+       "model": "Claude Opus 4.5",
+       "lag_days": 5.0
+      },
+      {
+       "model": "Claude Opus 4.6",
+       "lag_days": 12.0
+      },
+      {
+       "model": "Claude Mythos Preview",
+       "lag_days": 6.0
+      },
+      {
+       "model": "Claude Mythos 5",
+       "lag_days": 8.0
+      },
+      {
+       "model": "Claude Opus 5",
+       "lag_days": 7.0
+      },
+      {
+       "model": "Claude Mythos 5.1",
+       "lag_days": 25.0
+      },
+      {
+       "model": "Claude Opus 5.5",
+       "lag_days": 13.0
+      },
+      {
+       "model": "Claude Mythos 5.2",
+       "lag_days": 47.0
+      }
+     ],
+     "censored_at_days": 51,
+     "remaining_lag": "exponential, mean 45 days",
+     "treatment": "The model has no public date. It is not placed on the record line at its internal date (that would steepen the slope artificially, because every other point is at its public date). It enters as a pseudo-observation at a public-date-equivalent of today + a remaining lag; observed lags have lengthened (25 and 47 days for the last two Mythos) and this one is censored at 51 days."
+    },
+    "level_likelihood_sd": 1.74,
+    "trend": {
+     "weights_before": {
+      "slowdown": 0.12,
+      "reversion": 0.28,
+      "hold": 0.38,
+      "compounding": 0.16,
+      "explosive": 0.06
+     },
+     "weights_after": {
+      "slowdown": 0.12,
+      "reversion": 0.1609,
+      "hold": 0.4991,
+      "compounding": 0.16,
+      "explosive": 0.06
+     },
+     "reversion_scale": 0.575,
+     "p_revert_four_line_average": {
+      "without_internal_model": 0.471,
+      "with_internal_model": 0.271
+     },
+     "aeci_bic_weight_on_jump_or_no_change": {
+      "public_dates_without_internal_model": 0.82,
+      "internal_dates_with_internal_model": 0.018
+     },
+     "channel": "Only the scenario weights move, and only between 'reversion' and 'hold'; the recent-slope fit is untouched. The shift is the ratio of the four-line evidence average with and without the internal model on the AECI series, capped so that at most half the reversion weight moves.",
+     "caveat": "This is the component most open to criticism: the point rests on Anthropic's internal benchmarks, on 15 of them, with the model above 50% on every one (METR is 'somewhat nervous' about measuring it), so the index may be saturating exactly where this point sits."
+    }
+   },
+   "components": {
+    "table": [
+     {
+      "components": "level_only",
+      "switches": {
+       "level": true,
+       "next_release": false,
+       "trend": false
+      },
+      "fable_mythos_eci_median": 178.5,
+      "fable_mythos_shift": 0.14,
+      "opus_shift": 0.17,
+      "frontier_shift": {
+       "2026": 0.04,
+       "2027": 0.61,
+       "2028": 1.13,
+       "2029": 1.47,
+       "2030": 2.1
+      },
+      "effective_sample_size": 17979
+     },
+     {
+      "components": "next_release_only",
+      "switches": {
+       "level": false,
+       "next_release": true,
+       "trend": false
+      },
+      "fable_mythos_eci_median": 179.24,
+      "fable_mythos_shift": 0.88,
+      "opus_shift": 0.05,
+      "frontier_shift": {
+       "2026": -0.03,
+       "2027": 0.59,
+       "2028": 0.93,
+       "2029": 1.18,
+       "2030": 1.59
+      },
+      "effective_sample_size": 34986
+     },
+     {
+      "components": "trend_only",
+      "switches": {
+       "level": false,
+       "next_release": false,
+       "trend": true
+      },
+      "fable_mythos_eci_median": 178.42,
+      "fable_mythos_shift": 0.06,
+      "opus_shift": 0.03,
+      "frontier_shift": {
+       "2026": 0.02,
+       "2027": 1.4,
+       "2028": 2.89,
+       "2029": 4.13,
+       "2030": 5.47
+      },
+      "effective_sample_size": 36757
+     },
+     {
+      "components": "level_and_next_release",
+      "switches": {
+       "level": true,
+       "next_release": true,
+       "trend": false
+      },
+      "fable_mythos_eci_median": 179.06,
+      "fable_mythos_shift": 0.7,
+      "opus_shift": 0.11,
+      "frontier_shift": {
+       "2026": -0.02,
+       "2027": 0.73,
+       "2028": 1.37,
+       "2029": 1.96,
+       "2030": 2.5
+      },
+      "effective_sample_size": 16308
+     },
+     {
+      "components": "all",
+      "switches": {
+       "level": true,
+       "next_release": true,
+       "trend": true
+      },
+      "fable_mythos_eci_median": 179.18,
+      "fable_mythos_shift": 0.82,
+      "opus_shift": 0.14,
+      "frontier_shift": {
+       "2026": 0.0,
+       "2027": 2.14,
+       "2028": 3.99,
+       "2029": 5.66,
+       "2030": 7.38
+      },
+      "effective_sample_size": 14973
+     }
+    ],
+    "note": "Each row applies the listed switches alone or together to the default's paths. Effects are not exactly additive. 'all' (level + next release + trend, p = 0.7) is the variant published below."
+   },
+   "p_sensitivity": [
+    {
+     "p": 0.5,
+     "next_models_eci_median": {
+      "opus": 174.06,
+      "sonnet": 173.32,
+      "haiku": 176.05,
+      "fable_mythos": 178.96
+     },
+     "anthropic_frontier_eci_median": {
+      "2026": 174.6,
+      "2027": 196.8,
+      "2028": 216.85,
+      "2029": 235.33,
+      "2030": 253.63
+     }
+    },
+    {
+     "p": 0.7,
+     "next_models_eci_median": {
+      "opus": 174.0,
+      "sonnet": 173.36,
+      "haiku": 176.01,
+      "fable_mythos": 179.18
+     },
+     "anthropic_frontier_eci_median": {
+      "2026": 174.63,
+      "2027": 196.84,
+      "2028": 216.94,
+      "2029": 235.57,
+      "2030": 253.71
+     }
+    },
+    {
+     "p": 0.9,
+     "next_models_eci_median": {
+      "opus": 173.98,
+      "sonnet": 173.36,
+      "haiku": 176.02,
+      "fable_mythos": 179.29
+     },
+     "anthropic_frontier_eci_median": {
+      "2026": 174.63,
+      "2027": 196.85,
+      "2028": 216.86,
+      "2029": 235.29,
+      "2030": 253.48
+     }
+    }
+   ],
+   "headline": {
+    "families": [
+     {
+      "entity": "opus",
+      "name": "Claude Opus 5.6",
+      "labels": [
+       "Claude Opus"
+      ],
+      "release_window": {
+       "q10": "2026-11-20",
+       "median": "2026-12-14",
+       "q90": "2027-02-22"
+      },
+      "eci": {
+       "median": 174.0,
+       "lo50": 171.76,
+       "hi50": 177.01,
+       "lo80": 170.07,
+       "hi80": 181.27,
+       "lo95": 168.42,
+       "hi95": 188.8
+      },
+      "aeci_own_card": {
+       "median": 178.1,
+       "lo50": 174.67,
+       "hi50": 182.1,
+       "lo80": 171.71,
+       "hi80": 186.82,
+       "lo95": 167.98,
+       "hi95": 194.84
+      },
+      "aeci_own_card_conditional": false,
+      "lead_tested": true,
+      "benchmarks": [
+       {
+        "benchmark": "hle",
+        "title": "Humanity's Last Exam (no tools)",
+        "unit": "% of 2,500",
+        "graded": true,
+        "status": "graded",
+        "median": 74.8,
+        "lo50": 70.0,
+        "hi50": 80.2,
+        "lo80": 66.4,
+        "hi80": 85.3,
+        "lo95": 61.9,
+        "hi95": 91.8
+       },
+       {
+        "benchmark": "rli",
+        "title": "Remote Labor Index",
+        "unit": "% of 240 projects",
+        "graded": false,
+        "status": "indicative, not graded",
+        "median": 39.1,
+        "lo50": 28.4,
+        "hi50": 53.9,
+        "lo80": 21.8,
+        "hi80": 69.5,
+        "lo95": 15.1,
+        "hi95": 88.5,
+        "note": "unchanged from the default (indicative row, not recomputed)"
+       },
+       {
+        "benchmark": "aa_index",
+        "title": "AA Intelligence Index v5",
+        "unit": "index",
+        "graded": false,
+        "status": "indicative, not graded",
+        "median": 71.9,
+        "lo50": 62.2,
+        "hi50": 80.8,
+        "lo80": 53.8,
+        "hi80": 87.4,
+        "lo95": 40.5,
+        "hi95": 94.0,
+        "note": "unchanged from the default (indicative row, not recomputed)"
+       }
+      ]
+     },
+     {
+      "entity": "sonnet",
+      "name": "Claude Sonnet 5.6",
+      "labels": [
+       "Claude Sonnet"
+      ],
+      "release_window": {
+       "q10": "2026-12-01",
+       "median": "2027-01-21",
+       "q90": "2027-04-02"
+      },
+      "eci": {
+       "median": 173.36,
+       "lo50": 170.59,
+       "hi50": 177.28,
+       "lo80": 168.62,
+       "hi80": 182.52,
+       "lo95": 166.76,
+       "hi95": 192.17
+      },
+      "aeci_own_card": {
+       "median": 177.48,
+       "lo50": 173.58,
+       "hi50": 182.42,
+       "lo80": 170.43,
+       "hi80": 188.29,
+       "lo95": 166.2,
+       "hi95": 197.95
+      },
+      "aeci_own_card_conditional": true,
+      "lead_tested": true,
+      "benchmarks": [
+       {
+        "benchmark": "hle",
+        "title": "Humanity's Last Exam (no tools)",
+        "unit": "% of 2,500",
+        "graded": true,
+        "status": "graded",
+        "median": 70.9,
+        "lo50": 64.6,
+        "hi50": 78.2,
+        "lo80": 60.3,
+        "hi80": 84.9,
+        "lo95": 55.2,
+        "hi95": 93.0
+       },
+       {
+        "benchmark": "terminal_bench_2_1",
+        "title": "Terminal-Bench 2.1",
+        "unit": "% completion",
+        "graded": false,
+        "status": "indicative, not graded",
+        "median": 89.0,
+        "lo50": 85.8,
+        "hi50": 92.4,
+        "lo80": 83.7,
+        "hi80": 94.9,
+        "lo95": 80.0,
+        "hi95": 97.7,
+        "note": "unchanged from the default (indicative row, not recomputed)"
+       },
+       {
+        "benchmark": "aa_index",
+        "title": "AA Intelligence Index v5",
+        "unit": "index",
+        "graded": false,
+        "status": "indicative, not graded",
+        "median": 70.8,
+        "lo50": 59.9,
+        "hi50": 81.0,
+        "lo80": 51.1,
+        "hi80": 88.3,
+        "lo95": 37.7,
+        "hi95": 95.5,
+        "note": "unchanged from the default (indicative row, not recomputed)"
+       }
+      ]
+     },
+     {
+      "entity": "haiku",
+      "name": "Claude Haiku 6",
+      "labels": [
+       "Claude Haiku"
+      ],
+      "release_window": {
+       "q10": "2027-02-03",
+       "median": "2027-07-13",
+       "q90": "2027-11-23"
+      },
+      "eci": {
+       "median": 176.0,
+       "lo50": 169.38,
+       "hi50": 186.11,
+       "lo80": 165.55,
+       "hi80": 200.12,
+       "lo95": 162.41,
+       "hi95": 226.79
+      },
+      "aeci_own_card": {
+       "median": 180.36,
+       "lo50": 172.79,
+       "hi50": 191.13,
+       "lo80": 167.66,
+       "hi80": 205.62,
+       "lo95": 162.44,
+       "hi95": 231.81
+      },
+      "aeci_own_card_conditional": true,
+      "lead_tested": false,
+      "benchmarks": [
+       {
+        "benchmark": "hle",
+        "title": "Humanity's Last Exam (no tools)",
+        "unit": "% of 2,500",
+        "graded": true,
+        "status": "graded",
+        "median": 77.0,
+        "lo50": 64.2,
+        "hi50": 89.9,
+        "lo80": 56.7,
+        "hi80": 96.7,
+        "lo95": 48.8,
+        "hi95": 99.7
+       },
+       {
+        "benchmark": "aa_index",
+        "title": "AA Intelligence Index v5",
+        "unit": "index",
+        "graded": false,
+        "status": "indicative, not graded",
+        "median": 72.3,
+        "lo50": 54.6,
+        "hi50": 88.6,
+        "lo80": 43.0,
+        "hi80": 96.7,
+        "lo95": 30.2,
+        "hi95": 99.7,
+        "note": "unchanged from the default (indicative row, not recomputed)"
+       },
+       {
+        "benchmark": "vals_index",
+        "title": "Vals Index v2.2",
+        "unit": "% accuracy",
+        "graded": false,
+        "status": "indicative, not graded",
+        "median": 79.8,
+        "lo50": 68.7,
+        "hi50": 89.5,
+        "lo80": 59.6,
+        "hi80": 95.5,
+        "lo95": 45.8,
+        "hi95": 99.1,
+        "note": "unchanged from the default (indicative row, not recomputed)"
+       }
+      ]
+     },
+     {
+      "entity": "fable_mythos",
+      "name": "Claude Fable / Mythos 5.3",
+      "labels": [
+       "Claude Fable",
+       "Claude Mythos"
+      ],
+      "release_window": {
+       "q10": "2026-12-14",
+       "median": "2027-02-02",
+       "q90": "2027-04-13"
+      },
+      "eci": {
+       "median": 179.18,
+       "lo50": 176.82,
+       "hi50": 182.66,
+       "lo80": 175.05,
+       "hi80": 187.58,
+       "lo95": 173.36,
+       "hi95": 196.31
+      },
+      "aeci_own_card": {
+       "median": 183.32,
+       "lo50": 179.69,
+       "hi50": 187.87,
+       "lo80": 176.49,
+       "hi80": 193.4,
+       "lo95": 172.26,
+       "hi95": 202.1
+      },
+      "aeci_own_card_conditional": false,
+      "lead_tested": true,
+      "benchmarks": [
+       {
+        "benchmark": "hle",
+        "title": "Humanity's Last Exam (no tools)",
+        "unit": "% of 2,500",
+        "graded": true,
+        "status": "graded",
+        "median": 82.1,
+        "lo50": 78.0,
+        "hi50": 86.6,
+        "lo80": 75.0,
+        "hi80": 90.8,
+        "lo95": 71.3,
+        "hi95": 95.6
+       },
+       {
+        "benchmark": "rli",
+        "title": "Remote Labor Index",
+        "unit": "% of 240 projects",
+        "graded": false,
+        "status": "indicative, not graded",
+        "median": 61.1,
+        "lo50": 48.6,
+        "hi50": 75.0,
+        "lo80": 39.9,
+        "hi80": 85.9,
+        "lo95": 29.7,
+        "hi95": 96.0,
+        "note": "unchanged from the default (indicative row, not recomputed)"
+       },
+       {
+        "benchmark": "aa_index",
+        "title": "AA Intelligence Index v5",
+        "unit": "index",
+        "graded": false,
+        "status": "indicative, not graded",
+        "median": 75.7,
+        "lo50": 66.4,
+        "hi50": 84.0,
+        "lo80": 57.8,
+        "hi80": 90.1,
+        "lo95": 44.8,
+        "hi95": 95.8,
+        "note": "unchanged from the default (indicative row, not recomputed)"
+       }
+      ]
+     }
+    ],
+    "frontier": [
+     {
+      "date": "2026-12-31",
+      "eci": {
+       "median": 174.65,
+       "lo50": 172.9,
+       "hi50": 176.63,
+       "lo80": 171.66,
+       "hi80": 178.41,
+       "lo95": 170.25,
+       "hi95": 181.07
+      },
+      "all_lab_eci": {
+       "median": 175.22,
+       "lo50": 173.55,
+       "hi50": 177.02,
+       "lo80": 172.43,
+       "hi80": 178.82,
+       "lo95": 171.21,
+       "hi95": 181.9
+      },
+      "non_anthropic_eci": {
+       "median": 172.12,
+       "lo50": 170.51,
+       "hi50": 173.95,
+       "lo80": 169.2,
+       "hi80": 176.03,
+       "lo95": 168.01,
+       "hi95": 178.89
+      },
+      "share_of_paths_anthropic_leads": 0.749,
+      "beyond_measured_scale": false
+     },
+     {
+      "date": "2027-12-31",
+      "eci": {
+       "median": 196.82,
+       "lo50": 189.68,
+       "hi50": 205.93,
+       "lo80": 186.14,
+       "hi80": 215.37,
+       "lo95": 182.23,
+       "hi95": 236.43
+      },
+      "all_lab_eci": {
+       "median": 197.79,
+       "lo50": 192.14,
+       "hi50": 205.39,
+       "lo80": 188.02,
+       "hi80": 216.49,
+       "lo95": 184.39,
+       "hi95": 238.61
+      },
+      "non_anthropic_eci": {
+       "median": 188.57,
+       "lo50": 183.74,
+       "hi50": 194.03,
+       "lo80": 179.73,
+       "hi80": 200.81,
+       "lo95": 175.41,
+       "hi95": 214.42
+      },
+      "share_of_paths_anthropic_leads": 0.791,
+      "beyond_measured_scale": true
+     },
+     {
+      "date": "2028-12-31",
+      "eci": {
+       "median": 216.76,
+       "lo50": 205.65,
+       "hi50": 232.86,
+       "lo80": 196.85,
+       "hi80": 264.14,
+       "lo95": 190.27,
+       "hi95": 346.41
+      },
+      "all_lab_eci": {
+       "median": 218.09,
+       "lo50": 208.49,
+       "hi50": 235.01,
+       "lo80": 200.39,
+       "hi80": 269.02,
+       "lo95": 193.42,
+       "hi95": 371.67
+      },
+      "non_anthropic_eci": {
+       "median": 205.16,
+       "lo50": 197.28,
+       "hi50": 217.01,
+       "lo80": 190.7,
+       "hi80": 248.61,
+       "lo95": 183.61,
+       "hi95": 327.62
+      },
+      "share_of_paths_anthropic_leads": 0.744,
+      "beyond_measured_scale": true
+     },
+     {
+      "date": "2029-12-31",
+      "eci": {
+       "median": 235.29,
+       "lo50": 219.87,
+       "hi50": 259.39,
+       "lo80": 205.93,
+       "hi80": 317.25,
+       "lo95": 196.65,
+       "hi95": 456.19
+      },
+      "all_lab_eci": {
+       "median": 236.99,
+       "lo50": 224.02,
+       "hi50": 263.16,
+       "lo80": 211.43,
+       "hi80": 331.58,
+       "lo95": 201.15,
+       "hi95": 527.49
+      },
+      "non_anthropic_eci": {
+       "median": 220.06,
+       "lo50": 209.44,
+       "hi50": 238.12,
+       "lo80": 200.2,
+       "hi80": 308.66,
+       "lo95": 190.47,
+       "hi95": 458.23
+      },
+      "share_of_paths_anthropic_leads": 0.711,
+      "beyond_measured_scale": true
+     },
+     {
+      "date": "2030-12-31",
+      "eci": {
+       "median": 253.29,
+       "lo50": 233.32,
+       "hi50": 284.49,
+       "lo80": 214.51,
+       "hi80": 369.55,
+       "lo95": 202.23,
+       "hi95": 514.88
+      },
+      "all_lab_eci": {
+       "median": 255.5,
+       "lo50": 239.14,
+       "hi50": 288.68,
+       "lo80": 222.21,
+       "hi80": 398.4,
+       "lo95": 208.8,
+       "hi95": 610.47
+      },
+      "non_anthropic_eci": {
+       "median": 234.31,
+       "lo50": 220.95,
+       "hi50": 257.46,
+       "lo80": 209.15,
+       "hi80": 366.92,
+       "lo95": 196.65,
+       "hi95": 536.02
+      },
+      "share_of_paths_anthropic_leads": 0.693,
+      "beyond_measured_scale": true
+     }
+    ],
+    "backtested_through": "2027-09-30",
+    "beyond_measured_scale_above": 195.6,
+    "display_cap_eci": 230.0,
+    "notes": [
+     "What-if variant, not graded. Same intervals convention as the default.",
+     "Only public ECI, own-card AECI and the graded benchmark are recomputed; indicative benchmark rows are the default's."
+    ]
+   },
+   "next_models": {
+    "opus": {
+     "predicted_name": "Claude Opus 5.6",
+     "release_date": {
+      "q10": "2026-11-20",
+      "q25": "2026-11-30",
+      "median": "2026-12-14",
+      "q75": "2027-01-18",
+      "q90": "2027-02-22",
+      "p_within_30d": 0.53,
+      "p_within_90d": 0.877,
+      "source": "forecast/output/forecast.json (with_signals), as_of 2026-11-16"
+     },
+     "eci": {
+      "median": 174.0,
+      "lo50": 171.76,
+      "hi50": 177.01,
+      "lo80": 170.07,
+      "hi80": 181.27,
+      "lo95": 168.42,
+      "hi95": 188.8
+     },
+     "aeci_own_card": {
+      "median": 178.1,
+      "lo50": 174.67,
+      "hi50": 182.1,
+      "lo80": 171.71,
+      "hi80": 186.82,
+      "lo95": 167.98,
+      "hi95": 194.84
+     },
+     "benchmarks": {
+      "hle": {
+       "median": 74.8,
+       "lo50": 70.0,
+       "hi50": 80.2,
+       "lo80": 66.4,
+       "hi80": 85.3,
+       "lo95": 61.9,
+       "hi95": 91.8
+      }
+     }
+    },
+    "sonnet": {
+     "predicted_name": "Claude Sonnet 5.6",
+     "release_date": {
+      "q10": "2026-12-01",
+      "q25": "2026-12-20",
+      "median": "2027-01-21",
+      "q75": "2027-02-23",
+      "q90": "2027-04-02",
+      "p_within_30d": 0.221,
+      "p_within_90d": 0.691,
+      "source": "forecast/output/forecast.json (with_signals), as_of 2026-11-16"
+     },
+     "eci": {
+      "median": 173.36,
+      "lo50": 170.59,
+      "hi50": 177.28,
+      "lo80": 168.62,
+      "hi80": 182.52,
+      "lo95": 166.76,
+      "hi95": 192.17
+     },
+     "aeci_own_card": {
+      "median": 177.48,
+      "lo50": 173.58,
+      "hi50": 182.42,
+      "lo80": 170.43,
+      "hi80": 188.29,
+      "lo95": 166.2,
+      "hi95": 197.95
+     },
+     "benchmarks": {
+      "hle": {
+       "median": 70.9,
+       "lo50": 64.6,
+       "hi50": 78.2,
+       "lo80": 60.3,
+       "hi80": 84.9,
+       "lo95": 55.2,
+       "hi95": 93.0
+      }
+     }
+    },
+    "haiku": {
+     "predicted_name": "Claude Haiku 6",
+     "release_date": {
+      "q10": "2027-02-03",
+      "q25": "2027-04-08",
+      "median": "2027-07-13",
+      "q75": "2027-09-27",
+      "q90": "2027-11-23",
+      "p_within_30d": 0.032,
+      "p_within_90d": 0.118,
+      "source": "forecast/output/forecast.json (with_signals), as_of 2026-11-16"
+     },
+     "eci": {
+      "median": 176.0,
+      "lo50": 169.38,
+      "hi50": 186.11,
+      "lo80": 165.55,
+      "hi80": 200.12,
+      "lo95": 162.41,
+      "hi95": 226.79
+     },
+     "aeci_own_card": {
+      "median": 180.36,
+      "lo50": 172.79,
+      "hi50": 191.13,
+      "lo80": 167.66,
+      "hi80": 205.62,
+      "lo95": 162.44,
+      "hi95": 231.81
+     },
+     "benchmarks": {
+      "hle": {
+       "median": 77.0,
+       "lo50": 64.2,
+       "hi50": 89.9,
+       "lo80": 56.7,
+       "hi80": 96.7,
+       "lo95": 48.8,
+       "hi95": 99.7
+      }
+     }
+    },
+    "fable_mythos": {
+     "predicted_name": "Claude Fable / Mythos 5.3",
+     "release_date": {
+      "q10": "2026-12-14",
+      "q25": "2027-01-11",
+      "median": "2027-02-02",
+      "q75": "2027-03-03",
+      "q90": "2027-04-13",
+      "p_within_30d": 0.119,
+      "p_within_90d": 0.611,
+      "source": "forecast/output/forecast.json (with_signals), as_of 2026-11-16"
+     },
+     "eci": {
+      "median": 179.18,
+      "lo50": 176.82,
+      "hi50": 182.66,
+      "lo80": 175.05,
+      "hi80": 187.58,
+      "lo95": 173.36,
+      "hi95": 196.31
+     },
+     "aeci_own_card": {
+      "median": 183.32,
+      "lo50": 179.69,
+      "hi50": 187.87,
+      "lo80": 176.49,
+      "hi80": 193.4,
+      "lo95": 172.26,
+      "hi95": 202.1
+     },
+     "benchmarks": {
+      "hle": {
+       "median": 82.1,
+       "lo50": 78.0,
+       "hi50": 86.6,
+       "lo80": 75.0,
+       "hi80": 90.8,
+       "lo95": 71.3,
+       "hi95": 95.6
+      }
+     }
+    }
+   },
+   "projection": {
+    "quarters": [
+     "2026-12-31",
+     "2027-03-31",
+     "2027-06-30",
+     "2027-09-30",
+     "2027-12-31",
+     "2028-03-31",
+     "2028-06-30",
+     "2028-09-30",
+     "2028-12-31",
+     "2029-03-31",
+     "2029-06-30",
+     "2029-09-30",
+     "2029-12-31",
+     "2030-03-31",
+     "2030-06-30",
+     "2030-09-30",
+     "2030-12-31"
+    ],
+    "series": {
+     "anthropic_frontier_eci": [
+      {
+       "date": "2026-12-31",
+       "median": 174.65,
+       "lo50": 172.9,
+       "hi50": 176.63,
+       "lo80": 171.66,
+       "hi80": 178.41,
+       "lo95": 170.25,
+       "hi95": 181.07,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.0
+      },
+      {
+       "date": "2027-03-31",
+       "median": 180.39,
+       "lo50": 177.79,
+       "hi50": 183.74,
+       "lo80": 175.82,
+       "hi80": 187.37,
+       "lo95": 173.46,
+       "hi95": 193.63,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.018
+      },
+      {
+       "date": "2027-06-30",
+       "median": 185.27,
+       "lo50": 181.68,
+       "hi50": 189.69,
+       "lo80": 179.3,
+       "hi80": 193.97,
+       "lo95": 176.74,
+       "hi95": 202.37,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.077
+      },
+      {
+       "date": "2027-09-30",
+       "median": 191.04,
+       "lo50": 185.55,
+       "hi50": 197.59,
+       "lo80": 182.89,
+       "hi80": 204.2,
+       "lo95": 179.52,
+       "hi95": 217.21,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.291
+      },
+      {
+       "date": "2027-12-31",
+       "median": 196.82,
+       "lo50": 189.68,
+       "hi50": 205.93,
+       "lo80": 186.14,
+       "hi80": 215.37,
+       "lo95": 182.23,
+       "hi95": 236.43,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.549
+      },
+      {
+       "date": "2028-03-31",
+       "median": 202.12,
+       "lo50": 194.07,
+       "hi50": 212.45,
+       "lo80": 188.93,
+       "hi80": 227.15,
+       "lo95": 184.32,
+       "hi95": 259.2,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.71
+      },
+      {
+       "date": "2028-06-30",
+       "median": 207.1,
+       "lo50": 198.0,
+       "hi50": 218.96,
+       "lo80": 191.65,
+       "hi80": 238.52,
+       "lo95": 186.32,
+       "hi95": 284.33,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.812
+      },
+      {
+       "date": "2028-09-30",
+       "median": 211.99,
+       "lo50": 201.72,
+       "hi50": 225.96,
+       "lo80": 194.26,
+       "hi80": 250.96,
+       "lo95": 188.33,
+       "hi95": 315.23,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.878
+      },
+      {
+       "date": "2028-12-31",
+       "median": 216.76,
+       "lo50": 205.65,
+       "hi50": 232.86,
+       "lo80": 196.85,
+       "hi80": 264.14,
+       "lo95": 190.27,
+       "hi95": 346.41,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.916
+      },
+      {
+       "date": "2029-03-31",
+       "median": 221.47,
+       "lo50": 209.17,
+       "hi50": 239.42,
+       "lo80": 199.22,
+       "hi80": 277.13,
+       "lo95": 191.94,
+       "hi95": 374.48,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.943
+      },
+      {
+       "date": "2029-06-30",
+       "median": 226.12,
+       "lo50": 212.62,
+       "hi50": 246.03,
+       "lo80": 201.4,
+       "hi80": 290.86,
+       "lo95": 193.62,
+       "hi95": 405.04,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.958
+      },
+      {
+       "date": "2029-09-30",
+       "median": 230.79,
+       "lo50": 216.25,
+       "hi50": 252.49,
+       "lo80": 203.66,
+       "hi80": 303.78,
+       "lo95": 195.06,
+       "hi95": 434.26,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.972
+      },
+      {
+       "date": "2029-12-31",
+       "median": 235.29,
+       "lo50": 219.87,
+       "hi50": 259.39,
+       "lo80": 205.93,
+       "hi80": 317.25,
+       "lo95": 196.65,
+       "hi95": 456.19,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.98
+      },
+      {
+       "date": "2030-03-31",
+       "median": 239.76,
+       "lo50": 223.1,
+       "hi50": 265.74,
+       "lo80": 208.28,
+       "hi80": 330.01,
+       "lo95": 198.06,
+       "hi95": 473.7,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.985
+      },
+      {
+       "date": "2030-06-30",
+       "median": 244.27,
+       "lo50": 226.41,
+       "hi50": 271.89,
+       "lo80": 210.2,
+       "hi80": 343.09,
+       "lo95": 199.57,
+       "hi95": 489.54,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.988
+      },
+      {
+       "date": "2030-09-30",
+       "median": 248.72,
+       "lo50": 229.98,
+       "hi50": 278.15,
+       "lo80": 212.55,
+       "hi80": 355.94,
+       "lo95": 201.01,
+       "hi95": 502.23,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.992
+      },
+      {
+       "date": "2030-12-31",
+       "median": 253.29,
+       "lo50": 233.32,
+       "hi50": 284.49,
+       "lo80": 214.51,
+       "hi80": 369.55,
+       "lo95": 202.23,
+       "hi95": 514.88,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.994
+      }
+     ],
+     "all_lab_frontier_eci": [
+      {
+       "date": "2026-12-31",
+       "median": 175.22,
+       "lo50": 173.55,
+       "hi50": 177.02,
+       "lo80": 172.43,
+       "hi80": 178.82,
+       "lo95": 171.21,
+       "hi95": 181.9,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.0
+      },
+      {
+       "date": "2027-03-31",
+       "median": 180.96,
+       "lo50": 178.66,
+       "hi50": 184.05,
+       "lo80": 176.82,
+       "hi80": 187.69,
+       "lo95": 174.75,
+       "hi95": 193.99,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.02
+      },
+      {
+       "date": "2027-06-30",
+       "median": 186.08,
+       "lo50": 182.98,
+       "hi50": 189.98,
+       "lo80": 180.53,
+       "hi80": 194.57,
+       "lo95": 178.23,
+       "hi95": 202.95,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.084
+      },
+      {
+       "date": "2027-09-30",
+       "median": 192.0,
+       "lo50": 187.69,
+       "hi50": 197.39,
+       "lo80": 184.48,
+       "hi80": 204.78,
+       "lo95": 181.5,
+       "hi95": 218.04,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.317
+      },
+      {
+       "date": "2027-12-31",
+       "median": 197.79,
+       "lo50": 192.14,
+       "hi50": 205.39,
+       "lo80": 188.02,
+       "hi80": 216.49,
+       "lo95": 184.39,
+       "hi95": 238.61,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.597
+      },
+      {
+       "date": "2028-03-31",
+       "median": 203.2,
+       "lo50": 196.3,
+       "hi50": 212.86,
+       "lo80": 191.3,
+       "hi80": 228.47,
+       "lo95": 186.84,
+       "hi95": 264.15,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.774
+      },
+      {
+       "date": "2028-06-30",
+       "median": 208.2,
+       "lo50": 200.24,
+       "hi50": 220.26,
+       "lo80": 194.4,
+       "hi80": 241.14,
+       "lo95": 189.1,
+       "hi95": 294.74,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.874
+      },
+      {
+       "date": "2028-09-30",
+       "median": 213.13,
+       "lo50": 204.46,
+       "hi50": 227.65,
+       "lo80": 197.39,
+       "hi80": 254.27,
+       "lo95": 191.26,
+       "hi95": 331.4,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.928
+      },
+      {
+       "date": "2028-12-31",
+       "median": 218.09,
+       "lo50": 208.49,
+       "hi50": 235.01,
+       "lo80": 200.39,
+       "hi80": 269.02,
+       "lo95": 193.42,
+       "hi95": 371.67,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.957
+      },
+      {
+       "date": "2029-03-31",
+       "median": 222.76,
+       "lo50": 212.35,
+       "hi50": 242.11,
+       "lo80": 203.36,
+       "hi80": 284.22,
+       "lo95": 195.65,
+       "hi95": 410.47,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.975
+      },
+      {
+       "date": "2029-06-30",
+       "median": 227.49,
+       "lo50": 216.16,
+       "hi50": 248.92,
+       "lo80": 206.08,
+       "hi80": 300.03,
+       "lo95": 197.39,
+       "hi95": 452.69,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.985
+      },
+      {
+       "date": "2029-09-30",
+       "median": 232.3,
+       "lo50": 220.24,
+       "hi50": 255.92,
+       "lo80": 208.73,
+       "hi80": 315.84,
+       "lo95": 199.24,
+       "hi95": 494.46,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.991
+      },
+      {
+       "date": "2029-12-31",
+       "median": 236.99,
+       "lo50": 224.02,
+       "hi50": 263.16,
+       "lo80": 211.43,
+       "hi80": 331.58,
+       "lo95": 201.15,
+       "hi95": 527.49,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.995
+      },
+      {
+       "date": "2030-03-31",
+       "median": 241.45,
+       "lo50": 227.9,
+       "hi50": 269.13,
+       "lo80": 214.12,
+       "hi80": 347.97,
+       "lo95": 203.07,
+       "hi95": 555.59,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.997
+      },
+      {
+       "date": "2030-06-30",
+       "median": 246.08,
+       "lo50": 231.52,
+       "hi50": 275.32,
+       "lo80": 216.8,
+       "hi80": 364.29,
+       "lo95": 204.9,
+       "hi95": 576.33,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.998
+      },
+      {
+       "date": "2030-09-30",
+       "median": 250.65,
+       "lo50": 235.35,
+       "hi50": 282.0,
+       "lo80": 219.46,
+       "hi80": 380.7,
+       "lo95": 206.82,
+       "hi95": 594.53,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.999
+      },
+      {
+       "date": "2030-12-31",
+       "median": 255.5,
+       "lo50": 239.14,
+       "hi50": 288.68,
+       "lo80": 222.21,
+       "hi80": 398.4,
+       "lo95": 208.8,
+       "hi95": 610.47,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.999
+      }
+     ],
+     "anthropic_frontier_aeci_nov6_scale": [
+      {
+       "date": "2026-12-31",
+       "median": 180.3,
+       "lo50": 177.42,
+       "hi50": 183.53,
+       "lo80": 177.12,
+       "hi80": 186.93,
+       "lo95": 175.96,
+       "hi95": 192.26
+      },
+      {
+       "date": "2027-03-31",
+       "median": 186.7,
+       "lo50": 182.9,
+       "hi50": 191.49,
+       "lo80": 179.98,
+       "hi80": 197.03,
+       "lo95": 177.12,
+       "hi95": 206.3
+      },
+      {
+       "date": "2027-06-30",
+       "median": 191.98,
+       "lo50": 187.17,
+       "hi50": 198.03,
+       "lo80": 184.02,
+       "hi80": 205.05,
+       "lo95": 180.11,
+       "hi95": 217.79
+      },
+      {
+       "date": "2027-09-30",
+       "median": 198.28,
+       "lo50": 191.38,
+       "hi50": 207.16,
+       "lo80": 187.93,
+       "hi80": 216.18,
+       "lo95": 183.74,
+       "hi95": 235.51
+      },
+      {
+       "date": "2027-12-31",
+       "median": 204.7,
+       "lo50": 195.86,
+       "hi50": 216.36,
+       "lo80": 191.58,
+       "hi80": 229.34,
+       "lo95": 186.58,
+       "hi95": 256.59
+      },
+      {
+       "date": "2028-03-31",
+       "median": 210.37,
+       "lo50": 200.77,
+       "hi50": 223.99,
+       "lo80": 194.9,
+       "hi80": 242.73,
+       "lo95": 188.98,
+       "hi95": 280.6
+      },
+      {
+       "date": "2028-06-30",
+       "median": 215.79,
+       "lo50": 205.23,
+       "hi50": 231.98,
+       "lo80": 197.75,
+       "hi80": 256.36,
+       "lo95": 191.11,
+       "hi95": 310.55
+      },
+      {
+       "date": "2028-09-30",
+       "median": 221.21,
+       "lo50": 209.28,
+       "hi50": 239.98,
+       "lo80": 200.76,
+       "hi80": 270.75,
+       "lo95": 193.17,
+       "hi95": 342.76
+      },
+      {
+       "date": "2028-12-31",
+       "median": 226.64,
+       "lo50": 213.54,
+       "hi50": 248.59,
+       "lo80": 203.63,
+       "hi80": 285.06,
+       "lo95": 195.39,
+       "hi95": 377.37
+      },
+      {
+       "date": "2029-03-31",
+       "median": 231.71,
+       "lo50": 217.25,
+       "hi50": 256.07,
+       "lo80": 206.19,
+       "hi80": 300.01,
+       "lo95": 197.34,
+       "hi95": 417.1
+      },
+      {
+       "date": "2029-06-30",
+       "median": 236.48,
+       "lo50": 221.1,
+       "hi50": 264.06,
+       "lo80": 208.94,
+       "hi80": 314.44,
+       "lo95": 199.1,
+       "hi95": 449.64
+      },
+      {
+       "date": "2029-09-30",
+       "median": 241.68,
+       "lo50": 225.04,
+       "hi50": 272.23,
+       "lo80": 211.51,
+       "hi80": 329.33,
+       "lo95": 200.81,
+       "hi95": 485.9
+      },
+      {
+       "date": "2029-12-31",
+       "median": 246.96,
+       "lo50": 228.9,
+       "hi50": 279.93,
+       "lo80": 213.98,
+       "hi80": 344.21,
+       "lo95": 202.72,
+       "hi95": 511.23
+      },
+      {
+       "date": "2030-03-31",
+       "median": 251.49,
+       "lo50": 232.48,
+       "hi50": 287.62,
+       "lo80": 216.42,
+       "hi80": 358.85,
+       "lo95": 204.17,
+       "hi95": 534.03
+      },
+      {
+       "date": "2030-06-30",
+       "median": 256.5,
+       "lo50": 236.3,
+       "hi50": 295.11,
+       "lo80": 219.0,
+       "hi80": 373.18,
+       "lo95": 205.87,
+       "hi95": 550.7
+      },
+      {
+       "date": "2030-09-30",
+       "median": 261.43,
+       "lo50": 239.91,
+       "hi50": 303.06,
+       "lo80": 221.06,
+       "hi80": 387.96,
+       "lo95": 207.37,
+       "hi95": 563.28
+      },
+      {
+       "date": "2030-12-31",
+       "median": 266.45,
+       "lo50": 243.48,
+       "hi50": 310.34,
+       "lo80": 223.65,
+       "hi80": 403.9,
+       "lo95": 208.89,
+       "hi95": 577.35
+      }
+     ],
+     "non_anthropic_frontier_eci": [
+      {
+       "date": "2026-12-31",
+       "median": 172.12,
+       "lo50": 170.51,
+       "hi50": 173.95,
+       "lo80": 169.2,
+       "hi80": 176.03,
+       "lo95": 168.01,
+       "hi95": 178.89,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.0
+      },
+      {
+       "date": "2027-03-31",
+       "median": 175.44,
+       "lo50": 172.95,
+       "hi50": 178.29,
+       "lo80": 171.1,
+       "hi80": 181.11,
+       "lo95": 169.43,
+       "hi95": 184.74,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.001
+      },
+      {
+       "date": "2027-06-30",
+       "median": 179.66,
+       "lo50": 176.37,
+       "hi50": 183.17,
+       "lo80": 173.67,
+       "hi80": 186.76,
+       "lo95": 171.1,
+       "hi95": 191.53,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.008
+      },
+      {
+       "date": "2027-09-30",
+       "median": 184.1,
+       "lo50": 180.11,
+       "hi50": 188.5,
+       "lo80": 176.7,
+       "hi80": 193.15,
+       "lo95": 173.05,
+       "hi95": 200.41,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": false,
+       "share_of_paths_beyond_measured_scale": 0.061
+      },
+      {
+       "date": "2027-12-31",
+       "median": 188.57,
+       "lo50": 183.74,
+       "hi50": 194.03,
+       "lo80": 179.73,
+       "hi80": 200.81,
+       "lo95": 175.41,
+       "hi95": 214.42,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.199
+      },
+      {
+       "date": "2028-03-31",
+       "median": 192.78,
+       "lo50": 187.25,
+       "hi50": 199.63,
+       "lo80": 182.61,
+       "hi80": 209.78,
+       "lo95": 177.5,
+       "hi95": 234.41,
+       "median_beyond_measured_scale": false,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.381
+      },
+      {
+       "date": "2028-06-30",
+       "median": 196.93,
+       "lo50": 190.63,
+       "hi50": 205.28,
+       "lo80": 185.32,
+       "hi80": 220.77,
+       "lo95": 179.59,
+       "hi95": 261.85,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.553
+      },
+      {
+       "date": "2028-09-30",
+       "median": 201.09,
+       "lo50": 193.97,
+       "hi50": 211.11,
+       "lo80": 188.0,
+       "hi80": 234.1,
+       "lo95": 181.54,
+       "hi95": 292.69,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.694
+      },
+      {
+       "date": "2028-12-31",
+       "median": 205.16,
+       "lo50": 197.28,
+       "hi50": 217.01,
+       "lo80": 190.7,
+       "hi80": 248.61,
+       "lo95": 183.61,
+       "hi95": 327.62,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.795
+      },
+      {
+       "date": "2029-03-31",
+       "median": 208.92,
+       "lo50": 200.28,
+       "hi50": 222.35,
+       "lo80": 193.15,
+       "hi80": 263.58,
+       "lo95": 185.3,
+       "hi95": 361.04,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.857
+      },
+      {
+       "date": "2029-06-30",
+       "median": 212.63,
+       "lo50": 203.38,
+       "hi50": 227.56,
+       "lo80": 195.51,
+       "hi80": 278.16,
+       "lo95": 187.17,
+       "hi95": 395.76,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.898
+      },
+      {
+       "date": "2029-09-30",
+       "median": 216.38,
+       "lo50": 206.37,
+       "hi50": 233.11,
+       "lo80": 197.83,
+       "hi80": 293.23,
+       "lo95": 188.87,
+       "hi95": 427.24,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.927
+      },
+      {
+       "date": "2029-12-31",
+       "median": 220.06,
+       "lo50": 209.44,
+       "hi50": 238.12,
+       "lo80": 200.2,
+       "hi80": 308.66,
+       "lo95": 190.47,
+       "hi95": 458.23,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.945
+      },
+      {
+       "date": "2030-03-31",
+       "median": 223.6,
+       "lo50": 212.35,
+       "hi50": 242.95,
+       "lo80": 202.41,
+       "hi80": 322.92,
+       "lo95": 192.04,
+       "hi95": 481.94,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.957
+      },
+      {
+       "date": "2030-06-30",
+       "median": 227.11,
+       "lo50": 215.14,
+       "hi50": 247.93,
+       "lo80": 204.68,
+       "hi80": 337.77,
+       "lo95": 193.61,
+       "hi95": 504.82,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.966
+      },
+      {
+       "date": "2030-09-30",
+       "median": 230.72,
+       "lo50": 218.12,
+       "hi50": 252.89,
+       "lo80": 206.93,
+       "hi80": 352.65,
+       "lo95": 195.13,
+       "hi95": 521.16,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.973
+      },
+      {
+       "date": "2030-12-31",
+       "median": 234.31,
+       "lo50": 220.95,
+       "hi50": 257.46,
+       "lo80": 209.15,
+       "hi80": 366.92,
+       "lo95": 196.65,
+       "hi95": 536.02,
+       "median_beyond_measured_scale": true,
+       "hi80_beyond_measured_scale": true,
+       "share_of_paths_beyond_measured_scale": 0.978
+      }
+     ]
+    },
+    "scenario_medians": {
+     "anthropic_frontier_eci": {
+      "slowdown": [
+       {
+        "date": "2026-12-31",
+        "median": 174.49
+       },
+       {
+        "date": "2027-03-31",
+        "median": 179.45
+       },
+       {
+        "date": "2027-06-30",
+        "median": 182.41
+       },
+       {
+        "date": "2027-09-30",
+        "median": 184.93
+       },
+       {
+        "date": "2027-12-31",
+        "median": 187.47
+       },
+       {
+        "date": "2028-03-31",
+        "median": 189.35
+       },
+       {
+        "date": "2028-06-30",
+        "median": 191.42
+       },
+       {
+        "date": "2028-09-30",
+        "median": 193.47
+       },
+       {
+        "date": "2028-12-31",
+        "median": 195.44
+       },
+       {
+        "date": "2029-03-31",
+        "median": 197.41
+       },
+       {
+        "date": "2029-06-30",
+        "median": 199.22
+       },
+       {
+        "date": "2029-09-30",
+        "median": 200.91
+       },
+       {
+        "date": "2029-12-31",
+        "median": 203.0
+       },
+       {
+        "date": "2030-03-31",
+        "median": 204.73
+       },
+       {
+        "date": "2030-06-30",
+        "median": 206.72
+       },
+       {
+        "date": "2030-09-30",
+        "median": 208.54
+       },
+       {
+        "date": "2030-12-31",
+        "median": 210.19
+       }
+      ],
+      "reversion": [
+       {
+        "date": "2026-12-31",
+        "median": 174.69
+       },
+       {
+        "date": "2027-03-31",
+        "median": 179.7
+       },
+       {
+        "date": "2027-06-30",
+        "median": 182.59
+       },
+       {
+        "date": "2027-09-30",
+        "median": 186.03
+       },
+       {
+        "date": "2027-12-31",
+        "median": 189.6
+       },
+       {
+        "date": "2028-03-31",
+        "median": 193.01
+       },
+       {
+        "date": "2028-06-30",
+        "median": 196.32
+       },
+       {
+        "date": "2028-09-30",
+        "median": 199.86
+       },
+       {
+        "date": "2028-12-31",
+        "median": 203.34
+       },
+       {
+        "date": "2029-03-31",
+        "median": 206.64
+       },
+       {
+        "date": "2029-06-30",
+        "median": 209.86
+       },
+       {
+        "date": "2029-09-30",
+        "median": 213.15
+       },
+       {
+        "date": "2029-12-31",
+        "median": 216.37
+       },
+       {
+        "date": "2030-03-31",
+        "median": 219.41
+       },
+       {
+        "date": "2030-06-30",
+        "median": 222.42
+       },
+       {
+        "date": "2030-09-30",
+        "median": 225.74
+       },
+       {
+        "date": "2030-12-31",
+        "median": 228.76
+       }
+      ],
+      "hold": [
+       {
+        "date": "2026-12-31",
+        "median": 174.66
+       },
+       {
+        "date": "2027-03-31",
+        "median": 180.49
+       },
+       {
+        "date": "2027-06-30",
+        "median": 185.73
+       },
+       {
+        "date": "2027-09-30",
+        "median": 192.0
+       },
+       {
+        "date": "2027-12-31",
+        "median": 197.86
+       },
+       {
+        "date": "2028-03-31",
+        "median": 203.26
+       },
+       {
+        "date": "2028-06-30",
+        "median": 208.26
+       },
+       {
+        "date": "2028-09-30",
+        "median": 213.18
+       },
+       {
+        "date": "2028-12-31",
+        "median": 218.17
+       },
+       {
+        "date": "2029-03-31",
+        "median": 222.87
+       },
+       {
+        "date": "2029-06-30",
+        "median": 227.57
+       },
+       {
+        "date": "2029-09-30",
+        "median": 232.43
+       },
+       {
+        "date": "2029-12-31",
+        "median": 237.12
+       },
+       {
+        "date": "2030-03-31",
+        "median": 241.68
+       },
+       {
+        "date": "2030-06-30",
+        "median": 246.31
+       },
+       {
+        "date": "2030-09-30",
+        "median": 250.84
+       },
+       {
+        "date": "2030-12-31",
+        "median": 255.74
+       }
+      ],
+      "compounding": [
+       {
+        "date": "2026-12-31",
+        "median": 174.67
+       },
+       {
+        "date": "2027-03-31",
+        "median": 180.92
+       },
+       {
+        "date": "2027-06-30",
+        "median": 187.9
+       },
+       {
+        "date": "2027-09-30",
+        "median": 196.76
+       },
+       {
+        "date": "2027-12-31",
+        "median": 206.24
+       },
+       {
+        "date": "2028-03-31",
+        "median": 216.93
+       },
+       {
+        "date": "2028-06-30",
+        "median": 227.92
+       },
+       {
+        "date": "2028-09-30",
+        "median": 239.29
+       },
+       {
+        "date": "2028-12-31",
+        "median": 251.02
+       },
+       {
+        "date": "2029-03-31",
+        "median": 262.9
+       },
+       {
+        "date": "2029-06-30",
+        "median": 274.25
+       },
+       {
+        "date": "2029-09-30",
+        "median": 286.22
+       },
+       {
+        "date": "2029-12-31",
+        "median": 299.34
+       },
+       {
+        "date": "2030-03-31",
+        "median": 311.05
+       },
+       {
+        "date": "2030-06-30",
+        "median": 322.87
+       },
+       {
+        "date": "2030-09-30",
+        "median": 334.84
+       },
+       {
+        "date": "2030-12-31",
+        "median": 346.88
+       }
+      ],
+      "explosive": [
+       {
+        "date": "2026-12-31",
+        "median": 174.63
+       },
+       {
+        "date": "2027-03-31",
+        "median": 182.45
+       },
+       {
+        "date": "2027-06-30",
+        "median": 190.92
+       },
+       {
+        "date": "2027-09-30",
+        "median": 206.15
+       },
+       {
+        "date": "2027-12-31",
+        "median": 224.62
+       },
+       {
+        "date": "2028-03-31",
+        "median": 248.91
+       },
+       {
+        "date": "2028-06-30",
+        "median": 274.58
+       },
+       {
+        "date": "2028-09-30",
+        "median": 303.82
+       },
+       {
+        "date": "2028-12-31",
+        "median": 332.56
+       },
+       {
+        "date": "2029-03-31",
+        "median": 360.31
+       },
+       {
+        "date": "2029-06-30",
+        "median": 389.51
+       },
+       {
+        "date": "2029-09-30",
+        "median": 412.04
+       },
+       {
+        "date": "2029-12-31",
+        "median": 430.65
+       },
+       {
+        "date": "2030-03-31",
+        "median": 445.0
+       },
+       {
+        "date": "2030-06-30",
+        "median": 453.99
+       },
+       {
+        "date": "2030-09-30",
+        "median": 466.22
+       },
+       {
+        "date": "2030-12-31",
+        "median": 479.11
+       }
+      ]
+     }
+    },
+    "weights": {
+     "central": {
+      "slowdown": 0.12,
+      "reversion": 0.1609,
+      "hold": 0.4991,
+      "compounding": 0.16,
+      "explosive": 0.06
+     }
+    },
+    "note": "Mixture bands calibrated with the default's factors. The other labs' frontier is the default's, unchanged."
+   },
+   "delta_vs_default": {
+    "next_models_eci": [
+     {
+      "item": "Claude Opus 5.6",
+      "default": {
+       "median": 173.86,
+       "lo80": 169.92,
+       "hi80": 181.14
+      },
+      "with_model_4": {
+       "median": 174.0,
+       "lo80": 170.07,
+       "hi80": 181.27
+      },
+      "difference": {
+       "median": 0.14,
+       "lo80": 0.15,
+       "hi80": 0.13
+      }
+     },
+     {
+      "item": "Claude Sonnet 5.6",
+      "default": {
+       "median": 173.13,
+       "lo80": 168.5,
+       "hi80": 182.35
+      },
+      "with_model_4": {
+       "median": 173.36,
+       "lo80": 168.62,
+       "hi80": 182.52
+      },
+      "difference": {
+       "median": 0.23,
+       "lo80": 0.12,
+       "hi80": 0.17
+      }
+     },
+     {
+      "item": "Claude Haiku 6",
+      "default": {
+       "median": 175.21,
+       "lo80": 165.26,
+       "hi80": 198.7
+      },
+      "with_model_4": {
+       "median": 176.0,
+       "lo80": 165.55,
+       "hi80": 200.12
+      },
+      "difference": {
+       "median": 0.79,
+       "lo80": 0.29,
+       "hi80": 1.42
+      }
+     },
+     {
+      "item": "Claude Fable / Mythos 5.3",
+      "default": {
+       "median": 178.36,
+       "lo80": 174.14,
+       "hi80": 186.37
+      },
+      "with_model_4": {
+       "median": 179.18,
+       "lo80": 175.05,
+       "hi80": 187.58
+      },
+      "difference": {
+       "median": 0.82,
+       "lo80": 0.91,
+       "hi80": 1.21
+      }
+     }
+    ],
+    "next_models_aeci_own_card": [
+     {
+      "item": "Claude Opus 5.6",
+      "default": {
+       "median": 177.94,
+       "lo80": 171.58,
+       "hi80": 186.78
+      },
+      "with_model_4": {
+       "median": 178.1,
+       "lo80": 171.71,
+       "hi80": 186.82
+      },
+      "difference": {
+       "median": 0.16,
+       "lo80": 0.13,
+       "hi80": 0.04
+      }
+     },
+     {
+      "item": "Claude Sonnet 5.6",
+      "default": {
+       "median": 177.28,
+       "lo80": 170.26,
+       "hi80": 188.01
+      },
+      "with_model_4": {
+       "median": 177.48,
+       "lo80": 170.43,
+       "hi80": 188.29
+      },
+      "difference": {
+       "median": 0.2,
+       "lo80": 0.17,
+       "hi80": 0.28
+      }
+     },
+     {
+      "item": "Claude Haiku 6",
+      "default": {
+       "median": 179.43,
+       "lo80": 167.23,
+       "hi80": 203.92
+      },
+      "with_model_4": {
+       "median": 180.36,
+       "lo80": 167.66,
+       "hi80": 205.62
+      },
+      "difference": {
+       "median": 0.93,
+       "lo80": 0.43,
+       "hi80": 1.7
+      }
+     },
+     {
+      "item": "Claude Fable / Mythos 5.3",
+      "default": {
+       "median": 182.47,
+       "lo80": 175.59,
+       "hi80": 192.24
+      },
+      "with_model_4": {
+       "median": 183.32,
+       "lo80": 176.49,
+       "hi80": 193.4
+      },
+      "difference": {
+       "median": 0.85,
+       "lo80": 0.9,
+       "hi80": 1.16
+      }
+     }
+    ],
+    "anthropic_frontier_eci": [
+     {
+      "item": "2026-12-31",
+      "default": {
+       "median": 174.65,
+       "lo80": 171.68,
+       "hi80": 178.43
+      },
+      "with_model_4": {
+       "median": 174.65,
+       "lo80": 171.66,
+       "hi80": 178.41
+      },
+      "difference": {
+       "median": 0.0,
+       "lo80": -0.02,
+       "hi80": -0.02
+      }
+     },
+     {
+      "item": "2027-12-31",
+      "default": {
+       "median": 194.68,
+       "lo80": 184.12,
+       "hi80": 215.22
+      },
+      "with_model_4": {
+       "median": 196.82,
+       "lo80": 186.14,
+       "hi80": 215.37
+      },
+      "difference": {
+       "median": 2.14,
+       "lo80": 2.02,
+       "hi80": 0.15
+      }
+     },
+     {
+      "item": "2028-12-31",
+      "default": {
+       "median": 212.77,
+       "lo80": 194.55,
+       "hi80": 264.34
+      },
+      "with_model_4": {
+       "median": 216.76,
+       "lo80": 196.85,
+       "hi80": 264.14
+      },
+      "difference": {
+       "median": 3.99,
+       "lo80": 2.3,
+       "hi80": -0.2
+      }
+     },
+     {
+      "item": "2029-12-31",
+      "default": {
+       "median": 229.63,
+       "lo80": 203.67,
+       "hi80": 317.96
+      },
+      "with_model_4": {
+       "median": 235.29,
+       "lo80": 205.93,
+       "hi80": 317.25
+      },
+      "difference": {
+       "median": 5.66,
+       "lo80": 2.26,
+       "hi80": -0.71
+      }
+     },
+     {
+      "item": "2030-12-31",
+      "default": {
+       "median": 245.91,
+       "lo80": 212.12,
+       "hi80": 370.61
+      },
+      "with_model_4": {
+       "median": 253.29,
+       "lo80": 214.51,
+       "hi80": 369.55
+      },
+      "difference": {
+       "median": 7.38,
+       "lo80": 2.39,
+       "hi80": -1.06
+      }
+     }
+    ],
+    "all_lab_frontier_eci": [
+     {
+      "item": "2026-12-31",
+      "default": {
+       "median": 175.21,
+       "lo80": 172.44,
+       "hi80": 178.86
+      },
+      "with_model_4": {
+       "median": 175.22,
+       "lo80": 172.43,
+       "hi80": 178.82
+      },
+      "difference": {
+       "median": 0.01,
+       "lo80": -0.01,
+       "hi80": -0.04
+      }
+     },
+     {
+      "item": "2027-12-31",
+      "default": {
+       "median": 196.24,
+       "lo80": 186.88,
+       "hi80": 216.59
+      },
+      "with_model_4": {
+       "median": 197.79,
+       "lo80": 188.02,
+       "hi80": 216.49
+      },
+      "difference": {
+       "median": 1.55,
+       "lo80": 1.14,
+       "hi80": -0.1
+      }
+     },
+     {
+      "item": "2028-12-31",
+      "default": {
+       "median": 215.3,
+       "lo80": 199.14,
+       "hi80": 270.5
+      },
+      "with_model_4": {
+       "median": 218.09,
+       "lo80": 200.39,
+       "hi80": 269.02
+      },
+      "difference": {
+       "median": 2.79,
+       "lo80": 1.25,
+       "hi80": -1.48
+      }
+     },
+     {
+      "item": "2029-12-31",
+      "default": {
+       "median": 232.95,
+       "lo80": 210.14,
+       "hi80": 335.02
+      },
+      "with_model_4": {
+       "median": 236.99,
+       "lo80": 211.43,
+       "hi80": 331.58
+      },
+      "difference": {
+       "median": 4.04,
+       "lo80": 1.29,
+       "hi80": -3.44
+      }
+     },
+     {
+      "item": "2030-12-31",
+      "default": {
+       "median": 250.19,
+       "lo80": 220.47,
+       "hi80": 401.45
+      },
+      "with_model_4": {
+       "median": 255.5,
+       "lo80": 222.21,
+       "hi80": 398.4
+      },
+      "difference": {
+       "median": 5.31,
+       "lo80": 1.74,
+       "hi80": -3.05
+      }
+     }
+    ]
+   },
+   "method": "Importance re-weighting of the default's 40000 simulated paths (weighted resample, then the default's summary code). Effective sample size of the full variant: 14973."
+  }
+ }
 }

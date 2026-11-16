@@ -1,6 +1,6 @@
 # Capability model
 
-**Current version: cap-v2.0.** cap-v1.0 was withdrawn after an independent review (`research/04-adversarial-review-v1.md`); its output is archived unedited in `history/capability_forecast_v1.0_withdrawn.json` and METHODS.md section 14 lists what changed.
+**Current version: cap-v2.2** (default forecast identical to cap-v2.1; v2.2 adds the `with_model_4` what-if variant). cap-v1.0 was withdrawn after an independent review (`research/04-adversarial-review-v1.md`); its output is archived unedited in `history/capability_forecast_v1.0_withdrawn.json` and METHODS.md section 14 lists what changed.
 
 Forecasts the capability of Anthropic's next models and of the frontier through 2030: public ECI, AECI, and the benchmarks the
 site charts. Methods, tables and limitations are in [METHODS.md](METHODS.md); the research it rests on is in `research/`.
@@ -17,6 +17,14 @@ python3 capability/grade.py          # resolve open predictions whose release ha
 
 Needs Python 3.13 with numpy, scipy, pandas and Pillow. One fixed seed (`capmodel/common.py`); the same inputs give the same outputs.
 
+## The 'with Model 4' variant
+
+Anthropic's unreleased internal research model (METR's "Model 4") is **not** in the default forecast. `output/capability_forecast.json`
+carries a what-if alongside it at `variants.with_model_4` (same shapes as the default's `headline`, `next_models`, `projection.series`,
+plus `delta_vs_default`, `components` and `p_sensitivity`). To flip a page or analysis to it, read those paths instead of the top-level
+ones; nothing needs re-running. To change its assumptions, edit the constants at the top of `capmodel/variant.py` (`P_RELEASE`,
+`REMAINING_LAG_MEAN_DAYS`, `MAX_TREND_SHIFT`) and re-run. The variant is never graded and issues no predictions. METHODS.md section 15.
+
 ## Layout
 
 | Path | What |
@@ -29,6 +37,7 @@ Needs Python 3.13 with numpy, scipy, pandas and Pillow. One fixed seed (`capmode
 | `capmodel/links.py` | benchmark links with estimated ceilings; anchored predictions |
 | `capmodel/irt.py` | own IRT refit for leave-future-out vintages |
 | `capmodel/backtest.py` | backtest of the level process itself; release folds on all folds with baselines and paired differences; calibration |
+| `capmodel/variant.py` | the 'with Model 4' what-if: importance re-weighting of the default's paths |
 | `capmodel/predict.py` | release-date sampler over `../forecast/output/forecast.json` |
 | `capmodel/pipeline.py`, `report.py`, `plots.py` | orchestration, JSON and METHODS.md, PNG diagnostics |
 | `output/capability_forecast.json` | everything a page needs (see its `metadata`) |

@@ -1,6 +1,6 @@
 # Capability model: methods
 
-Model version `cap-v2.1`, as of 2026-11-16. Every number here is written by `python3 capability/run.py` from `capability/output/capability_forecast.json`; do not edit by hand.
+Model version `cap-v2.2`, as of 2026-11-16. Every number here is written by `python3 capability/run.py` from `capability/output/capability_forecast.json`; do not edit by hand.
 
 **v1 was withdrawn.** An independent adversarial review of cap-v1.0 (`research/04-adversarial-review-v1.md`) found two blockers and eight major problems: the headline backtest left out its worst fold and compared against weak baselines; several benchmark predictions contradicted scores already observed; and the long-range band was an untested prior. v1's output is kept, unedited, at `history/capability_forecast_v1.0_withdrawn.json`, and its predictions stay on file marked withdrawn. Section 14 lists each finding and what changed.
 
@@ -522,3 +522,42 @@ What moved:
 - All-lab frontier: the non-Anthropic line is now fitted separately and published; the share of paths in which Anthropic leads is reported.
 - Own-card AECI: gap rule changed to an equal blend of the last gap and the mean of the last three (rolling RMSE 3.9).
 - Measured-scale threshold is now a range derived from the whole basket (183-196); the page shades from 196 (was 207.6).
+- cap-v2.2 adds a what-if variant, variants.with_model_4, alongside the default. The default forecast and its open predictions are numerically unchanged from cap-v2.1.
+
+## 15. Anthropic's unreleased internal model (METR's Model 4)
+
+**What is known.** The Fable 5.2 / Mythos 5.2 card prints 'a separate, unreleased internal research model that is somewhat more capable than Claude Mythos 5.2': AECI 178.78 on the November 6 fit (global 95% 173.75 to 185.18; local 177.08 to 180.59), scored on 15 benchmarks, plotted at an internal date of about 2026-09-26. METR's November 5 assessment describes 'Model 4' (finished training September-October 2026; AECI 178.6, or 179.7 dropping three suspect benchmarks; above 50% on all 15 benchmarks it was tested on, which makes METR 'somewhat nervous about our ability to measure AECI'). METR's Model 4 and the card's Internal Model are very probably the same model (author's confidence about 90%): both are Anthropic's most capable internal model in autumn 2026, both were scored on exactly 15 AECI benchmarks, the values are 178.6 (METR, fit before Nov 5) and 178.78 (card, Nov 6 fit), and the card's internal date (~Sept 26) falls in METR's 'finished training September-October 2026'. Neither source names the other's label, so it is an inference, not a statement. METR gives only training-completion dates (Model 2: July 2026; Model 3: August-September 2026) and no AECI values, public dates or mapping to released names; they are not used. (METR also lists an 'Unreleased 2022' model.)
+
+**Why the default excludes it.** It is unreleased and has no public ECI; its score rests on 15 of Anthropic's internal benchmarks, all above 50%; its date is an internal-availability date while every other point in the model is at its public date; and it is already 51 days past that date with no release. In the default it appears only as a comparison (`p_aeci_nov6_at_or_above_internal_model`). The default's numbers and open predictions are identical to cap-v2.1.
+
+**What the variant assumes** (`variants.with_model_4`; a what-if, not graded). It re-weights the default's own simulated paths by three separately switchable pieces of evidence.
+
+- *Level.* Model 4's public-ECI equivalent is 175.1 (80% 171.6 to 178.7): Fable 5.2's public ECI (173.44) + the same-fit AECI difference to its twin Mythos 5.2 (+1.66); sd combines the two local AECI intervals (1.13), 1.0 for model-specific scatter of the AECI-ECI gap, and Fable 5.2's own ECI posterior sd (2.33; 19 benchmarks so far). The model has no public date. It is not placed on the record line at its internal date (that would steepen the slope artificially, because every other point is at its public date). It enters as a pseudo-observation at a public-date-equivalent of today + a remaining lag; observed lags have lengthened (25 and 47 days for the last two Mythos) and this one is censored at 51 days. Remaining lag: exponential, mean 45 days. The record line at that date is weighted by how well it matches (sd 1.74, the scatter of record-setters about the line).
+- *Next release.* With probability p = 0.7 the next Fable/Mythos is Model 4 or at least as capable, so its draws are truncated below at Model 4's level (77% of the default's draws already are). Judgement. For: the one earlier internally reported frontier model (Mythos Preview, internal use from 2026-02-24) shipped within weeks, and every frontier Claude with an internal date has shipped 3-47 days later. Against: the card calls this one a 'research model', it is evaluated nowhere else in the card, and it is already 51 days past its internal date, longer than any earlier lag. Sensitivity at 0.5 and 0.9 is reported.
+- *Trend.* Only the scenario weights move, and only between 'reversion' and 'hold'; the recent-slope fit is untouched. The shift is the ratio of the four-line evidence average with and without the internal model on the AECI series, capped so that at most half the reversion weight moves. BIC weight on 'jump or no change' for the AECI series: 0.82 without the internal model, 0.018 with it; four-line average 0.471 to 0.271; reversion weight 0.28 to 0.1609, hold 0.38 to 0.4991. This is the component most open to criticism: the point rests on Anthropic's internal benchmarks, on 15 of them, with the model above 50% on every one (METR is 'somewhat nervous' about measuring it), so the index may be saturating exactly where this point sits.
+
+**Results (median, 80% interval).**
+
+| Public ECI | Default | With Model 4 | Median shift |
+|---|---|---|---|
+| Claude Opus 5.6 | 173.9 (169.9 to 181.1) | 174.0 (170.1 to 181.3) | +0.1 |
+| Claude Sonnet 5.6 | 173.1 (168.5 to 182.3) | 173.4 (168.6 to 182.5) | +0.2 |
+| Claude Haiku 6 | 175.2 (165.3 to 198.7) | 176.0 (165.6 to 200.1) | +0.8 |
+| Claude Fable / Mythos 5.3 | 178.4 (174.1 to 186.4) | 179.2 (175.1 to 187.6) | +0.8 |
+| Anthropic frontier, 2026-12-31 | 174.7 (171.7 to 178.4) | 174.7 (171.7 to 178.4) | +0.0 |
+| Anthropic frontier, 2027-12-31 | 194.7 (184.1 to 215.2) | 196.8 (186.1 to 215.4) | +2.1 |
+| Anthropic frontier, 2028-12-31 | 212.8 (194.6 to 264.3) | 216.8 (196.8 to 264.1) | +4.0 |
+| Anthropic frontier, 2029-12-31 | 229.6 (203.7 to 318.0) | 235.3 (205.9 to 317.2) | +5.7 |
+| Anthropic frontier, 2030-12-31 | 245.9 (212.1 to 370.6) | 253.3 (214.5 to 369.6) | +7.4 |
+
+By component (shift in the median):
+
+| Components on | Fable/Mythos 5.3 | Opus 5.6 | Frontier end-2027 | end-2028 | end-2030 | Effective paths |
+|---|---|---|---|---|---|---|
+| level_only | +0.14 | +0.17 | +0.61 | +1.13 | +2.10 | 17979 |
+| next_release_only | +0.88 | +0.05 | +0.59 | +0.93 | +1.59 | 34986 |
+| trend_only | +0.06 | +0.03 | +1.40 | +2.89 | +5.47 | 36757 |
+| level_and_next_release | +0.70 | +0.11 | +0.73 | +1.37 | +2.50 | 16308 |
+| all | +0.82 | +0.14 | +2.14 | +3.99 | +7.38 | 14973 |
+
+Sensitivity to p (all components on): p=0.5: Fable/Mythos 179.0, frontier end-2027 196.8; p=0.7: Fable/Mythos 179.2, frontier end-2027 196.8; p=0.9: Fable/Mythos 179.3, frontier end-2027 196.8. Differences of a tenth or two between rows are Monte Carlo noise. Reading: Model 4 moves the next Fable/Mythos by under a point, because the default already expects the next release to be about that good; nearly all of the long-range shift comes from the trend component, which is the weakest of the three.

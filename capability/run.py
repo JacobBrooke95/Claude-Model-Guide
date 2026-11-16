@@ -78,9 +78,9 @@ def main(argv):
     J = report.build_json(R, names)
     report.write_methods(_strict_load(OUT / "capability_forecast.json"))
     # snapshot of the open predictions for later grading (one file per as_of date)
-    from capmodel.common import dump_json, AS_OF, MODEL_VERSION
-    dump_json(dict(as_of=AS_OF, model_version=MODEL_VERSION, open_predictions=J["open_predictions"]),
-              ROOT / "history" / f"predictions_{AS_OF}_{MODEL_VERSION}.json")
+    from capmodel.common import dump_json, AS_OF, PREDICTION_VERSION
+    dump_json(dict(as_of=AS_OF, model_version=PREDICTION_VERSION, open_predictions=J["open_predictions"]),
+              ROOT / "history" / f"predictions_{AS_OF}_{PREDICTION_VERSION}.json")
     print(f"wrote output/capability_forecast.json, METHODS.md and {len(names)} plots")
     return check()
 

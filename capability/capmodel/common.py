@@ -9,7 +9,8 @@ import numpy as np
 
 SEED = 20261116
 AS_OF = "2026-11-16"
-MODEL_VERSION = "cap-v2.1"
+MODEL_VERSION = "cap-v2.2"
+PREDICTION_VERSION = "cap-v2.1"      # version under which the open predictions were issued; v2.2 adds a variant only
 
 ROOT = Path(__file__).resolve().parents[1]          # capability/
 REPO = ROOT.parent

@@ -265,6 +265,62 @@ class Outputs(unittest.TestCase):
             self.assertLessEqual(len(f["benchmarks"]), 3)
 
 
+class Variant(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.J = strict(ROOT / "output" / "capability_forecast.json")
+        cls.O = strict(ROOT / "history" / "capability_forecast_v2.1_superseded_by_addition.json")
+        cls.V = cls.J["variants"]["with_model_4"]
+
+    def test_default_is_numerically_identical_to_v2_1(self):
+        for key in ("next_models", "open_predictions", "links", "aeci", "families", "trend", "scale", "backtest"):
+            self.assertEqual(self.J[key], self.O[key], key)
+        self.assertEqual(self.J["projection"], self.O["projection"])
+        for key in ("families", "frontier", "backtested_through", "notes", "correction"):
+            self.assertEqual(self.J["headline"][key], self.O["headline"][key], key)
+        self.assertTrue(all(":cap-v2.1:" in p["id"] for p in self.J["open_predictions"]))
+        snap = strict(ROOT / "history" / "predictions_2026-11-16_cap-v2.1.json")
+        self.assertEqual(snap["open_predictions"], self.O["open_predictions"])
+
+    def test_variant_is_not_graded_and_has_the_default_shapes(self):
+        self.assertFalse(self.V["graded"])
+        self.assertNotIn("open_predictions", self.V)
+        d = self.J["headline"]
+        self.assertEqual([f["entity"] for f in self.V["headline"]["families"]], [f["entity"] for f in d["families"]])
+        self.assertEqual([f["date"] for f in self.V["headline"]["frontier"]], [f["date"] for f in d["frontier"]])
+        for a, b in zip(self.V["headline"]["families"], d["families"]):
+            self.assertEqual(set(a), set(b))
+        self.assertEqual(set(self.V["projection"]["series"]), set(self.J["projection"]["series"]))
+        self.assertEqual(self.V["projection"]["series"]["non_anthropic_frontier_eci"], self.J["projection"]["series"]["non_anthropic_frontier_eci"])
+        self.assertEqual(len(self.V["projection"]["series"]["anthropic_frontier_eci"]), len(self.J["projection"]["quarters"]))
+
+    def test_variant_moves_the_right_way(self):
+        nm = self.J["next_models"]["entities"]
+        v = self.V["next_models"]
+        self.assertGreaterEqual(v["fable_mythos"]["eci"]["median"], nm["fable_mythos"]["eci"]["median"])
+        self.assertGreaterEqual(v["fable_mythos"]["eci"]["lo80"], nm["fable_mythos"]["eci"]["lo80"])
+        self.assertLess(v["fable_mythos"]["eci"]["median"] - nm["fable_mythos"]["eci"]["median"], 3.0)     # a nudge, not a new forecast
+        for r in self.V["delta_vs_default"]["anthropic_frontier_eci"]:
+            self.assertGreaterEqual(r["difference"]["median"], -0.2)                                       # never lower, up to MC noise
+        w = self.V["assumptions"]["trend"]["weights_after"]
+        self.assertAlmostEqual(sum(w.values()), 1.0, places=3)
+        b = self.V["assumptions"]["trend"]["weights_before"]
+        self.assertGreaterEqual(w["reversion"], 0.5 * b["reversion"] - 1e-6)                               # the stated cap on the trend channel
+        self.assertEqual({k: w[k] for k in ("slowdown", "compounding", "explosive")}, {k: b[k] for k in ("slowdown", "compounding", "explosive")})
+
+    def test_components_combine_sensibly(self):
+        t = {r["components"]: r for r in self.V["components"]["table"]}
+        for y in ("2027", "2028", "2030"):
+            singles = [t[k]["frontier_shift"][y] for k in ("level_only", "next_release_only", "trend_only")]
+            allv = t["all"]["frontier_shift"][y]
+            self.assertGreaterEqual(allv, max(singles) - 0.5)
+            self.assertLessEqual(allv, sum(max(s_, 0) for s_ in singles) + 1.0)
+        self.assertGreater(t["next_release_only"]["fable_mythos_shift"], t["trend_only"]["fable_mythos_shift"])
+        self.assertTrue(all(r["effective_sample_size"] > 5000 for r in t.values()))
+        ps = self.V["p_sensitivity"]
+        self.assertLessEqual(ps[0]["next_models_eci_median"]["fable_mythos"], ps[-1]["next_models_eci_median"]["fable_mythos"] + 0.1)
+
+
 class Units(unittest.TestCase):
     def test_irt_vintage_cache_matches_a_fresh_refit(self):
         from capmodel import irt
