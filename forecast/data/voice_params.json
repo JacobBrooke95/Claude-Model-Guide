@@ -57,11 +57,16 @@
    "status": "measured: the five first-party 'coming weeks' cases in data/raw/signals_notes.md (6 to 18 days, five of five delivered); p_hit = (5 + 0.5) / (5 + 1)"
   },
   "dated_months": {
-   "rule": "A first-party statement of 'later this year' or 'in the coming months'.",
+   "rule": "A first-party statement that the model is coming 'later this year' or 'in the coming months'. A statement that names no speech model is handled by unnamed_statement below.",
    "median_days": 124,
    "sigma": 0.5,
    "p_hit": 0.5,
    "status": "one delivered case (124 days, Claude 3.5 Haiku) and one never delivered (Claude 3.5 Opus) in data/raw/signals_notes.md; p_hit = (1 + 0.5) / (2 + 1); sigma assumed. For reference, Anthropic's own voice mode took 126 days from Dario Amodei's statement (2025-01-21) to launch (2025-05-27)."
+  },
+  "unnamed_statement": {
+   "rule": "A first-party dated statement about voice that does not name a speech model (a 'dated_weeks' or 'dated_months' row with specific 'no', grade A or B) is read two ways: as no evidence of a speech model (a voice product already exists, so a feature update would satisfy it), and as a promise of a speech model (the dated clock above at full strength). The published probability is (1 - w) x the forecast without the statement's clock + w x the forecast with it; medians and intervals are read from that mixed curve. The weighted part lapses the day after the row's 'expires' date ('later this year' ends on December 31): the clock stops contributing and the row is marked 'lapsed', an undelivered promise.",
+   "unnamed_statement_weight": 0.5,
+   "status": "assumed: set by the owner on 2026-11-17 as a judgement between 'no effect' (the statement names no model; a voice product already exists) and 'full strength' (treat it as a promise of a speech model). Not measured. The weight is fixed, not updated as days pass without delivery. A dated statement that names a model on a first-party page (grade A, specific yes or partial) still runs its clock in full."
   },
   "counter": {
    "rule": "Stage 'counter' and 'context' rows are shown on the page and enter no formula. The family model's absence-of-evidence term was tested and switched off (EXPERIMENTS.md E8); the same caution applies here.",

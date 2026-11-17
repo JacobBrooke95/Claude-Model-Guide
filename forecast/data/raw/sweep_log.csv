@@ -538,3 +538,37 @@ date,source_id,kind,url,status,result,detail
 2026-11-17,x_tipsters,manual,,,skipped,X not readable; no relay of a new tip found in search or on TestingCatalog
 2026-11-17,voice_press,manual,,,nothing,one web search (Anthropic voice / speech-to-speech / audio model): newest items are the July 2026 voice-mode update; no first-party audio model
 2026-11-17,competitors,manual,,,nothing,"one web search: roundup pages only, no new frontier release dated 11-16/17 found, no primary opened, no row added"
+2026-11-17,voice_text_voice_mode,voice_text,https://support.claude.com/en/articles/11101966-use-voice-mode,200,baseline,116 names recorded; nothing to compare against yet
+2026-11-17,voice_text_recordings,voice_text,https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic,200,baseline,37 names recorded; nothing to compare against yet
+2026-11-17,voice_text_dictation_mobile,voice_text,https://support.claude.com/en/articles/10065434-use-dictation-on-claude-mobile,200,baseline,27 names recorded; nothing to compare against yet
+2026-11-17,voice_text_meetings,voice_text,https://support.claude.com/en/articles/18325154-use-claude-meetings,200,baseline,68 names recorded; nothing to compare against yet
+2026-11-17,voice_text_claude_code_dictation,voice_text,https://code.claude.com/docs/en/voice-dictation.md,200,baseline,200 names recorded; nothing to compare against yet
+2026-11-17,voice_privacy_training_line,voice_sentence,https://privacy.claude.com/en/articles/10067979-how-does-anthropic-process-my-voice-data,200,baseline,2 names recorded; nothing to compare against yet
+2026-11-17,voice_models_modality_line,voice_sentence,https://platform.claude.com/docs/en/about-claude/models/overview.md,200,baseline,3 names recorded; nothing to compare against yet
+2026-11-17,voice_docs_index_lines,voice_lines,https://platform.claude.com/llms.txt,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-17,voice_pricing_lines,voice_lines,https://platform.claude.com/docs/en/about-claude/pricing.md,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-17,voice_sdk_python_changelog,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-17,voice_sdk_python_api,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/api.md,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-17,voice_sdk_typescript_changelog,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-17,voice_sdk_typescript_api,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/api.md,200,baseline,0 names recorded; nothing to compare against yet
+2026-11-17,voice_job_ids,voice_job_ids,https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true,200,baseline,5 names recorded; nothing to compare against yet
+2026-11-17,voice_bedrock_opus_5_5,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-opus-5-5.md,200,baseline,10 names recorded; nothing to compare against yet
+2026-11-17,voice_bedrock_sonnet_5_5,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-sonnet-5-5.md,200,baseline,10 names recorded; nothing to compare against yet
+2026-11-17,voice_bedrock_fable_5_2,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-fable-5-2.md,200,baseline,10 names recorded; nothing to compare against yet
+2026-11-17,voice_text_voice_mode,voice_text,https://support.claude.com/en/articles/11101966-use-voice-mode,200,nothing,
+2026-11-17,voice_text_recordings,voice_text,https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic,200,nothing,
+2026-11-17,voice_text_dictation_mobile,voice_text,https://support.claude.com/en/articles/10065434-use-dictation-on-claude-mobile,200,nothing,
+2026-11-17,voice_text_meetings,voice_text,https://support.claude.com/en/articles/18325154-use-claude-meetings,200,nothing,
+2026-11-17,voice_text_claude_code_dictation,voice_text,https://code.claude.com/docs/en/voice-dictation.md,200,nothing,
+2026-11-17,voice_privacy_training_line,voice_sentence,https://privacy.claude.com/en/articles/10067979-how-does-anthropic-process-my-voice-data,200,nothing,
+2026-11-17,voice_models_modality_line,voice_sentence,https://platform.claude.com/docs/en/about-claude/models/overview.md,200,nothing,
+2026-11-17,voice_docs_index_lines,voice_lines,https://platform.claude.com/llms.txt,200,nothing,
+2026-11-17,voice_pricing_lines,voice_lines,https://platform.claude.com/docs/en/about-claude/pricing.md,200,nothing,
+2026-11-17,voice_sdk_python_changelog,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md,200,nothing,
+2026-11-17,voice_sdk_python_api,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/api.md,200,nothing,
+2026-11-17,voice_sdk_typescript_changelog,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md,200,nothing,
+2026-11-17,voice_sdk_typescript_api,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/api.md,200,nothing,
+2026-11-17,voice_job_ids,voice_job_ids,https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true,200,nothing,
+2026-11-17,voice_bedrock_opus_5_5,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-opus-5-5.md,200,nothing,
+2026-11-17,voice_bedrock_sonnet_5_5,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-sonnet-5-5.md,200,nothing,
+2026-11-17,voice_bedrock_fable_5_2,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-fable-5-2.md,200,nothing,

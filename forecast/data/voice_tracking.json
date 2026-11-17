@@ -1,0 +1,49 @@
+{
+ "_about": "Informational questions shown beside the voice rungs (forecast/voice.py, tracking()). They never feed rungs A-C. 'anchors' are dated judgements, newest used; between them the probability runs down by the rule in 'rule'. To revise the judgement, append an anchor with a reason; never edit an old one. Set 'resolution' by hand (DAILY_RUNBOOK.md 12, Voice watch); never change it once set.",
+ "questions": [
+  {
+   "id": "voice_update_2026",
+   "short": "Any material voice update by Dec 31, 2026",
+   "question": "By 2026-12-31, does Anthropic ship or officially announce a material voice update?",
+   "deadline": "2026-12-31",
+   "label": "judgement, not a model output",
+   "reason": {
+    "text": "On 23 July 2026 Anthropic told Engadget: \"We're continuing to invest in voice and we'll have more to share later this year.\" This question asks whether that happens, in any form. Rungs A to C ask only about a speech model of Anthropic's own.",
+    "quote": "We're continuing to invest in voice and we'll have more to share later this year.",
+    "date": "2026-07-23",
+    "url": "https://engadget.com/2221938/claude-voice-mode-just-got-smarter",
+    "signal": "V9"
+   },
+   "counts": [
+    "A new voice-mode capability in a Claude product, stated on a first-party page (anthropic.com, claude.com, support.claude.com, platform.claude.com, code.claude.com): for example full-duplex or interruptible conversation, a new Voice screen or app surface made public, spoken replies in a product that had none, or the Fable line in voice mode.",
+    "A voice or audio API: an audio input or output type, a speech or realtime endpoint, or audio pricing in the API docs.",
+    "A first-party speech model with any outside access (this also resolves rung A).",
+    "An official announcement of any of these, dated on or before the deadline, even if access comes later."
+   ],
+   "does_not_count": [
+    "Bug fixes, reliability work and dictation tweaks.",
+    "Wording or date changes to help pages; privacy or data-collection changes.",
+    "New voices or languages alone.",
+    "Features that only transcribe (such as Claude Meetings, 2026-11-12), and third-party integrations or partner products.",
+    "Leaks, hidden interface items, job postings and press reports without a first-party page."
+   ],
+   "rule": "The latest dated judgement fixes a constant daily rate over the days then left to the deadline (low-hazard days such as the holiday freeze count a quarter, as in the forecasts). Each day that passes with nothing shipped leaves fewer days, so the probability runs down to zero at the deadline. A daily run may replace the judgement with a new dated one and a reason.",
+   "anchors": [
+    {
+     "date": "2026-11-17",
+     "p": 0.35,
+     "low": 0.25,
+     "high": 0.45,
+     "reason": "Judgement. For: an on-record promise for this year; a recordings opt-in (Oct 4) and a hidden Voice / Preview item (Oct 10); the 2025 voice mode shipped 43 days after its first hidden-interface sighting; three voice help pages edited on Nov 9. Against: nothing in 117 days since the statement; about two material voice updates a year so far (May 2025, June and July 2026), which alone gives about one in five for the time left; the one earlier 'later this year' statement delivered one of its two models; the holiday freeze from Dec 20; dated calls miss late."
+    }
+   ],
+   "resolution": {
+    "outcome": null,
+    "resolved_date": null,
+    "source_url": null,
+    "what": null,
+    "note": "outcome is 'yes' or 'no'. Yes needs a first-party page opened by the run. With nothing by the deadline it grades No on 2027-01-01."
+   }
+  }
+ ]
+}

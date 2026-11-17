@@ -45,7 +45,18 @@ G = json.load(open(gp)) if os.path.exists(gp) else None
 # voice-model forecast (voice.py): optional, the page hides the section when the file is missing
 vp = os.path.join(ROOT, "output/voice_forecast.json")
 V = json.load(open(vp)) if os.path.exists(vp) else None
-data = dict(forecast=F, backtest=B, registry=R, meta=meta, grades=G, voice=V)
+# The informational voice question (data/voice_tracking.json). A snapshot frozen before the question existed has
+# no `tracking` list, so it is worked out here for the snapshot's own date; it is not part of the frozen forecast.
+VT = None
+if V is not None and "tracking" not in V:
+    try:
+        import sys
+        sys.path.insert(0, ROOT)
+        import voice                       # changes into forecast/; every path in this file is absolute
+        VT = voice.tracking(V["as_of"])
+    except Exception as e:                 # informational: never stop the page
+        print(f"voice tracking question not shown: {type(e).__name__}: {e}")
+data = dict(forecast=F, backtest=B, registry=R, meta=meta, grades=G, voice=V, voice_tracking=VT)
 blob = json.dumps(data, default=str, separators=(",", ":")).replace("</", "<\\/")
 tpl = open(os.path.join(ROOT, "page_template.html")).read()
 body = tpl.replace("/*__DATA__*/null", blob)

@@ -224,7 +224,20 @@ def main(argv):
             else:
                 L.append(f"| {k}. {r['short']} | " + " | ".join(f"{r['by'][h]['final']:.0%} ({r['by'][h]['low']:.0%}–{r['by'][h]['high']:.0%})" if h in r["by"] else "—"
                                                              for h in voice["horizons"]) + f" | {r['median']} | {r['q10']} – {r['q90']} |")
-    L += ["", "## New signals", "", "<!-- one line per row added to signals_research.csv or voice_signals.csv today, with grade and URL; or 'None.' -->", "",
+        st = voice.get("statement")
+        if st and "statement_alt" in voice["rungs"]["A"]:
+            h0 = next(iter(voice["rungs"]["A"]["by"]))
+            alt = voice["rungs"]["A"]["statement_alt"]["by"][h0]
+            L += ["", f"Statement {', '.join(st['signals'])} (\"more to share later this year\", {st['since']}) is counted at weight {st['weight']:g}, a judgement: "
+                      f"rung A by {h0} is {alt['none']:.0%} with no effect, {voice['rungs']['A']['by'][h0]['signals']:.0%} published, {alt['full']:.0%} at full strength."
+                      + (f" **{st['days_left']} days left** until it lapses ({st['expires']})." if st.get("expires") else "")]
+        for x in voice.get("statement_lapsed", []):
+            L += ["", f"**Statement {x['signal']} lapsed after {x['expired']}**: its clock no longer contributes. Mark it `lapsed` and record it in `LEARNINGS.md` (runbook §12, Voice watch 4)."]
+        for t in voice.get("tracking", []):
+            L += ["", f"Tracking question (informational, not a rung): {t['short']}: "
+                      + (f"{t['p']:.0%}" + (f" ({t['p_low']:.0%}–{t['p_high']:.0%})" if t["p_low"] is not None else "") + f", {t['days_left']} days left; a judgement run down by rule."
+                         if t["state"] == "open" else t["state"] + ".")]
+    L += ["", "## New signals", "", "<!-- lead with any voice change (runbook §12, Voice watch); then one line per row added to signals_research.csv or voice_signals.csv today, with grade and URL; or 'None.' -->", "",
           "## Why the numbers moved", "", "<!-- one line per family that moved 3 points or more: which input changed -->", "",
           "## Experiment", "", "<!-- the one experiment run today (id, verdict, one line), or 'None today.' -->", "",
           "## Failures and gaps", ""]

@@ -354,10 +354,40 @@ def render(sc):
     return "\n".join(L) + "\n"
 
 
+def tracking_lines():
+    """Informational voice questions (data/voice_tracking.json, voice_tracking_log.csv). Listed, and once resolved
+    given a Brier score of their own; never part of the voice block or of any headline number."""
+    tp, lp = "data/voice_tracking.json", "voice_tracking_log.csv"
+    if not os.path.exists(tp):
+        return []
+    log = pd.read_csv(lp) if os.path.exists(lp) else pd.DataFrame(columns=["as_of", "id", "p"])
+    L = ["### Informational question (a judgement run down by rule; in no score above)", ""]
+    for q in json.load(open(tp)).get("questions", []):
+        rows = log[log.id == q["id"]]
+        res = (q.get("resolution") or {})
+        last = f"latest {float(rows.p.iloc[-1]):.0%} on {rows.as_of.iloc[-1]}" if len(rows) else "no forecast logged yet"
+        line = f"- **{q['short']}** (`{q['id']}`, deadline {q['deadline']}): {len(rows)} daily value(s) logged, {last}. "
+        if res.get("outcome") in ("yes", "no") and len(rows):
+            y = 1.0 if res["outcome"] == "yes" else 0.0
+            line += f"Resolved **{res['outcome']}**" + (f" on {res['resolved_date']}" if res.get("resolved_date") else "") + f"; Brier over the logged values {float(((rows.p.astype(float) - y) ** 2).mean()):.3f} (one question, one event)."
+        else:
+            line += "Open."
+        L.append(line)
+    return L + [""]
+
+
 def render_voice(sc):
     v = sc.get("voice")
     if not v:
         return []
+    try:
+        extra = tracking_lines()
+    except Exception as e:      # informational: never break the scorecard
+        extra = [f"Informational question could not be listed: {type(e).__name__}: {e}", ""]
+    return _render_voice(v) + extra
+
+
+def _render_voice(v):
     L = ["", "## Voice model (its own block; in none of the numbers above)", ""]
     if v.get("error"):
         return L + [f"Could not be scored: {v['error']}", ""]

@@ -68,3 +68,7 @@ Questions: will Anthropic ship a speech model of its own by each horizon date, o
 
 Nothing has resolved. The first horizon is 2026-12-31.
 
+### Informational question (a judgement run down by rule; in no score above)
+
+- **Any material voice update by Dec 31, 2026** (`voice_update_2026`, deadline 2026-12-31): 0 daily value(s) logged, no forecast logged yet. Open.
+

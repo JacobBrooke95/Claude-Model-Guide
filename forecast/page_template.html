@@ -108,6 +108,8 @@ ul.tight { margin: 6px 0; padding-left: 20px; } ul.tight li { margin: 3px 0; }
 .voice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 12px; }
 .voice-grid .fam dd { white-space: normal; }
 .voice-grid .fam dd small { color: var(--ink-muted); font-size: .92em; }
+.voice-track { margin: 10px 0 0; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 8px; }
+.voice-track b.p { font-size: 1.15em; color: var(--ink-strong, inherit); }
 table.fit { min-width: 0; } table.fit td { white-space: nowrap; }
 .info-panel .tbl table { min-width: 460px; } .info-panel .tbl td.num { white-space: nowrap; }
 .reg-cat { margin-top: 14px; }
@@ -160,11 +162,13 @@ footer.rf-foot { text-align: center; color: var(--ink-muted); font-size: .85em; 
     <p class="note" id="voice-lede"></p>
     <div class="voice-grid" id="voice-grid"></div>
     <p class="tiny" id="voice-range"></p>
+    <p class="note voice-track" id="voice-track" hidden></p>
     <div class="folds">
       <div class="fold"><button type="button" class="more-btn" aria-expanded="false" aria-controls="voice-how">How it is estimated</button>
       <div class="more-panel" id="voice-how" hidden="until-found">
         <h3>What moves the estimate</h3>
         <div class="tbl"><table class="fit" id="voice-decomp"></table></div>
+        <div id="voice-stmt" hidden></div>
         <p class="tiny" id="voice-market"></p>
         <div class="note" id="voice-method"></div>
       </div></div>
@@ -388,6 +392,31 @@ const DATA = /*__DATA__*/null;
         HZ.map(h => { const b = A.by[h]; return `<tr><td class="l">${yr(h)}</td><td class="num">${pct(b.base)}</td><td class="num">${pct(b.signals)}</td><td class="num">${b.market != null ? `${pct(b.final)} <span class="tiny">(market ${pct(b.market)})</span>` : "—"}</td></tr>`; }).join("") +
         `<tr><td class="l">Median date</td><td class="num">${fmtS(A.median_base)}</td><td class="num">${fmtS(A.median)}</td><td class="num">${anyMkt ? "" : "—"}</td></tr></tbody>`;
     } else $("voice-decomp").parentNode.hidden = true;
+    // the 23 July statement: published numbers beside the two readings they are mixed from
+    const STM = V.statement, LAPSED = V.statement_lapsed || [];
+    if (STM && !A.resolved && A.statement_alt) {
+      const row = (k, r) => `<tr><td class="l">${k}, by ${yr(far)}</td><td class="num">${pct(r.statement_alt.by[far].none)}</td><td class="num"><b>${pct(r.by[far].signals)}</b></td><td class="num">${pct(r.statement_alt.by[far].full)}</td></tr>`;
+      $("voice-stmt").hidden = false;
+      $("voice-stmt").innerHTML = `<h3>The "later this year" statement, at half weight</h3>` +
+        `<p class="note">On ${yr(STM.since)} Anthropic <a href="${esc(STM.url)}">told Engadget</a> it would "have more to share later this year" about voice. It named no speech model, and a voice product already exists, so a feature update would keep the promise. The published numbers give that statement a weight of ${STM.weight} between two readings: no evidence of a speech model, and a promise of one. <b>The weight is a judgement call by the site's owner, not a measurement.</b>${STM.expires ? ` It lapses after ${yr(STM.expires)} (${STM.days_left} day${STM.days_left === 1 ? "" : "s"} left): from then the numbers fall back to the first column.` : ""}</p>` +
+        `<div class="tbl"><table class="fit"><thead><tr><th>Rung</th><th>No effect</th><th>Published (weight ${STM.weight})</th><th>Full strength</th></tr></thead><tbody>` +
+        HZ.map(h => `<tr><td class="l">A, by ${yr(h)}</td><td class="num">${pct(A.statement_alt.by[h].none)}</td><td class="num"><b>${pct(A.by[h].signals)}</b></td><td class="num">${pct(A.statement_alt.by[h].full)}</td></tr>`).join("") +
+        `<tr><td class="l">A, median date</td><td class="num">${fmtS(A.statement_alt.median_none)}</td><td class="num"><b>${fmtS(A.median)}</b></td><td class="num">${fmtS(A.statement_alt.median_full)}</td></tr>` +
+        ["B", "C"].filter(k => !V.rungs[k].resolved && V.rungs[k].statement_alt).map(k => row(k, V.rungs[k])).join("") + `</tbody></table></div>`;
+    } else if (LAPSED.length) {
+      $("voice-stmt").hidden = false;
+      $("voice-stmt").innerHTML = `<p class="note">Anthropic's ${yr(LAPSED[0].since)} statement that it would "have more to share later this year" about voice <a href="${esc(LAPSED[0].url)}">(source)</a> lapsed on ${yr(LAPSED[0].expired)} with no speech model announced. It no longer adds to the estimate.</p>`;
+    }
+    // informational question beside the rungs (a judgement run down by rule; never an input to the rungs)
+    const TR = (V.tracking || DATA.voice_tracking || [])[0];
+    if (TR) {
+      const open = TR.state === "open";
+      $("voice-track").hidden = false;
+      $("voice-track").innerHTML = `<b>${esc(TR.short)}:</b> ` +
+        (open ? `<b class="p">${pct(TR.p)}</b>${TR.p_low != null ? ` <span class="chip">range ${span(TR.p_low, TR.p_high)}</span>` : ""} <span class="chip">${esc(TR.label)}</span> <span class="tiny">${TR.days_left} day${TR.days_left === 1 ? "" : "s"} left</span>`
+              : `<b class="p">${TR.resolution ? (TR.resolution.outcome === "yes" ? "Yes" : "No") : "No"}</b> <span class="tiny">${TR.resolution && TR.resolution.source_url ? `<a href="${esc(TR.resolution.source_url)}">${esc(TR.resolution.what || "source")}</a>` : "deadline passed"}</span>`) +
+        `<br><span class="tiny">A wider question than rungs A to C, and no input to them. On ${yr(TR.reason.date)} Anthropic said: "${esc(TR.reason.quote)}" <a href="${esc(TR.reason.url)}">(Engadget)</a>. What counts is listed under the (i) button in the heading.</span>`;
+    }
     const MK = V.markets;
     $("voice-market").innerHTML = (MK.mapped.length
       ? `Market prices used: ${MK.mapped.map(m => `<a href="${esc(m.url)}">${esc(m.platform)}</a> ${pct(m.prob)} by ${fmtD(m.date)} (rung ${m.rung}, weight ${m.weight})`).join("; ")}.`
@@ -397,24 +426,31 @@ const DATA = /*__DATA__*/null;
     $("voice-movers").innerHTML = `<b>What would move it.</b> ${esc(V.cases.movers)}`;
     // evidence
     const ST = { program: "program", prep: "preparation", dated_weeks: "dated", dated_months: "dated", counter: "against", context: "context" };
+    const stLabel = r => r.status === "lapsed" ? "lapsed" : (ST[r.stage] || esc(r.stage));
     const ORD = { dated_weeks: 0, dated_months: 0, prep: 1, program: 2, counter: 3, context: 4 };
-    const sig = V.signals.filter(r => r.status === "open").sort((a, b) => (ORD[a.stage] - ORD[b.stage]) || (a.first_seen < b.first_seen ? 1 : -1));
-    $("voice-signals").innerHTML = sig.map(r => `<div class="sig"><span class="d">${fmtD(r.first_seen)}</span><span class="c">${ST[r.stage] || esc(r.stage)} · ${esc(r.grade)}</span><span class="what">${esc(r.headline)} <a href="${esc(r.url)}">source</a>${/^VERIFIED/.test(r.verified) ? "" : ` <span class="tiny">(relay)</span>`}</span></div>`).join("") +
-      `<p class="tiny">Only "program" and "preparation" rows enter the estimate. "Against" and "context" rows are shown and carry no weight. Grades as above: A = first-party artifact fetched by this project, B = verified third-party artifact or named outlet, C = screenshot or claim.</p>`;
+    const sig = V.signals.filter(r => r.status === "open" || r.status === "lapsed").sort((a, b) => (ORD[a.stage] - ORD[b.stage]) || (a.first_seen < b.first_seen ? 1 : -1));
+    $("voice-signals").innerHTML = sig.map(r => `<div class="sig"><span class="d">${fmtD(r.first_seen)}</span><span class="c">${stLabel(r)} · ${esc(r.grade)}</span><span class="what">${esc(r.headline)} <a href="${esc(r.url)}">source</a>${/^VERIFIED/.test(r.verified) ? "" : ` <span class="tiny">(relay)</span>`}</span></div>`).join("") +
+      `<p class="tiny">Only "program" and "preparation" rows enter the estimate${STM ? `, plus the "dated" statement at a weight of ${STM.weight}` : ""}. "Against", "context" and "lapsed" rows are shown and carry no weight. Grades as above: A = first-party artifact fetched by this project, B = verified third-party artifact or named outlet, C = screenshot or claim.</p>`;
     // (i): what counts, then how it is estimated
     const cls = Object.entries(HA.classes || {}).map(([c, x]) => `${c} ×${x.multiplier_today.toFixed(2)} (${esc(x.signal)})`).join(", ");
     $("voice-evidence-btn").textContent = `Evidence on file (${sig.length})`;
     $("info-voice").innerHTML =
       `<p><b>What counts.</b></p><ul class="tight">${Object.entries(V.rungs).map(([k, r]) => `<li><b>${k}. ${esc(r.title)}.</b> ${esc(r.criteria)}</li>`).join("")}</ul>` +
       `<p><b>What does not count.</b></p><ul class="tight">${V.criteria.does_not_count.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` +
-      `<p>${esc(V.criteria.already_shipped_note)}</p>`;
+      `<p>${esc(V.criteria.already_shipped_note)}</p>` +
+      (TR ? `<p><b>${esc(TR.short)}</b> <span class="tiny">(${esc(TR.label)}; shown beside the rungs, never an input to them)</span></p>` +
+        `<p>${esc(TR.reason.text)} <a href="${esc(TR.reason.url)}">Source</a>.</p>` +
+        `<p><b>Counts:</b></p><ul class="tight">${TR.counts.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` +
+        `<p><b>Does not count:</b></p><ul class="tight">${TR.does_not_count.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` +
+        `<p><b>How the number is kept.</b> ${TR.anchor ? `${pct(TR.anchor.p)} was a judgement made on ${yr(TR.anchor.date)}. ` : ""}${esc(TR.rule)}</p>` : "");
     $("voice-method").innerHTML =
       `<p><b>How it is estimated.</b> Three steps, each shown in the table.</p><ul class="tight">` +
       `<li><b>Base rate.</b> ${BR.events} of ${BR.n_labs} frontier labs have shipped a speech model of their own in the assistant era, over ${BR.lab_years} lab-years of waiting: ${BR.pooled.toFixed(2)} per lab-year. Anthropic alone has gone ${BR.anthropic_years} years with none, which on its own suggests ${BR.self.toFixed(2)} a year. The base rate is the geometric mean, ${BR.shrunk.toFixed(2)} a year. Seven events is a tiny sample and the labs differ: five of them sold speech products long before their assistants.</li>` +
       `<li><b>Signals.</b> ${HA.program.credited ? `A staffed speech effort is on record (${esc(HA.program.signals.join(", "))}), so the pooled rate replaces the shrunken one (×${HA.program.multiplier.toFixed(2)}). ` : "No program evidence is credited. "}Preparation signals multiply the rate by class: ${cls || "none open"}. Each multiplier is cap^(ρ × grade × specificity), with the text model's cap of ${AS.prep.cap} and ρ of ${AS.prep.rho}, fading with a ${AS.prep.half_life_days}-day half-life. Together: ${HA.annual_hazard_today.toFixed(2)} a year today (range ${V.hazard_low.toFixed(2)}–${V.hazard_high.toFixed(2)}). The holiday freeze and other low-hazard days are applied as in the text-model forecast. If Anthropic says a voice model is coming "in the coming weeks", a second clock starts from its record of delivering such promises in ${Math.min(...AS.dated_weeks.lead_days)}–${Math.max(...AS.dated_weeks.lead_days)} days.</li>` +
+      (STM && A.statement_alt ? `<li><b>The dated statement.</b> Anthropic's "more to share later this year" (${yr(STM.since)}) names no speech model. Its one earlier "later this year" promise covered two models: one arrived after ${AS.dated_months.median_days} days, one never did. Read as a promise of a speech model, that record would put rung A at ${pct(A.statement_alt.by[HZ[0]].full)} by ${yr(HZ[0])}; read as no evidence, at ${pct(A.statement_alt.by[HZ[0]].none)}. The published ${pct(A.by[HZ[0]].signals)} is the mix at a weight of ${STM.weight}, which is a judgement call, set by the owner on Nov 17, 2026. The table above shows all three for every date.</li>` : "") +
       `<li><b>Market.</b> ${esc(AS.market.rule)} ${esc(MK.last_search)}</li>` +
       `<li><b>Rungs B and C</b> follow from A. In ${pct(AS.ladder.B_same_day_share)} of cases the first model is open to all on day one, otherwise after a delay averaging ${AS.ladder.B_delay_mean_days} days. In ${pct(AS.ladder.C_first_share)} the first model is itself speech-to-speech, otherwise one follows at the pooled lab rate.</li></ul>` +
-      `<p><b>Measured, and assumed.</b> Measured: the reference-class dates, the "coming weeks" lead times, and the shares for rungs B and C (each from seven cases or fewer). Assumed: taking the geometric mean of the two rates, the rule that program evidence earns the pooled rate, the grade and specificity weights, the half-life, the delay after a limited first release, and the market weight. None of these can be backtested, because the event has never happened; the open items are listed in the repo's experiment log.</p>` +
+      `<p><b>Measured, and assumed.</b> Measured: the reference-class dates, the "coming weeks" lead times, and the shares for rungs B and C (each from seven cases or fewer). Assumed: the half weight on the dated statement, taking the geometric mean of the two rates, the rule that program evidence earns the pooled rate, the grade and specificity weights, the half-life, the delay after a limited first release, and the market weight. None of these can be backtested, because the event has never happened; the open items are listed in the repo's experiment log.</p>` +
       `<div class="tbl"><table><thead><tr><th>Lab</th><th>First own speech model of the assistant era</th><th>Date</th><th>Days from first assistant</th></tr></thead><tbody>` +
       V.reference_class.map(r => `<tr><td class="l">${esc(r.lab)}</td><td class="l">${r.status === "shipped" ? `<a href="${esc(r.url)}">${esc(r.model)}</a> <span class="tiny">${esc(r.kind)}</span>` : "none yet"}</td><td class="num">${r.first_speech_date ? fmtD(r.first_speech_date) : "—"}</td><td class="num">${r.days}${r.status === "shipped" ? "" : "+"}</td></tr>`).join("") + `</tbody></table></div>` +
       `<p class="tiny">Model ${esc(V.model_version)}, as of ${fmtD(V.as_of)}. Every daily forecast is frozen and will be graded against these criteria.</p>`;

@@ -13,7 +13,14 @@ purpose and every step is printed:
   2. signals        a documented mapping from the open rows of
                     data/voice_signals.csv to hazard multipliers, and, once a
                     first-party "coming weeks" statement exists, the repo's
-                    measured 6-18 day lead time
+                    measured 6-18 day lead time. A dated first-party statement
+                    that names no speech model (signal V9, "more to share
+                    later this year") is not run as a release clock outright:
+                    the published curve is a mixture, (1 - w) x the forecast
+                    without that clock + w x the forecast with it, w =
+                    signals.unnamed_statement.unnamed_statement_weight in
+                    data/voice_params.json (an owner's judgement). The
+                    weighted part lapses after the row's `expires` date.
   3. market         a log-odds blend with a prediction-market price where a
                     market has been mapped to a rung (data/voice_params.json,
                     market.map); none exists as of 2026-11-10
@@ -30,6 +37,12 @@ A second run for the same date restores the snapshot and adds no rows. These
 files are separate from the family files on purpose: nothing here touches
 history/forecast_*.json or forecast_log.csv, and the family scorecard numbers
 do not include voice rows.
+
+A separate, informational question (data/voice_tracking.json: "any material
+voice update by 2026-12-31") is carried next to the rungs, in the snapshot's
+`tracking` list and in voice_tracking_log.csv. It never feeds rungs A-C.
+
+    python3 voice.py --selftest      # mixture checks: w = 0 and w = 1 reproduce the reference numbers
 
 Resolution lives in data/voice_resolutions.json and is set by hand on the day
 a rung resolves (DAILY_RUNBOOK.md, "Voice model").
@@ -69,9 +82,11 @@ def _no_nan(o):
 
 
 
-MODEL_VERSION = "voice-v1"
+MODEL_VERSION = "voice-v1.1"      # v1.1 (2026-11-17): half-weight mixture for an unnamed dated statement; EXPERIMENTS.md V7
 RUNGS = ["A", "B", "C"]
 LOG = "voice_forecast_log.csv"
+TRACK_LOG = "voice_tracking_log.csv"
+TRACK_COLS = ["as_of", "id", "deadline", "p", "p_low", "p_high", "anchor_date", "basis"]
 LOG_COLS = ["as_of", "model_version", "target", "checkpoint", "p_base", "p_model", "p_market", "p_final", "p_low", "p_high",
             "median", "q10", "q90"]
 VOICE_Q = re.compile(r"(?i)(anthropic|claude).*\b(voice|audio|speech|speak)|\b(voice|audio|speech)\b.*(anthropic|claude)")
@@ -123,8 +138,21 @@ def _class_best(sig, asof, cls, gw, sw, step_down=False):
     return best[0], last, best[1]
 
 
-def hazard_path(P, R, sig, as_of, scenario="central"):
-    """Daily hazard over the horizon, and what went into it. scenario: central | low | high | base."""
+def statement_rows(sig, as_of):
+    """Open dated first-party statements that name no speech model (specific 'no', grade A or B).
+    Returns (live, lapsed): live rows may run the weighted clock; a row lapses the day after its `expires` date."""
+    asof = pd.Timestamp(as_of)
+    rows = sig[(sig.status == "open") & sig.stage.isin(["dated_weeks", "dated_months"]) & (sig.specific == "no")
+               & sig.source_grade.isin(["A", "B"]) & (pd.to_datetime(sig.first_seen_date) <= asof)]
+    exp = rows.expires if "expires" in rows.columns else pd.Series("", index=rows.index)
+    gone = exp.map(lambda x: bool(x) and pd.Timestamp(x) < asof)
+    return rows[~gone], rows[gone]
+
+
+def hazard_path(P, R, sig, as_of, scenario="central", statement=False):
+    """Daily hazard over the horizon, and what went into it. scenario: central | low | high | base.
+    statement=True also runs the dated clock for live statements that name no model (see statement_rows);
+    compute() mixes the two paths."""
     asof = pd.Timestamp(as_of)
     H = int(P["horizon_days"])
     days = pd.date_range(asof, periods=H, freq="D")
@@ -162,7 +190,11 @@ def hazard_path(P, R, sig, as_of, scenario="central"):
     info["dated"] = []
     if scenario != "base":
         for stage in ("dated_weeks", "dated_months"):
-            rows = open_[(open_.stage == stage) & (open_.source_grade == "A")]
+            # a statement that names the model, on a first-party page, always runs; one that names none only when asked
+            rows = open_[(open_.stage == stage) & (open_.source_grade == "A") & (open_.specific != "no")]
+            if statement:
+                live, _ = statement_rows(sig, as_of)
+                rows = pd.concat([rows, live[live.stage == stage]])
             if not len(rows):
                 continue
             first = pd.to_datetime(rows.first_seen_date).max()
@@ -240,14 +272,89 @@ def read_markets(P, as_of):
     return out
 
 
+# ---------------------------------------------------------------- tracking question (informational)
+def _effective_days(d0, d1, factor):
+    """Days from d0 to d1 inclusive, low-hazard days (holiday freeze, Thanksgiving, election day) counted at `factor`."""
+    if pd.Timestamp(d1) < pd.Timestamp(d0):
+        return 0.0
+    days = pd.date_range(d0, d1, freq="D")
+    low = holiday_mask(days) | thanksgiving_mask(days) | election_mask(days)
+    return float(np.where(low, factor, 1.0).sum())
+
+
+def tracking(as_of, path="data/voice_tracking.json"):
+    """Informational questions next to the rungs (never an input to them). Each has a deadline, criteria, a
+    resolution set by hand, and a list of dated judgements ("anchors"). Between judgements the probability
+    follows one rule: the latest anchor fixes a constant daily rate over the effective days that were left
+    on its date, and each day that passes with nothing shipped leaves fewer days:
+        p(d) = 1 - (1 - p_anchor) ** (effective days left on d / effective days left on the anchor date)."""
+    if not os.path.exists(path):
+        return []
+    T = json.load(open(path))
+    factor = json.load(open("data/voice_params.json"))["calendar"]["factor"]
+    asof, out = pd.Timestamp(as_of), []
+    for q in T.get("questions", []):
+        res = q.get("resolution") or {}
+        anchors = sorted((a for a in q.get("anchors", []) if pd.Timestamp(a["date"]) <= asof), key=lambda a: a["date"])
+        item = dict(id=q["id"], question=q["question"], short=q.get("short", q["question"]), deadline=q["deadline"], counts=q.get("counts", []),
+                    does_not_count=q.get("does_not_count", []), reason=q.get("reason", {}), label=q.get("label", ""), rule=q.get("rule", ""),
+                    resolution=(res if res.get("outcome") else None), days_left=int((pd.Timestamp(q["deadline"]) - asof).days),
+                    p=None, p_low=None, p_high=None, anchor=(anchors[-1] if anchors else None), state="open")
+        if res.get("outcome") in ("yes", "no"):
+            item.update(state="resolved " + res["outcome"], p=(1.0 if res["outcome"] == "yes" else 0.0))
+        elif asof > pd.Timestamp(q["deadline"]):
+            item.update(state="deadline passed, not resolved by hand yet: grade it No unless something shipped", p=0.0)
+        elif anchors:
+            a = anchors[-1]
+            e0, e1 = _effective_days(a["date"], q["deadline"], factor), _effective_days(as_of, q["deadline"], factor)
+            f = (lambda p0: None if p0 is None else float(1.0 - (1.0 - p0) ** (e1 / e0)) if e0 > 0 else 0.0)
+            item.update(p=f(a["p"]), p_low=f(a.get("low")), p_high=f(a.get("high")))
+        out.append(item)
+    return out
+
+
+def append_tracking_log(out):
+    """One row per question per origin, append-only, like the forecast log."""
+    have = set()
+    if os.path.exists(TRACK_LOG):
+        have = {(r["as_of"], r["id"]) for r in csv.DictReader(open(TRACK_LOG))}
+    rows = [t for t in out.get("tracking", []) if t["p"] is not None and (out["as_of"], t["id"]) not in have]
+    if not rows:
+        return 0
+    new = not os.path.exists(TRACK_LOG)
+    with open(TRACK_LOG, "a", newline="") as fh:
+        w = csv.writer(fh)
+        if new:
+            w.writerow(TRACK_COLS)
+        for t in rows:
+            w.writerow([out["as_of"], t["id"], t["deadline"], round(t["p"], 4), "" if t["p_low"] is None else round(t["p_low"], 4),
+                        "" if t["p_high"] is None else round(t["p_high"], 4), (t["anchor"] or {}).get("date", ""),
+                        t["state"] if t["state"] != "open" else "rule from anchor"])
+    return len(rows)
+
+
 # ---------------------------------------------------------------- forecast
 def compute(as_of):
     P, ref, sig, res = load_inputs()
     R = base_rates(ref, as_of)
     asof = pd.Timestamp(as_of)
     paths = {}
+    live, lapsed = statement_rows(sig, as_of)
+    us = P["signals"].get("unnamed_statement", {})
+    w = float(us.get("unnamed_statement_weight", 0.0)) if len(live) else 0.0
+    if not 0.0 <= w <= 1.0:
+        raise SystemExit("unnamed_statement_weight must be between 0 and 1")
+    alt = {}
     for sc in ("base", "central", "low", "high"):
         days, cdf_a, info = hazard_path(P, R, sig, as_of, sc)
+        if len(live) and sc != "base":
+            # mixture of two readings of the statement: no effect, and a promise of a speech model (full clock).
+            # Rungs B and C are linear in rung A's curve, so mixing A first is the same as mixing each rung.
+            _, cdf_on, info_on = hazard_path(P, R, sig, as_of, sc, statement=True)
+            if sc == "central":
+                alt = dict(none=dict(zip(RUNGS, (cdf_a,) + ladder(P, R, cdf_a))), full=dict(zip(RUNGS, (cdf_on,) + ladder(P, R, cdf_on))),
+                           dated=info_on["dated"])
+            cdf_a = (1.0 - w) * cdf_a + w * cdf_on
         cdf_b, cdf_c = ladder(P, R, cdf_a)
         if (res.get("A") or {}).get("resolved_date"):
             # Rung A has happened. A rung still open did not resolve with it, so only the delay is left:
@@ -288,9 +395,23 @@ def compute(as_of):
         # quarter-end points for a reader who wants the curve (after signals, before any market blend)
         qe = [x for x in pd.date_range(asof, periods=17, freq="QE") if (x - asof).days < len(c)]
         rung["curve"] = {str(x.date()): round(at(c, str(x.date())), 4) for x in qe}
+        if alt:     # the two readings the published number is mixed from (central scenario, before any market blend)
+            rung["statement_alt"] = dict(
+                by={hz: dict(none=at(alt["none"][k], hz), full=at(alt["full"][k], hz)) for hz in rung["by"]},
+                median_none=quantile(days, alt["none"][k], 0.5), median_full=quantile(days, alt["full"][k], 0.5))
         out["rungs"][k] = rung
+    exp_of = lambda r: (r.expires if "expires" in r.index else "")
+    out["statement"] = None
+    if len(live):
+        r0 = live.sort_values("first_seen_date").iloc[-1]
+        out["statement"] = dict(signals=list(live.signal_id), weight=w, since=r0.first_seen_date, expires=exp_of(r0) or None,
+                                days_left=((pd.Timestamp(exp_of(r0)) - asof).days if exp_of(r0) else None), url=r0.source_url,
+                                clock=alt.get("dated", []), rule=us.get("rule", ""), status=us.get("status", ""))
+    out["statement_lapsed"] = [dict(signal=r.signal_id, since=r.first_seen_date, expired=exp_of(r), url=r.source_url) for _, r in lapsed.iterrows()]
+    out["tracking"] = tracking(as_of)
     out["signals"] = [dict(id=r.signal_id, code=r.signal_code, stage=r.stage, cls=r.cls, first_seen=r.first_seen_date, grade=r.source_grade,
-                           specific=r.specific, status=r.status, verified=r.verified, url=r.source_url, headline=r.headline, note=r.note)
+                           specific=r.specific, status=r.status, verified=r.verified, url=r.source_url, headline=r.headline, note=r.note,
+                           expires=(r.expires if "expires" in sig.columns else ""))
                       for _, r in sig.sort_values("first_seen_date", ascending=False).iterrows()]
     out["reference_class"] = [dict(lab=r.lab, era_start=r.era_start, first_speech_date=r.first_speech_date, model=r.first_speech_model,
                                    kind=r.kind, days=((pd.Timestamp(r.first_speech_date) - pd.Timestamp(r.era_start)).days if r.first_speech_date
@@ -299,7 +420,8 @@ def compute(as_of):
     out["markets"] = mk
     out["criteria"] = dict(does_not_count=P["does_not_count"], already_shipped_note=P["already_shipped_note"], grading_note=P["grading_note"])
     out["assumptions"] = dict(base_rate=P["base_rate"]["status"], program=P["signals"]["program"], prep={k: v for k, v in P["signals"]["prep"].items()},
-                              dated_weeks=P["signals"]["dated_weeks"], dated_months=P["signals"]["dated_months"], counter=P["signals"]["counter"],
+                              dated_weeks=P["signals"]["dated_weeks"], dated_months=P["signals"]["dated_months"],
+                              unnamed_statement=P["signals"].get("unnamed_statement"), counter=P["signals"]["counter"],
                               calendar=P["calendar"], ladder=P["ladder"], range=P["range"],
                               market={k: v for k, v in P["market"].items() if k not in ("map", "near_misses", "_map_format", "last_search")})
     out["cases"] = P["cases"]
@@ -360,6 +482,21 @@ def summary(out):
             continue
         L.append(f"  {k} {r['short']}: " + ", ".join(f"by {hz} {v['final']:.0%} ({v['low']:.0%}-{v['high']:.0%})" for hz, v in r["by"].items())
                  + f"; median {r['median']}, 80% {r['q10']} to {r['q90']}")
+    st = out.get("statement")
+    if st:
+        L.append(f"  statement {', '.join(st['signals'])} ({st['since']}, names no model): mixture weight {st['weight']:g}"
+                 + (f"; lapses after {st['expires']} ({st['days_left']} days left)" if st["expires"] else ""))
+        for k, r in out["rungs"].items():
+            if "statement_alt" in r:
+                L.append(f"    {k}: " + ", ".join(f"{hz} {v['none']:.0%} | {r['by'][hz]['signals']:.0%} | {v['full']:.0%}" for hz, v in r["statement_alt"]["by"].items())
+                         + f"  (no effect | published | full strength); median {r['statement_alt']['median_none']} | {r['median']} | {r['statement_alt']['median_full']}")
+    for x in out.get("statement_lapsed", []):
+        L.append(f"  !! statement {x['signal']} lapsed after {x['expired']} with no rung resolved: its clock no longer contributes. By hand: set its status to "
+                 f"'lapsed' in data/voice_signals.csv and record the undelivered promise in LEARNINGS.md (DAILY_RUNBOOK.md, Voice watch).")
+    for t in out.get("tracking", []):
+        L.append(f"  tracking (informational, not a rung): {t['short']}: " + (f"{t['p']:.0%}" if t["state"] == "open" else t["state"])
+                 + (f" ({t['p_low']:.0%}-{t['p_high']:.0%})" if t["state"] == "open" and t["p_low"] is not None else "")
+                 + (f"; {t['days_left']} days left; judgement of {t['anchor']['date']} ({t['anchor']['p']:.0%}) run down by rule" if t["state"] == "open" and t["anchor"] else ""))
     a = out["rungs"]["A"]
     if not a["resolved"]:
         L.append("  decomposition, rung A: " + "; ".join(
@@ -384,12 +521,61 @@ def run(as_of):
     json.dump(_no_nan(json.loads(json.dumps(out, default=float))), open("output/voice_forecast.json", "w"), indent=1, allow_nan=False)
     shutil.copy("output/voice_forecast.json", snap)
     n = append_log(out)
+    nt = append_tracking_log(out)
     print(summary(out))
-    print(f"wrote output/voice_forecast.json, {snap}; {n} rows appended to {LOG}")
+    print(f"wrote output/voice_forecast.json, {snap}; {n} rows appended to {LOG}, {nt} to {TRACK_LOG}")
     return True, out
 
 
+def selftest():
+    """The mixture's two ends, checked against numbers issued before it existed.
+    w = 0: every probability, range and date of the frozen 2026-11-17 snapshot (voice-v1), exactly.
+    w = 1: the 'full strength' reading reported on 2026-11-17 for origin 2026-11-18 (rung A 28 / 56 / 67 / 78%)."""
+    global load_inputs
+    real = load_inputs
+
+    def with_w(w):
+        def f():
+            P, ref, sig, res = real()
+            P["signals"].setdefault("unnamed_statement", {})["unnamed_statement_weight"] = w
+            return P, ref, sig, res
+        return f
+    try:
+        load_inputs = with_w(0.0)
+        got, ref = compute("2026-11-17"), json.load(open("history/voice_forecast_2026-11-17.json"))
+        assert got["statement"] and got["statement"]["weight"] == 0.0, "no live unnamed statement on 2026-11-17: the test would prove nothing"
+        for k in RUNGS:
+            for hz, v in ref["rungs"][k]["by"].items():
+                for c in ("base", "signals", "final", "low", "high"):
+                    assert got["rungs"][k]["by"][hz][c] == v[c], f"w=0 differs from the frozen snapshot: {k} {hz} {c}"
+            for c in ("median", "q10", "q90", "median_low", "median_high", "median_base"):
+                assert got["rungs"][k][c] == ref["rungs"][k][c], f"w=0 differs from the frozen snapshot: {k} {c}"
+        load_inputs = with_w(1.0)
+        got = compute("2026-11-18")
+        want = {"A": [0.2844, 0.5650, 0.6742, 0.7760], "B": [0.2121, 0.4846, 0.6235, 0.7573], "C": [0.1932, 0.3992, 0.4961, 0.6124]}
+        for k, ws in want.items():
+            for (hz, v), x in zip(got["rungs"][k]["by"].items(), ws):
+                assert abs(v["signals"] - x) < 5e-4, f"w=1 differs from the full-strength reference: {k} {hz} {v['signals']:.4f} vs {x}"
+        assert got["rungs"]["A"]["median"] == "2027-03-01", got["rungs"]["A"]["median"]
+        load_inputs = with_w(0.5)
+        mid = compute("2026-11-18")
+        for k in RUNGS:
+            for hz, v in mid["rungs"][k]["by"].items():
+                a = mid["rungs"][k]["statement_alt"]["by"][hz]
+                assert abs(v["signals"] - 0.5 * (a["none"] + a["full"])) < 1e-12, "w=0.5 is not the midpoint"
+        load_inputs = real
+        late = compute("2027-01-01")
+        assert late["statement"] is None and late["statement_lapsed"], "the statement did not lapse after its expiry date"
+        assert "statement_alt" not in late["rungs"]["A"]
+    finally:
+        load_inputs = real
+    print("voice selftest ok: w=0 equals the frozen 2026-11-17 snapshot; w=1 equals the full-strength reference; w=0.5 is the midpoint; the statement lapses on 2027-01-01")
+
+
 if __name__ == "__main__":
+    if "--selftest" in sys.argv:
+        selftest()
+        sys.exit(0)
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     if args:
         date = args[0]

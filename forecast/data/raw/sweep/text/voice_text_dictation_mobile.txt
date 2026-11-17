@@ -1,0 +1,26 @@
+Dictation is available to all Claude users (Free, Pro, Max, Ultra, Team, and Enterprise plans).
+Support for languages other than English is in beta.
+Dictation allows you to speak your prompts instead of typing them when using Claude for iOS or Android.
+Dictation is different from voice mode.
+Dictation turns your speech into text so you can send a written prompt, and Claude replies in text.
+Voice mode is a full spoken conversation—you talk to Claude and Claude talks back, and it can use your connected tools.
+Learn more about voice mode .
+Get started with dictation Open Claude for iOS or Android.
+Start a new chat with Claude.
+Tap the microphone icon on the right side of the chat input field.
+If this is your first time using dictation, you'll need to select your preferred language.
+You can change this later in Settings.
+Dictate your prompt.
+Tap the arrow icon to send your prompt.
+To cancel without sending, tap the "X" icon.
+Your prompt will automatically appear as text in the chat window.
+Claude will respond to your prompt in text format.
+Supported languages Dictation is currently available in these languages:
+English French German Hindi Italian Japanese Korean Portuguese Russian Spanish Turkish Ukrainian Change your language settings To change your speech input language:
+Tap your initials in the upper right corner.
+Select “Speech Input Language.” Choose your preferred language from the dropdown.
+Data privacy By default, after converting your speech input to text, we delete your audio recording.
+Your prompt is saved as text in your chat history.
+On Free, Pro, Max, and Ultra plans, you can choose to share your dictation recordings to help us improve dictation and voice mode.
+Learn more in Share your voice recordings with Anthropic .
+Learn more about our privacy practices by visiting our Privacy Policy and Privacy Center .
