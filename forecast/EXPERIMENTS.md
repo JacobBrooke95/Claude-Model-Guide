@@ -98,7 +98,7 @@ Status values: `ready` (can be run as written), `needs code` (a Config flag has 
 
 ## Voice-model forecast: assumptions held open (`voice.py`, `data/voice_params.json`)
 
-Added 2026-11-10 at Jacob's request. None of these can be backtested: the event has not happened, and the reference class is seven launches at other labs. They are assumptions, stated so they can be judged. Changing one is a model change (bump `MODEL_VERSION` in `voice.py`, log it here) and, like E1, a decision for Jacob. Status of all six: `tracking`.
+Added 2026-11-10 at Jacob's request. None of these can be backtested: the event has not happened, and the reference class is seven launches at other labs. They are assumptions, stated so they can be judged. Changing one is a model change (bump `MODEL_VERSION` in `voice.py`, log it here) and, like E1, a decision for Jacob. Status of all six: `tracking`. V7 was opened on 2026-11-17.
 
 ### V1. The base rate is the geometric mean of the pooled lab rate and Anthropic's own rate
 - **Assumed.** Pooled 0.55 a year, Anthropic alone 0.14, used 0.28. The pooled rate ignores that Anthropic has waited longer than any lab did; its own rate ignores every other lab.
@@ -123,6 +123,14 @@ Added 2026-11-10 at Jacob's request. None of these can be backtested: the event 
 ### V6. Market weight 0.75 (liquid) or 0.5 (thin)
 - **Assumed.** No market exists. The lean toward the market comes from the family scorecard (market 0.005, model 0.077 over two blocks) and from this model having no record.
 - **Would calibrate it.** A market opening. Until one has resolved against this forecast, the weight is a prior. E1's rule applies: do not fit a weight on fewer than 20 blocks.
+
+### V7. What a dated first-party statement must say before the second clock runs (opened 2026-11-17, `tracking`, for Jacob)
+- **The case.** Anthropic to Engadget, 2026-07-23: "We're continuing to invest in voice and we'll have more to share later this year" (signal V9). `voice_params.json` has a `dated_months` rule for first-party "later this year"; `voice.py` applies it to any open `dated_months` row of grade A and does not look at `specific`.
+- **Not stretched.** The rule's two calibration cases named a model, and so does every example in the runbook and on the page ("a voice model is coming"). V9 promises "more to share" about voice, which a feature update satisfies. It is logged `dated_months`, grade B (press-printed quote, as V6), `specific` no, and the clock does not run. No weight or code was changed.
+- **Both ways, origin 2026-11-18, rung A / B / C.** As logged: by 2026-12-31 8% / 6% / 5%; 2027-03-31 24% / 20% / 17%; 2027-06-30 37% / 33% / 27%; 2027-12-31 55% / 53% / 42%; medians 2027-10-23, 2027-11-28, 2028-04-22. Rule at full strength (V9 regraded A): 28% / 21% / 19%; 56% / 48% / 40%; 67% / 62% / 50%; 78% / 76% / 61%; medians 2027-03-01, 2027-04-08, 2027-07-05. Illustration only: the same clock with p_hit cut to 0.1 (one in five that "more" means a first-party speech model) gives rung A 12% / 31% / 43% / 60%.
+- **Three decisions it leaves open.** (1) Should a dated clock require `specific` yes or partial, in code, so that a regrade cannot switch it on? (2) Is an on-record statement printed by a news outlet grade A or B here? The family file graded such statements A (s040, s068); this file graded V6 B. (3) The `dated_months` clock keeps running after "this year" ends; a statement that names the year should probably lapse on Dec 31.
+- **Related, same review.** V3's `specific` is `partial` on the strength of in-app wording seen only through relays; on the help article alone it is `no`, and rung A would be 6% / 21% / 33% / 51% (prep ×1.32 instead of ×1.59). Google's reference-class row dates its first speech model to the Live API (2024-12-11); Gemini 1.5 Pro took audio input from 2024-04-09 (Google Developers Blog, opened 2026-11-17), which would fit rung A's wording better. The date was not changed: it is a definitional choice that moves the pooled rate.
+- **Proposed tracking question, not graded, not on the page.** "By 2026-12-31 Anthropic announces on a first-party page, or ships, a material voice update: a new voice-mode capability, a voice or audio API, or a first-party speech model. New voices or languages alone, fixes, policy pages, leaks and transcription-only features do not count." Estimate on 2026-11-17: 35% (25%–45%), judgement, no model. The page's voice text is in `page_template.html`, not `page_text.json`, so showing it needs a template change.
 
 **Also open.** The model has no absence-of-evidence term (as E8) and no term for Anthropic choosing a deeper partnership instead; rung A depends on Anthropic saying the model is its own, which the model treats as certain if one ships.
 

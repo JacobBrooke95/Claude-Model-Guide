@@ -15,6 +15,25 @@ A lesson is not a model change. A lesson that implies one becomes a backlog entr
 7. **A release-day run takes the next day as its origin.** `daily.py` does this; do not override it.
 8. **An unmapped target is invisible to the model.** A new `UNRELEASED …` row must be added to `LIVE` in `tools/build_signals.py`.
 
+## 2026-11-17 — Voice signal record corrected after review; a vague dated statement is not a release clock
+
+A review of `data/voice_signals.csv` found four rows that said more than their sources. All were checked against the pages on 2026-11-17 and corrected in place, each with a `corrected 2026-11-17:` trail in its note. This entry supersedes the 2026-11-10 entry's phrase "a voice-recording opt-in that reversed a no-training line".
+
+- **V1** cited a TechCrunch article (2025-05-27) that does not carry the Krieger quote. The quote is in TechCrunch's 2025-03-18 brief on the FT interview: "We will do voice internally […] it is a useful modality to have. We have prototypes." The FT original is still unopened (403), so the row stays RELAYED, grade B.
+- **V3** said the Oct 4 recording opt-in reversed the no-training line. The help article says recordings are used "to evaluate and improve voice mode and dictation" and are kept 30 days; the privacy center (last updated 2026-03-16) still says "We do not use your voice for training our models." Only the in-app prompt, seen through relays, speaks of improving "Anthropic AI models".
+- **V6** put Engadget's paraphrase in quotation marks and left out the statement now logged as **V9**: "We're continuing to invest in voice and we'll have more to share later this year" (Anthropic to Engadget, 2026-07-23).
+- **V8** dropped the scope: the trust-center note, as Simon Willison quotes it, names ElevenLabs for text to speech "in Claude for Work mobile apps".
+- **V4** lost a detail that is not in the article; **V10** (Claude Meetings, 2026-11-12, a transcription feature with no named speech model) was added as context. The reference class gained `packaging` columns (analysis, not verified today).
+
+What a future run should do differently:
+
+- **Check that the quote is at the URL in the row**, not merely that the URL is about the same event. V1's source confirmed the interview and not the words.
+- **Write what the page says a thing is for, not what it implies.** "Reverses" was an inference from two pages that are both still live.
+- **A dated statement starts the release clock only if it is about the thing a rung asks for.** `dated_weeks` and `dated_months` were calibrated on statements naming a model (five "coming weeks", 6–18 days; one "later this year" statement of 2024-06-20 covering two models: Claude 3.5 Haiku announced after 124 days, Claude 3.5 Opus never). V9 names no model. A voice product already exists, so new voices, languages, a redesigned Voice screen or a newer text model in voice mode would all be "more to share", and none resolves a rung. V9 is therefore logged as `dated_months`, grade B (a quote in a news article, as V6), `specific` no; `voice.py` runs the clock on grade A rows only, so the number does not move. At grade A it would: rung A by 2026-12-31 from 8% to 28%, by end-2027 from 55% to 78%. Do not regrade it without Jacob (`EXPERIMENTS.md` V7).
+- **When a signal file is corrected after the day's run, today's snapshot stays as issued.** `voice.py` restores a frozen origin; the corrected rows enter the next origin. Say so in the day's note.
+- **The sweep's voice terms miss transcription features.** Claude Meetings (Nov 12) listens to calls and went unseen for five days. Left for Jacob: adding terms to `sweep.py` changes a tool.
+- **Could not be opened on 2026-11-17:** the FT interview (403), Wayback (connection reset; so what changed in the three voice help articles on 2026-11-09 is unknown), Anthropic's subprocessor list (script-rendered), App Store and Google Play version notes (generic text only).
+
 ## 2026-11-14 — A new ladder can arrive with untraded rungs
 
 Polymarket opened "Next Fable Model (5.3+) released by …" on or just before 2026-11-14 with $22 of volume on the December rung and none on January or February (raw prices 59.5% and 57.5%, out of order). The ladder regex read it without an edit, but the monotone clean-up weighted rungs by volume and divided by zero, so the frozen 11-14 snapshot and two `forecast_log.csv` rows carry NaN as the market value for Fable by Jan 31 and Feb 28 (the model's own numbers and the December rung are sound). `engine/market.py` now floors the weights. For future runs: (1) do not repair the 11-14 snapshot or those log rows, they are frozen; pandas reads `nan` as missing and the scorecard skips it; (2) when `daily.py` prints a new ladder, look at its volumes before quoting it. A price on a rung with no trades is an opening quote, not a market view, and a rung under about $1,000 should be called thin wherever it is quoted.
