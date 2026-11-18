@@ -37,6 +37,8 @@ LADDERS = {
     "opus": r"^Next (?:Claude )?Opus(?: Model)? " + _V + r" released by (.+?)\?$",
     "sonnet": r"^Next (?:Claude )?Sonnet(?: Model)? " + _V + r" released by (.+?)\?$",
     "haiku": r"^Next (?:Claude )?Haiku(?: Model)? " + _V + r" released by (.+?)\?$",
+    # Added 2026-11-18, when Polymarket opened "Next Mythos Model (5.3+) released by ...".
+    "mythos": r"^Next (?:Claude )?Mythos(?: Model)? " + _V + r" released by (.+?)\?$",
 }
 
 
