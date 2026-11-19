@@ -671,3 +671,105 @@ date,source_id,kind,url,status,result,detail
 2026-11-18,voice_foundry_cards,manual,https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/models-from-partners,,nothing,"opened 11:49 UTC: Foundry partner-models page lists claude-fable-5-2 and claude-opus-5-5 with 'Input: text, image, and code; Output: text, image, and code'; no audio or speech on any Claude row"
 2026-11-18,voice_subprocessors,manual,https://trust.anthropic.com/subprocessors,,skipped,trust.anthropic.com/subprocessors returned a 7 KB script shell with no vendor names; list not readable from this session
 2026-11-18,voice_app_store,manual,https://apps.apple.com/us/app/claude-by-anthropic/id6473753684,,nothing,"opened 11:47 UTC: App Store newest version 1.261116.19 (2026-11-18 02:47 UTC), notes 'Squashed some bugs and improved the overall experience'; generic text, nothing about voice"
+2026-11-19,anthropic_news,tokens,https://www.anthropic.com/news,200,nothing,
+2026-11-19,docs_release_notes,tokens,https://platform.claude.com/docs/en/release-notes/overview,200,changed,"removed: claude-4-6, claude-4-7"
+2026-11-19,docs_models_overview,tokens,https://platform.claude.com/docs/en/about-claude/models/overview,200,nothing,
+2026-11-19,docs_deprecations,tokens,https://platform.claude.com/docs/en/about-claude/model-deprecations,200,nothing,
+2026-11-19,docs_pricing,tokens,https://platform.claude.com/docs/en/about-claude/pricing,200,nothing,
+2026-11-19,support_release_notes,tokens,https://support.claude.com/en/articles/12138966-release-notes,200,nothing,
+2026-11-19,page_opus,tokens,https://www.anthropic.com/claude/opus,200,nothing,
+2026-11-19,page_sonnet,tokens,https://www.anthropic.com/claude/sonnet,200,nothing,
+2026-11-19,page_haiku,tokens,https://www.anthropic.com/claude/haiku,200,nothing,
+2026-11-19,page_fable,tokens,https://www.anthropic.com/claude/fable,200,nothing,
+2026-11-19,page_mythos,tokens,https://www.anthropic.com/claude/mythos,200,nothing,
+2026-11-19,anthropic_system_cards,tokens,https://www.anthropic.com/system-cards,200,nothing,
+2026-11-19,litellm_prices,tokens,https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json,200,nothing,
+2026-11-19,openrouter_models,tokens,https://openrouter.ai/api/v1/models,200,nothing,
+2026-11-19,npm_claude_code,tokens,https://registry.npmjs.org/@anthropic-ai/claude-code/latest,200,nothing,
+2026-11-19,npm_anthropic_sdk,tokens,https://registry.npmjs.org/@anthropic-ai/sdk/latest,200,nothing,
+2026-11-19,bedrock,tokens,https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html,200,nothing,
+2026-11-19,vertex,tokens,https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/claude,200,nothing,
+2026-11-19,azure_foundry,tokens,https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/models-sold-directly-by-azure,200,nothing,
+2026-11-19,bench_artificial_analysis,tokens,https://artificialanalysis.ai/models,200,nothing,
+2026-11-19,testingcatalog_anthropic,tokens,https://www.testingcatalog.com/tag/anthropic/,200,nothing,
+2026-11-19,the_information,headlines,https://www.theinformation.com/feed,200,changed,"added: 2026-11-18 | Anthropic Raises $81 Billion in Upsized IPO | https://www.theinformation.com/briefings/anthropic-prices-ipo-83-share, 2026-11-18 | Why Anthropic’s IPO Is Making Philanthropist Craig Newmark Hold Back on AI Safety Donations | https://www.theinformation.com/articles/anthropics-ipo-making-philanthropist-craig-newmark-hold-back-ai-safety-donations, 2026-11-19 | Anthropic’s Public Debut Looms | https://www.theinformation.com/articles/anthropics-public-debut-looms"
+2026-11-19,voice_docs_index,voice_terms,https://platform.claude.com/llms.txt,200,nothing,
+2026-11-19,voice_docs_models,voice_terms,https://platform.claude.com/docs/en/about-claude/models/overview,200,nothing,
+2026-11-19,voice_docs_release_notes,voice_terms,https://platform.claude.com/docs/en/release-notes/overview,200,nothing,
+2026-11-19,voice_docs_pricing,voice_terms,https://platform.claude.com/docs/en/about-claude/pricing,200,nothing,
+2026-11-19,voice_anthropic_news,voice_terms,https://www.anthropic.com/news,200,nothing,
+2026-11-19,voice_support_release_notes,voice_terms,https://support.claude.com/en/articles/12138966-release-notes,200,nothing,
+2026-11-19,voice_support_voice_mode,voice_page,https://support.claude.com/en/articles/11101966-use-voice-mode,200,nothing,
+2026-11-19,voice_support_recordings,voice_page,https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic,200,nothing,
+2026-11-19,voice_claude_code_dictation,voice_page,https://code.claude.com/docs/en/voice-dictation.md,200,nothing,
+2026-11-19,voice_jobs,voice_jobs,https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true,200,nothing,
+2026-11-19,voice_litellm,voice_catalog,https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json,200,nothing,
+2026-11-19,voice_openrouter,voice_catalog,https://openrouter.ai/api/v1/models,200,nothing,
+2026-11-19,voice_testingcatalog,voice_links,https://www.testingcatalog.com/tag/anthropic/,200,nothing,
+2026-11-19,voice_text_voice_mode,voice_text,https://support.claude.com/en/articles/11101966-use-voice-mode,200,nothing,
+2026-11-19,voice_text_recordings,voice_text,https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic,200,nothing,
+2026-11-19,voice_text_dictation_mobile,voice_text,https://support.claude.com/en/articles/10065434-use-dictation-on-claude-mobile,200,nothing,
+2026-11-19,voice_text_meetings,voice_text,https://support.claude.com/en/articles/18325154-use-claude-meetings,200,nothing,
+2026-11-19,voice_text_claude_code_dictation,voice_text,https://code.claude.com/docs/en/voice-dictation.md,200,changed,"EDITED, diff in data/raw/sweep/text/voice_text_claude_code_dictation.2026-11-19.diff; added: ``` /voice turned on voice mode (hold).; removed: ``` /voice voice mode enabled (hold)."
+2026-11-19,voice_privacy_training_line,voice_sentence,https://privacy.claude.com/en/articles/10067979-how-does-anthropic-process-my-voice-data,200,nothing,
+2026-11-19,voice_models_modality_line,voice_sentence,https://platform.claude.com/docs/en/about-claude/models/overview.md,200,nothing,
+2026-11-19,voice_docs_index_lines,voice_lines,https://platform.claude.com/llms.txt,200,nothing,
+2026-11-19,voice_pricing_lines,voice_lines,https://platform.claude.com/docs/en/about-claude/pricing.md,200,nothing,
+2026-11-19,voice_sdk_python_changelog,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md,200,nothing,
+2026-11-19,voice_sdk_python_api,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/api.md,200,nothing,
+2026-11-19,voice_sdk_typescript_changelog,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md,200,nothing,
+2026-11-19,voice_sdk_typescript_api,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/api.md,200,nothing,
+2026-11-19,voice_job_ids,voice_job_ids,https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true,200,nothing,
+2026-11-19,voice_bedrock_opus_5_5,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-opus-5-5.md,200,nothing,
+2026-11-19,voice_bedrock_sonnet_5_5,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-sonnet-5-5.md,200,nothing,
+2026-11-19,voice_bedrock_fable_5_2,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-fable-5-2.md,200,nothing,
+2026-11-19,probe_opus_5-6_news,probe,https://www.anthropic.com/news/claude-opus-5-6,404,nothing,
+2026-11-19,probe_opus_5-6_card,probe,https://www.anthropic.com/claude-opus-5-6-system-card,404,nothing,
+2026-11-19,probe_opus_6_news,probe,https://www.anthropic.com/news/claude-opus-6,404,nothing,
+2026-11-19,probe_opus_6_card,probe,https://www.anthropic.com/claude-opus-6-system-card,404,nothing,
+2026-11-19,probe_sonnet_5-6_news,probe,https://www.anthropic.com/news/claude-sonnet-5-6,404,nothing,
+2026-11-19,probe_sonnet_5-6_card,probe,https://www.anthropic.com/claude-sonnet-5-6-system-card,404,nothing,
+2026-11-19,probe_sonnet_6_news,probe,https://www.anthropic.com/news/claude-sonnet-6,404,nothing,
+2026-11-19,probe_sonnet_6_card,probe,https://www.anthropic.com/claude-sonnet-6-system-card,404,nothing,
+2026-11-19,probe_haiku_6_news,probe,https://www.anthropic.com/news/claude-haiku-6,404,nothing,
+2026-11-19,probe_haiku_6_card,probe,https://www.anthropic.com/claude-haiku-6-system-card,404,nothing,
+2026-11-19,probe_haiku_5-6_news,probe,https://www.anthropic.com/news/claude-haiku-5-6,404,nothing,
+2026-11-19,probe_haiku_5-6_card,probe,https://www.anthropic.com/claude-haiku-5-6-system-card,404,nothing,
+2026-11-19,probe_fable_5-3_news,probe,https://www.anthropic.com/news/claude-fable-5-3,404,nothing,
+2026-11-19,probe_fable_5-3_card,probe,https://www.anthropic.com/claude-fable-5-3-system-card,404,nothing,
+2026-11-19,probe_fable_6_news,probe,https://www.anthropic.com/news/claude-fable-6,404,nothing,
+2026-11-19,probe_fable_6_card,probe,https://www.anthropic.com/claude-fable-6-system-card,404,nothing,
+2026-11-19,probe_fable_5-5_news,probe,https://www.anthropic.com/news/claude-fable-5-5,404,nothing,
+2026-11-19,probe_fable_5-5_card,probe,https://www.anthropic.com/claude-fable-5-5-system-card,404,nothing,
+2026-11-19,probe_mythos_5-3_news,probe,https://www.anthropic.com/news/claude-mythos-5-3,404,nothing,
+2026-11-19,probe_mythos_5-3_card,probe,https://www.anthropic.com/claude-mythos-5-3-system-card,404,nothing,
+2026-11-19,probe_mythos_6_news,probe,https://www.anthropic.com/news/claude-mythos-6,404,nothing,
+2026-11-19,probe_mythos_6_card,probe,https://www.anthropic.com/claude-mythos-6-system-card,404,nothing,
+2026-11-19,probe_mythos_5-5_news,probe,https://www.anthropic.com/news/claude-mythos-5-5,404,nothing,
+2026-11-19,probe_mythos_5-5_card,probe,https://www.anthropic.com/claude-mythos-5-5-system-card,404,nothing,
+2026-11-19,probe_fable_mythos_5-3_page,probe,https://www.anthropic.com/claude-fable-and-mythos-5-3,404,nothing,
+2026-11-19,probe_fable_mythos_5-3_card,probe,https://www.anthropic.com/claude-fable-5-3-mythos-5-3-system-card,404,nothing,
+2026-11-19,probe_fable_mythos_5-5_page,probe,https://www.anthropic.com/claude-fable-and-mythos-5-5,404,nothing,
+2026-11-19,probe_fable_mythos_5-5_card,probe,https://www.anthropic.com/claude-fable-5-5-mythos-5-5-system-card,404,nothing,
+2026-11-19,probe_fable_mythos_6_page,probe,https://www.anthropic.com/claude-fable-and-mythos-6,404,nothing,
+2026-11-19,probe_fable_mythos_6_card,probe,https://www.anthropic.com/claude-fable-6-mythos-6-system-card,404,nothing,
+2026-11-19,probe_voice_page,probe,https://www.anthropic.com/claude/voice,404,nothing,
+2026-11-19,probe_voice_news,probe,https://www.anthropic.com/news/claude-voice,404,nothing,
+2026-11-19,docs_release_notes,manual,https://platform.claude.com/docs/en/release-notes/overview,,nothing,changed line opened 11:35 UTC: tokens claude-4-6 and claude-4-7 dropped from the page (old entries); newest entry Nov 17 (Linked billing); no new model entry
+2026-11-19,voice_text_claude_code_dictation,manual,https://code.claude.com/docs/en/voice-dictation.md,,nothing,"EDITED, diff read: one example line reworded ('/voice Voice mode enabled (hold).' -> '/voice Turned on voice mode (hold).'); nothing about models, speech, recordings or partners; no signal"
+2026-11-19,the_information,manual,https://www.theinformation.com/feed,,nothing,"feed headlines and summaries only (articles paywalled): 3 new Anthropic items 11-18/19, all about the IPO (priced at $83, $81B raised, debut Thursday); no model or voice content"
+2026-11-19,anthropic_news,manual,https://www.anthropic.com/news/anthropic-prices-initial-public-offering,,nothing,"opened 11:42 UTC: newest post Nov 18 'Anthropic prices initial public offering' ($83.00, 980,000,000 Class A shares, Nasdaq ANT, trading to begin Nov 19, close Nov 20); corporate, no model or product named"
+2026-11-19,vault,manual,,,nothing,"read-only, 11:40 UTC: HEAD e7c26c6; no desk commit under 2-Areas/Claude-Rumors since 11-11 (11-15 commits are this forecast's weekly note); newest instrument run 2026-11-08; desk paused since 11-09"
+2026-11-19,devin_cli,manual,,,skipped,desk paused since 11-09 (vault has no instrument run after 11-08); eleventh day blind
+2026-11-19,cursor,manual,,,skipped,desk paused; no relay found
+2026-11-19,copilot,manual,,,skipped,desk paused; no relay found
+2026-11-19,bench_livebench,manual,https://github.com/LiveBench/LiveBench,,nothing,shallow clone 11:45 UTC: newest commit 2026-10-17 (deepseek-v4.1-flash config); no Claude name
+2026-11-19,testingcatalog_anthropic,manual,https://www.testingcatalog.com/tag/anthropic/,,nothing,opened 11:42 UTC: newest Anthropic article still 2026-11-09 (Fable 5.2 / Mythos 5.2 launch)
+2026-11-19,press,manual,,,nothing,"web search, last two days: Opus 5.6, Sonnet 5.6, Fable 5.3, Mythos 5.3, Claude 6: nothing dated after 11-09; results are IPO previews and SEO pages"
+2026-11-19,x_tipsters,manual,,,skipped,X not readable from this session; no relay surfaced in search
+2026-11-19,voice_press,manual,,,nothing,"web search, last two days (voice model, speech-to-speech, audio model, text-to-speech, realtime): newest coverage is the July 23 voice-mode update; nothing from November"
+2026-11-19,voice_vertex,manual,https://docs.cloud.google.com/vertex-ai/generative-ai/docs/partner-models/claude/fable-5-2,,nothing,"11:42 UTC: Fable 5.2 and Opus 5.5 cards say 'Inputs: Text, Image, PDF' / 'Outputs: Text'; no audio"
+2026-11-19,voice_foundry,manual,https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/models-from-partners,,nothing,"11:41 UTC: every Claude row 'Input: text, image, and code'; no audio on any Claude row (page dated 2026-09-21 in metadata but lists claude-fable-5-2)"
+2026-11-19,voice_app_store,manual,https://apps.apple.com/us/app/claude-by-anthropic/id6473753684,,nothing,"11:41 UTC: version 1.261116.19, '1d ago', notes 'Squashed some bugs and improved the overall experience'"
+2026-11-19,voice_subprocessors,manual,,,skipped,"trust.anthropic.com/subprocessors returns a 7 KB script shell (HTTP 200), no vendor names readable; fourth run unreadable"
+2026-11-19,competitors,manual,,,nothing,"one search: no frontier-lab release confirmed for 11-17..11-19; tracker pages only, no primary opened; no row added"

@@ -1,0 +1,7 @@
+--- before
++++ after (2026-11-19)
+@@ -28,3 +28,3 @@
+ On macOS, this triggers the system microphone permission prompt for your terminal if it has never been granted.
+-``` /voice Voice mode enabled (hold).
++``` /voice Turned on voice mode (hold).
+ Hold space to record.

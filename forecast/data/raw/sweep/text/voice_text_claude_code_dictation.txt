@@ -26,7 +26,7 @@ It is not available in VS Code Remote sessions, including SSH, Dev Containers, a
 ## Enable voice dictation Run `/voice` to enable dictation.
 When you enable it, Claude Code runs a microphone check.
 On macOS, this triggers the system microphone permission prompt for your terminal if it has never been granted.
-``` /voice Voice mode enabled (hold).
+``` /voice Turned on voice mode (hold).
 Hold space to record.
 Dictation language:
 en (/config to change).

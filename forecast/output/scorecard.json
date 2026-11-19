@@ -1,5 +1,5 @@
 {
- "as_of": "2026-11-18",
+ "as_of": "2026-11-19",
  "generated_by": "tools/scorecard.py",
  "primary_max_lead_days": 92,
  "unit": "block = one family within one inter-release interval; n_blocks is the sample size",
@@ -191,9 +191,9 @@
   }
  ],
  "voice": {
-  "n_logged_rows": 96,
-  "n_snapshots": 8,
-  "n_open_rows": 96,
+  "n_logged_rows": 108,
+  "n_snapshots": 9,
+  "n_open_rows": 108,
   "n_resolved_rows": 0,
   "first_checkpoint": "2026-12-31",
   "resolutions": {
