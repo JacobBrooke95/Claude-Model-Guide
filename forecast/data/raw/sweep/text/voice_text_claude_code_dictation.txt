@@ -50,9 +50,6 @@ The footer shows `keep holding…` during warmup, then `listening…` once recor
 While recording, the prompt cursor becomes a bar that rises and falls with your microphone level, unless you have [`prefersReducedMotion`](https://code.claude.com/docs/en/settings-reference#prefersreducedmotion) turned on.
 The first couple of key-repeat characters type into the input during warmup and are removed automatically when recording activates.
 A single `Space` tap still types a space, since hold detection only triggers on rapid repeat.
-Holding or tapping `Space` starts dictation only where the keypress would otherwise type into the prompt.
-In the [transcript viewer](https://code.claude.com/docs/en/interactive-mode.md#transcript-viewer), `Space` pages through the conversation, and in [vim mode](https://code.claude.com/docs/en/interactive-mode.md#vim-editor-mode) outside INSERT it is a command.
-A [rebound modifier combination](#rebind-the-dictation-key) like `meta+k` never types text, so it starts dictation from those places too.
 > [!TIP] > > To skip the warmup, switch to [tap mode](#tap-to-record-and-send) with `/voice tap`, or [rebind to a modifier combination](#rebind-the-dictation-key) like `meta+k`.
 Modifier combos start recording on the first keypress.
 Your speech appears in the prompt as you speak, dimmed until the transcript is finalized.
@@ -62,6 +59,9 @@ Hold `Space` again to append another recording, or move the cursor first to inse
 ``` > refactor the auth middleware to ▮ # hold space, speak "use the new token validation helper" > refactor the auth middleware to use the new token validation helper▮ ``` By default, when you release the key, Claude Code inserts the transcript and waits for you to press `Enter`.
 Set `"autoSubmit":
 true` in the `voice` settings object to send the prompt automatically when you release the key, as long as the transcript is at least three words long.
+Holding or tapping `Space` starts dictation only where the keypress would otherwise type into the prompt.
+In the [transcript viewer](https://code.claude.com/docs/en/interactive-mode.md#transcript-viewer), `Space` pages through the conversation, and in [vim mode](https://code.claude.com/docs/en/interactive-mode.md#vim-editor-mode) outside INSERT it is a command.
+To dictate from either place, [rebind to a modifier combination](#rebind-the-dictation-key) like `meta+k`.
 ## Tap to record and send Tap mode toggles recording with a single keypress:
 tap once to start, speak, then tap again to send the prompt.
 There is no warmup, and you don't need to keep the key held.
@@ -107,11 +107,11 @@ Some keys are not delivered to terminal applications and can't be bound at all.
 For example, `Caps Lock` shows an error if you try to bind it.
 See [customize keyboard shortcuts](https://code.claude.com/docs/en/keybindings.md) for the full keybinding syntax and the list of reserved shortcuts.
 ## Troubleshooting Common issues when voice dictation does not activate or record:
-* **`Unknown command:
+* **`/voice needs a Claude subscription` or `/voice isn't available with `**:
 `/voice` is available only while a claude.ai account is your active sign-in.
 If you aren't signed in with one, run `/login`.
 If `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, an `apiKeyHelper` setting, or a [third-party provider](#requirements) is in use, it takes precedence over a claude.ai sign-in, so remove it and restart Claude Code.
-* **`Voice mode requires a Claude.ai account`**:
+* **`Voice mode needs a Claude.ai account`**:
 Claude Code couldn't find a usable claude.ai sign-in when you ran `/voice` or started recording.
 Run `/login` to sign in again.
 * **`Voice mode is disabled by your organization's policy`**:
@@ -122,13 +122,11 @@ grant microphone permission to your terminal in system settings.
 On macOS, go to System Settings → Privacy & Security → Microphone and enable your terminal app, then run `/voice` again.
 On Windows, go to Settings → Privacy & security → Microphone and turn on microphone access for desktop apps, then run `/voice` again.
 If your terminal isn't listed in the macOS settings, see [Terminal not listed in macOS Microphone settings](#terminal-not-listed-in-macos-microphone-settings).
-* **`Voice mode requires SoX for audio recording` on Linux**:
-the native audio module could not load and no fallback is installed.
-Install SoX with the command shown in the error message, for example `sudo apt-get install sox`.
-* **`Voice mode requires a microphone, but SoX could not open an audio capture device`**:
+* **`Voice mode needs SoX to record` on Linux**:
+install SoX with the command shown in the error message, for example `sudo apt-get install sox`.
+* **`Voice mode needs a microphone, and SoX couldn't open one`**:
 SoX is installed, but the host has no audio capture device, for example a headless server or a container.
 Run Claude Code on a machine with a microphone.
-As of v2.1.195, Claude Code on Linux reports this message in that situation; earlier versions asked you to install SoX even when it was already installed.
 * **`Voice mode could not find a working audio recorder in WSL`**:
 WSLg routes audio through PulseAudio rather than an ALSA device, so SoX needs its PulseAudio backend installed explicitly.
 Run `sudo apt install sox libsox-fmt-pulse`.

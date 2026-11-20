@@ -1,3 +1,4 @@
 as_of,id,deadline,p,p_low,p_high,anchor_date,basis
 2026-11-18,voice_update_2026,2026-12-31,0.3418,0.2437,0.4404,2026-11-17,rule from anchor
 2026-11-19,voice_update_2026,2026-12-31,0.3336,0.2374,0.4306,2026-11-17,rule from anchor
+2026-11-20,voice_update_2026,2026-12-31,0.3252,0.231,0.4207,2026-11-17,rule from anchor

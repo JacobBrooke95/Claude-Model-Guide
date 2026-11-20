@@ -1,0 +1,37 @@
+--- before
++++ after (2026-11-20)
+@@ -52,5 +52,2 @@
+ A single `Space` tap still types a space, since hold detection only triggers on rapid repeat.
+-Holding or tapping `Space` starts dictation only where the keypress would otherwise type into the prompt.
+-In the [transcript viewer](https://code.claude.com/docs/en/interactive-mode.md#transcript-viewer), `Space` pages through the conversation, and in [vim mode](https://code.claude.com/docs/en/interactive-mode.md#vim-editor-mode) outside INSERT it is a command.
+-A [rebound modifier combination](#rebind-the-dictation-key) like `meta+k` never types text, so it starts dictation from those places too.
+ > [!TIP] > > To skip the warmup, switch to [tap mode](#tap-to-record-and-send) with `/voice tap`, or [rebind to a modifier combination](#rebind-the-dictation-key) like `meta+k`.
+@@ -64,2 +61,5 @@
+ true` in the `voice` settings object to send the prompt automatically when you release the key, as long as the transcript is at least three words long.
++Holding or tapping `Space` starts dictation only where the keypress would otherwise type into the prompt.
++In the [transcript viewer](https://code.claude.com/docs/en/interactive-mode.md#transcript-viewer), `Space` pages through the conversation, and in [vim mode](https://code.claude.com/docs/en/interactive-mode.md#vim-editor-mode) outside INSERT it is a command.
++To dictate from either place, [rebind to a modifier combination](#rebind-the-dictation-key) like `meta+k`.
+ ## Tap to record and send Tap mode toggles recording with a single keypress:
+@@ -109,3 +109,3 @@
+ ## Troubleshooting Common issues when voice dictation does not activate or record:
+-* **`Unknown command:
++* **`/voice needs a Claude subscription` or `/voice isn't available with `**:
+ `/voice` is available only while a claude.ai account is your active sign-in.
+@@ -113,3 +113,3 @@
+ If `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, an `apiKeyHelper` setting, or a [third-party provider](#requirements) is in use, it takes precedence over a claude.ai sign-in, so remove it and restart Claude Code.
+-* **`Voice mode requires a Claude.ai account`**:
++* **`Voice mode needs a Claude.ai account`**:
+ Claude Code couldn't find a usable claude.ai sign-in when you ran `/voice` or started recording.
+@@ -124,9 +124,7 @@
+ If your terminal isn't listed in the macOS settings, see [Terminal not listed in macOS Microphone settings](#terminal-not-listed-in-macos-microphone-settings).
+-* **`Voice mode requires SoX for audio recording` on Linux**:
+-the native audio module could not load and no fallback is installed.
+-Install SoX with the command shown in the error message, for example `sudo apt-get install sox`.
+-* **`Voice mode requires a microphone, but SoX could not open an audio capture device`**:
++* **`Voice mode needs SoX to record` on Linux**:
++install SoX with the command shown in the error message, for example `sudo apt-get install sox`.
++* **`Voice mode needs a microphone, and SoX couldn't open one`**:
+ SoX is installed, but the host has no audio capture device, for example a headless server or a container.
+ Run Claude Code on a machine with a microphone.
+-As of v2.1.195, Claude Code on Linux reports this message in that situation; earlier versions asked you to install SoX even when it was already installed.
+ * **`Voice mode could not find a working audio recorder in WSL`**:
