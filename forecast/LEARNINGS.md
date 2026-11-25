@@ -15,6 +15,17 @@ A lesson is not a model change. A lesson that implies one becomes a backlog entr
 7. **A release-day run takes the next day as its origin.** `daily.py` does this; do not override it.
 8. **An unmapped target is invisible to the model.** A new `UNRELEASED …` row must be added to `LIVE` in `tools/build_signals.py`.
 
+## 2026-11-25 (afternoon) — A tipster post is the top of a thread; open the thread and the accounts it names
+
+The morning run logged leo's post and wrote "replies not opened; other accounts not readable". Five hours later Jacob asked about "new rumors" (TestingCatalog's 16:31 UTC article). Everything the article cites except its own text already existed when the morning run ran: four posts 15 to 22 hours old (chetaslua's screenshot and counts, Legit, Marcel, Berman's denial), a TokenGremlin post of 11-09 claiming the same test, and an Axios scoop of 11-24. What follows:
+
+- **`https://x.com/<user>/status/<id>` loads logged-out with the same plain `curl -A "Mozilla/5.0"`**, and shows the post, the author's replies and a few others, with `pbs.twimg.com/media/...` image URLs that can be downloaded and looked at. When a relay names an account or a status id, open it; when a post says "proof in replies", open the reply and the image.
+- **Second-tier accounts to fetch when a routing wave is on**: chetaslua, legit_api, marcthecreatorr, TokenGremlin, and TestingCatalog's own account (it posts before the article).
+- **Search Hacker News too**: `hn.algolia.com/api/v1/search_by_date?query="Opus 5.6"` found the 11-09 pointer in one call. Reddit's search JSON returns 403.
+- **Look at the screenshot before grading it.** The Claude Code screenshot offered as proof shows the label "Opus 5.5 Extra" and a model that says its training ends around June 2026, which is also Opus 5.5's documented cutoff. A knowledge probe separates versions only if the released model fails it, and that part was a count nobody else can check.
+- **More testers on the same test do not move the model, and should not get rows.** The signal layer keeps one sighting per class per family; a second grade C row in an occupied class changes only which date the clock runs from. Regrading the 11-23 row to B was tried in a scratch copy: no change. The lever that would move Opus is a different class: a client string, a catalog row or a first-party page.
+- **Evidence found after the day's run**: add the rows, log the checks, append an addendum to the day's note, and get tomorrow's numbers with `python3 daily.py --dry-run <tomorrow>`; to split signals from elapsed time, run a second scratch copy with `--no-markets` and the first run's market file. The frozen snapshot is not touched.
+
 ## 2026-11-25 — The post that moved the market was readable; the run before did not look
 
 On 11-24 Kalshi's Opus contract went 79c to 89c and the daily run wrote "nothing public explains it", with `x_tipsters` logged as "X not readable from this session". The cause was a post by @synthwavedd at 00:09 UTC that day ("Claude Opus 5.6 is likely now being tested for a subset of Claude users"), about twelve hours before that run. On 11-25 a web search surfaced three relays, and a plain `curl -A "Mozilla/5.0" https://x.com/<account>` returned the logged-out profile page with the account's five or so newest posts as text and their status ids in the HTML (the id gives the post time: `(id >> 22) + 1288834974657` ms). What follows:
