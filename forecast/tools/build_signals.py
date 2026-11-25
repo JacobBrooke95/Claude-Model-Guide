@@ -38,7 +38,7 @@ FALSE_FAM = {
 # "UNRELEASED Fable 5.5 (aka 5.2)" resolved on 2026-11-09 as Claude Fable 5.2 + Mythos 5.2 (see MAP);
 # two of its rows were judged not to point at that release and carry DUPLICATE: / UNMAPPED:
 # ids, which no table here lists, so they are dropped.
-LIVE = {"OPEN: 'Claude Next' routed under Opus 5.5": ["opus"]}
+LIVE = {"OPEN: 'Claude Next' routed under Opus 5.5": ["opus"], "UNRELEASED Opus 5.6": ["opus"]}
 
 
 def code(r):

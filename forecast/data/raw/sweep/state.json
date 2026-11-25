@@ -2,8 +2,8 @@
  "anthropic_news": {
   "final_url": "https://www.anthropic.com/news",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "c412ea6fbc8cf373",
   "tokens": [
@@ -31,8 +31,8 @@
  "anthropic_system_cards": {
   "final_url": "https://www.anthropic.com/system-cards",
   "last_changed": "2026-11-14",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "a37a17f44a29ba93",
   "tokens": [
@@ -80,8 +80,8 @@
  "azure_foundry": {
   "final_url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -90,8 +90,8 @@
  "bedrock": {
   "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -100,8 +100,8 @@
  "bench_artificial_analysis": {
   "final_url": "https://artificialanalysis.ai/models",
   "last_changed": "2026-11-14",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "b156cb047e8e4d21",
   "tokens": [
@@ -152,8 +152,8 @@
  "docs_deprecations": {
   "final_url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
   "last_changed": "2026-11-24",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "f4449cf7e333e7a3",
   "tokens": [
@@ -238,8 +238,8 @@
  "docs_models_overview": {
   "final_url": "https://platform.claude.com/docs/en/models/overview",
   "last_changed": "2026-11-15",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "73708145719d0487",
   "tokens": [
@@ -303,8 +303,8 @@
  "docs_pricing": {
   "final_url": "https://platform.claude.com/docs/en/about-claude/pricing",
   "last_changed": "2026-11-15",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "a8437284c66b2338",
   "tokens": [
@@ -365,8 +365,8 @@
  "docs_release_notes": {
   "final_url": "https://platform.claude.com/docs/en/release-notes/overview",
   "last_changed": "2026-11-24",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "657834d48ab265f1",
   "tokens": [
@@ -439,8 +439,8 @@
  "litellm_prices": {
   "final_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
   "last_changed": "2026-11-24",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "411525252f721459",
   "tokens": [
@@ -519,8 +519,8 @@
  "npm_anthropic_sdk": {
   "final_url": "https://registry.npmjs.org/@anthropic-ai/sdk/latest",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -529,8 +529,8 @@
  "npm_claude_code": {
   "final_url": "https://registry.npmjs.org/@anthropic-ai/claude-code/latest",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -539,8 +539,8 @@
  "openrouter_models": {
   "final_url": "https://openrouter.ai/api/v1/models",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e74044734a9eae8c",
   "tokens": [
@@ -582,8 +582,8 @@
  "page_fable": {
   "final_url": "https://www.anthropic.com/claude/fable",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "f0ed27d678e3325b",
   "tokens": [
@@ -607,8 +607,8 @@
  "page_haiku": {
   "final_url": "https://www.anthropic.com/claude/haiku",
   "last_changed": "2026-11-13",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "9d03e05a00dd9472",
   "tokens": [
@@ -632,8 +632,8 @@
  "page_mythos": {
   "final_url": "https://www.anthropic.com/claude/mythos",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "9fac2c3460e4b1f4",
   "tokens": [
@@ -654,8 +654,8 @@
  "page_opus": {
   "final_url": "https://www.anthropic.com/claude/opus",
   "last_changed": "2026-11-13",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "736491f584ef7a3d",
   "tokens": [
@@ -681,8 +681,8 @@
  "page_sonnet": {
   "final_url": "https://www.anthropic.com/claude/sonnet",
   "last_changed": "2026-11-13",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "eddc63d0d1788139",
   "tokens": [
@@ -708,235 +708,235 @@
  },
  "probe_fable_5-3_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-5-3-system-card"
  },
  "probe_fable_5-3_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-fable-5-3"
  },
  "probe_fable_5-5_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-5-5-system-card"
  },
  "probe_fable_5-5_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-fable-5-5"
  },
  "probe_fable_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-6-system-card"
  },
  "probe_fable_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-fable-6"
  },
  "probe_fable_mythos_5-3_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-5-3-mythos-5-3-system-card"
  },
  "probe_fable_mythos_5-3_page": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-and-mythos-5-3"
  },
  "probe_fable_mythos_5-5_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-5-5-mythos-5-5-system-card"
  },
  "probe_fable_mythos_5-5_page": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-and-mythos-5-5"
  },
  "probe_fable_mythos_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-6-mythos-6-system-card"
  },
  "probe_fable_mythos_6_page": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-fable-and-mythos-6"
  },
  "probe_haiku_5-6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-haiku-5-6-system-card"
  },
  "probe_haiku_5-6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-haiku-5-6"
  },
  "probe_haiku_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-haiku-6-system-card"
  },
  "probe_haiku_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-haiku-6"
  },
  "probe_mythos_5-3_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-mythos-5-3-system-card"
  },
  "probe_mythos_5-3_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-mythos-5-3"
  },
  "probe_mythos_5-5_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-mythos-5-5-system-card"
  },
  "probe_mythos_5-5_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-mythos-5-5"
  },
  "probe_mythos_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-mythos-6-system-card"
  },
  "probe_mythos_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-mythos-6"
  },
  "probe_opus_5-6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-opus-5-6-system-card"
  },
  "probe_opus_5-6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-opus-5-6"
  },
  "probe_opus_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-opus-6-system-card"
  },
  "probe_opus_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-opus-6"
  },
  "probe_sonnet_5-6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-sonnet-5-6-system-card"
  },
  "probe_sonnet_5-6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-sonnet-5-6"
  },
  "probe_sonnet_6_card": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude-sonnet-6-system-card"
  },
  "probe_sonnet_6_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-sonnet-6"
  },
  "probe_voice_news": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/news/claude-voice"
  },
  "probe_voice_page": {
   "last_changed": null,
-  "last_checked": "2026-11-24",
+  "last_checked": "2026-11-25",
   "last_status": 404,
   "live": false,
   "url": "https://www.anthropic.com/claude/voice"
  },
  "support_release_notes": {
   "final_url": "https://support.claude.com/en/articles/12138966-release-notes",
-  "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_changed": "2026-11-25",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
-  "sha": "e79f040563feb783",
+  "sha": "e4266ebb2778d1ae",
   "tokens": [
    "claude-4-invite-contest",
    "claude-4-invite-sweepstakes-official-rules",
@@ -955,6 +955,7 @@
    "claude-opus-5-5",
    "claude-sonnet-4-5",
    "claude-sonnet-4-6",
+   "claude-sonnet-4-6-is-leaving-the",
    "claude-sonnet-5",
    "claude-sonnet-5-5",
    "fable 5",
@@ -983,8 +984,8 @@
  "testingcatalog_anthropic": {
   "final_url": "https://www.testingcatalog.com/tag/anthropic/",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "94c5c34318db1e6e",
   "tokens": [
@@ -1010,11 +1011,11 @@
  },
  "the_information": {
   "final_url": "https://www.theinformation.com/feed",
-  "last_changed": "2026-11-24",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_changed": "2026-11-25",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
-  "sha": "81d9b6d2db9a013a",
+  "sha": "a905b94f0a55be65",
   "tokens": [
    "2026-11-13 | Inside Anthropic\u2019s Lavish Roadshow Event at J.P. Morgan\u2019s Headquarters | https://www.theinformation.com/briefings/inside-anthropics-lavish-roadshow-event-j-p-morgans-headquarters",
    "2026-11-13 | White House AI Task Force Discussed Cyber Threats, Critical Infrastructure at Second Meeting | https://www.theinformation.com/briefings/white-house-ai-task-force-discussed-cyber-threats-critical-infrastructure-second-meeting",
@@ -1044,15 +1045,18 @@
    "2026-11-21 | Can Jensen Really Return? | https://www.theinformation.com/articles/can-jensen-return",
    "2026-11-22 | AI Bubble Deflating? Dell, Workday on Deck | https://www.theinformation.com/articles/ai-bubble-deflating-dell-workday-deck",
    "2026-11-22 | How Amazon Plays the Long, Expensive Data Center Game That Neoclouds Can\u2019t | https://www.theinformation.com/articles/amazon-plays-long-expensive-data-center-game-neoclouds",
-   "2026-11-23 | Why Anthropic\u2019s Math Breakthrough Matters; Why Palo Alto Networks Bought Applied Compute | https://www.theinformation.com/articles/anthropics-math-breakthrough-matters-palo-alto-networks-bought-applied-compute"
+   "2026-11-23 | Why Anthropic\u2019s Math Breakthrough Matters; Why Palo Alto Networks Bought Applied Compute | https://www.theinformation.com/articles/anthropics-math-breakthrough-matters-palo-alto-networks-bought-applied-compute",
+   "2026-11-24 | Anthropic Falls Below IPO Price Amid Broader Tech Slump | https://www.theinformation.com/briefings/anthropic-falls-ipo-price-amid-broader-tech-slump",
+   "2026-11-24 | In Private Funding, Like IPOs, Big Companies Dominate | https://www.theinformation.com/articles/big-companies-sucking-fundraising-oxygen-room",
+   "2026-11-25 | AI Stocks\u2019 Big Worry: a Chip Glut | https://www.theinformation.com/articles/ai-stocks-big-worry-chip-glut"
   ],
   "url": "https://www.theinformation.com/feed"
  },
  "vertex": {
   "final_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "51abdfe313fe295f",
   "tokens": [
@@ -1081,8 +1085,8 @@
  "voice_anthropic_news": {
   "final_url": "https://www.anthropic.com/news",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1091,8 +1095,8 @@
  "voice_bedrock_fable_5_2": {
   "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-fable-5-2.md",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "3ef3024e79ecb8dc",
   "tokens": [
@@ -1112,8 +1116,8 @@
  "voice_bedrock_opus_5_5": {
   "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-opus-5-5.md",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "3ef3024e79ecb8dc",
   "tokens": [
@@ -1133,8 +1137,8 @@
  "voice_bedrock_sonnet_5_5": {
   "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-sonnet-5-5.md",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "3ef3024e79ecb8dc",
   "tokens": [
@@ -1153,14 +1157,15 @@
  },
  "voice_claude_code_dictation": {
   "final_url": "https://code.claude.com/docs/en/voice-dictation.md",
-  "last_changed": "2026-11-20",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_changed": "2026-11-25",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
-  "sha": "d7602b17656bdfc7",
+  "sha": "6eba9521669430d5",
   "tokens": [
    "## requirements voice dictation streams your recorded audio to anthropic's servers for transcription.",
-   "* **`dictation stopped: no speech recognized for 15 seconds` or `dictation stopped at its 2-minute limit`**: in the vs code extension, a recording ends after 15",
+   "* **`dictation error: the microphone stopped sending audio`**: words already recognized stay in the vs code extension's prompt box and aren't sent.",
+   "* **`dictation stopped: no speech recognized for 60 seconds`, `dictation stopped at its 10-minute limit`, or `dictation stopped: this panel was hidden`**: the v",
    "* **`no audio detected from microphone`**: recording started but captured silence.",
    "* **`no speech detected`**: audio reached the transcription service but no words were recognized.",
    "* **`voice connection failed`**: your recording never reached the transcription service because the connection failed.",
@@ -1170,8 +1175,9 @@
    "a recording that captures no audio reports `no audio detected from microphone` instead of this message.",
    "audio is not processed locally.",
    "audio recording uses a built-in native module on macos, linux, and windows.",
+   "before v2.1.332, the first two messages were `dictation stopped: no speech recognized for 15 seconds` and `dictation stopped at its 2-minute limit`.",
    "hold `space` again to append another recording, or move the cursor first to insert speech elsewhere in the prompt: ``` > refactor the auth middleware to \u25ae # hol",
-   "if you were speaking during those 15 seconds, try the fixes for `no speech detected`.",
+   "if you were speaking during those 60 seconds, try the fixes for `no speech detected`.",
    "in v2.1.229 through v2.1.231, native builds didn't show this message: claude code kept recording, the hold-mode footer still showed `listening\u2026`, and it reporte",
    "it needs all of the following: * **a claude.ai account**: the speech-to-text service is only available when you authenticate with one, and is not available when",
    "this usually means the microphone or audio stack on this host can't capture audio, for example a headless server, a remote shell with no audio passthrough, or a",
@@ -1183,8 +1189,8 @@
  "voice_docs_index": {
   "final_url": "https://platform.claude.com/llms.txt",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1193,8 +1199,8 @@
  "voice_docs_index_lines": {
   "final_url": "https://platform.claude.com/llms.txt",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1203,8 +1209,8 @@
  "voice_docs_models": {
   "final_url": "https://platform.claude.com/docs/en/models/overview",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1213,8 +1219,8 @@
  "voice_docs_pricing": {
   "final_url": "https://platform.claude.com/docs/en/about-claude/pricing",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1223,8 +1229,8 @@
  "voice_docs_release_notes": {
   "final_url": "https://platform.claude.com/docs/en/release-notes/overview",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1233,8 +1239,8 @@
  "voice_job_ids": {
   "final_url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
   "last_changed": "2026-11-20",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "fe681bb5dda90492",
   "tokens": [
@@ -1248,8 +1254,8 @@
  "voice_jobs": {
   "final_url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "ac16d593c54783c4",
   "tokens": [
@@ -1260,8 +1266,8 @@
  "voice_litellm": {
   "final_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1270,8 +1276,8 @@
  "voice_models_modality_line": {
   "final_url": "https://platform.claude.com/docs/en/models/overview.md",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "3a81fe9f093faecd",
   "tokens": [
@@ -1284,8 +1290,8 @@
  "voice_openrouter": {
   "final_url": "https://openrouter.ai/api/v1/models",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1294,8 +1300,8 @@
  "voice_pricing_lines": {
   "final_url": "https://platform.claude.com/docs/en/about-claude/pricing.md",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1304,8 +1310,8 @@
  "voice_privacy_training_line": {
   "final_url": "https://privacy.claude.com/en/articles/10067979-what-personal-data-is-collected-when-using-dictation-on-the-claude-mobile-apps",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "8c2881757e700ab9",
   "tokens": [
@@ -1317,8 +1323,8 @@
  "voice_sdk_python_api": {
   "final_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/api.md",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1327,8 +1333,8 @@
  "voice_sdk_python_changelog": {
   "final_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1337,8 +1343,8 @@
  "voice_sdk_typescript_api": {
   "final_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/api.md",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1347,8 +1353,8 @@
  "voice_sdk_typescript_changelog": {
   "final_url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1357,8 +1363,8 @@
  "voice_support_recordings": {
   "final_url": "https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "b0020c3beabafec8",
   "tokens": [
@@ -1372,8 +1378,8 @@
  "voice_support_release_notes": {
   "final_url": "https://support.claude.com/en/articles/12138966-release-notes",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "e3b0c44298fc1c14",
   "tokens": [],
@@ -1382,8 +1388,8 @@
  "voice_support_voice_mode": {
   "final_url": "https://support.claude.com/en/articles/11101966-use-voice-mode",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "a04aa034bf96d259",
   "tokens": [
@@ -1405,8 +1411,8 @@
  "voice_testingcatalog": {
   "final_url": "https://www.testingcatalog.com/tag/anthropic/",
   "last_changed": "2026-11-10",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "f6db92a09a59166e",
   "tokens": [
@@ -1416,18 +1422,17 @@
  },
  "voice_text_claude_code_dictation": {
   "final_url": "https://code.claude.com/docs/en/voice-dictation.md",
-  "last_changed": "2026-11-20",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_changed": "2026-11-25",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
-  "sha": "1bdbc6e89cf907df",
+  "sha": "ec2c8754515cf5b4",
   "tokens": [
    "\"chat\", \"bindings\":",
    "\"japanese\" } ``` if your `language` setting is not in the supported list, `/voice` warns you on enable and falls back to english for dictation.",
    "\"tap\" } } ``` for the first three sessions with voice dictation enabled, the input footer shows a `hold space to speak` hint when the prompt is empty.",
    "\"voice:pushtotalk\", \"space\":",
    "# voice dictation > speak your prompts in the claude code cli with hold-to-record or tap-to-record voice dictation.",
-   "## cancel a recording press `esc` or `ctrl+c` to cancel a dictation instead of finalizing it.",
    "## change the dictation language voice dictation uses the same [`language` setting](https://code.claude.com/docs/en/settings-reference#language) that controls claude's response language.",
    "## enable voice dictation run `/voice` to enable dictation.",
    "## hold to record hold mode is push-to-talk:",
@@ -1436,6 +1441,7 @@
    "## see also * [customize keyboard shortcuts](https://code.claude.com/docs/en/keybindings.md):",
    "## tap to record and send tap mode toggles recording with a single keypress:",
    "## troubleshooting common issues when voice dictation does not activate or record:",
+   "### resume a recording that stopped by itself when a tap-mode recording stops by itself, your words stay in the prompt unsent and the footer says why.",
    "### terminal not listed in macos microphone settings if your terminal app does not appear under system settings \u2192 privacy & security \u2192 microphone, there is no toggle you can enable.",
    "* **`/voice needs a claude subscription` or `/voice isn't available with `**:",
    "* **`dictation error:",
@@ -1443,6 +1449,7 @@
    "* **`microphone access is denied`**:",
    "* **`no audio detected from microphone`**:",
    "* **`no speech detected`**:",
+   "* **`text kept, enter to send` or `dictation stopped` in the terminal's footer**:",
    "* **`voice connection failed`**:",
    "* **`voice input is failing repeatedly and has been paused`**:",
    "* **`voice mode could not find a working audio recorder in wsl`**:",
@@ -1453,9 +1460,16 @@
    "* **`voice stream error:",
    "* **a claude.ai account**:",
    "* **a local microphone**:",
+   "* **add to the words**:",
+   "* **fewer words**:",
+   "* **hidden panel**:",
    "* **nothing happens when holding `space` in hold mode**:",
+   "* **send the words**:",
+   "* **start**:",
    "* **tapping `space` types a space instead of recording in tap mode**:",
+   "* **three words or more**:",
    "* **transcription is garbled or in the wrong language**:",
+   "* **visible panel**:",
    "* **wslg, if you run claude code in wsl**:",
    "> ## documentation index > fetch the complete documentation index at:",
    "> [!tip] > > to skip the warmup, switch to [tap mode](#tap-to-record-and-send) with `/voice tap`, or [rebind to a modifier combination](#rebind-the-dictation-key) like `meta+k`.",
@@ -1476,22 +1490,25 @@
    "a server refused your connection with the http status shown, so this isn't a network outage.",
    "a single `space` tap still types a space, since hold detection only triggers on rapid repeat.",
    "a status in the 400 range usually means a stale sign-in, or a proxy or bot-protection service answering in place of the transcription service.",
+   "after the second tap, claude code inserts the transcript and submits the prompt if the transcript is long enough:",
+   "after you hide the panel, the recording ends after 15 seconds with no recognized words, or two minutes after you hid it.",
    "an administrator policy for your organization turns off voice dictation.",
+   "at the prompt, both keys also cancel while a finished recording's transcript is still processing.",
    "audio is not processed locally.",
    "audio reached the transcription service but no words were recognized.",
    "audio recording uses a built-in native module on macos, linux, and windows.",
    "before v2.1.200, a silent microphone could report a connection failure, which suggested a network problem when the actual issue was the input device.",
    "before v2.1.202, only start-up failures counted toward the pause.",
-   "both keys also cancel while a finished recording's transcript is still processing.",
+   "before v2.1.332, recordings stopped after 15 seconds with no recognized words or after two minutes, and claude code then sent a transcript of three or more words.",
+   "before v2.1.332, the first two messages were `dictation stopped:",
    "check your network and try again.",
    "claude code couldn't find a usable claude.ai sign-in when you ran `/voice` or started recording.",
    "claude code detects a held key by watching for rapid key-repeat events from your terminal, so there is a brief warmup before recording begins.",
-   "claude code inserts the transcript and submits the prompt automatically when the transcript is at least three words long.",
    "claude code kept recording, the hold-mode footer still showed `listening\u2026`, and it reported `voice connection failed` after you stopped recording.",
    "claude code pauses dictation until 10 seconds have passed since the first of those failures.",
    "claude code stops the microphone, discards the transcript, and restores the prompt to what it held before the recording started.",
+   "claude code submits the prompt automatically.",
    "claude's text responses are not affected by this fallback.",
-   "clear the input first, or check that you are in tap mode by running `/voice tap`.",
    "common development terms like `regex`, `oauth`, `json`, and `localhost` are recognized correctly, and your current project name and git branch name are added as recognition hints automatically.",
    "confirm a working input device, fix the underlying cause from the entries above, then trigger voice again.",
    "confirm the correct input device is set as the system default and that its input level is not muted or near zero.",
@@ -1517,28 +1534,34 @@
    "if only one or two spaces appear and then nothing, voice dictation is on but hold detection is not triggering.",
    "if spaces keep accumulating, voice dictation is likely off; run `/voice hold` to enable it.",
    "if that setting is empty, dictation defaults to english.",
+   "if the prompt is already empty, run `/voice tap` to turn on tap mode.",
    "if wslg is not available, for example on wsl1, run claude code in native windows instead.",
    "if you are dictating in another language, set it in `/config` first.",
    "if you aren't signed in with one, run `/login`.",
-   "if you were speaking during those 15 seconds, try the fixes for `no speech detected`.",
+   "if you were speaking during those 60 seconds, try the fixes for `no speech detected`.",
+   "if you were speaking, try the fixes for [`no speech detected`](#troubleshooting) | | `dictation stopped at its 10m limit` | the recording reached 10 minutes | | `dictation stopped:",
    "if you're still recording when the rejection arrives, claude code retries a status outside the 400 range once before showing this message; it doesn't retry a status in the 400 range.",
    "if your terminal isn't listed in the macos settings, see [terminal not listed in macos microphone settings](#terminal-not-listed-in-macos-microphone-settings).",
    "in [hold mode](#hold-to-record), dictation also works in [agent view](https://code.claude.com/docs/en/agent-view.md#peek-and-reply).",
    "in hold mode, avoid binding a bare letter key like `v` since hold detection relies on key-repeat and the letter types into the prompt during warmup.",
    "in the [transcript viewer](https://code.claude.com/docs/en/interactive-mode.md#transcript-viewer), `space` pages through the conversation, and in [vim mode](https://code.claude.com/docs/en/interactive-mode.md#vim-editor-mode) outside insert it is a command.",
-   "in the vs code extension, a recording ends after 15 seconds with no recognized words, or two minutes after it starts.",
    "in the vs code extension, if `language` is empty, dictation uses vs code's `accessibility.voice.speechlanguage` setting before defaulting to english.",
    "in v2.1.229 through v2.1.231, native builds didn't show this message:",
    "install sox with the command shown in the error message, for example `sudo apt-get install sox`.",
    "installing `sox` alone pulls in the alsa backend, which cannot record on wsl because there is no `/dev/snd` device.",
    "it is not available in vs code remote sessions, including ssh, dev containers, and codespaces, because the microphone is on your local machine and the extension runs on the remote host.",
    "it needs all of the following:",
+   "it stops by itself after 60 seconds with no recognized words or after 10 minutes total.",
    "japanese, chinese, and thai transcripts count individual words, so they auto-submit in tap mode and in hold mode with `autosubmit`.",
+   "keep the panel visible while you dictate.",
    "keyboard shortcuts, input modes, and session controls * [commands](https://code.claude.com/docs/en/commands.md):",
+   "lost the connection` | the connection to the transcription service closed, or couldn't be opened again after it failed | | `dictation stopped:",
+   "lost the microphone` | the program recording your microphone, such as sox or `arecord`, exited or couldn't start | | `dictation stopped:",
    "macos prompts for microphone access; allow it.",
    "modifier combos start recording on the first keypress.",
    "neither key does anything else in the press that cancels:",
-   "no speech recognized for 15 seconds` or `dictation stopped at its 2-minute limit`**:",
+   "no speech recognized for 15 seconds` and `dictation stopped at its 2-minute limit`.",
+   "no speech recognized for 60 seconds`, `dictation stopped at its 10-minute limit`, or `dictation stopped:",
    "null } } ] } ``` the `voice:pushtotalk` action uses one key at a time.",
    "null` line in this example is for clarity and can be omitted without changing behavior.",
    "on linux, if the native module cannot load, claude code falls back to `arecord` from alsa utils or `rec` from sox.",
@@ -1547,11 +1570,14 @@
    "on macos, this triggers the system microphone permission prompt for your terminal if it has never been granted.",
    "on windows, go to settings \u2192 privacy & security \u2192 microphone and turn on microphone access for desktop apps, then run `/voice` again.",
    "on windows, open settings \u2192 system \u2192 sound \u2192 input and select your microphone.",
+   "press `enter` to send them, or [add to them](#resume-a-recording-that-stopped-by-itself).",
+   "press `enter`.",
+   "put the cursor at the end of the words and tap `space` to record again.",
    "quit and relaunch your terminal** macos won't re-prompt a process that is already running.",
    "quit the terminal app with cmd+q, not just close its windows, then open it again.",
    "rebind `voice:pushtotalk` and other cli keyboard actions * [all settings](https://code.claude.com/docs/en/settings-reference.md#voice):",
    "rebind it in [`~/.claude/keybindings.json`](https://code.claude.com/docs/en/keybindings):",
-   "recording also stops automatically after 15 seconds of silence or two minutes total.",
+   "recording also stops when you send or edit the prompt.",
    "recording runs while you hold the key and stops when you release it.",
    "recording started but captured silence.",
    "reference for `/voice`, `/config`, and all other commands",
@@ -1568,7 +1594,6 @@
    "see [dictation or the web tab fails behind a tls-inspecting proxy](https://code.claude.com/docs/en/vs-code.md#dictation-or-the-web-tab-fails-behind-a-tls-inspecting-proxy) on the vs code page.",
    "set `\"autosubmit\":",
    "set it directly in your [user settings file](https://code.claude.com/docs/en/settings.md) instead of running `/voice`:",
-   "shorter transcripts are inserted but not submitted, so an accidental tap does not send a stray word.",
    "some keys are not delivered to terminal applications and can't be bound at all.",
    "sox is installed, but the host has no audio capture device, for example a headless server or a container.",
    "speak closer to the microphone, reduce background noise, and confirm your [dictation language](#change-the-dictation-language) matches the language you are speaking.",
@@ -1580,22 +1605,33 @@
    "the `voice`, `language`, and other settings keys * [interactive mode](https://code.claude.com/docs/en/interactive-mode.md):",
    "the claude code [vs code extension](https://code.claude.com/docs/en/vs-code.md) also supports voice dictation with the same claude.ai account requirement.",
    "the first couple of key-repeat characters type into the input during warmup and are removed automatically when recording activates.",
-   "the first tap only starts recording when the prompt input is empty, so you can still type spaces normally while composing a message.",
-   "the first tap only starts recording when the prompt input is empty.",
+   "the first tap starts recording when the prompt input is empty, so you can still type spaces normally while composing a message.",
    "the footer shows `keep holding\u2026` during warmup, then `listening\u2026` once recording is active.",
    "the footer shows `\u25cf rec \u00b7 tap to send` while recording.",
    "the hint reflects your current `voice:pushtotalk` binding and updates if you [rebind the dictation key](#rebind-the-dictation-key).",
    "the hint text is the same in both modes, and it does not appear if you have a [custom status line](https://code.claude.com/docs/en/statusline.md) configured.",
+   "the limits are shorter while the panel is hidden:",
+   "the microphone stopped sending audio`**:",
+   "the prompt changed` | the prompt's text changed, for example because you typed in it.",
+   "the prompt lost focus` | a panel such as the model picker opened, or you opened the [transcript viewer](https://code.claude.com/docs/en/interactive-mode.md#transcript-viewer) | | `dictation stopped:",
    "the same binding controls both hold and tap modes.",
-   "the second tap stops recording regardless of input contents.",
    "the speech-to-text service is only available when you authenticate with one, and is not available when claude code is configured to use an anthropic api key directly, amazon bedrock, google cloud's agent platform, or microsoft foundry.",
+   "the terminal detached` | the last remaining terminal detached from a [background session](https://code.claude.com/docs/en/agent-view.md) | | `dictation stopped:",
    "the three-word threshold counts words for languages written without spaces.",
    "the transcript is inserted at your cursor position and the cursor stays at the end of the inserted text, so you can mix typing and dictation in any order.",
+   "the transcript is inserted but not submitted, so an accidental tap does not send a stray word.",
+   "the vs code extension stopped your recording.",
    "there is no warmup, and you don't need to keep the key held.",
    "this is the default mode.",
+   "this panel was hidden`**:",
    "this usually means the microphone or audio stack on this host can't capture audio, for example a headless server, a remote shell with no audio passthrough, or a denied microphone permission.",
    "to add more, click the microphone button again.",
-   "to dictate from either place, [rebind to a modifier combination](#rebind-the-dictation-key) like `meta+k`.",
+   "to add to a recording that stopped by itself, [resume it](#resume-a-recording-that-stopped-by-itself).",
+   "to dictate again, send or clear the prompt first | ## cancel a recording with no panel, question, or permission prompt open, press `esc` or `ctrl+c` to cancel a dictation instead of finalizing it.",
+   "to dictate outside insert, or in hold mode from the transcript viewer, [rebind to a modifier combination](#rebind-the-dictation-key) like `meta+k`.",
+   "to record, send or clear the prompt first.",
+   "to see what stopped the recording, find the part of the footer message that starts with `dictation stopped`:",
+   "to try again, click the microphone button.",
    "transcription does not consume claude messages or tokens and does not count toward the limits shown in `/usage`.",
    "transcription is tuned for coding vocabulary in both modes.",
    "trigger a fresh prompt** start claude code and run `/voice`.",
@@ -1607,27 +1643,36 @@
    "watch the prompt input while you hold.",
    "websocket error:` followed by a certificate error such as `unable to get local issuer certificate`**:",
    "websocket upgrade rejected with http `**:",
+   "when the prompt has text and you aren't [resuming a recording](#resume-a-recording-that-stopped-by-itself), `space` types a space.",
    "when you bind a custom key, it replaces the default `space` binding rather than adding a second trigger, so the `\"space\":",
    "when you enable it, claude code runs a microphone check.",
+   "when you tap again to stop, claude code sends all of the text if you added at least three words.",
    "while recording, the prompt cursor becomes a bar that rises and falls with your microphone level, unless you have [`prefersreducedmotion`](https://code.claude.com/docs/en/settings-reference#prefersreducedmotion) turned on.",
+   "with a working connection and microphone, the recording ends after 60 seconds with no recognized words, or 10 minutes after it starts.",
    "with the prompt input empty, tap `space` to start recording.",
    "words already recognized stay in the prompt box and aren't sent.",
+   "words already recognized stay in the vs code extension's prompt box and aren't sent.",
+   "words still in the prompt haven't been sent.",
    "wslg is included with wsl2 when installed from the microsoft store on windows 10 or 11.",
    "wslg routes audio through pulseaudio rather than an alsa device, so sox needs its pulseaudio backend installed explicitly.",
+   "you can send the words, or add to them if you haven't edited them:",
    "you can use either the [bcp 47 language code](https://en.wikipedia.org/wiki/ietf_language_tag) or the language name:",
+   "you tap once to start or resume a recording, and it can stop without a second tap:",
    "your recording never reached the transcription service because the connection failed.",
    "your speech appears in the prompt as you speak, dimmed until the transcript is finalized.",
    "your speech is transcribed live into the prompt input, so you can mix voice and typing in the same message.",
+   "your tap-mode recording stopped without a second tap.",
    "{ \"enabled\":",
-   "| command | effect | | :- | :- | | `/voice` | toggle on or off, keep the current mode | | `/voice hold` | enable in [hold mode](#hold-to-record) | | `/voice tap` | enable in [tap mode](#tap-to-record-and-send) | | `/voice off` | disable | voice dictation persists across sessions."
+   "| command | effect | | :- | :- | | `/voice` | toggle on or off, keep the current mode | | `/voice hold` | enable in [hold mode](#hold-to-record) | | `/voice tap` | enable in [tap mode](#tap-to-record-and-send) | | `/voice off` | disable | voice dictation persists across sessions.",
+   "| message | what stopped the recording | | :- | :- | | `dictation stopped after 1m with no new words` | no words were recognized for 60 seconds."
   ],
   "url": "https://code.claude.com/docs/en/voice-dictation.md"
  },
  "voice_text_dictation_mobile": {
   "final_url": "https://support.claude.com/en/articles/10065434-use-dictation-on-claude-mobile",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "d88500ef1fef7aa9",
   "tokens": [
@@ -1664,8 +1709,8 @@
  "voice_text_meetings": {
   "final_url": "https://support.claude.com/en/articles/18325154-use-claude-meetings",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "b1214ef1bd2b664c",
   "tokens": [
@@ -1743,8 +1788,8 @@
  "voice_text_recordings": {
   "final_url": "https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "23d869c676302d64",
   "tokens": [
@@ -1791,8 +1836,8 @@
  "voice_text_voice_mode": {
   "final_url": "https://support.claude.com/en/articles/11101966-use-voice-mode",
   "last_changed": "2026-11-17",
-  "last_checked": "2026-11-24",
-  "last_ok": "2026-11-24",
+  "last_checked": "2026-11-25",
+  "last_ok": "2026-11-25",
   "last_status": 200,
   "sha": "77d77a32007469be",
   "tokens": [

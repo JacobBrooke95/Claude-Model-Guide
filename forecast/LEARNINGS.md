@@ -15,6 +15,16 @@ A lesson is not a model change. A lesson that implies one becomes a backlog entr
 7. **A release-day run takes the next day as its origin.** `daily.py` does this; do not override it.
 8. **An unmapped target is invisible to the model.** A new `UNRELEASED …` row must be added to `LIVE` in `tools/build_signals.py`.
 
+## 2026-11-25 — The post that moved the market was readable; the run before did not look
+
+On 11-24 Kalshi's Opus contract went 79c to 89c and the daily run wrote "nothing public explains it", with `x_tipsters` logged as "X not readable from this session". The cause was a post by @synthwavedd at 00:09 UTC that day ("Claude Opus 5.6 is likely now being tested for a subset of Claude users"), about twelve hours before that run. On 11-25 a web search surfaced three relays, and a plain `curl -A "Mozilla/5.0" https://x.com/<account>` returned the logged-out profile page with the account's five or so newest posts as text and their status ids in the HTML (the id gives the post time: `(id >> 22) + 1288834974657` ms). What follows:
+
+- **Fetch the x.com profile page of each named tipster every day** (synthwavedd, lyraxana, btibor91, kimmonismus) before logging `x_tipsters` as skipped. xcancel and nitter are shut down; the X trend pages return 402; one syndication endpoint was refused by the session's permission layer and should not be retried.
+- **When a venue moves 10 points on doubled volume, search the model name alone, in quotes, in extended mode.** The 11-24 searches bundled several terms and returned only launch coverage.
+- **Polymarket comments hang on the series, not the event.** `gamma-api.polymarket.com/comments?parent_entity_type=Series&parent_entity_id=<id>` (the id is in the event's `series` list; the Opus series is 12057, Sonnet 12056). The event-level call returns nothing. Kalshi's API now names its fields `last_price_dollars`, `yes_bid_dollars`, `volume_fp`, `volume_24h_fp`.
+- **A control slug is needed for cloud doc probes too**: the Bedrock `model-card-anthropic-claude-<x>.html` path answers 302 for any slug.
+- This is one more case of the market reading a tipster before this forecaster did; it is not evidence that the tipster is right. The row is grade C and no date was called.
+
 ## 2026-11-17 — Voice signal record corrected after review; a vague dated statement is not a release clock
 
 A review of `data/voice_signals.csv` found four rows that said more than their sources. All were checked against the pages on 2026-11-17 and corrected in place, each with a `corrected 2026-11-17:` trail in its note. This entry supersedes the 2026-11-10 entry's phrase "a voice-recording opt-in that reversed a no-training line".
