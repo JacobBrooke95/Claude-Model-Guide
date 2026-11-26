@@ -1430,3 +1430,110 @@ date,source_id,kind,url,status,result,detail
 2026-11-25,bench_livebench,manual,,,error,gh api for LiveBench/LiveBench refused (repository not enabled in this session); not worked around
 2026-11-25,x_tipsters,manual,,,error,"reddit.com search.json for ""Opus 5.6"": 403; not worked around. X trend page not retried (402 this morning)"
 2026-11-25,markets,manual,https://polymarket.com/event/next-claude-opus-released-byptptpt-20260923144500000,,signal,"afternoon read 17:41-17:44 UTC. Polymarket Opus 5.6+: Nov 30 4.5% ($39,603), Dec 15 81.5% ($3,674, +$1,843 since the morning file: was 72.5%), Dec 31 92% ($11,790; was 87.5%). Kalshi KXCLAUDE-OPUS56: before Dec 1 last 7c (bid 4/ask 7; 3,269), before Dec 16 82c (bid 75/ask 83; 1,295, +354 since morning; was 71c), before Jan 1 91c (bid 86/ask 91; 2,671; was 84c). Manifold: before Dec 1 14.7%, Dec 16 63.7%, Jan 1 80.8%. Polymarket series thread: no new comment. Cause: TestingCatalog's 16:31 UTC article and the 11-24/25 posts (same event as the 11-23 row)"
+2026-11-26,anthropic_news,tokens,https://www.anthropic.com/news,200,nothing,
+2026-11-26,docs_release_notes,tokens,https://platform.claude.com/docs/en/release-notes/overview,200,nothing,
+2026-11-26,docs_models_overview,tokens,https://platform.claude.com/docs/en/about-claude/models/overview,200,nothing,
+2026-11-26,docs_deprecations,tokens,https://platform.claude.com/docs/en/about-claude/model-deprecations,200,nothing,
+2026-11-26,docs_pricing,tokens,https://platform.claude.com/docs/en/about-claude/pricing,200,nothing,
+2026-11-26,support_release_notes,tokens,https://support.claude.com/en/articles/12138966-release-notes,200,nothing,
+2026-11-26,page_opus,tokens,https://www.anthropic.com/claude/opus,200,nothing,
+2026-11-26,page_sonnet,tokens,https://www.anthropic.com/claude/sonnet,200,nothing,
+2026-11-26,page_haiku,tokens,https://www.anthropic.com/claude/haiku,200,nothing,
+2026-11-26,page_fable,tokens,https://www.anthropic.com/claude/fable,200,nothing,
+2026-11-26,page_mythos,tokens,https://www.anthropic.com/claude/mythos,200,nothing,
+2026-11-26,anthropic_system_cards,tokens,https://www.anthropic.com/system-cards,200,nothing,
+2026-11-26,litellm_prices,tokens,https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json,200,nothing,
+2026-11-26,openrouter_models,tokens,https://openrouter.ai/api/v1/models,200,nothing,
+2026-11-26,npm_claude_code,tokens,https://registry.npmjs.org/@anthropic-ai/claude-code/latest,200,nothing,
+2026-11-26,npm_anthropic_sdk,tokens,https://registry.npmjs.org/@anthropic-ai/sdk/latest,200,nothing,
+2026-11-26,bedrock,tokens,https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html,200,nothing,
+2026-11-26,vertex,tokens,https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/claude,200,nothing,
+2026-11-26,azure_foundry,tokens,https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/models-sold-directly-by-azure,200,nothing,
+2026-11-26,bench_artificial_analysis,tokens,https://artificialanalysis.ai/models,200,nothing,
+2026-11-26,testingcatalog_anthropic,tokens,https://www.testingcatalog.com/tag/anthropic/,200,changed,"added: claude-opus-5-6, claude-opus-text-official-hero"
+2026-11-26,the_information,headlines,https://www.theinformation.com/feed,200,changed,"added: 2026-11-25 | AI Safety Advocates Sour on Anthropic | https://www.theinformation.com/articles/ai-safety-advocates-sour-anthropic, 2026-11-25 | How Bankers Are Turning Tech Stock Volatility Into Cash | https://www.theinformation.com/articles/bankers-turning-tech-stock-volatility-cash"
+2026-11-26,voice_docs_index,voice_terms,https://platform.claude.com/llms.txt,200,nothing,
+2026-11-26,voice_docs_models,voice_terms,https://platform.claude.com/docs/en/about-claude/models/overview,200,nothing,
+2026-11-26,voice_docs_release_notes,voice_terms,https://platform.claude.com/docs/en/release-notes/overview,200,nothing,
+2026-11-26,voice_docs_pricing,voice_terms,https://platform.claude.com/docs/en/about-claude/pricing,200,nothing,
+2026-11-26,voice_anthropic_news,voice_terms,https://www.anthropic.com/news,200,nothing,
+2026-11-26,voice_support_release_notes,voice_terms,https://support.claude.com/en/articles/12138966-release-notes,200,nothing,
+2026-11-26,voice_support_voice_mode,voice_page,https://support.claude.com/en/articles/11101966-use-voice-mode,200,nothing,
+2026-11-26,voice_support_recordings,voice_page,https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic,200,nothing,
+2026-11-26,voice_claude_code_dictation,voice_page,https://code.claude.com/docs/en/voice-dictation.md,200,nothing,
+2026-11-26,voice_jobs,voice_jobs,https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true,200,nothing,
+2026-11-26,voice_litellm,voice_catalog,https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json,200,nothing,
+2026-11-26,voice_openrouter,voice_catalog,https://openrouter.ai/api/v1/models,200,nothing,
+2026-11-26,voice_testingcatalog,voice_links,https://www.testingcatalog.com/tag/anthropic/,200,nothing,
+2026-11-26,voice_text_voice_mode,voice_text,https://support.claude.com/en/articles/11101966-use-voice-mode,200,nothing,
+2026-11-26,voice_text_recordings,voice_text,https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic,200,nothing,
+2026-11-26,voice_text_dictation_mobile,voice_text,https://support.claude.com/en/articles/10065434-use-dictation-on-claude-mobile,200,nothing,
+2026-11-26,voice_text_meetings,voice_text,https://support.claude.com/en/articles/18325154-use-claude-meetings,200,nothing,
+2026-11-26,voice_text_claude_code_dictation,voice_text,https://code.claude.com/docs/en/voice-dictation.md,200,nothing,
+2026-11-26,voice_privacy_training_line,voice_sentence,https://privacy.claude.com/en/articles/10067979-how-does-anthropic-process-my-voice-data,200,nothing,
+2026-11-26,voice_models_modality_line,voice_sentence,https://platform.claude.com/docs/en/about-claude/models/overview.md,200,nothing,
+2026-11-26,voice_docs_index_lines,voice_lines,https://platform.claude.com/llms.txt,200,nothing,
+2026-11-26,voice_pricing_lines,voice_lines,https://platform.claude.com/docs/en/about-claude/pricing.md,200,nothing,
+2026-11-26,voice_sdk_python_changelog,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md,200,nothing,
+2026-11-26,voice_sdk_python_api,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/api.md,200,nothing,
+2026-11-26,voice_sdk_typescript_changelog,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/CHANGELOG.md,200,nothing,
+2026-11-26,voice_sdk_typescript_api,voice_lines,https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/api.md,200,nothing,
+2026-11-26,voice_job_ids,voice_job_ids,https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true,200,nothing,
+2026-11-26,voice_bedrock_opus_5_5,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-opus-5-5.md,200,nothing,
+2026-11-26,voice_bedrock_sonnet_5_5,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-sonnet-5-5.md,200,nothing,
+2026-11-26,voice_bedrock_fable_5_2,voice_bedrock,https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-fable-5-2.md,200,nothing,
+2026-11-26,probe_opus_5-6_news,probe,https://www.anthropic.com/news/claude-opus-5-6,404,nothing,
+2026-11-26,probe_opus_5-6_card,probe,https://www.anthropic.com/claude-opus-5-6-system-card,404,nothing,
+2026-11-26,probe_opus_6_news,probe,https://www.anthropic.com/news/claude-opus-6,404,nothing,
+2026-11-26,probe_opus_6_card,probe,https://www.anthropic.com/claude-opus-6-system-card,404,nothing,
+2026-11-26,probe_sonnet_5-6_news,probe,https://www.anthropic.com/news/claude-sonnet-5-6,404,nothing,
+2026-11-26,probe_sonnet_5-6_card,probe,https://www.anthropic.com/claude-sonnet-5-6-system-card,404,nothing,
+2026-11-26,probe_sonnet_6_news,probe,https://www.anthropic.com/news/claude-sonnet-6,404,nothing,
+2026-11-26,probe_sonnet_6_card,probe,https://www.anthropic.com/claude-sonnet-6-system-card,404,nothing,
+2026-11-26,probe_haiku_6_news,probe,https://www.anthropic.com/news/claude-haiku-6,404,nothing,
+2026-11-26,probe_haiku_6_card,probe,https://www.anthropic.com/claude-haiku-6-system-card,404,nothing,
+2026-11-26,probe_haiku_5-6_news,probe,https://www.anthropic.com/news/claude-haiku-5-6,404,nothing,
+2026-11-26,probe_haiku_5-6_card,probe,https://www.anthropic.com/claude-haiku-5-6-system-card,404,nothing,
+2026-11-26,probe_fable_5-3_news,probe,https://www.anthropic.com/news/claude-fable-5-3,404,nothing,
+2026-11-26,probe_fable_5-3_card,probe,https://www.anthropic.com/claude-fable-5-3-system-card,404,nothing,
+2026-11-26,probe_fable_6_news,probe,https://www.anthropic.com/news/claude-fable-6,404,nothing,
+2026-11-26,probe_fable_6_card,probe,https://www.anthropic.com/claude-fable-6-system-card,404,nothing,
+2026-11-26,probe_fable_5-5_news,probe,https://www.anthropic.com/news/claude-fable-5-5,404,nothing,
+2026-11-26,probe_fable_5-5_card,probe,https://www.anthropic.com/claude-fable-5-5-system-card,404,nothing,
+2026-11-26,probe_mythos_5-3_news,probe,https://www.anthropic.com/news/claude-mythos-5-3,404,nothing,
+2026-11-26,probe_mythos_5-3_card,probe,https://www.anthropic.com/claude-mythos-5-3-system-card,404,nothing,
+2026-11-26,probe_mythos_6_news,probe,https://www.anthropic.com/news/claude-mythos-6,404,nothing,
+2026-11-26,probe_mythos_6_card,probe,https://www.anthropic.com/claude-mythos-6-system-card,404,nothing,
+2026-11-26,probe_mythos_5-5_news,probe,https://www.anthropic.com/news/claude-mythos-5-5,404,nothing,
+2026-11-26,probe_mythos_5-5_card,probe,https://www.anthropic.com/claude-mythos-5-5-system-card,404,nothing,
+2026-11-26,probe_fable_mythos_5-3_page,probe,https://www.anthropic.com/claude-fable-and-mythos-5-3,404,nothing,
+2026-11-26,probe_fable_mythos_5-3_card,probe,https://www.anthropic.com/claude-fable-5-3-mythos-5-3-system-card,404,nothing,
+2026-11-26,probe_fable_mythos_5-5_page,probe,https://www.anthropic.com/claude-fable-and-mythos-5-5,404,nothing,
+2026-11-26,probe_fable_mythos_5-5_card,probe,https://www.anthropic.com/claude-fable-5-5-mythos-5-5-system-card,404,nothing,
+2026-11-26,probe_fable_mythos_6_page,probe,https://www.anthropic.com/claude-fable-and-mythos-6,404,nothing,
+2026-11-26,probe_fable_mythos_6_card,probe,https://www.anthropic.com/claude-fable-6-mythos-6-system-card,404,nothing,
+2026-11-26,probe_voice_page,probe,https://www.anthropic.com/claude/voice,404,nothing,
+2026-11-26,probe_voice_news,probe,https://www.anthropic.com/news/claude-voice,404,nothing,
+2026-11-26,npm_claude_code,manual,https://registry.npmjs.org/@anthropic-ai/claude-code,,nothing,"registry read 11:44 UTC: latest still 2.1.332 (published 2026-11-24 22:06 UTC; stable 2.1.326); no build since the one unpacked and grepped twice on 11-25 (no opus-5-6, sonnet-5-6, opus-next or -eap string), so not unpacked again. claude-agent-sdk latest 0.3.332 (11-24). Claude Code CHANGELOG.md top entry 2.1.332: no model"
+2026-11-26,npm_anthropic_sdk,manual,https://registry.npmjs.org/@anthropic-ai/sdk,,nothing,"registry read 11:44 UTC: @anthropic-ai/sdk latest still 1.14.0 (2026-11-24 21:07 UTC), unpacked 11-25 with no opus-5-6 or -eap string; PyPI anthropic 2.14.0 (11-24). No new build"
+2026-11-26,anthropic_news,manual,https://www.anthropic.com/claude/opus,,nothing,"hand check 11:46 UTC with controls: /news/claude-opus-5-6 and /news/claude-sonnet-5-6 404 (control opus-9-9 404, same size); /claude-opus-5-6-system-card 307 to /document/<slug>, identical for control opus-9-9; platform docs models/claude-opus-5-6.md 404 (control 404); Bedrock model-card-anthropic-claude-opus-5-6.html 302, identical for the control. /claude/opus H1 'Claude Opus 5.5', no 5.6 string. Newsroom: newest post Nov 20 (IPO close); research item 'Migrating our Messages API to Rust' Nov 25, no model"
+2026-11-26,docs_release_notes,manual,https://platform.claude.com/docs/en/release-notes/overview,,nothing,"release notes .md opened 11:50 UTC: newest entry November 23, 2026 (as yesterday); pricing and deprecations list no model beyond Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable/Mythos 5.2; support release notes newest November 24 (monthly recap, artifacts as apps), no model, no new selector article"
+2026-11-26,testingcatalog_anthropic,manual,https://www.testingcatalog.com/tag/anthropic/,,nothing,"changed tokens (claude-opus-5-6, claude-opus-text-official-hero) are the 11-25 16:31 UTC article 'Early outputs: Anthropic is A/B testing Claude Opus 5.6', already logged yesterday afternoon; tag page opened 11:45 UTC: nothing newer on Anthropic. TestingCatalog's X account: daily briefs 11-25 and 11-26 carry no Claude model item"
+2026-11-26,the_information,manual,https://www.theinformation.com/feed,,nothing,"feed opened 11:52 UTC, headlines only (no summary lines in the feed today; articles paywalled): new since yesterday morning 'AI Safety Advocates Sour on Anthropic' (11-25), 'How Bankers Are Turning Tech Stock Volatility Into Cash', 'Chinese AI Firms Confront Dire Future as U.S. Tightens Access to Chips and Tokens', Nvidia items; no upcoming model, no Opus, no voice"
+2026-11-26,x_tipsters,manual,https://x.com/chetaslua/status/2125871189537218930,,nothing,"x.com profile pages (logged-out HTML) opened 11:44-11:50 UTC: synthwavedd, lyraxana, btibor91, kimmonismus, chetaslua, legit_api, TokenGremlin, marcthecreatorr, testingcatalog. Follow-ups to the Opus 5.6 A/B story, same event as the 11-23 row, no new row: chetaslua 11-25 14:02 and 16:06 UTC (demos), 11-26 08:36 UTC 'Opus Next is twice as fast as Opus 5.5 ... Peak hit 291 tokens/sec ... TTFT: 1-1.5s for 5.6 / 4-6s for 5.5 ... Token efficiency: ~30% better on average' (status page opened; his own timings, one image, not verifiable), 11-26 11:13 UTC demo; legit_api four 'Opus-next' demo posts 11-25; marcthecreatorr 11-25 20:32 UTC 'everyone's so focused on Opus 5.6 but the newer Sonnet 5.5 checkpoint is looking so good too' ('Sonnet 5.5 Max (routing)', status page opened: a Sonnet routing claim with a 'proof' image not opened; no Sonnet row, mapping left to Jacob as on 11-25). leo, lyra, Tibor Blaho: nothing on Claude models. kimmonismus 11-25: labs 'holding back their latest models' rumour (logged 11-25 as context). No date called by anyone. No artifact"
+2026-11-26,press,manual,,,nothing,"extended search for ""Opus 5.6"" and a search for Sonnet 5.6 / Fable 5.3 / Claude 6 / EAP, 11:50 UTC: only aggregator and reseller pages relaying the same test reports (cryptobriefing, sumus.im, orcarouter, apimaster, teamorouter); no outlet with its own source, no first-party statement. Hacker News search: one comment since 11-25 ('There are rumors Opus 5.6 is about to drop', item 50638048), nothing for Sonnet 5.6. X trend page not retried (402). Reuters, Bloomberg, FT, The Verge: search only. investors.anthropic.com: no response, seventh day"
+2026-11-26,vault,manual,,,nothing,"read-only 11:50 UTC: no change under 2-Areas/Claude-Rumors since the owner's 11-25 17:34 UTC note (Sightings/2026-11-25-Opus-5.6-AB-Test-Reports.md, read yesterday afternoon); no instrument run since 11-08. No vault write (not Sunday)"
+2026-11-26,devin_cli,manual,,,skipped,desk paused since 11-09; eighteenth day blind; no relay quoting a build found
+2026-11-26,cursor,manual,,,skipped,desk paused; no relay found
+2026-11-26,copilot,manual,,,skipped,desk paused; no relay found
+2026-11-26,bench_livebench,manual,https://github.com/LiveBench/LiveBench,,nothing,shallow clone 11:55 UTC: newest commit 2026-10-17; no Claude name
+2026-11-26,openrouter_models,manual,https://openrouter.ai/api/v1/models,,nothing,"hand read 11:53 UTC: newest anthropic id claude-fable-5.2 (created 2026-11-09); LiteLLM price file: no opus-5-6, sonnet-5-6, opus-6, fable-5-3 or claude-*-eap key; Artificial Analysis models page: no -eap, -next or 5.6 Claude id; Foundry partner page: claude-opus-5-5 the newest Opus"
+2026-11-26,voice_press,manual,,,nothing,"web search, last two days (voice model, speech-to-speech, audio model, realtime): newest coverage is the July 23-28 voice-mode update; nothing from November"
+2026-11-26,voice_vertex,manual,https://docs.cloud.google.com/vertex-ai/generative-ai/docs/partner-models/claude/fable-5-2,,nothing,"11:53 UTC: Fable 5.2 and Opus 5.5 cards 'Inputs: Text, Image, PDF'; no audio input modality"
+2026-11-26,voice_foundry,manual,https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/models-from-partners,,nothing,"11:53 UTC: claude-fable-5-2 and claude-opus-5-5 rows 'Input: text, image, and code'; no audio on any Claude row; no unreleased Claude id"
+2026-11-26,voice_app_store,manual,https://apps.apple.com/us/app/claude-by-anthropic/id6473753684,,nothing,"11:53 UTC: newest version still 1.261123.51 ('1d ago'), generic notes; no voice text"
+2026-11-26,voice_subprocessors,manual,,,skipped,"trust.anthropic.com/subprocessors returns a 7 KB script shell (HTTP 200), no vendor names; eleventh run unreadable"
+2026-11-26,competitors,manual,https://developers.openai.com/api/docs/changelog,,nothing,"Feeds read directly 11:52 UTC. OpenAI news RSS (200): newest 11-24, research and customer posts; OpenAI API changelog (200): newest Nov 24 (chat-latest snapshot, healthcare configurations of existing models). DeepMind RSS (200): newest 11-24 'Mass Spec Skills for Google Antigravity', no model; Google AI RSS newest 11-24; Gemini API release notes newest November 19, 2026. No new text-model release, no row"
+2026-11-26,competitors,manual,https://www.alibabacloud.com/help/en/model-studio/newly-released-models,,nothing,"Mistral news (200): newest November 5, 2026 (Le Chonk). DeepSeek change log (200): newest 2026-11-13. Meta research blog research.meta.ai/blog (200): newest November 9 (Muse Ember). Alibaba Model Studio (200, last updated Nov 25, 2026): new entry 2026-11-25 'decision-model' (a classification and scoring model, not a frontier text model: no row). xAI docs release notes (200) opened but the newest-entry date could not be read from the page text this run"
+2026-11-26,competitors,manual,https://x.ai/news,,error,"x.ai/news: 403 (Cloudflare), seventh day"
+2026-11-26,markets,manual,https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXCLAUDE-OPUS56,,signal,"Kalshi KXCLAUDE-OPUS56 read by hand 11:51 UTC (not a model input): before Dec 1 last 10c (bid 9/ask 14; 5,400 contracts, +2,040 in 24h; was 7c), before Dec 16 85c (bid 81/ask 87; 1,401, +460), before Jan 1 93c (bid 88/ask 93; 2,728, +68). Polymarket series threads 12057 (Opus) and 12056 (Sonnet): no comment since 11-24. Cause of the further rise since yesterday morning: the TestingCatalog article and tester posts already logged 11-25; nothing new found"
