@@ -1,0 +1,55 @@
+platform,question,prob,volume,close_date,url,retrieved_at
+Polymarket,"Will the next Claude Opus model (5.6+) be released on November 27, 2026?",0.066,1992,2026-11-28,https://polymarket.com/event/next-claude-opus-5pt6-released-onptptpt-20261027,2026-11-27T11:45Z
+Polymarket,"Will the next Claude Opus model (5.6+) be released on November 28, 2026?",0.016,4716,2026-11-29,https://polymarket.com/event/next-claude-opus-5pt6-released-onptptpt-20261027,2026-11-27T11:45Z
+Polymarket,"Will the next Claude Opus model (5.6+) be released on November 29, 2026?",0.0135,3492,2026-11-30,https://polymarket.com/event/next-claude-opus-5pt6-released-onptptpt-20261027,2026-11-27T11:45Z
+Polymarket,"Will the next Claude Opus model (5.6+) be released on November 30, 2026?",0.042,1858,2026-12-01,https://polymarket.com/event/next-claude-opus-5pt6-released-onptptpt-20261027,2026-11-27T11:45Z
+Polymarket,"Will there be no next Claude Opus model (5.6+) release by November 30, 2026?",0.9,20193,2026-12-01,https://polymarket.com/event/next-claude-opus-5pt6-released-onptptpt-20261027,2026-11-27T11:45Z
+Polymarket,"Next Claude Opus (5.6+) released by November 30, 2026?",0.095,45785,2026-11-30,https://polymarket.com/event/next-claude-opus-released-byptptpt-20260923144500000,2026-11-27T11:45Z
+Polymarket,"Next Claude Opus (5.6+) released by December 31, 2026?",0.9605,12393,2026-12-31,https://polymarket.com/event/next-claude-opus-released-byptptpt-20260923144500000,2026-11-27T11:45Z
+Polymarket,"Next Claude Opus (5.6+) released by December 15, 2026?",0.87,4623,2026-12-16,https://polymarket.com/event/next-claude-opus-released-byptptpt-20260923144500000,2026-11-27T11:45Z
+Polymarket,"Next Claude Sonnet (5.6+) released by December 31, 2026?",0.615,4433,2026-12-31,https://polymarket.com/event/next-claude-sonnet-5pt6-released-byptptpt-20260929100500000,2026-11-27T11:45Z
+Polymarket,"Next Claude Sonnet (5.6+) released by January 31, 2027?",0.845,2582,2027-01-31,https://polymarket.com/event/next-claude-sonnet-5pt6-released-byptptpt-20260929100500000,2026-11-27T11:45Z
+Polymarket,"Claude 6 released by March 31, 2027?",0.395,23914,2027-03-31,https://polymarket.com/event/claude-6-released-byptptpt,2026-11-27T11:45Z
+Polymarket,"Claude 6 released by June 30, 2027?",0.665,16358,2027-06-30,https://polymarket.com/event/claude-6-released-byptptpt,2026-11-27T11:45Z
+Polymarket,"Claude 6 released by December 31, 2027?",0.91,11497,2027-12-31,https://polymarket.com/event/claude-6-released-byptptpt,2026-11-27T11:45Z
+Polymarket,"Claude 6 released by December 31, 2026?",0.0255,849,2027-01-01,https://polymarket.com/event/claude-6-released-byptptpt,2026-11-27T11:45Z
+Polymarket,"Next Claude Haiku (5.6+) released by December 31, 2026?",0.185,2751,2027-01-01,https://polymarket.com/event/next-claude-haiku-5pt6-released-byptptpt-20261008132000000,2026-11-27T11:45Z
+Polymarket,"Next Claude Haiku (5.6+) released by January 31, 2027?",0.235,5087,2027-02-01,https://polymarket.com/event/next-claude-haiku-5pt6-released-byptptpt-20261008132000000,2026-11-27T11:45Z
+Polymarket,"Next Mythos Model (5.3+) released by December 31, 2026?",0.115,2816,2027-01-01,https://polymarket.com/event/next-mythos-model-5pt3-released-byptptpt,2026-11-27T11:45Z
+Polymarket,"Next Mythos Model (5.3+) released by January 31, 2027?",0.39,123,2027-02-01,https://polymarket.com/event/next-mythos-model-5pt3-released-byptptpt,2026-11-27T11:45Z
+Polymarket,"Next Mythos Model (5.3+) released by February 28, 2027?",0.765,411,2027-03-01,https://polymarket.com/event/next-mythos-model-5pt3-released-byptptpt,2026-11-27T11:45Z
+Polymarket,"Next Fable Model (5.3+) released by December 31, 2026?",0.17,8669,2027-01-01,https://polymarket.com/event/next-fable-model-5pt3-released-byptptpt,2026-11-27T11:45Z
+Polymarket,"Next Fable Model (5.3+) released by January 31, 2027?",0.745,4005,2027-02-01,https://polymarket.com/event/next-fable-model-5pt3-released-byptptpt,2026-11-27T11:45Z
+Polymarket,"Next Fable Model (5.3+) released by February 28, 2027?",0.81,994,2027-03-01,https://polymarket.com/event/next-fable-model-5pt3-released-byptptpt,2026-11-27T11:45Z
+Manifold,Claude Fable 5.6+ (Anthropic) release date: Before December 2026,0.0192,5029 mana (market total),,https://manifold.markets/Bayesian/claude-fable-56-anthropic-release-d,2026-11-27T11:45Z
+Manifold,Claude Fable 5.6+ (Anthropic) release date: Before January 2027,0.2771,5029 mana (market total),,https://manifold.markets/Bayesian/claude-fable-56-anthropic-release-d,2026-11-27T11:45Z
+Manifold,Claude Fable 5.6+ (Anthropic) release date: Before February 2027,0.3736,5029 mana (market total),,https://manifold.markets/Bayesian/claude-fable-56-anthropic-release-d,2026-11-27T11:45Z
+Manifold,Claude Fable 5.6+ (Anthropic) release date: Before March 2027,0.5258,5029 mana (market total),,https://manifold.markets/Bayesian/claude-fable-56-anthropic-release-d,2026-11-27T11:45Z
+Manifold,Claude Fable 5.6+ (Anthropic) release date: Before April 2027,0.6533,5029 mana (market total),,https://manifold.markets/Bayesian/claude-fable-56-anthropic-release-d,2026-11-27T11:45Z
+Manifold,Claude Fable 5.6+ (Anthropic) release date: Before May 2027,0.7781,5029 mana (market total),,https://manifold.markets/Bayesian/claude-fable-56-anthropic-release-d,2026-11-27T11:45Z
+Manifold,Claude 6 (Anthropic) release date: Before December 2026,0.0101,30412 mana (market total),,https://manifold.markets/Bayesian/claude-6-anthropic-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 (Anthropic) release date: Before January 2027,0.0382,30412 mana (market total),,https://manifold.markets/Bayesian/claude-6-anthropic-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 (Anthropic) release date: Before February 2027,0.0824,30412 mana (market total),,https://manifold.markets/Bayesian/claude-6-anthropic-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 (Anthropic) release date: Before March 2027,0.3103,30412 mana (market total),,https://manifold.markets/Bayesian/claude-6-anthropic-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 (Anthropic) release date: Before April 2027,0.5082,30412 mana (market total),,https://manifold.markets/Bayesian/claude-6-anthropic-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 (Anthropic) release date: Before May 2027,0.7461,30412 mana (market total),,https://manifold.markets/Bayesian/claude-6-anthropic-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 (Anthropic) release date: Before June 2027,0.8034,30412 mana (market total),,https://manifold.markets/Bayesian/claude-6-anthropic-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 (Anthropic) release date: Before July 2027,0.8547,30412 mana (market total),,https://manifold.markets/Bayesian/claude-6-anthropic-release-date,2026-11-27T11:45Z
+Manifold,Claude Opus 5.6+ (Anthropic) release date: Before 2026-12-01,0.0534,3178 mana (market total),,https://manifold.markets/Bayesian/claude-opus-56-anthropic-release-da,2026-11-27T11:45Z
+Manifold,Claude Opus 5.6+ (Anthropic) release date: Before 2026-12-16,0.7651,3178 mana (market total),,https://manifold.markets/Bayesian/claude-opus-56-anthropic-release-da,2026-11-27T11:45Z
+Manifold,Claude Opus 5.6+ (Anthropic) release date: Before 2027-01-01,0.8587,3178 mana (market total),,https://manifold.markets/Bayesian/claude-opus-56-anthropic-release-da,2026-11-27T11:45Z
+Manifold,Claude Opus 5.6+ (Anthropic) release date: Before 2027-01-16,0.8966,3178 mana (market total),,https://manifold.markets/Bayesian/claude-opus-56-anthropic-release-da,2026-11-27T11:45Z
+Manifold,Claude Opus 5.6+ (Anthropic) release date: Before 2027-02-01,0.9045,3178 mana (market total),,https://manifold.markets/Bayesian/claude-opus-56-anthropic-release-da,2026-11-27T11:45Z
+Manifold,Claude Opus 5.6+ (Anthropic) release date: Before 2027-02-16,0.9148,3178 mana (market total),,https://manifold.markets/Bayesian/claude-opus-56-anthropic-release-da,2026-11-27T11:45Z
+Manifold,Claude Opus 5.6+ (Anthropic) release date: Before 2027-03-01,0.9177,3178 mana (market total),,https://manifold.markets/Bayesian/claude-opus-56-anthropic-release-da,2026-11-27T11:45Z
+Manifold,Claude Opus 5.6+ (Anthropic) release date: Before 2027-03-16,0.9213,3178 mana (market total),,https://manifold.markets/Bayesian/claude-opus-56-anthropic-release-da,2026-11-27T11:45Z
+Manifold,Claude Opus 5.6+ (Anthropic) release date: Before 2027-04-01,0.9451,3178 mana (market total),,https://manifold.markets/Bayesian/claude-opus-56-anthropic-release-da,2026-11-27T11:45Z
+Manifold,Claude 6 Release Date: Before 8/1/2026,0.0128,2023 mana (market total),,https://manifold.markets/OnlySlides/claude-6-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 Release Date: Before 9/1/2026,0.01,2023 mana (market total),,https://manifold.markets/OnlySlides/claude-6-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 Release Date: Before 10/1/2026,0.01,2023 mana (market total),,https://manifold.markets/OnlySlides/claude-6-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 Release Date: Before 11/1/2026,0.0359,2023 mana (market total),,https://manifold.markets/OnlySlides/claude-6-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 Release Date: Before 12/1/2026,0.1694,2023 mana (market total),,https://manifold.markets/OnlySlides/claude-6-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 Release Date: Before 1/1/2027,0.2355,2023 mana (market total),,https://manifold.markets/OnlySlides/claude-6-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 Release Date: Before 2/1/2027,0.3542,2023 mana (market total),,https://manifold.markets/OnlySlides/claude-6-release-date,2026-11-27T11:45Z
+Manifold,Claude 6 Release Date: Before 3/1/2027,0.5575,2023 mana (market total),,https://manifold.markets/OnlySlides/claude-6-release-date,2026-11-27T11:45Z
+Manifold,Fable 5.5 released before the end of November?,0.0223,7725 mana,,https://manifold.markets/256/fable-55-released-before-the-end-of,2026-11-27T11:45Z
